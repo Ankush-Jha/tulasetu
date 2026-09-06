@@ -359,15 +359,40 @@ export function validateObservations(profile: InstrumentProfile, obs: WeighingOb
 
     if (Number.isFinite(row.load)) {
       const loadGrams = toGrams(row.load, unit);
-      if (loadGrams < overallMinGrams || loadGrams > overallMaxGrams) {
+
+      // A reading at or near zero is not out of range — R 76-2's forms require one.
+      // Form 1 prints "Ec = E - E0 with E0 = error calculated at or near zero", and forms
+      // 6.1 (zero return) and 2 (temperature effect on no-load indication) are *about* the
+      // no-load indication. Rejecting a load below Min would reject the row the standard
+      // asks for, so a near-zero load is accepted and only a genuinely intermediate load
+      // (above zero but below Min) is questioned.
+      const e1Grams = toGrams(profile.ranges[0]?.e ?? 0, unit);
+      const nearZero = Math.abs(loadGrams) <= Math.max(e1Grams, 0);
+
+      if (loadGrams > overallMaxGrams) {
         issues.push(
           err(
-            "E_LOAD_OUT_OF_RANGE",
-            `${path}.load = ${row.load} ${unit} is outside the instrument's declared Min..Max (${overallMinGrams}..${overallMaxGrams} g).`,
-            { path: `${path}.load` },
+            "E_LOAD_ABOVE_MAX",
+            `${path}.load = ${row.load} ${unit} exceeds the instrument's Max (${overallMaxGrams} g).`,
+            { path: `${path}.load`, clause: "R 76-1:2006 §3.1" },
           ),
         );
-      } else if (profile.rangeKind !== "single") {
+      } else if (loadGrams < 0) {
+        issues.push(
+          err("E_NEGATIVE_LOAD", `${path}.load must not be negative.`, { path: `${path}.load` }),
+        );
+      } else if (!nearZero && loadGrams < overallMinGrams) {
+        // Between zero and Min. Legitimate on some forms (discrimination near Min, creep
+        // recovery), suspect on a weighing test — so a warning the officer can override,
+        // not a blocking error.
+        issues.push(
+          warn(
+            "W_LOAD_BELOW_MIN",
+            `${path}.load = ${row.load} ${unit} is below the instrument's Min (${overallMinGrams} g) but is not a near-zero reading. Confirm this is intended.`,
+            { path: `${path}.load`, clause: "R 76-1:2006 §3.1.2" },
+          ),
+        );
+      } else if (!nearZero && profile.rangeKind !== "single") {
         // The #1 manual-Excel mistake (CLAUDE.md §5): on a multi-interval or
         // multiple-range instrument, the applicable e (and thus mpe band) walks
         // mid-range. A load that falls between declared ranges/partial-ranges signals

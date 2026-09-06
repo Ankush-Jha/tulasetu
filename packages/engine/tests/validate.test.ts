@@ -181,9 +181,12 @@ describe("validateObservations", () => {
     expect(validateObservations(CLASS_IIII_NON_SELF, obs).some((i) => i.code === "E_NON_FINITE_VALUE")).toBe(true);
   });
 
-  it("flags a load outside Min..Max", () => {
+  it("flags a load above Max", () => {
+    // Was E_LOAD_OUT_OF_RANGE, which covered both ends. Split when it emerged that the
+    // low end must not be an error at all — R 76-2's forms require a reading at or near
+    // zero, which is below Min by definition. See "loads at or near zero" below.
     const obs: WeighingObservation[] = [{ load: 10000, indication: 10000 }]; // Max=500
-    expect(validateObservations(CLASS_IIII_NON_SELF, obs).some((i) => i.code === "E_LOAD_OUT_OF_RANGE")).toBe(true);
+    expect(validateObservations(CLASS_IIII_NON_SELF, obs).some((i) => i.code === "E_LOAD_ABOVE_MAX")).toBe(true);
   });
 
   it("flags a negative additionalLoad", () => {
@@ -280,5 +283,48 @@ describe("validateSoftwareIdentification: the certificate-corpus checksum audit"
     const knownChecksums = { [shared.toLowerCase()]: "Manufacturer A (cert #259)" };
     const issues = validateSoftwareIdentification(shared, { owner: "Manufacturer A (cert #259)", knownChecksums });
     expect(issues.some((i) => i.code === "E_SWID_DUPLICATE_ACROSS_OWNERS")).toBe(false);
+  });
+});
+
+/**
+ * The zero row.
+ *
+ * R 76-2's forms require a reading at or near zero: form 1 prints "Ec = E - E0 with
+ * E0 = error calculated at or near zero", and forms 2 and 6.1 are *about* the no-load
+ * indication. An earlier version of the range check treated any load below Min as an
+ * out-of-range error, which rejected the row the standard asks for and blocked the report
+ * from ever validating. Regression tests.
+ */
+describe("validateObservations — loads at or near zero", () => {
+  it("accepts a zero-load row without raising an error", () => {
+    const obs: WeighingObservation[] = [
+      { load: 0, indication: 0, additionalLoad: 0 },
+      { load: 1000, indication: 1000, additionalLoad: 0 },
+    ];
+    const issues = validateObservations(CLASS_III_MULTI_INTERVAL, obs);
+    expect(issues.filter((i) => i.severity === "error")).toEqual([]);
+  });
+
+  it("accepts a near-zero row within e1", () => {
+    // CLASS_III_MULTI_INTERVAL has e1 = 1 g and Min = 20 g, so 1 g is below Min but is
+    // plainly a near-zero reading, not a mis-keyed test load.
+    const issues = validateObservations(CLASS_III_MULTI_INTERVAL, [{ load: 1, indication: 1 }]);
+    expect(issues.filter((i) => i.severity === "error")).toEqual([]);
+  });
+
+  it("warns, rather than blocks, on a load between zero and Min", () => {
+    const issues = validateObservations(CLASS_III_MULTI_INTERVAL, [{ load: 10, indication: 10 }]);
+    expect(issues.some((i) => i.code === "W_LOAD_BELOW_MIN" && i.severity === "warning")).toBe(true);
+    expect(issues.filter((i) => i.severity === "error")).toEqual([]);
+  });
+
+  it("still refuses a load above Max", () => {
+    const issues = validateObservations(CLASS_III_MULTI_INTERVAL, [{ load: 20000, indication: 20000 }]);
+    expect(issues.some((i) => i.code === "E_LOAD_ABOVE_MAX" && i.severity === "error")).toBe(true);
+  });
+
+  it("still refuses a negative load", () => {
+    const issues = validateObservations(CLASS_III_MULTI_INTERVAL, [{ load: -5, indication: -5 }]);
+    expect(issues.some((i) => i.code === "E_NEGATIVE_LOAD" && i.severity === "error")).toBe(true);
   });
 });

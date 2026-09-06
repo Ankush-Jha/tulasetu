@@ -7,7 +7,17 @@
     "noUncheckedIndexedAccess": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "declaration": true,
-    "composite": true
+    "resolveJsonModule": true,
+
+    // Type-check only. The packages are consumed as TypeScript source (each package's
+    // `main` points at src/index.ts, and Vite/tsx/vitest compile on the fly), so nothing
+    // here should ever emit.
+    //
+    // This is not a preference. `composite` + `declaration` with no `outDir` emitted .js
+    // next to every source file, and because our imports are written with .js extensions,
+    // Node then resolved those stale build artifacts *instead of* the .ts they came from.
+    // Tests kept passing against code that had already been edited. Emitting nothing makes
+    // that failure mode impossible.
+    "noEmit": true
   }
 }

@@ -1,16 +1,328 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "TulaSetu rule pack",
+  "description": "Structural schema for a TulaSetu rule pack (packages/engine/src/rulepack.ts's RulePack contract, expressed as JSON Schema draft-07). Both packages/rulepacks/OIML_R76_2006.json and packages/rulepacks/IN_Sch7A_2011.json must validate against this.",
   "type": "object",
   "required": ["ruleset_id", "classification", "mpe_bands_initial", "tests"],
+  "definitions": {
+    "accuracyClass": {
+      "type": "string",
+      "enum": ["I", "II", "III", "IIII"]
+    },
+    "accuracyClassOrNull": {
+      "anyOf": [{ "$ref": "#/definitions/accuracyClass" }, { "type": "null" }]
+    },
+    "kernel": {
+      "type": "string",
+      "enum": ["K1", "K2", "K3", "K4", "K5"]
+    },
+    "classificationRow": {
+      "type": "object",
+      "required": ["class", "e_min_g", "e_max_g", "n_min", "n_max", "min_capacity"],
+      "additionalProperties": false,
+      "properties": {
+        "class": { "$ref": "#/definitions/accuracyClass" },
+        "e_min_g": { "type": "number", "exclusiveMinimum": 0 },
+        "e_max_g": { "anyOf": [{ "type": "number", "exclusiveMinimum": 0 }, { "type": "null" }] },
+        "n_min": { "type": "integer", "minimum": 1 },
+        "n_max": { "anyOf": [{ "type": "integer", "minimum": 1 }, { "type": "null" }] },
+        "min_capacity": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?\\s*[ed]$" }
+      }
+    },
+    "classificationException": {
+      "type": "object",
+      "required": ["class", "condition", "effect"],
+      "additionalProperties": false,
+      "properties": {
+        "class": { "$ref": "#/definitions/accuracyClass" },
+        "condition": { "type": "string", "minLength": 1 },
+        "effect": { "type": "string", "minLength": 1 },
+        "clause": { "type": "string" }
+      }
+    },
+    "mpeBand": {
+      "type": "object",
+      "required": ["limit", "max_m_in_e"],
+      "additionalProperties": false,
+      "properties": {
+        "limit": { "type": "string", "pattern": "^[0-9]*\\.?[0-9]+\\s*e$" },
+        "max_m_in_e": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": false,
+          "properties": {
+            "I": { "$ref": "#/definitions/nonNegNumberOrNull" },
+            "II": { "$ref": "#/definitions/nonNegNumberOrNull" },
+            "III": { "$ref": "#/definitions/nonNegNumberOrNull" },
+            "IIII": { "$ref": "#/definitions/nonNegNumberOrNull" }
+          }
+        }
+      }
+    },
+    "nonNegNumberOrNull": {
+      "anyOf": [{ "type": "number", "minimum": 0 }, { "type": "null" }]
+    },
+    "classByAccuracyMap": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "I": { "type": "number" },
+        "II": { "type": "number" },
+        "III": { "type": "number" },
+        "IIII": { "type": "number" }
+      }
+    },
+    "predicate": {
+      "type": "object",
+      "description": "A TestRule.applies / ChecklistRule.applies predicate object. Keys are validated for presence/shape here only loosely -- the authoritative vocabulary and semantics live in packages/engine/src/applicability.ts's evaluatePredicate/evaluateKey, which throws on an unrecognized key at runtime.",
+      "minProperties": 1
+    },
+    "testRule": {
+      "type": "object",
+      "required": ["id", "form", "kernel"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "form": { "type": "string", "minLength": 1 },
+        "kernel": { "$ref": "#/definitions/kernel" },
+        "title": { "type": "string" },
+        "clause": { "type": "string" },
+        "applies": { "$ref": "#/definitions/predicate" },
+        "params": { "type": "object" },
+        "order": { "type": "string", "enum": ["last"] },
+        "note": { "type": "string" },
+        "extra": { "type": "string" }
+      }
+    },
+    "checklistRule": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string" },
+        "clause": { "type": "string" },
+        "applies": { "$ref": "#/definitions/predicate" }
+      }
+    },
+    "kernelParamsDiscrimination": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "extra_load_factor_digital": { "type": "number", "exclusiveMinimum": 0 },
+        "analog_displacement_fraction": { "type": "number", "exclusiveMinimum": 0 },
+        "non_self_extra_load_fraction": { "type": "number", "exclusiveMinimum": 0 },
+        "clause": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "kernelParamsSensitivity": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["min_displacement_mm", "max_boundary_kg"],
+      "properties": {
+        "min_displacement_mm": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["class_I_II", "class_III_IIII_le_30kg", "class_III_IIII_gt_30kg"],
+          "properties": {
+            "class_I_II": { "type": "number", "exclusiveMinimum": 0 },
+            "class_III_IIII_le_30kg": { "type": "number", "exclusiveMinimum": 0 },
+            "class_III_IIII_gt_30kg": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "max_boundary_kg": { "type": "number", "exclusiveMinimum": 0 },
+        "clause": { "type": "string" }
+      }
+    },
+    "kernelParamsCreep": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "terminate_at_30min_if_below_e": { "type": "number", "exclusiveMinimum": 0 },
+        "and_between_15_and_30min_below_e": { "type": "number", "exclusiveMinimum": 0 },
+        "otherwise_4h_limit": { "type": "string" },
+        "max_temperature_variation_C": { "type": "number", "exclusiveMinimum": 0 },
+        "clause": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "kernelParamsZeroReturn": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "factor_single": { "type": "number", "exclusiveMinimum": 0 },
+        "factor_multi_interval": { "type": "number", "exclusiveMinimum": 0 },
+        "factor_multiple_range": { "type": "number", "exclusiveMinimum": 0 },
+        "secondary_factor_multiple_range": { "type": "number", "exclusiveMinimum": 0 },
+        "clause": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "kernelParamsTemperatureNoLoad": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["drift_per_C"],
+      "properties": {
+        "drift_per_C": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["I", "default"],
+          "properties": {
+            "I": { "type": "number", "exclusiveMinimum": 0 },
+            "default": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "uses_e1_for_multi_range": { "type": "boolean" },
+        "clause": { "type": "string" }
+      }
+    },
+    "kernelParamsSpanStability": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "variation_factor": { "type": "number", "exclusiveMinimum": 0 },
+        "variation_basis": { "type": "string" },
+        "clause": { "type": "string" }
+      }
+    },
+    "kernelParamsSignificantFault": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "threshold": { "type": "string" },
+        "comparison": { "type": "string" },
+        "clause": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    }
+  },
   "properties": {
-    "ruleset_id": { "type": "string" },
+    "$schema": { "type": "string" },
+    "ruleset_id": { "type": "string", "minLength": 1 },
+    "version": { "type": "string" },
     "edition": { "type": "string" },
-    "class_aliases": { "type": "object" },
-    "classification": { "type": "array" },
-    "mpe_bands_initial": { "type": "array" },
-    "mpe_in_service_factor": { "type": "number" },
-    "family_solver": { "type": "object" },
-    "tests": { "type": "array" }
-  }
+    "description": { "type": "string" },
+    "class_aliases": {
+      "type": "object",
+      "description": "Canonical class symbol -> accepted written aliases, e.g. India's { \"IIII\": [\"IV\"] }.",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 }
+      }
+    },
+    "accuracy_classes": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/accuracyClass" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "e_form": {
+      "type": "array",
+      "items": { "type": "number", "enum": [1, 2, 5] },
+      "minItems": 1
+    },
+    "mpe_clause": { "type": "string" },
+
+    "classification": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/classificationRow" },
+      "minItems": 1
+    },
+    "classification_clause": { "type": "string" },
+    "classification_exceptions": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/classificationException" }
+    },
+
+    "mpe_bands_initial": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/mpeBand" },
+      "minItems": 1
+    },
+    "mpe_in_service_factor": { "type": "number", "exclusiveMinimum": 0 },
+    "mpe_in_service_clause": { "type": "string" },
+
+    "multi_interval_boundary": { "$ref": "#/definitions/classByAccuracyMap" },
+    "multi_interval_boundary_clause": { "type": "string" },
+
+    "rounding_elimination_when": { "type": "string" },
+    "rounding_elimination_clause": { "type": "string" },
+
+    "module_error_fractions": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "rule": { "type": "string" },
+        "p_max": { "type": "number" },
+        "p_min": { "type": "number" },
+        "digital_module_may_be_zero": { "type": "boolean" },
+        "weighing_module_may_be_one": { "type": "boolean" },
+        "clause": { "type": "string" },
+        "note": { "type": "string" },
+        "typical": { "type": "object", "additionalProperties": { "type": "number" } }
+      }
+    },
+
+    "family_solver": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "eut_must_include": { "type": "array", "items": { "type": "string" } },
+        "eut_clause": { "type": "string" },
+        "accept_without_test_if": { "type": "array", "items": { "type": "string" } },
+        "accept_clause": { "type": "string" },
+        "max_capacity_ratio": { "type": "number", "exclusiveMinimum": 0 },
+        "max_multiplier": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+
+    "kernel_params": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "discrimination": { "$ref": "#/definitions/kernelParamsDiscrimination" },
+        "sensitivity": { "$ref": "#/definitions/kernelParamsSensitivity" },
+        "creep": { "$ref": "#/definitions/kernelParamsCreep" },
+        "zero_return": { "$ref": "#/definitions/kernelParamsZeroReturn" },
+        "temperature_no_load": { "$ref": "#/definitions/kernelParamsTemperatureNoLoad" },
+        "span_stability": { "$ref": "#/definitions/kernelParamsSpanStability" },
+        "significant_fault": { "$ref": "#/definitions/kernelParamsSignificantFault" }
+      }
+    },
+
+    "tests": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/testRule" },
+      "minItems": 1
+    },
+    "checklists": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "checklist_rules": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/checklistRule" }
+    },
+    "india_section_mapping": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["india_section", "title", "r76_2_form"],
+        "additionalProperties": true,
+        "properties": {
+          "india_section": { "type": "string" },
+          "title": { "type": "string" },
+          "r76_2_form": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+          "note": { "type": "string" },
+          "line": { "type": "integer" }
+        }
+      }
+    },
+    "notes": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
 }

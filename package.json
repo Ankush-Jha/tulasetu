@@ -10,8 +10,9 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc -b",
-    "dev:web": "npm --workspace apps/web run dev"
+    "typecheck": "tsc --noEmit -p packages/engine && tsc --noEmit -p packages/renderers && tsc --noEmit -p apps/api",
+    "dev:web": "npm --workspace apps/web run dev",
+    "demo": "tsx apps/cli/src/demo.ts"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",

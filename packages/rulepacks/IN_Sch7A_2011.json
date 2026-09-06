@@ -1,0 +1,148 @@
+{
+  "$schema": "./rulepack.schema.json",
+  "ruleset_id": "IN_Sch7A_2011",
+  "version": "1.0.0",
+  "edition": "Legal Metrology (General) Rules, 2011",
+  "description": "Legal Metrology (General) Rules, 2011, Rule 13, Seventh Schedule, Heading A ('Specifications for Non-Automatic Weighing Instruments'). Every value below is traced in docs/research/heading-a-verified.md to a line of docs/research/heading-a-raw.txt, re-derived independently from the raw legal text rather than copied from OIML_R76_2006.json. AoM Rule 7(1)(a) permits a report to conform to either this profile or OIML R 76 — see docs/research/heading-a-verified.md §8 for the points where the two profiles genuinely diverge (they are not just relabelled copies of each other).",
+  "class_aliases": { "IIII": ["IV"] },
+  "accuracy_classes": ["I", "II", "III", "IIII"],
+  "e_form": [1, 2, 5],
+  "mpe_clause": "Seventh Schedule Heading A §3(6)(i) (Table 20), with §3(4) for multi-interval instruments",
+
+  "classification": [
+    { "class": "I",    "e_min_g": 0.001, "e_max_g": null,  "n_min": 50000, "n_max": null,   "min_capacity": "100e" },
+    { "class": "II",   "e_min_g": 0.001, "e_max_g": 0.05,  "n_min": 100,   "n_max": 100000, "min_capacity": "20e" },
+    { "class": "II",   "e_min_g": 0.1,   "e_max_g": null,  "n_min": 5000,  "n_max": 100000, "min_capacity": "50e" },
+    { "class": "III",  "e_min_g": 0.1,   "e_max_g": 2,     "n_min": 100,   "n_max": 10000,  "min_capacity": "20e" },
+    { "class": "III",  "e_min_g": 5,     "e_max_g": null,  "n_min": 500,   "n_max": 10000,  "min_capacity": "20e" },
+    { "class": "IIII", "e_min_g": 5,     "e_max_g": null,  "n_min": 100,   "n_max": 1000,   "min_capacity": "10e" }
+  ],
+  "classification_clause": "Seventh Schedule Heading A, Table 17 (§3(3)(i)) — verified identical to OIML Table 3, see docs/research/heading-a-verified.md §1",
+  "classification_exceptions": [
+    {
+      "class": "I",
+      "condition": "d < 0.1 mg",
+      "effect": "n may be less than 50 000",
+      "clause": "Seventh Schedule Heading A §3(5)(v)"
+    }
+  ],
+
+  "mpe_bands_initial": [
+    { "limit": "0.5e", "max_m_in_e": { "I": 50000,  "II": 5000,   "III": 500,   "IIII": 50 } },
+    { "limit": "1.0e", "max_m_in_e": { "I": 200000, "II": 20000,  "III": 2000,  "IIII": 200 } },
+    { "limit": "1.5e", "max_m_in_e": { "I": null,   "II": 100000, "III": 10000, "IIII": 1000 } }
+  ],
+  "mpe_in_service_factor": 2,
+  "mpe_in_service_clause": "Seventh Schedule Heading A §3(6)(ii) — 'the maximum permissible errors during inspection shall be twice the maximum permissible errors allowed on verification' (India calls the in-service stage 'inspection'; see docs/research/heading-a-verified.md §3)",
+
+  "multi_interval_boundary": { "I": 50000, "II": 5000, "III": 500, "IIII": 50 },
+  "multi_interval_boundary_clause": "Seventh Schedule Heading A, Table 18 (§3(4)(iii)) — verified identical to OIML Table 4, see docs/research/heading-a-verified.md §4",
+
+  "rounding_elimination_when": "d > 0.2e",
+  "rounding_elimination_clause": "Not located verbatim in Heading A (searched exhaustively — see docs/research/heading-a-verified.md, 'could not be verified either way'). Heading A §9(1)'s worked error formula (P = I + 1/2e - dL) is stated unconditionally, without OIML R 76-1 §3.5.3.2's explicit d > 0.2e gate. Kept at the same numeric value pending a primary-source citation; do not treat this clause string as a verified Indian citation.",
+
+  "notes": {
+    "family_solver": "Omitted. Heading A has no provisions corresponding to OIML R 76-1 §3.10.4 (family/EUT selection) — grepping the raw text for 'family'/'variant' returns zero hits, and Heading A never mentions OIML or R 76 (no incorporation by reference). A lab evaluating a family of variants under the India profile has no textual basis in Heading A for a reduced test set; use the OIML profile for that determination (AoM Rule 7(1)(a)). See docs/research/heading-a-verified.md §8c.",
+    "module_error_fractions": "Omitted for the same reason as family_solver — no Annex-F-equivalent module-compatibility text exists in Heading A. See docs/research/heading-a-verified.md §8c.",
+    "checklist_rules": "Omitted. Heading A has zero occurrences of 'software' and no 17.1-17.4 numbering; it carries R 76-1-style substantive requirements (direct-sales requirements at Heading A §4(14)-(15), interface/software integrity at §4(3)(vi)) but never packages them as a discrete, numbered checklist the way OIML R 76-2 §17 does. Adding checklist_rules under invented Indian clause numbers would violate 'never invent a clause number'. See docs/research/heading-a-verified.md §8d.",
+    "disturbances_road_vehicle": "Omitted from tests[]. Heading A's Annexure A §3 disturbance sub-tests (short-time power reductions, burst, ESD, radiated-EM immunity) have no fifth entry for road-vehicle supply transients (OIML R 76-2 form 12.7). See docs/research/heading-a-verified.md §7/§8d."
+  },
+
+  "kernel_params": {
+    "discrimination": {
+      "extra_load_factor_digital": 1.4,
+      "analog_displacement_fraction": 0.7,
+      "non_self_extra_load_fraction": 1.0,
+      "clause": "Seventh Schedule Heading A §3(8), §9(7)",
+      "note": "Heading A §3(8)(i) uses the FULL mpe as the extra load for non-self-indicating instruments, cross-referencing the minimum-sensitivity movement criterion of §6(1) — not OIML §3.8.1's 0.4x|mpe| 'visible displacement' criterion. This is a verified, deliberate difference from OIML_R76_2006.json (non_self_extra_load_fraction: 0.4) — see docs/research/heading-a-verified.md §8a. Do not reconcile the two packs to the same number."
+    },
+    "sensitivity": {
+      "min_displacement_mm": { "class_I_II": 1, "class_III_IIII_le_30kg": 2, "class_III_IIII_gt_30kg": 5 },
+      "max_boundary_kg": 30,
+      "clause": "Seventh Schedule Heading A §6(1)"
+    },
+    "creep": {
+      "terminate_at_30min_if_below_e": 0.5,
+      "and_between_15_and_30min_below_e": 0.2,
+      "otherwise_4h_limit": "|mpe|",
+      "max_temperature_variation_C": 2,
+      "clause": "Seventh Schedule Heading A §3(9)(iv)(a); test procedure at §9(9)",
+      "note": "The narrative test procedure at §9(9) (raw text line ~1249) prints 'the difference between 15 and 30 minutes is less than 2 deg C', which is almost certainly OCR corruption of '0.2e' — the numerically load-bearing statement at §3(9)(iv)(a) is unambiguous and is what this rule pack uses. See docs/research/heading-a-verified.md."
+    },
+    "zero_return": {
+      "factor_single": 0.5,
+      "factor_multi_interval": 0.5,
+      "factor_multiple_range": 0.5,
+      "secondary_factor_multiple_range": 1.0,
+      "clause": "Seventh Schedule Heading A §3(9)(iv)(b); test procedure at §9(10)",
+      "note": "On a multi-interval instrument the limit is 0.5 x e1, and a multiple-range instrument carries an additional check of a full e1 over 5 minutes after switching down from a load above Max1 — identical to OIML §3.9.4.2."
+    },
+    "temperature_no_load": {
+      "drift_per_C": { "I": 1, "default": 5 },
+      "uses_e1_for_multi_range": true,
+      "clause": "Seventh Schedule Heading A §3(9)(ii)(c)"
+    },
+    "span_stability": {
+      "variation_factor": 0.5,
+      "variation_basis": "max(e, |mpe_initial|)",
+      "clause": "Seventh Schedule Heading A, Annexure A, para 4"
+    },
+    "significant_fault": {
+      "threshold": "e",
+      "comparison": "strictly greater than",
+      "clause": "Seventh Schedule Heading A §5(5)(vi)",
+      "note": "A fault of exactly e is permitted; only a fault greater than e is significant. The same four exclusions as OIML apply (simultaneous independent causes, impossibility to measure, obviously wrong, transitory)."
+    }
+  },
+
+  "tests": [
+    { "id": "weighing_performance",       "form": "1",    "kernel": "K1", "title": "Weighing performance", "clause": "Seventh Schedule Heading A §9(1), §9(3)", "applies": { "always": true } },
+    { "id": "temp_no_load",               "form": "2",    "kernel": "K4", "title": "Temperature effect on no-load indication", "clause": "Seventh Schedule Heading A §3(9)(ii)(c), Annexure A §2(1)", "applies": { "electronic": true }, "params": { "drift_per_C": { "I": 1, "default": 5 } } },
+    { "id": "eccentricity_weights",       "form": "3.1",  "kernel": "K1", "title": "Eccentricity using weights", "clause": "Seventh Schedule Heading A §3(7)(ii), §9(6)(i)-(iii)", "applies": { "always": true } },
+    { "id": "eccentricity_rolling",       "form": "3.2",  "kernel": "K1", "title": "Eccentricity using a rolling load", "clause": "Seventh Schedule Heading A §3(7)(ii)(d), §9(6)(iv)", "applies": { "rolling_load": true } },
+    { "id": "discrimination",             "form": "4.1",  "kernel": "K2", "title": "Discrimination", "clause": "Seventh Schedule Heading A §3(8), §9(7)", "applies": { "always": true }, "note": "Heading A carries no 'd >= 5 mg' exemption for digital-indication discrimination (verified absence — OIML §3.8.2.2 has this exemption, Heading A §3(8)(ii)(b) does not); this test therefore applies unconditionally, unlike OIML_R76_2006.json's 'not: { digital_d_lt_5mg: true }'. See docs/research/heading-a-verified.md §8b." },
+    { "id": "sensitivity",                "form": "4.2",  "kernel": "K3", "title": "Sensitivity", "clause": "Seventh Schedule Heading A §6(1)", "applies": { "indicating_type": "non-self" } },
+    { "id": "repeatability",              "form": "5",    "kernel": "K1", "title": "Repeatability", "clause": "Seventh Schedule Heading A §3(7)(i), §9(8)", "applies": { "always": true }, "extra": "In addition to |Ec| <= mpe per row, the spread across repeated weighings must satisfy Emax - Emin <= |mpe| (Heading A §3(7)(i), identical to OIML §3.6.1). The spread check is not covered by any of the five kernels." },
+    { "id": "zero_return",                "form": "6.1",  "kernel": "K4", "title": "Zero return", "clause": "Seventh Schedule Heading A §3(9)(iv)(b), §9(10)", "applies": { "always": true } },
+    { "id": "creep",                      "form": "6.2",  "kernel": "K4", "title": "Creep", "clause": "Seventh Schedule Heading A §3(9)(iv)(a), §9(9)", "applies": { "always": true } },
+    { "id": "stability_of_equilibrium",   "form": "7",    "kernel": "K4", "title": "Stability of equilibrium", "clause": "Seventh Schedule Heading A §9(10) (embedded within the zero-return procedure)", "applies": { "has_print_or_storage": true }, "note": "Not implemented, same as the OIML pack. Its acceptance is not time-based and does not fit K4: a fixed <= 1e check on raw printed or stored readings, plus a zero-setting check against a fixed 0.25e rather than the resolved mpe." },
+    { "id": "tilting",                    "form": "8",    "kernel": "K1", "title": "Tilting when loaded", "clause": "Seventh Schedule Heading A §3(9)(i)(a), §11(i)(b)", "applies": { "class_in": ["II", "III", "IIII"], "tiltable": true }, "note": "Loaded tilting applies to both plain class II and class II* (Heading A §11(i)(b): 'class II, II*, III and IIII'). The unloaded check uses a fixed 2e threshold, not the resolved mpe, and does not apply to plain class II — see the separate 'tilting_no_load' test." },
+    { "id": "tilting_no_load",            "form": "8",    "kernel": "K1", "title": "Tilting at no-load (class II*, III, IIII only)", "clause": "Seventh Schedule Heading A §11(i)(a)", "applies": { "any": [ { "class_in": ["III", "IIII"] }, { "all": [ { "class_in": ["II"] }, { "direct_sales": true } ] } ] }, "note": "India-specific: verified verbatim at Heading A §11(i)(a) ('Tilting at no-load (class II*, III and IIII)') — plain class II (directSalesToPublic !== true) is excluded from this sub-test, unlike the loaded-tilting test above. Not present in OIML_R76_2006.json; this is Heading A's own class-II* distinction. See docs/research/heading-a-verified.md §6." },
+    { "id": "tare",                       "form": "9",    "kernel": "K1", "title": "Tare (weighing test)", "clause": "Seventh Schedule Heading A §3(6)(iii), §9(5)", "applies": { "has_tare": true } },
+    { "id": "warm_up",                    "form": "10",   "kernel": "K1", "title": "Warm-up time", "clause": "Seventh Schedule Heading A §9(12)", "applies": { "electronic": true } },
+    { "id": "voltage_variation",          "form": "11",   "kernel": "K1", "title": "Voltage variations", "clause": "Seventh Schedule Heading A §3(9)(iii), §9(14)", "applies": { "electronic": true } },
+    { "id": "disturbances",               "form": "12",   "kernel": "K5", "title": "Electrical disturbances", "clause": "Seventh Schedule Heading A, Annexure A §3 (short-time power reductions, burst, electrostatic discharge, radiated-EM immunity)", "applies": { "electronic": true } },
+    { "id": "damp_heat",                  "form": "13",   "kernel": "K1", "title": "Damp heat, steady state", "clause": "Seventh Schedule Heading A, Annexure A §2(2)", "applies": { "electronic": true, "not_class": ["I"], "not_class_II_if_e_lt": "1g" } },
+    { "id": "span_stability",             "form": "14",   "kernel": "K4", "title": "Span stability", "clause": "Seventh Schedule Heading A, Annexure A §4", "applies": { "electronic": true, "not_class": ["I"] }, "note": "The printed form checks the average error against fixed bands of 0.5e / 1e / 1.5e rather than against a resolved mpe column, same as OIML." },
+    { "id": "endurance",                  "form": "15",   "kernel": "K1", "title": "Endurance", "clause": "Seventh Schedule Heading A §9(15)", "applies": { "max_capacity_kg_lte": 100, "not_class": ["I"] }, "order": "last", "note": "Heading A §9(15) verbatim: 'Applicable only to instruments of class II, III and IIII with Max <= 100kg' — even more explicit than OIML on the class restriction (OIML's is in Annex A.6, not directly under its own §3.9.4.3 sentence)." },
+    { "id": "construction_examination",   "form": "16",   "kernel": "K1", "title": "Examination of the construction of the instrument", "clause": "Seventh Schedule Heading A, paragraph 4 (technical requirements for construction, generally)", "applies": { "always": true }, "note": "Heading A has no discrete 'form 16' section; construction requirements are scattered through paragraph 4. Retained for structural parity with the OIML report layout under AoM Rule 7(1)(a)." }
+  ],
+
+  "checklists": [],
+
+  "india_section_mapping": [
+    { "india_section": "9(1)", "title": "Evaluation of error", "r76_2_form": "1", "note": "Error formula (P = I + 1/2e - dL) used by every K1 form, not a standalone form.", "line": 1196 },
+    { "india_section": "9(2)", "title": "Weights (standard-weight tolerance)", "r76_2_form": null, "note": "Test-equipment requirement, not a report form.", "line": 1199 },
+    { "india_section": "9(3)", "title": "Weighing tests", "r76_2_form": "1", "line": 1204 },
+    { "india_section": "9(4)", "title": "Weighing test using substitution method", "r76_2_form": "1", "note": "Alternate method for the same form.", "line": 1210 },
+    { "india_section": "9(5)", "title": "Tare", "r76_2_form": "9", "line": 1222 },
+    { "india_section": "9(6)", "title": "Eccentricity test", "r76_2_form": "3.1 / 3.2", "note": "3.2 for the rolling-load sub-case, clause (iv).", "line": 1225 },
+    { "india_section": "9(7)", "title": "Discrimination test", "r76_2_form": "4.1", "line": 1237 },
+    { "india_section": "9(8)", "title": "Repeatability test", "r76_2_form": "5", "line": 1244 },
+    { "india_section": "9(9)", "title": "Creep test", "r76_2_form": "6.2", "line": 1246 },
+    { "india_section": "9(10)", "title": "Zero return test (+ embedded stability-of-equilibrium sub-test)", "r76_2_form": "6.1 / 7", "line": 1250 },
+    { "india_section": "9(11)", "title": "Influence factors — tilting", "r76_2_form": "8", "line": 1259 },
+    { "india_section": "9(12)", "title": "Warm-up time test", "r76_2_form": "10", "line": 1288 },
+    { "india_section": "9(13)", "title": "Temperature tests", "r76_2_form": "2", "note": "Plus Annexure A §1 static temperatures.", "line": 1294 },
+    { "india_section": "9(14)", "title": "Voltage variation", "r76_2_form": "11", "line": 1318 },
+    { "india_section": "9(15)", "title": "Endurance test", "r76_2_form": "15", "line": 1328 },
+    { "india_section": "Annexure A §1", "title": "General requirements for EUT", "r76_2_form": null, "note": "Procedural precondition for forms 10-15.", "line": 1343 },
+    { "india_section": "Annexure A §2(1)", "title": "Static temperatures", "r76_2_form": "2", "line": 1363 },
+    { "india_section": "Annexure A §2(2)", "title": "Damp heat, steady state", "r76_2_form": "13", "line": 1368 },
+    { "india_section": "Annexure A §3(1)", "title": "Short-time power reductions", "r76_2_form": "12", "line": 1381 },
+    { "india_section": "Annexure A §3(2)", "title": "Burst", "r76_2_form": "12", "line": 1392 },
+    { "india_section": "Annexure A §3(3)", "title": "Electrostatic discharge", "r76_2_form": "12", "line": 1399 },
+    { "india_section": "Annexure A §3(4)", "title": "Immunity to radiated electromagnetic fields", "r76_2_form": "12", "line": 1412 },
+    { "india_section": "Annexure A §4", "title": "Span stability test", "r76_2_form": "14", "line": 1424 }
+  ]
+}

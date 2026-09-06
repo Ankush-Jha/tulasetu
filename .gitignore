@@ -5,3 +5,13 @@ dist/
 coverage/
 .env
 out/
+
+# Emitted output. Nothing in this repo should produce .js next to a .ts —
+# see the note in tsconfig.json. Ignored so a stray build cannot be committed.
+packages/**/src/**/*.js
+packages/**/src/**/*.d.ts
+packages/**/tests/**/*.js
+apps/api/src/**/*.js
+apps/api/src/**/*.d.ts
+apps/**/tests/**/*.js
+*.tsbuildinfo
