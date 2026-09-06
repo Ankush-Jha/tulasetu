@@ -1,0 +1,13 @@
+{
+  "name": "@tulasetu/renderers",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": { "test": "vitest run" },
+  "dependencies": {
+    "@tulasetu/engine": "*",
+    "docx": "^9.0.2",
+    "playwright": "^1.49.1"
+  }
+}
