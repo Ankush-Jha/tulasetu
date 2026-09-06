@@ -1,0 +1,3833 @@
+
+
+===== [PDF PAGE 1] OIML_R76-2_2007_report_format =====
+Non-automatic weighing instruments
+Part 2: Test report format
+Instruments de pesage à fonctionnement non automatique
+Partie 2: Format du rapport d'essai
+OIML R 76-2 Edition 2007 (E)
+OIML R 76-2
+Edition 2007 (E)
+ORGANISATION INTERNATIONALE
+DE MÉTROLOGIE LÉGALE
+INTERNATIONAL ORGANIZATION
+OF LEGAL METROLOGY
+INTERNATIONAL
+RECOMMENDATION
+
+===== [PDF PAGE 2] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) 
+ 
+ 
+ 
+ 
+2 
+ 
+ 
+Contents 
+ 
+Foreword ...................................................................................................................... .......................................... 3 
+Introduction ................................................................................................................... .......................................... 4 
+Explanatory notes .................................................................................................................................................... 5 
+General information concerning the type ................................................................................................................ 6 
+Information concerning the test equipment used for type evaluation ...................................................................... 8 
+Summary of type evaluation..................................................................................................... ............................... 9 
+1 Weighing performance ............................................................................................................................ 10 
+2 Temperature effect on  no-load indication..................................................................................... ........... 11 
+3 Eccentr icity................................................................................................................. ............................. 12 
+3.1 Eccentricity using weights................................................................................................. ...................... 12 
+3.2 Eccentricity us ing a rolling load .............................................................................................................. 13 
+4 Discrimination and sensitivity ................................................................................................................. 14 
+4.1 Discri mination ......................................................................................................................................... 14 
+4.2 Sensitivity (non-self-i ndicating instrument) ............................................................................................ 15 
+5 Repeat ability................................................................................................................ ............................ 16 
+6 Time-dependence.............................................................................................................. ....................... 17 
+6.1 Zero return................................................................................................................ ............................... 17 
+6.2 Creep ...................................................................................................................... ................................. 18 
+7 Stability of equilibrium..................................................................................................... ....................... 19 
+8 Tiltin g ...................................................................................................................................................... 20 
+9 Tare (weighi ng test)......................................................................................................... ........................ 21 
+10 Warm-u p time................................................................................................................ .......................... 22 
+11 Voltage variations.......................................................................................................... .......................... 23 
+12 Electrical disturbances..................................................................................................... ........................ 24 
+12.1 AC mains voltage dips  and short interruptions............................................................................. ........... 24 
+12.2 Electri cal bursts ....................................................................................................................................... 25 
+12.3 Surges .................................................................................................................... .................................. 27 
+12.4 Electrosta tic discharges ........................................................................................................................... 29 
+12.5 Immunity to radiat ed electromagnetic fields ........................................................................................... 32 
+12.6 Immunity to conducted  radio-frequency fields.............................................................................. .......... 34 
+12.7 Disturbance tests for in struments powered from a road vehicle power supply........................................ 35 
+13 Damp heat, steady state ........................................................................................................................... 37 
+14 Span stability .............................................................................................................. ............................. 40 
+15 Endurance................................................................................................................... ............................. 46 
+16 Examination of the cons truction of the instrument........................................................................... ....... 48 
+17 Checklist................................................................................................................... ............................... 49 
+17.1 All types of weighing  instruments except non-self-indicating instruments............................................. 50 
+17.2 Instruments for direct sales to the public and price computing and labeling instruments ....................... 57 
+17.3 Electronic wei ghing instruments ............................................................................................................. 60 
+17.4 Software-controlled digita l devices and instruments....................................................................... ........ 61 
+
+===== [PDF PAGE 3] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) 
+ 
+ 
+ 
+ 
+3 
+ 
+ 
+Foreword 
+The International Organization of Legal Metrology (OIM L) is a worldwide, intergovernmental organization 
+whose primary aim is to harmonize the regulations and metrological controls applied by the national 
+metrological services, or related organizations, of its Member States. The main categories of OIML 
+publications are: 
+ International Recommendations (OIML R), which are model regulations that establish the 
+metrological characteristics required of certain m easuring instruments and which specify methods 
+and equipment for checking their conformity. OIML Member States shall implement these 
+Recommendations to the greatest possible extent; 
+ International Documents (OIML D), which are informative in natu re and which are intended to 
+harmonize and improve work in the field of legal metrology; 
+ International Guides (OIML G), which are also informative in na ture and which are intended to 
+give guidelines for the application of certain requirements to legal metrology; and 
+ International Basic Publications (OIML B), which define the operating rules of the various OIML 
+structures and systems. 
+OIML Draft Recommendations, Documents and Guid es are developed by Technical Committees or 
+Subcommittees which comprise representatives from the Member States. Certain international and regional 
+institutions also participate on a consultation basis. Cooperative agreements have been established between 
+the OIML and certain institutions, such as ISO and the IEC, with the objective of avoiding contradictory 
+requirements. Consequently, manufacturers and users of measuring instruments, test laboratories, etc. may 
+simultaneously apply OIML publications and those of other institutions. 
+International Recommendations, Documents, Guides and Basic Publications are published in English (E) and 
+translated into French (F) and are subject to periodic revision. 
+Additionally, the OIML publishes or participates in the publication of Vocabularies (OIML V)  and 
+periodically commissions legal metrology experts to write Expert Reports (OIML E) . Expert Reports are 
+intended to provide information and advice, and are written solely from the viewpoint of their author, 
+without the involvement of a Technical Committee or Subcommittee, nor that of the International Committee 
+of Legal Metrology. Thus, they do not necessarily represent the views of the OIML. 
+This publication – reference OIML R 76-2, Edition  2007 – was developed by Technical Subcommittee 
+TC 9/SC 1 Non-automatic weighing instruments . It was approved for final publication by the International 
+Committee of Legal Metrology in 2007 and supersedes the previous edition of R 76-2 (1993). 
+OIML Publications may be downloaded from the OIML web site in the form of PDF files. Additional 
+information on OIML Publications may be obtained from the Organization’s headquarters: 
+Bureau International de Métrologie Légale 
+11, rue Turgot – 75009 Paris – France 
+Telephone: 33 (0)1 48 78 12 82 
+Fax: 33 (0)1 42 82 17 27 
+E-mail: biml@oiml.org 
+Internet: www.oiml.org 
+
+===== [PDF PAGE 4] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) 
+ 
+ 
+ 
+ 
+4 
+ 
+ 
+Introduction 
+The “Type evaluation report”, the subject of R 76-2, aims at presenting, in a st andardized format, the results of the 
+various tests to which a type of a non-automatic weighing instrument shall be submitted with a view to its approval. 
+These tests are described in Annexes A and B of R 76-1. 
+All metrology services or laboratories evaluating types of non-automatic weighing instruments according to R 76-1 or 
+to national or regional regulations based on OIML R 76-1 are strongly advised to use this “Type evaluation report”, 
+directly or after translation into a language other than English or French. Its direct use in English or in French, or in both 
+languages, is even more strongly recommended whenever te st results may be transmitted by the country performing 
+these tests to the approving authorities of another country, under bi- or multi-lateral co-operation agreements. In the 
+framework of the OIML Certificate System for Measuring Instruments, and the OIML Mutual Acceptance Arrangement 
+(MAA), use of this report format is mandatory, in French a nd/or in English with translation into the national languages 
+of the countries issuing such certificates, if appropriate. 
+The “information concerning the test equipment used for type evaluation” shall cover all test equipment which has been 
+used in determining the test results given in a report. The information may be a short list containing only essential data 
+(name, type, reference number for purpose of traceability). For example: 
+ Verification standards (accuracy, or accuracy class, and no.); 
+ Simulator for testing of modules (name, type, traceability and no.); 
+ Climatic test and static temperature chamber (name, type and no.); 
+ Electrical tests, bursts (name of the instrument, type and no.); 
+ Description of the procedure of field calibration for the test of immunity to radiated electromagnetic fields. 
+Note concerning the numbering of the following pages 
+In addition to a sequential numbering: “R 76-2 page .....” at the bottom of the pages of this publication, a special place is 
+left at the top of each page (starting with the following page) for numbering th e pages of reports established following 
+this model; in particular, some tests (e .g. weighing performance) shall be re peated several times, each test being 
+reported individually on a separate page following the relevant format; in the same way, a multiple range instrument 
+shall be tested separately for each range and a separate form  (including the general information form) shall be filled out 
+for each range. For a given report, it is advisable to complete the sequential numbering of each page by the indication of 
+the total number of pages of the report. 
+
+===== [PDF PAGE 5] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+5 
+ 
+ 
+Non-automatic weighing instruments 
+ 
+Type evaluation report 
+ 
+ 
+EXPLANATORY NOTES 
+ 
+Meaning of symbols: 
+ 
+I = Indication 
+In = nth indication 
+L = Load 
+ΔL = Additional load to next changeover point 
+P = I + ½ e – ΔL = Indication prior to rounding (digital indication) 
+E = I – L    or    = P – L    or    = I + ½ e – ΔL – L   = Error 
+Ec = Corrected error 
+mpe = Maximum permissible error (absolute value) 
+EUT = Equipment under test 
+ 
+The name(s) or symbol(s) of the unit(s) used to express test results shall be specified in each form. 
+ 
+ 
+For each test, the “SUMMARY OF TYPE EVALUATION” and the 
+“CHECKLIST” shall be completed according to this example: 
+PASSED 
+FAILED 
+when the instrument has passed the test: X  
+when the instrument has failed the test:  X 
+when the test is not applicable: – – 
+ 
+ 
+The white spaces in boxes in the headings of the report should always be filled in according to the following example: 
+ 
+ At start At max At end  
+Temp.: 20.5  21.2 °C 
+Rel. h.:    % 
+Time:     
+Bar. pres.:    hPa 
+ 
+where: 
+Temp. = temperature 
+Rel. h. = relative humidity 
+Bar. pres. = barometric pressure (baromet ric pressure is necessary for the span st ability test and when specified by IEC 
+test provisions; in other cases it may be necessary only for class I instruments). 
+ 
+“Date” in the test report refers to the date on which the test was performed. 
+ 
+In the disturbance tests (12.1 through 12.7), faults greater than e are acceptable provided that they are detected and acted 
+upon, or that they result from circumstances such that these fa ults shall not be considered as significant (see T.5.5.6 in 
+R 76-1); an appropriate explanation shall be given in the column “Yes (remarks)”. 
+ 
+Numbers in brackets refer to the corresponding subclauses of OIML R 76-1. 
+
+===== [PDF PAGE 6] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+6 
+ 
+General information concerning the type 
+ 
+Application no.: ..…………………..………………..……………… 
+Type designation: ..…………………..………………..……………… 
+Manufacturer: ..…………………..………………..……………… 
+Applicant: ..…………………..………………..……………… 
+Instrument category: ..…………………..………………..……………… 
+ 
+ Complete instrument  Module 1 with error fraction pi =  
+ 
+Accuracy class2:  
+   
+   
+   
+  
+ 
+ Self-indicating  Semi-self-i ndicating  Non-self-indicating 
+ 
+Min =       
+       
+e =  Max =  d = n =  
+       
+e1 =  Max 1 =  d1 = n1 =  
+e2 =  Max 2 =  d2 = n2 =  
+e3 =  Max 3 =  d3 = n3 =  
+ 
+T = +  T = –  
+ 
+Unom =  V Umin = V  Umax = V f =  Hz Battery, Unom =  V 
+ 
+Zero-setting device: Tare device:   
+      
+ Non-automatic  Tare balancing  Combined zero/tare device 
+      
+ Semi-automatic  Tare weighing   
+      
+ Automatic zero-setting  Preset tare device   
+      
+ Initial zero-setting  Subtractive tare   
+      
+ Zero-tracking  Additive tare   
+ 
+Initial zero-setting range =  % of  Max Temperature range:  °C 
+ 
+Printer:  Built-in  Connected  Not present  No connection 
+      but connectable   
+ 
+Instrument submitted: …………………….……… Load cell: …...………………………....... 
+Identification no.: ………..…..………………. Manufacturer: …...………………………....... 
+Software version: ……………………………. Type: …...………………………....... 
+Connected equipment: ……………………………. Capacity: …...………………………....... 
+ ……………………………. Number: …...………………………....... 
+Interfaces (number, nature): ……………………………. Classification symbol: …...………………………....... 
+ ……………………………. 
+ ……………………………. Remarks: …...………………………....... 
+Evaluation period: …………………………….  …...………………………....... 
+Date of report: …………………………….  …...………………………....... 
+Observer: …………………………….  …...………………………....... 
+                                                           
+1 The test equipment (simulator or a part of a complete instrument) connected to the module shall be defined in the test form(s) used. 
+2 Please note that the class denominations used hereafter in th is Recommendation do not include the oval around the number for improved clarity 
+of the Test Report Format’s text. 
+
+===== [PDF PAGE 7] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+7 
+ 
+General information concerning the type 
+(continued) 
+ 
+Use this space to indicate additional remarks and/or info rmation: Connection equipment, interfaces and load cells, 
+choice of the manufacturer regarding protection against disturbances (5.1.1 a or 5.1.1 b of R 76-1), etc. 
+
+===== [PDF PAGE 8] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+8 
+ 
+ 
+Information concerning the test equipment 
+used for type evaluation 
+
+===== [PDF PAGE 9] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+9 
+ 
+ 
+Summary of type evaluation 
+ 
+Application no.: …………………………….....…………………………… 
+Type designation: ……………….…………………………………………… 
+ 
+ Tests  
+Report page 
+PASSED 
+FAILED 
+Remarks 
+1 Weighing performance Initial °C
+°C
+°C
+°C
+°C
+°C
+°C
+   
+ 
+2 Temperature effect on no-load indication     
+3.1 Eccentricity using weights     
+3.2 Eccentricity using a rolling load     
+4.1 Discrimination     
+4.2 Sensitivity     
+5 Repeatability     
+6.1 Zero return     
+6.2 Creep     
+Printing, storage     7 Stability of equilibrium Zero-setting, tare balancing     
+8 Tilting     
+9 Tare     
+10 Warm-up time     
+11 Voltage variations     
+12.1 AC mains voltage dips and short interruptions     
+a) Mains power supply lines     12.2 Electrical bursts b) I/O circuits and communication lines     
+a) AC mains power supply     12.3 Surges b) Any other kind of power supply lines     
+a) Direct application     12.4 Electrostatic discharges b) Indirect application (contact discharges only)     
+12.5 Immunity to radiated electromagnetic fields     
+12.6 Immunity to conducted radio-frequency fields     
+a) Conduction along supply lines of external 
+12 V and 24 V batteries     
+12.7 
+Electrical transients on 
+instruments powered from a 
+road vehicle power supply b) Capacitive and inductive coupling via lines 
+other than supply lines     
+a) Initial test (at reference temperature)     
+b) Test at high temperature and 85 % relative 
+humidity     13 Damp heat, 
+steady state 
+c) Final test (at reference temperature)     
+14 Span stability     
+a) Initial test     15 Endurance c) Final test     
+ EXAMINATIONS     
+16 Examination of the construction     
+17 Checklist     
+Remarks: 
+
+===== [PDF PAGE 10] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+10 
+ 
+1 WEIGHING PERFORMANCE (A.4.4) (A.5.3.1) 
+(Calculation of the error) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+Initial zero-setting > 20 % of Max:  Yes  No  (see R 76-1, A.4.4.2) 
+ 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Indication, I Add. load, 
+ΔL Error, E Corrected error, Ec Load, L 
+↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑ 
+mpe 
+ *    *     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 11] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+11 
+ 
+2 TEMPERATURE EFFECT ON NO-LOAD INDICATION (A.5.3.2) 
+ 
+Application no.: ………………………………………………………………………………….. 
+Type designation: ………………………………………………………………………………….. 
+Date: ………………………………………… 
+Observer: ………………………………………… 
+Verification  
+scale interval, e: ………………………………………… 
+Resolution during test  
+(smaller than e): ………………………………………… 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+ 
+P = I + ½ e – ΔL 
+ 
+Report 
+page* Date Time Temp 
+(°C) 
+Zero indication,
+I 
+Add. load,
+ΔL P ΔP ΔTemp. Zero-change
+per … °C 
+       
+         
+  
+      
+         
+  
+      
+         
+  
+      
+ 
+ 
+         
+ 
+ΔP = difference of P for two consecutive tests at different temperatures 
+ΔTemp. = difference of Temp. for two consecutive tests at different temperatures 
+ 
+Check if the zero-change per 5 °C is smaller than e (class II, III or IIII) 
+Check if the zero-change per 1 °C is smaller than e (class I) 
+ 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+* Give the report page of the relevant weighing test where wei ghing tests and temperature effect on no-load indication test are 
+conducted together (see R 76-1, Figure 11). 
+
+===== [PDF PAGE 12] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+12 
+ 
+3 ECCENTRICITY (A.4.7) 
+3.1 Eccentricity using weig hts (A.4.7.1, 2 and 3) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+1) Test(s) performed on a mobile instrument (A.4.7.5):  Yes  No 
+2) In case of “Yes” to 1): A.4.7 and A.4.7.1 to A.4.7.4 have been applied:  Yes  No 
+3) In case of “No” to 2): Description of eccentricity test(s) (see A.4.7.5) under “Remarks” 
+ 
+Location of test loads: mark on a sketch (see example below) the successive locations of test loads, using numbers 
+which shall be repeated in the table below. 
+ 
+1 2 
+4 3 
+ 
+Also indicate in the sketch the location of the display or of another perceptible part of the instrument. 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* determined prior to each measurement 
+Location Load, L Indication,  
+I 
+Add. load, 
+ΔL 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+ *   *   
+1       
+ *   *   
+2       
+ *   *   
+3       
+ *   *   
+4       
+       
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 13] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+13 
+ 
+3.2 Eccentricity using a rolling load (A.4.7.4) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Number of sections of the divided load receptor    Undivided load receptor 
+ 
+Location of test loads for each section of the load receptor: mark on a sketch (see example below) the successive 
+locations of test loads, using numbers which shall be repeated in the table below. Also indicate in the sketch the location 
+of the display or of another perceptible part of the instrument. 
+ 
+1 2 3 
+ 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Section  Direction 
+(Å / Æ) Location Load, L Indication, 
+I 
+Add. load, 
+ΔL 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+ *   *   
+       
+       
+  
+       
+ *   *   
+       
+       
+  
+       
+ *   *   
+       
+         
+       
+ *   *   
+       
+       
+  
+       
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 14] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+14 
+ 
+4 DISCRIMINATION AND SENSITIVITY 
+4.1 Discrimination 
+4.1.1 Digital indication (A.4.8.2) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ……………………………………………… …. At start At max At end  
+Date: …………………………………… Temp.:    °C 
+Observer: …………………………………..… Rel. h.:    % 
+Verification scale interval, e: ……………………………..……… Time:     
+Scale interval, d: ……………………………..……… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I1 
+Removed load 
+ΔL Add 1/10 d Extra load, 
+= 1.4 d 
+Indication, 
+I2 I2 – I1 
+       
+       
+       
+ 
+Check if I2 – I1 ≥ d 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+ 
+4.1.2 Analog indication (A.4.8.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ……………………………………………… …. At start At max At end  
+Date: …………………………………… Temp.:    °C 
+Observer: …………………………………..… Rel. h.:    % 
+Verification scale interval, e: ……………………………..……… Time:     
+Scale interval, d: ……………………………..……… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I1 
+Extra load 
+= |mpe| 
+Indication, 
+I2 I2 – I1 
+     
+     
+     
+ 
+Check if I2 – I1 ≥ 0.7 mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 15] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+15 
+ 
+4.1.3 Non-self-indicating instrument (A.4.8.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+  Rel. h.:    % 
+ ………………………………………… Time:     
+ ………………………………………… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I 
+Extra load, 
+= 0.4 |mpe| 
+Visible 
+displacement* 
+    
+    
+    
+* Mark a visible displacement by “+” 
+ 
+Check if there is a visible displacement 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+4.2 Sensitivity (non-self-indicating instrument) (A.4.9) 
+ 
+Application No.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+  Rel. h:    % 
+ ………………………………………… Time:     
+ ………………………………………… Bar. pres:    hPa 
+ 
+Load L Extra load 
+= |mpe| 
+Permanent displacement of 
+indicating element 
+   mm 
+   mm 
+   mm 
+ 
+Check if the permanent displacement is equal to or greater than: 
+1 mm for an instrument of accuracy class I or II 
+2 mm for an instrument of accuracy class III or IIII with Max ≤ 30 kg 
+5 mm for an instrument of accuracy class III or IIII with Max > 30 kg 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 16] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+16 
+ 
+5 REPEATABILITY (A.4.10) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): ………………………………………… (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ 
+ Non-existent  In operation 
+ 
+Load (weighing 1-10)  Load (weighing 11-20)  
+ 
+ 
+E= I + 1/2 e – ΔL – L 
+ 
+ Indication 
+of load, I 
+Add. load, 
+ΔL E  Indication 
+of load, I 
+Add. load, 
+ΔL E 
+1    11    
+2    12    
+3    13    
+4    14    
+5    15    
+6    16    
+7    17    
+8    18    
+9    19    
+10    
+ 
+20    
+ 
+Emax – Emin (weighing 1-10)  Emax – Emin (weighing 11-20)  
+ 
+mpe  mpe  
+ 
+Check if a) E  ≤ mpe (3.6 of R 76-1) 
+ b) Emax – Emin  ≤ absolute value of mpe (3.6.1 of R 76-1) 
+ 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 17] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+17 
+ 
+6 TIME-DEPENDENCE 
+6.1 Zero return (A.4.11.2) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+Verification  Rel. h:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+ 
+P = I + ½ e – ΔL 
+ 
+Time of reading Load, 
+L0 
+Indication 
+of zero, I0 
+Add. load, 
+ΔL P   
+0 min    P0 =   
+       
+Load during 30 minutes =       
+    Change after 30 minutes: 
+30 min    P30 = |Δ(P30 – P0)| =  
+       
+For multiple range instruments keep instrument unloaded for further 5 minutes:  Change 5 minutes later: 
+35 min    P35 = |Δ(P35 – P30) | =  
+ 
+ 
+Check if a) |Δ(P30 – P0) | ≤ 0.5 e 
+ b) |Δ(P35 – P30) | ≤ e1 (for multiple range instruments only) 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 18] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+18 
+ 
+6.2 Creep (A .4.11.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+Verification  Rel. h:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+ 
+P = I + ½ e – ΔL 
+ 
+Time of reading Load, 
+L 
+Indication, 
+I 
+Add. load, 
+ΔL P ΔP 
+ 0 min     
+ 5 min     
+ 15 min     
+ 30 min * 
+ 
+    
+ 
+ 1 h     
+ 2 h     
+ 3 h     
+ 4 h 
+ 
+    
+ 
+ΔP = difference between P at the start (0 min) and P at a given time. 
+ 
+* If condition a) is met, the test is terminated. If not, the test shall be continued for the next 3.5 hours and  
+condition b) shall be met. 
+ 
+Condition a): ΔP ≤ 0.5 e after 30 minutes; and 
+ΔP ≤ 0.2 e between the indication obtained at 15 minutes and that at 30 minutes 
+Condition b): ΔP ≤ absolute value of mpe during the period of 4 hours 
+ 
+Check if condition a) or b) is fulfilled 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 19] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+19 
+ 
+7 STABILITY OF EQUILIBRIUM (A.4.12) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+Verification  Rel. h:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+In the case of printing or data storage: 
+Reading during 5 s after print-out or storageNo. Load 
+(about 50 % of Max) 
+First printed or stored weight value 
+after disturbance and command minimum value maximum value 
+1    
+2    
+3    
+4    
+5 
+ 
+   
+ 
+Check if the first printed or stored weight value does not deviate more than 1 e from the readings during 5 seconds after 
+print-out or storage (only two adjacent values allowed) 
+Passed  Failed 
+In the case of zero-setting or tare balancing: 
+Zero-setting E0 = I0 + ½ e – ΔL – L0 
+No.* Zero-load 
+(< 4 % of Max) 
+Load, L0
+**
+ 
+(10 e) 
+Indication, I0 
+after zero-setting Add. load, ΔL Error, E0 
+1    
+2    
+3    
+4    
+5 
+  
+   
+      
+Tare balancing E0 = I0 + ½ e – ΔL – L0 
+No.* Tare load 
+(about 30 % of Max) 
+Load, L0 **
+ 
+(10 e) 
+Indication, I0, 
+after tare balancing Add. load, ΔL Error, E0 
+1    
+2    
+3    
+4    
+5 
+  
+   
+* Apply the zero or tare load, disturb the equilibri um and immediately release zero-setting or tare, apply L0 if 
+necessary and calculate the error according to A.4.2.3/A.4.6.2 of R 76-1. Perform this five times. 
+** L0 (10 e) shall be applied only if an automatic zero-setting or zero-tracking device is in operation. L0 shall be applied 
+after releasing tare or zero-setting, immediately after zero is displayed the first time. 
+Check if E0 ≤ 0.25 e 
+Passed  Failed 
+Remarks: 
+
+===== [PDF PAGE 20] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+20 
+ 
+8 TILTING (A.5.1, A.5.1.1-A.5.1.3) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+ Instrument with leveling device and level indicator 
+ Instrument with automatic tilt sensor 
+ Instrument without level indicator or automatic tilt sensor 
+ Mobile instrument with automatic tilt sensor 
+ Mobile instrument with Cardanic suspension 
+ 
+Limiting value of tilting =  
+ 
+Give (if appropriate on a separate sheet) a sketch of the load receptor showing the 
+location of the level indicator or direction of the tilting, if provided. 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+Ev = Iv + ½ e – ΔLv – L ( v = 1, 2, 3, 4, 5), Iv = Indication, ΔLv = additional load 
+Ec v = Ev – Ev 0 with Ev 0 = error calculated at or near zero 
+ Reference 
+position  Tilted position 
+with the limiting value of tilting   
+ 
+ 
+  
+  
+  
+  
+   Load, L 
+ 1  2 3 4 5  
+         
+unloaded Iv =         
+ΔLv =       2 e =  
+Ev0 =        |E1 0 – Ev 0|max =  
+         
+L = Iv =         
+ΔLv =        
+Ev =        mpe =  
+ 
+Ec v =        |Ec 1 – Ec v|max =  
+         
+(Max) Iv =         
+ΔLv =        
+Ev =        mpe =  
+ 
+Ec v =        |Ec 1 – Ec v|max =  
+Check if the differences are a) ≤ 2 e for the unloaded instrument (not valid for class II instruments, if they are not 
+used for direct sales to the public) 
+ b) ≤ absolute value of mpe for the loaded instrument 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 21] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+21 
+ 
+9 TARE (WEIGHING TEST) (A.4.6.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+ 
+ Indication, I Add. load, 
+ΔL Error, E Corrected error, Ec
+  
+Load, L 
+↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑ 
+mpe 
+ *    *     First 
+tare load 
+ 
+          
+            
+           
+ 
+ 
+          
+            
+            
+            
+            
+            
+            
+  *    *     Second 
+tare load            
+            
+            
+            
+            
+            
+            
+            
+            
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 22] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+22 
+ 
+10  WARM-UP TIME (A.5.2) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+Duration of disconnection before test:  hours 
+ 
+ 
+E  = I + ½ e – ΔL – L 
+E0 = error calculated prior to each measurement at or near zero (unloaded) 
+EL =  error calculated at load (loaded) 
+ 
+ Time * Load, L Indication, 
+I 
+Add. load,
+ΔL 
+Error, 
+E EL – E0 mpe = 
+Unloaded     
+Loaded  0 min       
+Unloaded     
+Loaded 
+ 5 min 
+      
+Unloaded     
+Loaded  15 min       
+Unloaded     
+Loaded  30 min       
+ 
+* counted from the moment an indication has first appeared. 
+ 
+Check if |EL – E0| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 23] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+23 
+ 
+11 VOLTAGE VARIATIONS (A.5.4) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+ Mains power supply (AC), A.5.4.1 
+ External or plug-in power supply device (AC or DC), A.5.4.2 
+ Rechargeable battery power supply, (re)charge during the operation of the instrument is possible, A.5.4.2 
+ Non-rechargeable and rechargeable battery power supply, (re)charge during the operation of the instrument is not 
+ possible, A.5.4.3 
+ 12 V or 24 V road vehicle battery power supply, A.5.4.4 
+ 
+Unom =  V Umin = V  Umax = V
+Calculate lower and upper limits of applied voltages according to A.5.4. If a voltage-range (Umin / Umax) is marked, use 
+the average value as reference value. 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+Category of power supply (if an instrument has more than one power supply): ............................................................... 
+E = I + ½ e – ΔL – L            Ec = E – E0 with E0 = error calculated at or near zero 
+Voltage U, 
+(V) 
+Load, 
+L 
+Indication, 
+I 
+Add. load, 
+ΔL 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+10 e =      Reference value        
+10 e =      Lower limit        
+10 e =      Upper limit  
+      
+ 
+Category of power supply (if an instrument has more than one power supply): .................................................................. 
+E = I + ½ e – ΔL – L            Ec = E – E0 with E0 = error calculated at or near zero 
+Voltage U, 
+(V) 
+Load, 
+L 
+Indication, 
+I 
+Add. load, 
+ΔL 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+10 e =      Reference value        
+10 e =      Lower limit        
+10 e =      Upper limit  
+      
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 24] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+24 
+ 
+12 ELECTRICAL DISTURBANCES 
+12.1 AC mains voltage dips and short interruptions (B.3.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ 
+Mains power supply voltage: Unom V Umin V Umax V 
+Power supply voltage for the test: Utest V=  Unom or the average value of Umin and Umax 
+ 
+Disturbance Result 
+Significant fault (> e) 
+or detection and reaction Load Amplitude 
+of Utest 
+Duration / 
+number of 
+cycles 
+Number of
+disturbances
+≥ 10 
+Repetition
+interval (s)
+≥ 10 s 
+Indication, I 
+ No Yes (see remarks) 
+Without disturbance    
+0 % 0.5      
+0 % 1      
+40 % 10      
+70 % 25      
+80 % 250      
+ 
+0 % 250      
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 25] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+25 
+ 
+12.2 Electrical bursts (B.3.2) 
+ 
+a) Mains power supply lines 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+Mains power supply voltage: Unom V Umin V Umax V 
+Power supply voltage for the test: Utest V=  Unom or the average value of Umin and Umax 
+ 
+ 
+Test voltage (bursts) on each connection of the mains power supply lines: 1 kV 
+Duration of the test at connection and each polarity: 1 min 
+ 
+Disturbance Result 
+Bursts on connection 
+Significant fault (> e) 
+or detection and reaction Load L 
+↓ 
+ground 
+N 
+↓ 
+ground 
+PE 
+↓ 
+ground 
+Polarity Indication, I 
+No Yes (see remarks) 
+ Without disturbance    
+positive    X   negative    
+ Without disturbance    
+positive     X  negative    
+ Without disturbance    
+positive    
+ 
+  X negative    
+ 
+L = phase, N = neutral, PE = protective earth 
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 26] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+26 
+ 
+b) I/O circuits and communication lines 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ 
+Test voltage (bursts) on each cable/interface (I/O signals, data and control lines): 0.5 kV 
+Duration of the test at each cable/interface and each polarity: 1 min 
+ 
+Disturbance Result 
+Significant fault (> e) 
+or detection and reaction Load Bursts on cable/interface 
+(Type, nature) 
+Polarity/ 
+disturbance Indication, I 
+No Yes (see remarks) 
+Without disturbance    
+positive    
+1 
+negative    
+Without disturbance    
+positive    
+2 
+negative    
+Without disturbance    
+positive    
+3 
+negative    
+Without disturbance    
+positive    
+4 
+negative    
+Without disturbance    
+positive    
+5 
+negative    
+Without disturbance    
+positive    
+6 
+negative    
+Without disturbance    
+positive    
+7 
+negative    
+Without disturbance    
+positive    
+8 
+negative    
+Without disturbance    
+positive    
+ 
+9 
+negative    
+Explain or make a sketch indicating where the clamp is located on the cable; if necessary, use additional page. 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 27] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+27 
+ 
+12.3 Surges (B.3.3) 
+a) AC mains power supply  
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e):      
+Surges on AC mains power supply lines 
+Disturbance Result 
+3 positive and 3 negative surges 
+synchronously with AC supply voltage 
+angle 
+Significant fault (> e) 
+or detection and reaction Load 
+amplitude/ 
+apply on 0° 90° 180° 270° 
+Polarity Indication, 
+I 
+No Yes (see remarks) 
+Without disturbance    
+pos    X    
+neg    
+pos     X   neg    
+pos      X  neg    
+pos    
+ 
+0.5 kV 
+ 
+ 
+L 
+↓ 
+N 
+   X 
+neg    
+Without disturbance    
+pos    X    
+neg    
+pos     X   neg    
+pos      X  neg    
+pos    
+ 
+1 kV 
+ 
+ 
+ 
+L 
+↓ 
+PE 
+   X 
+neg    
+Without disturbance    
+pos    X    
+neg    
+pos     X   neg    
+pos      X  neg    
+pos    
+ 
+ 
+1 kV 
+ 
+ 
+ 
+N 
+↓ 
+PE 
+   X 
+neg    
+L = phase, N = neutral, PE = protective earth 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+Remarks: 
+
+===== [PDF PAGE 28] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+28 
+ 
+b) Any other kind of power supply 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ 
+Kind or type of power supply  
+ 
+  DC  Other form  Voltage  
+ 
+ 
+Surges on other power supply lines 
+Disturbance Result 
+3 positive and 3 negative surges Significant fault (> e) 
+or detection and reaction Load 
+apply on amplitude Polarity Indication, 
+I 
+No Yes (see remarks) 
+Without disturbance    
+pos    
+L 
+↓ 
+N 0.5 kV neg    
+Without disturbance    
+pos    
+L 
+↓ 
+PE 1 kV neg    
+Without disturbance    
+pos    
+ 
+N 
+↓ 
+PE 1 kV neg    
+L = positive conductor , N = negative or neutral conductor, PE = protective earth 
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 29] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+29 
+ 
+12.4 Electrostatic discharges (B.3.4) 
+ 
+a) Direct application 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ Contact discharge  Paint penetration 
+ 
+ Air discharges 
+ 
+Discharges Result 
+Significant fault (> e) 
+or detection and reaction Load Test 
+voltage 
+(kV) 
+Polarity 
+Number of 
+discharges 
+≥ 10 
+Repetition
+interval 
+≥ 10 s 
+Indication, 
+I No Yes (remarks, test points) 
+Without disturbance    
+2 pos.      
+4 pos.      
+6 pos.      
+8  
+(air discharges) pos.      
+Without disturbance    
+2 neg.      
+4 neg.      
+6 neg.      
+ 
+8  
+(air discharges) neg.      
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed Note: If the EUT fails, the test point at which this occurs shall be recorded.
+ 
+Remarks: 
+
+===== [PDF PAGE 30] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+30 
+ 
+b) Indirect application (contact discharges only) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+Horizontal coupling plane 
+Discharges Result 
+Significant fault (> e) 
+or detection and reaction Load Test 
+voltage 
+(kV) 
+Polarity 
+Number of 
+discharges 
+≥ 10 
+Repetition
+interval 
+≥ 10 s 
+Indication, 
+I No Yes (remarks, test points) 
+Without disturbance    
+2 pos.      
+4 pos.      
+6 pos.      
+Without disturbance    
+2 neg.      
+4 neg.      
+ 
+6 neg.      
+ 
+Vertical coupling plane 
+Discharges Result 
+Significant fault (> e) 
+or detection and reaction Load Test 
+voltage 
+(kV) 
+Polarity 
+Number of 
+discharges 
+≥ 10 
+Repetition
+interval 
+≥ 10 s 
+Indication, 
+I No Yes (remarks, test points) 
+Without disturbance    
+2 pos.      
+4 pos.      
+6 pos.      
+Without disturbance    
+2 neg.      
+4 neg.      
+ 
+6 neg.      
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed Note: If the EUT fails, the test point at which this occurs shall be recorded.
+ 
+Remarks:
+
+===== [PDF PAGE 31] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+31 
+ 
+Specification of test points of EUT (direct application), e.g. by photos or sketches 
+ 
+a) Direct application 
+ 
+Contact discharges: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Air discharges: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+b) Indirect application 
+
+===== [PDF PAGE 32] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+32 
+ 
+12.5 Immunity to radiated el ectromagnetic fields (B.3.5) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ Frequency range 26-2000 MHz if the test according to B.3.6 cannot be applied (no mains or I/O ports available) 
+  
+ Frequency range 80-2000 MHz if the test according to B.3.6 is performed (see form no. 12.6) 
+ 
+Rate of sweep:  Material of load:
+ 
+Disturbance Result 
+Significant fault (> e) 
+or detection and reaction Load Antenna Frequency 
+range (MHz) Polarization Facing 
+EUT 
+Indication, 
+I 
+No Yes (remarks) 
+Without disturbance    
+Front    
+Right    
+Left    
+Vertical 
+Rear    
+Front    
+Right    
+Left    
+  
+Horizontal 
+Rear    
+Front    
+Right    
+Left    Vertical 
+Rear    
+Front    
+Right    
+Left    
+ 
+  
+Horizontal 
+Rear    
+Frequency range: 26-2000 MHz or 80-2000 MHz 
+Field strength: 10 V/m 
+Modulation: 80 % AM, 1 kHz, sine wave 
+ 
+Note: If EUT fails, the frequency at which this occurs shall be recorded 
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+
+===== [PDF PAGE 33] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+33 
+ 
+Description of the set-up of EUT, e.g. by photos or sketches: 
+
+===== [PDF PAGE 34] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+34 
+ 
+ 
+12.6 Immunity to conducted ra dio-frequency fields (B.3.6) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+Rate of sweep:  
+  
+Load:  Material of load:
+ 
+Result 
+Significant fault (> e) 
+or detection and reaction Cable / Interface Frequency range 
+(MHz) Indication, 
+I No Yes (remarks) 
+without disturbance    
+ 
+    
+without disturbance    
+ 
+    
+without disturbance    
+ 
+    
+without disturbance    
+ 
+    
+without disturbance    
+ 
+    
+without disturbance    
+ 
+    
+without disturbance    
+ 
+    
+without disturbance    
+ 
+    
+without disturbance    
+ 
+    
+without disturbance    
+ 
+    
+Frequency range: 0.15-80 MHz RF amplitude (50 ohms): 10 V (e.m.f.) Modulation: 80 % AM, 1 kHz, sine wave 
+Check if a significant fault occurred. 
+Note: If the EUT fails, the frequency at which this occurs shall be recorded 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 35] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+35 
+ 
+12.7 Electrical transients on instruments pow ered from a road vehicle power supply (B.3.7) 
+ 
+a) Conduction along supply lines of external 12 V and 24 V batteries 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ 12 V battery voltage  24 V battery voltage 
+ 
+ 
+12 V battery voltage 
+Disturbance Result 
+Significant fault (> e) 
+or detection and reaction Load Test pulse Conducted 
+voltage 
+Indication, 
+I 
+No Yes (remarks) 
+Without disturbance    
+2a +50 V    
+2b* +10 V    
+3a –150 V    
+3b +100 V    
+ 
+4 –7 V    
+ 
+24 V battery voltage 
+Disturbance Result 
+Significant fault (> e) 
+or detection and reaction Load Test pulse Conducted 
+voltage 
+Indication, 
+I 
+No Yes (remarks) 
+Without disturbance    
+2a +50 V    
+2b* +20 V    
+3a –200 V    
+3b +200 V    
+ 
+4 –16 V    
+ 
+* Test pulse 2b is only applicable if the measuring instrument may be connected to the battery via the main (ignition) 
+switch of the car, i.e. if the manufacturer of the measuring instrument has not specified that the instrument is to be 
+connected directly (or by its own main switch) to the battery. 
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 36] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+36 
+ 
+b) Capacitive and inductive couplin g via lines other than supply lines 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ 12 V battery voltage  24 V battery voltage 
+ 
+12 V battery voltage 
+Disturbance Result 
+Significant fault (> e) 
+or detection and reaction Load Test pulse Conducted 
+voltage 
+Indication, 
+I 
+No Yes (remarks) 
+Without disturbance    
+a –60 V     
+b +40 V    
+Without disturbance    
+a –60 V     
+b +40 V    
+Without disturbance    
+a –60 V    
+Kind or type of other 
+lines 
+(no power supply 
+lines) 
+ 
+b +40 V    
+ 
+24 V battery voltage 
+Disturbance Result 
+Significant fault (> e) 
+or detection and reaction Load Test pulse Conducted 
+voltage 
+Indication, 
+I 
+No Yes (remarks) 
+Without disturbance    
+a –80 V     
+b +80 V    
+Without disturbance    
+a –80 V     
+b +80 V    
+Without disturbance    
+a –80 V    
+Kind or type of other 
+lines 
+(no power supply 
+lines) 
+ 
+b +80 V    
+Check if a significant fault occurred. 
+Note: If EUT fails, the frequency at which this occurs shall be recorded 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 37] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+37 
+ 
+13 DAMP HEAT, STEADY STATE (B.2) 
+ 
+a) Initial test (at reference temperature) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………     
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Load, L Indication, I Add. load, 
+ΔL Error, E Corrected 
+error, Ec mpe 
+ ↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑  
+*     *     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 38] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+38 
+ 
+b) Test at high temperatu re and 85 % relative humidity 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Load, L Indication, I Add. load, 
+ΔL Error, E Corrected 
+error, Ec mpe 
+ ↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑  
+*     (*)     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 39] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+39 
+ 
+c) Final test (at reference temperature) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………     
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Load, L Indication, I Add. load, 
+ΔL Error, E Corrected 
+error, Ec mpe 
+ ↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑  
+*     *     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 40] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+40 
+ 
+14 SPAN STABILITY (B.4) 
+ 
+Application no.: ………………………………………………………………….. 
+Type designation: ………………………………………………………………….. 
+Verification scale interval, e: …………………… 
+Resolution during test (smaller than e): …………………… 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+Zero load =  Test load =  
+ 
+Automatic span adjustment device: 
+ Existent  Non-existent 
+ 
+ 
+Measurement no. 1: Initial measurement  At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Automatic span adjustment device activated (if existent) 
+ 
+E0 = I0 + ½ e – ΔL0 – L0 EL = IL + ½ e – ΔL – L 
+ Indication 
+of zero, I0 
+Add. load, 
+ΔL0 E0 Indication 
+of load, IL 
+Add. load, 
+ΔL EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks. 
+ 
+Average error = average (EL – E0) =  
+ 
+(EL – E0)max – (EL – E0)min = 
+ 
+0.1 e = 
+ 
+If |(EL – E0)max – (EL – E0)min| ≤ 0.1 e, the loading and reading will be sufficient for each of the subsequent 
+measurements; if not, five loadings and readings shall be performed at each measurement. 
+ 
+Remarks: 
+
+===== [PDF PAGE 41] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+41 
+ 
+Subsequent measurements 
+Measurement no. 2:   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: …………… ……………………………… ……………………………… ………….... 
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – ΔL0 – L0 EL = IL + ½ e – ΔL – L 
+ Indication 
+of zero, I0 
+Add. load, 
+ΔL0 E0 Indication 
+of load, IL 
+Add. load,
+ΔL EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks. 
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+ 
+ 
+Measurement no. 3:   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: …………… ……………………………… ……………………………… ………….... 
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – ΔL0 – L0 EL = IL + ½ e – ΔL – L 
+ Indication 
+of zero, I0 
+Add. load, 
+ΔL0 E0 Indication 
+of load, IL 
+Add. load,
+ΔL EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+
+===== [PDF PAGE 42] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+42 
+ 
+Subsequent measurements 
+Measurement no. 4:   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: …………… ……………………………… ……………………………… ………….... 
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – ΔL0 – L0 EL = IL + ½ e – ΔL – L 
+ Indication 
+of zero, I0 
+Add. load, 
+ΔL0 E0 Indication 
+of load, IL 
+Add. load,
+ΔL EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+ 
+Measurement no. 5:   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: …………… ……………………………… ……………………………… ………….... 
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – ΔL0 – L0 EL = IL + ½ e – ΔL – L 
+ Indication 
+of zero, I0 
+Add. load, 
+ΔL0 E0 Indication 
+of load, IL 
+Add. load,
+ΔL EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+
+===== [PDF PAGE 43] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+43 
+ 
+Subsequent measurements 
+Measurement no. 6:   At start At max At end  
+Date: ………………………………………… Temp:    °C 
+Observer: ………………………………………… Rel. h:    % 
+Location: ………………………………………… Time:     
+  Bar. pres:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: …………… ……………………………… ……………………………… ………….... 
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – ΔL0 – L0 EL = IL + ½ e – ΔL – L 
+ Indication 
+of zero, I0 
+Add. load, 
+ΔL0 E0 Indication 
+of load, IL 
+Add. load,
+ΔL EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+ 
+Measurement no. 7:   At start At max At end  
+Date: ………………………………………… Temp:    °C 
+Observer: ………………………………………… Rel. h:    % 
+Location: ………………………………………… Time:     
+  Bar. pres:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: …………… ……………………………… ……………………………… ………….... 
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – ΔL0 – L0 EL = IL + ½ e – ΔL – L 
+ Indication 
+of zero, I0 
+Add. load, 
+ΔL0 E0 Indication 
+of load, IL 
+Add. load,
+ΔL EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+
+===== [PDF PAGE 44] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+44 
+ 
+Subsequent measurements 
+Measurement no. …. :   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: …………… ……………………………… ……………………………… ………….... 
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – ΔL0 – L0 EL = IL + ½ e – ΔL – L 
+ Indication 
+of zero, I0 
+Add. load, 
+ΔL0 E0 Indication 
+of load, IL 
+Add. load,
+ΔL EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+ 
+Measurement no. …. :   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: …………… ……………………………… ……………………………… ………….... 
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – ΔL0 – L0 EL = IL + ½ e – ΔL – L 
+ Indication 
+of zero, I0 
+Add. load, 
+ΔL0 E0 Indication 
+of load, IL 
+Add. load,
+ΔL EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks. 
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+
+===== [PDF PAGE 45] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+45 
+ 
+ 
+ 
+                                   
+                                   
+                                   
+                                   
+                                   
+ 
+                                  
+ 
+                                  
+ 
+                                  
+ 
+                                 
+Failed 
+…………………………………………………………………………………………………………… 
+…………………………………………………………………………………………………………… 
+                              
+ 
+                              
+Passed 
+14 SPAN STABILITY (B.4) 
+Application no.: 
+Type designation: 
+Plot on the diagram the indication of temperature test  T , damp heat test   D  and disconnections from the mains power supply   P 
+ 
+                              
+ 
+Maximum allowable variation 
+ 
+ 
+ 
+    
++1.5 e  
++1 e 
+ 
++0.5 e  
+0 
+ 
+–0.5 e  
+–1 e 
+ 
+–1.5 e  
+Average error e 
+ 
+6 7 8 Measurement no. 1 2 5 4 3 
+
+===== [PDF PAGE 46] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+46 
+ 
+15 ENDURANCE (A.6) 
+ 
+Application no.: ………………………………………………………………………………….. 
+Type designation: ………………………………………………………………………………….. 
+Verification  
+scale interval, e: ………………………………………… 
+Resolution during test  
+(smaller than e): ………………………………………… 
+ 
+ 
+a) Initial test   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+ 
+E = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Indication, I Add. load, 
+ΔL Error, E Corrected error, 
+Ec Load, L 
+↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑ 
+mpe 
+ *    *     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+
+===== [PDF PAGE 47] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+47 
+ 
+b) Performance of the test 
+ 
+Number of loadings:  Load applied:  
+ 
+ 
+ 
+ 
+c) Final test   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+ 
+E = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Durability error due to wear and tear = |Ec initial – Ec final|** 
+Indication, I Add. load, 
+ΔL Error, E Corrected 
+error, Ec Load, L 
+↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑ 
+mpe 
+Durability 
+error due to 
+wear and 
+tear** 
+*     *      
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+Check if the durability error due to wear and tear is ≤ mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 48] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+48 
+ 
+16 EXAMINATION OF THE CONSTRUCTION OF THE INSTRUMENT 
+ 
+Use this page to indicate any description or information pertaining to the instrument, additional to that already contained 
+in this report and in the accompanying national type approva l or OIML Certificate. This may include a picture of the 
+complete instrument, a description of its main component s, and any remark which coul d be useful for authorities 
+responsible for the initial or subsequent  verification of individual instruments built according to the type. It may also 
+include references to the manufacturer. 
+ 
+ 
+Description: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Remarks: 
+
+===== [PDF PAGE 49] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+49 
+ 
+CHECKLIST 
+This checklist has been developed based on the following principles: 
+ to include requirements that cannot be tested according to tests 1 throug h 15 above, but that shall be checked 
+experimentally, e.g. the operating range of the tare device (4.6.4), or visually, e.g. the descriptive markings 
+(7.1); 
+ to include requirements which indicate prohibitions of some functions, e.g. automatic tare device for 
+instruments for direct sales to the public (4.13.3.3); 
+ to include neither general requirements, e.g. suitability for use (4.1.1.2), nor weights and verification devices, 
+e.g. auxiliary verification devices (4.9); 
+ not to include requirements that allow functions or de vices to be used, e.g. a combined semi-automatic zero-
+setting and tare device operated by the same key (4.5.4). 
+This checklist is intended to serve as a summary of the results  of examinations to be performed and not as a procedure. 
+The items on this checklist are provided to recall the requiremen ts specified in R 76-1, and they shall not be considered 
+as a substitution to these requirements. 
+As for non-self-indicating instruments, clause 6 of R 76-1 shall be followed in lieu of this checklist. 
+The requirements that are not included in this type evaluation report (tests 1-15 and checklist 17) are considered to be 
+globally covered by the type approval or OIML Certificate (e.g. classification criteria [3.2 and 3.3], suitability for 
+application, use and verification [4.1.1.1, 4.1.1.2 and 4.1.1.3]). 
+For non-mandatory devices, the checklist provides space to indicate whether or not the device exists and, if appropriate, 
+its type. A cross in the box for “existent” indicates that the device exists and that it complies with the definition given in 
+the terminology. When indicating that a device is non-existent, also check the boxes to indicate that the tests are not 
+applicable (see page 5). 
+If appropriate, the results stated in this checklist may be supplemented by remarks given on additional pages. 
+
+===== [PDF PAGE 50] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+50 
+ 
+17 CHECKLIST 
+ 
+Application no.: …………………………….…….………………………… 
+Type designation: …………………………….…….………………………… 
+ 
+ 
+17.1 All types of weighing instruments except non-self-indicating instruments (6.1-6.9, R 76-1) 
+ 
+Requirement Testing 
+procedures  
+PASSED 
+FAILED 
+Remarks 
+  Descriptive markings    
+7.1.1 A.3 Compulsory in all cases: 
+  manufacturer's mark or name    
+  accuracy class    
+(+3.3.1)  maximum capacity, Max, Max 1, Max2,...    
+  minimum capacity, Min    
+(+3.3.1)  verification scale interval, e, e1, e2, ...    
+7.1.2 A.3 Compulsory if applicable: 
+  name or mark of manufacturer’s agent    
+  serial number    
+  identification marks on separate but associated units    
+  type approval mark    
+  scale interval, d (d < e)    
+  software identification (if applicable)    
+  maximum tare effect, T (subtractive tare only if T ≠ Max)    
+  maximum safe load, Lim (if Lim > Max +  T)    
+  special temperature limits    
+  counting ratio    
+  ratio between weight platform and load platform    
+  range of plus/minus indication    
+7.1.3 A.3 Additional markings: 
+  not to be used for direct sales to the public     
+  to be used exclusively for:    
+  the stamp does not guarantee ..... / guarantees only .....    
+  to be used only as follows:    
+3.2  special applications clearly marked (weighings ranges in 
+classes I and II or II and III) 
+   
+4.15  near display “not to be used for direct sales to the public” (for 
+instruments similar to those used for direct sales to the 
+public) 
+   
+7.1.4 A.3 Presentation of markings: 
+  indelible    
+  easily readable    
+  grouped together in a clearly visible place    
+  Max, Min, e and d (if d ≠ e) on or near display permanently 
+shown in a clearly visible position 
+   
+  possible to seal and apply a control mark/removal will result 
+in destruction 
+   
+  markings B and G    
+7.1.4 and 
+7.1.1 B, 
+7.1.2 G 
+ additional information shown alternatively on a plate or 
+displayed by a software solution either permanently or 
+accessed by a simple manual command 
+   
+7.1.5.1 A.3 Inst ruments with several load receptors and load measuring devices: 
+  identification mark, Max, Min and e of each load receptor on 
+relating load measuring device (Lim and T = + if applicable) 
+ 
+   
+
+===== [PDF PAGE 51] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+51 
+ 
+Requirement Testing 
+procedures  
+PASSED 
+FAILED 
+Remarks 
+7.1.5.2 A.3 Separately-built main parts: 
+  identification mark repeated in descriptive markings    
+4.1.1.3  Suitability for verification: 
+  identification of devices which have been subject to separate 
+type examination 
+   
+  Verification marks and sealing    
+7.2 A.3 Verifi cation mark: 
+  cannot be removed     
+  easy application    
+  visibility without the instrument to be moved when it is in 
+service 
+   
+7.2.2  Verification mark support or space: 
+  which ensures conservation of the mark    
+  for stamp, stamping area ≥ 150 mm2    
+  for self-adhesive type, ø ≥ 15 mm    
+4.1.2.4 A.3 Securing of comp onents and preset controls: 
+  location    
+  form    
+4.1.2.4   Securing with software means  
+4.1.2.4 a  legal status of the instrument recognizable     
+  evidence of any intervention     
+4.1.2.4 b  protection against changes of parameters and the reference 
+numbers 
+   
+4.1.2.4 c  facilities for affixing the reference number    
+4.1.2.5  Span adjustment device (automatic or semi-automatic): Existent 
+     Non-existent 
+  
+  external influence impossible after securing    
+4.1.2.6  Gravity compensation: Existent 
+     Non-existent 
+  
+  external influence on or access to impossible after securing    
+  Documentation    
+8.2.1 A.1 Technical information and data: 
+8.2.1.1,   characteristics of the instrument    
+3.10.2  specifications of modules    
+3.10.2.1  fractions, pi (modules tested separately)    
+3.10.4  specifications of families    
+  specifications of components    
+8.2.1.2  applicable descriptive documents (according to nos. 1-11)    
+5.3.6.1 A.1 specific declaration of the manufacturer   
+3.9.1.1  limiting value of tilting defined by the manufacturer    
+8.2.2 A.2 Examination of: 
+  documents   
+  functions (spot checks)   
+  test reports from other authorities   
+ 
+  Indicating device    
+4.2.1  Reading: 
+  reliable, easy and unambiguous    
+  overall inaccuracy ≤  0.2 e (analog indication)    
+  size, shape and clarity    
+  by simple juxtaposition    
+4.2.2.1 A.3 Units of:  
+  mass    
+  price    
+ 
+ 
+
+===== [PDF PAGE 52] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+52 
+ 
+Requirement Testing 
+procedures  
+PASSED 
+FAILED 
+Remarks 
+4.2.2.1  Form of indication: 
+  for one indication, one unit of mass    
+  scale interval in the form (1, 2 or 5) × 10k    
+  same scale interval for all indicating devices, printing devices 
+and tare weighing devices 
+   
+4.2.2.2  Form of digital indication: 
+  at least one figure at right    
+  Decimal sign: 
+  shall maintain its position (scale interval changed 
+automatically) 
+   
+  separate at least one figure to the left and all to the right    
+  on one line with the bottom of the figures    
+  Zero: 
+  only one non-significant zero to the right     
+  for values with decimal sign, non-significant zero only in 
+third position 
+   
+4.2.3  Limits: 
+  preventing of indication above Max + 9 e    
+  preventing of indication below zero unless a tare device is in 
+operation (–20 d is accepted) 
+   
+4.2.4  “Approximate” displaying device: Existent 
+      Non-existent 
+  
+  scale interval > Max/100 without being smaller than 20 e    
+4.2.5  Semi-self indi cating instruments: 
+  extension of self-indication range ≤ self-indication capacity    
+  Analog indication: 
+4.3.1  thickness and length of scale marks    
+4.3.2  scale spacing    
+4.3.3  limit of movement below zero and above capacity of self-
+indication 
+   
+4.3.4  damping of oscillations of displaying component    
+4.4.1  Changing of digital indication: 
+  after change in load, previous indication not longer than 1 s    
+4.4.2  Stable equilibrium of digital indication: 
+  printed or stored weight values do not deviate more than 1 e 
+from the final weight value  
+   
+  zero or tare operations are within their accuracy requirements    
+  no printing, data storage, zero-setting, or taring during 
+continuous or temporary disturbance of equilibrium 
+   
+4.4.3  Extended digital indication: Existent 
+      Non-existent 
+  
+  not allowed when there is a differentiated scale division    
+  displaying a smaller scale interval only during pressing a key    
+  at most, 5 s after manual command    
+  prevention of printing while the device is in operation    
+4.4.4  Digital indications other than primary indications: Existent 
+      Non-existent 
+  
+  additional indications do not lead to any ambiguity to primary 
+indications 
+   
+  quantities identified by units, symbols, signs or designations 
+thereof 
+   
+  weight values (not weighed) shall be clearly identified or    
+  display only temporarily on manual command and    
+  shall not be printed    
+  the inoperative weighing mode is clear and unambiguously 
+recognizable 
+ 
+   
+
+===== [PDF PAGE 53] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+53 
+ 
+Requirement Testing 
+procedures  
+PASSED 
+FAILED 
+Remarks 
+4.4.5  Digital printing: Existent 
+      Non-existent 
+  
+  clear and permanent    
+  figures ≥ 2 mm high    
+  name or symbol of units to the right of the value    
+   above column of values    
+  printing impossible when equilibrium not stable    
+4.4.6  Memory storage: Existent 
+      Non-existent 
+  
+  storage, transfer, totalizing, etc. inhibited when equilibrium 
+not stable 
+   
+3.4.1  Auxiliary indicating device (Classes I  and II only; 
+not allowed on multi-interval instruments) Existent 
+     Non-existent 
+  
+  If existent, type: rider 
+  interpolation 
+  complementary 
+  differentiated scale division 
+  
+  only to the right of decimal sign    
+3.4.2  d < e ≤ 10 d, e = 10k kg or e = 1 mg for class I with d < 1 mg    
+  Differences between results    
+3.6.3  Differences: 
+  between multiple indications: ≤ mpe    
+  between digital indications and printout: zero    
+3.6.4  between two results: ≤ mpe for same load when method of 
+balancing changed (semi-self-indicating) 
+   
+3.9.1.1  Tilting of instrument of class II, III or IIII 
+  a marking on the level indicator shows the limiting value of 
+tilting 
+   
+  level indicator fixed firmly in a place clearly visible to the 
+user 
+   
+  an automatic tilt sensor releases a display switch-off or other 
+appropriate alarm signal 
+   
+  and inhibits the printout and data transmission    
+  Zero-setting, -tracking and -indicating Existent       Non-existent
+  Initial zero-setting           
+                   
+  
+  Automatic zero-setting          
+                   
+  
+  Semi-automatic zero-setting          
+                   
+  
+  Non automatic zero-setting           
+                   
+  
+  Zero-tracking           
+                   
+  
+  Zero-indicating           
+                   
+  
+4.5.1  Effect shall not alter Max    
+ A.4.2.1 Overall effect of: zero-setting   
+  zero-tracking   =           % 
+  initial zero-setting   =           % 
+4.5.2 A.4.2.3 Accuracy: 
+  deviation ≤ 0.25 e    
+4.5.3  Multiple range: Existent 
+      Non-existent 
+  
+  effective for greater weighing range (if switching when 
+loaded possible) 
+   
+4.5.4  Control of zero-setting: 
+  separate from that of tare weighing device    
+  Semi-automatic zero-setting: functions only 
+  in stable equilibrium and    
+  if it cancels any previous tare operation    
+ 
+ 
+ 
+ 
+ 
+
+===== [PDF PAGE 54] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+54 
+ 
+Requirement Testing 
+procedures  
+PASSED 
+FAILED 
+Remarks 
+4.5.5 A.4.2.2 Zero-indicating device (digital indication): 
+  shows deviation ≤ 0.25 e    
+  not mandatory if auxiliary indicating device or rate of zero-
+tracking ≥ 0.25 d/s 
+   
+4.5.6  Automatic zero-setting: 
+  operates only when equilibrium stable and    
+  indication has remained stable be low zero at least 5 seconds    
+4.5.7  Zero-tracking: 
+  operates only when indication at zero or    
+  at negative net value equivalent to gross zero and    
+  equilibrium stable    
+  corrections ≤ 0.5 d/s    
+  when operates after tare, th e overall effect may be 4 % of 
+Max 
+   
+  Tare devices Existent           Non-existent 
+  Tare weighing 
+  
+  
+  Tare balancing 
+  
+  
+  Combined zero-setting and tare balancing 
+  
+  
+  Tare indicating 
+  
+  
+  Type: Subtractive 
+  Additive 
+  
+4.6.1  applicable requirements from 4.1 through 4.4 are fulfilled    
+4.6.2  Tare weighing device: 
+  dT = d    
+4.6.3 A.4.6.2 Accuracy: 
+  ±0.25 e (electronic instruments and instruments with analog 
+indication), e = e1 for multi-interval 
+   
+  better than ±0.5 d (mechanical instruments with digital 
+indication 
+   
+4.6.4  Operating range:   
+  prevention of operation  at its zero effect    
+  or below its zero effect    
+  prevention of operation above its maximum indicated     
+4.6.5  Visibility of operation: 
+  operation indicated    
+  net with sign “NET”, “Net”, “n et” or complete word (digital 
+indication) 
+   
+  NET disappears if gross displayed temporarily    
+  tare value or letter “T” (mechanical additive tare device)    
+4.6.6  Subtractive tare: 
+  prevention of use above Max or indication that capacity is 
+reached 
+   
+4.6.7  Multiple range: 
+  operation effective in greater weighing ranges if switching 
+when loaded possible 
+   
+  tare values are rounded to the scale interval of the actual 
+weighing range which is in operation 
+   
+4.6.8  Semi-automatic or automatic tare: 
+  operation only in stable equilibrium    
+4.6.9  Combined zero/tare: 
+  accuracy (4.5.2)    
+  zero indicating device (4.5.5)    
+ 
+ 
+ 
+ zero-tracking (4.5.7)    
+
+===== [PDF PAGE 55] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+55 
+ 
+Requirement Testing 
+procedures  
+PASSED 
+FAILED 
+Remarks 
+4.6.10  Consecutive tare operations: 
+  indicated or printed tare weig ht values clearly designated (if 
+tare devices operative at the same time) 
+   
+4.6.11  Printing net or gross: 
+  without designation    
+  designation: by G or B (gross)    
+   by N (only net printed)    
+  designation of net and tare by N and T (if net printed with 
+gross and/or tare) 
+   
+  instead of G, B, N and T, complete words    
+  printing separately net and tare with identification 
+(determined by different tare devices) 
+   
+  Preset tare Existent  
+   Non-existent  
+  
+4.7.1  dT = d or automatically rounded to d    
+  transferred from one range to another one with larger ei, shall 
+be rounded to the latter (multiple range) 
+   
+  tare value ≤ Max1 for the same net weight value (multi-
+interval) and calculated net value rounded to the scale 
+interval for the same net weight value 
+   
+4.7.2  4.6.10 applies    
+  cannot be modified/cancelled if tare operated after the preset 
+tare is still in use 
+   
+  operates automatically if clearly identified with load    
+4.7.3  4.6.5 applies    
+  possibility to indicate preset tare    
+  if calculated net printed then preset tare value is printed as 
+well 
+   
+  4.6.11 applies     
+  designation of preset tare by PT or complete word    
+  Locking devices  Existent 
+     Non-existent 
+  
+4.8.1  Positions: 
+  only two stable positions    
+  weighing only in ‘weigh” position    
+4.8.2  positions clearly shown    
+  Multiple ranges Existent 
+     Non-existent 
+  
+4.10  Selection of weighing ranges:    
+  range in operation clearly indicated    
+  selection from smaller to greater range possible at any load 
+(manual) 
+   
+  selection from smaller to the following greater range 
+(automatic) possible only for load ≥ Maxi of smaller range 
+   
+  selection from a greater to a smaller range (manually) or to 
+the smallest range (automatically) only 
+   
+   at no load when zero or negative net value is indicated    
+   tare is cancelled automatically    
+   zero is set to ±0.25 e1 automatically    
+Selection between load receptors, transmitting and measuring devices Existent 
+     Non-existent 
+  
+compensation for unequal no-load effect    
+zero-setting without ambiguity and in accordance with 4.5    
+weighing impossible while selection    
+4.11, 4.11.1 
+4.11.2 
+4.11.3 
+4.11.4 
+ 
+combinations easy identifiable    
+ 
+ 
+ 
+
+===== [PDF PAGE 56] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+56 
+ 
+Requirement Testing 
+procedures  
+PASSED 
+FAILED 
+Remarks 
+4.12  “Plus and minus” comparator instruments     
+4.12.1  Distinction of zones:  
+  “+” and “–” signs (analog indication)    
+  by inscription (digital indication)    
+4.12.2  Scale:  
+  with at least one scale division, d = e on either side of zero 
+and 
+   
+  value of d = e shown at either end    
+  Mechanical counting instru ments with unit weigh receptor 
+4.17.1  Scale:  
+  with at least one scale division, d = e on either side of zero 
+and 
+   
+  value of d = e shown on the scale    
+4.17.2  Counting ratio:  
+  shown clearly above each counting platform or    
+  each counting scale mark    
+4.20  Modes of operation:   
+  clearly identification of mode which is actually in operation    
+  manual switching back to weighing mode in any mode and at 
+any time possible 
+   
+  automatic selection of mode only within a weighing sequence    
+  automatic switching back to the weighing mode at the end of 
+the weighing sequence 
+   
+  zero indication after returning from switch-off condition    
+  automatic check of zero position before returning from 
+switch-off condition 
+   
+
+===== [PDF PAGE 57] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+57 
+ 
+17.2 Instruments for direct sales to the pub lic and price computing and labeling instruments 
+ 
+Requirement Testing 
+procedures  
+PASSED 
+FAILED 
+Remarks 
+  Miscellaneous checks (direct sales to the public)     
+4.5.4  Combined semi-automatic zero-setti ng device and semi-automatic tare-balancing 
+device operated by the same key: 
+  not allowed    
+4.8.1  “Preweigh” position: 
+  not allowed    
+4.13.10  Counting ratio: 
+  1/10 or 1/100 (mechanical counting instrument)    
+4.13.5  Impossibility of weighing during:  
+  locking operation    
+  adding or subtracting weights    
+4.13.7  Auxiliary and extended indicating device: 
+  not allowed    
+4.13.9  When significant fault has been detected1 (electronic instruments): 
+  visible or audible alarm provided for customer and   
+  data transmission prevented   
+  until user takes action or cause disappears   
+ 
+  Indication device (di rect sales to the public)    
+4.13.1, 4.13.6  Primary indications to both vendor and customer:  
+  two display sets, one vendor- and one customer display: Yes 
+     No 
+  
+  one display set for vendor and customer Yes 
+     No 
+  
+  weight    
+  information about correct zero position    
+  tare operation    
+  preset tare operation    
+  height of numerical figures displayed to the customer  
+≥ 9.5 mm 
+   
+  Instruments to be used with weights:  
+  value of weights possible to distinguish    
+  Zero-setting device (direct sales to the public)    
+4.13.2  Non-automatic zero-setting:  
+  only allowed when operated with a tool    
+  Tare device (direct sales to the public)     
+4.13.3  not allowed on mechanical instrument with weights receptor    
+  on instruments with one plat form public can see whether: 
+ - tare is in use 
+   
+   - tare setting is altered    
+  only one tare shall be in operation at any given time    
+  while tare or preset tare is in operation recalling of gross 
+values is prohibited 
+   
+4.13.3.1  Non-automatic tare:  
+  displacement of 5 mm at most e    
+4.13.3.2  Semi-automatic tare: 
+  reduction of value of tare not permitted and    
+  canceling of tare effect only if no load on the receptor    
+  One of the following condition fulfilled: 
+  tare value indicated permanently in a separate display    
+ 
+ 
+                                                           
+1 Checked by verifying the compli ance with documents or by simulating faults; this check does not duplicate the disturbance tests 
+12.1-12.7. 
+
+===== [PDF PAGE 58] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+58 
+ 
+Requirement Testing 
+procedures  
+PASSED 
+FAILED 
+Remarks 
+  indicated with sign “–” when no load on the receptor    
+  tare effect cancelled automatically when unloading after net 
+weighing 
+   
+4.13.3.3  Automatic tare: 
+  not allowed    
+4.13.4  Preset tare:  
+  indicated on separate display clearly differentiated from 
+weight display 
+   
+  reduction of tare value not permitted and    
+  canceling of tare effect only if no load on the receptor    
+  impossible to operate if tare device in operation    
+  cancelled at the same time as PLU if associated with PLU    
+4.13.11  Self-service instruments: with one set of scales or displays  
+  
+  two sets of scales or displays  
+  
+  instrument has two sets of scales or displays    
+  Primary indications shall include the product designation if a 
+ticket is printed 
+   
+Price computing instruments and price scales 
+(direct sales to the public) 
+4.14  Requirements of 4.13 for direct sales to the public are met    
+4.14.1  Supplementary prim ary indications (4.13.6) 
+  unit price    
+  price to pay    
+  if applicable number, unit price and price to pay for non-
+weighed articles, price totals 
+   
+Price scales: 
+4.2 and 4.3.1-4.3.3    
+4.14.2 
+4.2 
+4.3.1-4.3.3 
+ 
+error of price scale |W × U – P| ≤ e × U    
+4.14.3  Price computing:  
+  multiplication of indicated weight and unit price as indicated    
+  rounding to the nearest interval of price to pay    
+  unit price: price/100 g or price/kg    
+  Indications of weights, unit price and price to pay visible:  
+  while load on load receptor and for at least 1 s after stable 
+weight indication or after any introduction of unit price 
+   
+  freezing for ≤ 3 s after removing load and not possible to 
+introduce or change unit price (if indication has been stable 
+before and would otherwise be zero) 
+   
+  printing weight, unit price and price to pay    
+  Stored in memory:  
+  before printing    
+  same data not to be printed twice for customer    
+4.14.4  Additional  functions for trade and management: 
+  all transactions are printed for customer     
+  they shall not lead to confusion    
+4.14.4.1  Prices-to-pay (positive or negative) of non-weighed articles:  
+  weight indication zero or    
+  weighing mode inoperative    
+  prices shall be shown on price-to-pay display    
+  Prices for more than one equal articles:  
+  number of articles shown on weight display without being 
+taken for a weight 
+   
+  price for one article shown on unit price display    
+ 
+
+===== [PDF PAGE 59] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+59 
+ 
+Requirement Testing 
+procedures  
+PASSED 
+FAILED 
+Remarks 
+  supplementary display for number of articles and/or article 
+prices 
+   
+4.14.4.2  Totalization of transactions on one or several tickets:  
+  price total indicated on price-to-pay display and    
+  printed accompanied by a special word or symbol and    
+  reference to commodities whose prices are totalized if a 
+separate ticket is issued for total 
+   
+  all prices-to-pay shall be printed and price total shall be the 
+algebraic sum of these printed prices 
+   
+  Totalization of transactio ns from linked instruments: 
+  price-to-pay scale intervals of all connected instruments 
+identical 
+   
+4.14.4.3  Instrument used by several vend ors or to serve more than one customer  
+at the same time: 
+  connection between transactions and vendor or customer 
+identified 
+   
+4.14.4.4  Canceling previous transactions:  
+  transaction is already printed: the price-to-pay cancelled shall 
+be printed with comment  
+   
+  transaction not yet printed and displayed to customer: 
+transaction clearly differentiated from normal transactions 
+   
+4.14.4.5  Printing additional information:  
+  clearly correlated to transaction and    
+  does not interfere with assignment of weight value to unit 
+symbol 
+   
+  Price labeling instruments     
+4.16  requirements 4.13.8, 4.14.3 (paragraphs 1 and 5), 4.14.4.1 
+(paragraph 1) and 4.14.4.5 are met 
+   
+  Display:  
+  for weight    
+  possibility to verify values of unit price and preset tare during 
+the use of the instrument 
+   
+  Printing:  
+  prevention of printing below Min    
+  labels with fixed values of weight, unit price and price-to-pay 
+allowed provided weighing mode is inoperative 
+   
+  Mobile instruments used outside 
+4.18.1  means to indicate that the limiting value of tilting has been 
+exceeded and to inhibit printout and data transmission 
+   
+  automatic zero-setting or tare balancing operation after each 
+moving of the vehicle 
+   
+  Weighing window Existent 
+     Non-existent 
+  
+  indication when instrument is not in the weighing window 
+and the printout and data transmission is inhibited 
+   
+  equipped with an appropriate protection system if the load 
+measuring device is sensitive to moving or driving influences 
+   
+  prevention of wrong weighing results if the cardanic 
+suspension system or load receptor comes into contact with 
+the surrounding frame construction 
+   
+4.18.2  Other mobile instrume nts not to be used outside 
+with a leveling device and a level indicator 
+  the leveling device shall be operated easily without tools    
+  appropriate inscription pointing the user to the necessity of 
+leveling after each movement 
+   
+
+===== [PDF PAGE 60] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+60 
+ 
+17.3 Electronic weighing instruments 
+ 
+Requirement Testing 
+procedures 
+ 
+PASSED 
+FAILED 
+Remarks 
+  Disturbances     
+5.1.1  indication of significant faults in the display does not lead to 
+confusion with other messages 
+   
+5.2  Acting upon significant faults in case 5.1.1 b): 
+  instrument made automatically inoperative1, or    
+  visual or audible indication until user takes action or fault 
+disappears1 
+   
+  Display check     
+5.3.1  Upon switch-on:  
+  signs of indication are active and non-active long enough to 
+be checked by operator 
+   
+  External equipment     
+5.3.6  Interfaces (mechanical, el ectrical, logical) do not allow: 
+   functions and measurement data to be inadmissibly 
+influenced by peripheral devices, or other connected 
+instruments, or disturbances 
+   
+5.3.6.1   displaying data which could be mistaken for a weighing 
+result 
+   
+   falsifying weighing results (displayed, processed, stored)    
+   changing adjustment factor or adjusting the instrument 
+(except authorized cases) 
+   
+   falsifying displayed primary indications (direct sales)    
+5.3.6.2  interfaces that do not fulfill 5.3.6.1 can be secured    
+5.3.6.3  interfaces transmit data so that peripheral device can meet 
+requirements 
+   
+5.3.6  metrologically relevant functions performed or initiated 
+through the interface meet relevant requirements of R 76-1 
+   
+                                                           
+1 Checked by verifying the compliance with documents or by simulating faults; this check does not duplicate the 
+disturbance tests 12.1-12.7. 
+
+===== [PDF PAGE 61] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+61 
+ 
+17.4 Software-controlled digital devices and instruments 
+Requirement Testing 
+procedures 
+ 
+PASSED 
+FAILED 
+Remarks 
+Devices with embedded software Existent 
+     Non-existent 
+  
+5.5.1 G.1 declaration of the manufacturer that the software: 
+ is used in a fixed hardware and software environment, 
+and 
+   
+   cannot be modified or uploaded by any means after 
+securing/ verification 
+   
+  the software documentation contains: 
+ description of the legally relevant functions 
+   
+   description of the securing means (evidence of an 
+intervention) 
+   
+   software identification    
+   description how to check the actual software 
+identification 
+   
+  the software identification is: 
+ clearly assigned to the legally relevant software and 
+functions 
+   
+   provided by the instrument as documented    
+Personal computers, instruments with PC components, and other instruments, devices, modules, 
+and elements with programmable or loadable legally relevant software Existent 
+     Non-existent 
+  
+5.5.2.2 d G.2.1 the legally relevant software is: 
+ documented with all relevant information 
+   
+5.5.2.2 a   protected against accidental or intentional changes    
+5.5.2.2 a  evidence of intervention is available until the next 
+verification / inspection 
+   
+5.5.2.2 G.2.2.1 Operation system / pr ograms not accessible for the user    
+description of all commands via keys or interfaces      
+declaration of completeness of commands    
+5.5.2.2 G.2.2.2 Operating system / programs accessible for the user    
+     checksum or signature generated over the machine code of 
+the legally relevant software    
+  legally relevant software cannot be started if the code is 
+falsified 
+   
+ G.2.2.3 In addition to the cases G.2.2.1 or G.2.2.2    
+device-specific parameters sufficiently protected      
+audit trail for the protection of the parameters and description    
+  some practical spot checks performed     
+5.5.2.2 b G.2.3 Software interfaces    
+  if there is associated software providing other than measuring 
+functions, the legally relevant software part: 
+ is separated from associated software 
+   
+   identified    
+   cannot be influenced by the associated software    
+program modules of legally relevant software are defined and 
+separated from the modules of associated software by a 
+defined protective software interface  
+     
+protective software interface itself is part of the legally 
+relevant software 
+   
+description and definition of functions of the legally relevant 
+software that can be released via the protective software 
+interface 
+     
+description and definition of parameters that may be 
+exchanged via the protective software interface 
+   
+
+===== [PDF PAGE 62] OIML_R76-2_2007_report_format =====
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+62 
+ 
+Requirement Testing 
+procedures 
+ 
+PASSED 
+FAILED 
+Remarks 
+description of the functions and parameters conclusive and 
+complete 
+     
+each documented function and parameter does not contradict 
+with the requirements of this Recommendation 
+   
+  appropriate instructions fo r the application programmer 
+concerning the protectiveness of the software interface 
+   
+5.5.2.2 c G.2.4 Software identification    
+  the legally relevant software is identified by a software 
+identification 
+   
+the software identification: 
+ covers all program modules of the legally relevant 
+software and the type-specific parameters at runtime of 
+the instrument 
+     
+ is easily provided by the instrument    
+   can be compared with the reference identification fixed at 
+type approval 
+   
+  spot checks whether the checksums (signatures) are 
+generated and work as documented 
+   
+  there exists an eff ective audit trail    
+Data storage devices (DSD) Existent 
+     Non-existent 
+  
+5.5.3 G.3.1 DSD realized with embedded software (examine software acc. to G.1) Yes 
+     No 
+  
+  DSD realized with programmable/loadable software 
+(examine software acc. to G.1) Yes 
+     No 
+  
+  documentation with all relevant information    
+5.5.3.1 G.3.2 sufficient storage capacity for the intended purpose    
+  data are stored and given back correctly    
+  sufficient description of measures to prevent data loss    
+5.5.3.2 G.3.3 storage of all relevant information necessary to reconstruct an 
+earlier weighing, i.e. gross, net, tare values, decimal signs, 
+units, identifications of the data set, instrument number, load 
+receptor, (if applicable), checksum / signature of the data set 
+stored 
+   
+5.5.3.3 G.3.4 protection of the stored legally relevant data against 
+accidental or intentional changes 
+   
+  protection of the stored legally relevant data at least with a 
+parity check during transmission to the storage device 
+   
+  protection of the stored legally relevant data at least with a 
+parity check of a storage device with embedded software 
+(5.5.1) 
+   
+  protection of the stored legally relevant data by an adequate 
+checksum or of a storage device with programmable or 
+loadable software (5.5.2) 
+   
+identification and indication of the stored legally relevant 
+data with an identification number 
+   5.5.3.4 G.3.5 
+record of the identification number on the official transaction 
+medium, i.e. on the print-out 
+   
+5.5.3.5 G.3.6 automatic storage of the legally relevant data    
+5.5.3.6 G.3.7 a device subject to legal control prints or displays the stored 
+legally relevant data for verifying 
+   
+ 

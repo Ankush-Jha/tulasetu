@@ -1,0 +1,2253 @@
+
+
+===== [PDF PAGE 1] R76_Part4_type_evaluation_report_CD =====
+INTERNATIONAL OIML R 76-4 
+RECOMMENDATION Edition 202x (E) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Non-automatic weighing instruments 
+Part 4: Type evaluation report format 
+ 
+ 
+Instruments de pesage à fonctionnement non automatique 
+Partie 4: Format du rapport d'évaluation de type 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+OIML R 76-4 Edition 202x (E) 
+ 
+ 
+ 
+ 
+ 
+ ORGANISATION INTERNATIONALE 
+DE METROLOGIE LEGALE 
+ 
+INTERNATIONAL ORGANIZATION 
+OF LEGAL METROLOGY 
+ 
+
+
+===== [PDF PAGE 2] R76_Part4_type_evaluation_report_CD =====
+  
+
+===== [PDF PAGE 3] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038 OIML R 76-4:202x (E) – 1.1CD 
+ 
+3 
+Contents 
+Foreword............................................................................................................................................................ 4 
+Introduction ....................................................................................................................................................... 5 
+Explanatory notes .............................................................................................................................................. 6 
+Identification of the instrument ......................................................................................................................... 7 
+General information concerning the type ........................................................................................................ 10 
+Configuration for type evaluation .................................................................................................................1213 
+Selection of sample(s) ..................................................................................................................................1314 
+Summary of test report(s) .............................................................................................................................1516 
+Summary of appraisal of test data (where applicable) ..................................................................................1617 
+Summary of the checklist .............................................................................................................................1718 
+Checklist .......................................................................................................................................................1920 
+All types of weighing instruments except non-self-indicating instruments (R 76-1, 8.1 - 8.9) .........2021 
+Instruments for direct sales to the public and price computing and labeling instruments ..................2728 
+Electronic weighing instruments ........................................................................................................3132 
+Software-controlled digital devices and instruments .........................................................................3233 
+ 
+  
+Commented [A1]: To be reviewed and updated later 
+
+===== [PDF PAGE 4] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+ 
+4 
+ 
+Foreword 
+ 
+The International Organization of Legal Metrology (OIML) is a worldwide, intergovernmental organization 
+whose primary aim is to harmonize the regulations and metrological controls applied by the national 
+metrological services, or related organizations, of its Member States. The main categories of OIML 
+publications are: 
+▪ International Recommendations (OIML R), which are model regulat ions that establish the 
+metrological characteristics required of certain measuring instruments and which specify methods and 
+equipment for checking their conformity. OIML Member States shall implement these 
+Recommendations to the greatest possible extent; 
+▪ International Documents (OIML D), which are informative in nature and which are intended to 
+harmonize and improve work in the field of legal metrology; 
+▪ International Guides (OIML G), which are also informative in nature and which are intended to give 
+guidelines for the application of certain requirements to legal metrology; and 
+▪ International Basic Publications (OIML B), which define the operating rules of the various OIML 
+structures and systems. 
+OIML Draft Recommendations, Documents and Guides are developed by Project Groups linked to Technical 
+Committees or Subcommittees which comprise representatives from the Member States. Certain international 
+and regional institutions also participate on a consultation basis. Cooperative agreements have been established 
+between the OIML and certain institutions, such as ISO and the IEC, with the objective of avoiding 
+contradictory requirements. Consequently, manufacturers and users of measuring instruments, test 
+laboratories, etc. may simultaneously apply OIML publications and those of other institutions. 
+International Recommendations, Documents, Guides and Basic Publications are published in English (E) and 
+translated into French (F) and are subject to periodic revision. 
+Additionally, the OIML publishes or participates i n the publication of Vocabularies (OIML V) and 
+periodically commissions legal metrology experts to write Expert Reports (OIML E) . Expert Reports are 
+intended to provide information and advice, and are written solely from the viewpoint of their author, without 
+the involvement of a Technical Committee or Subcommittee, nor that of the CIML. Thus, they do not 
+necessarily represent the views of the OIML. 
+This publication - reference OIML R 76-4, Edition 202x - was developed by Project Group  2 of OIML 
+TC 9/SC 1 Non-automatic weighing instruments . It was approved for final publication by the International 
+Committee of Legal Metrology in 20xx and supersedes the previous edition of R 76-2 (2007). 
+OIML Publications may be downloaded from the OIML web site in the form  of PDF files. Additional 
+information on OIML Publications may be obtained from the Organization’s headquarters: 
+Bureau International de Métrologie Légale 
+11, rue Turgot - 75009 Paris - France 
+Telephone: 33 (0)1 48 78 12 82 
+Fax: 33 (0)1 42 82 17 27 
+E-mail: biml@oiml.org 
+Internet: www.oiml.org 
+  
+
+===== [PDF PAGE 5] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038 OIML R 76-4:202x (E) – 1.1CD 
+ 
+5 
+ 
+Introduction 
+ 
+The “Type evaluation report format”, the subject of OIML R 76-4, aims at presenting, in a standardized format, 
+the results of the evaluation to which a type of non-automatic weighing instrument shall be submitted with a 
+view to its approval. 
+ 
+The “Checklist” is a summary of the evaluation and examinations carried out on the instrument. It includes the 
+conclusions of the results of the tests performed, experimental or visual checks based on the  required 
+performance criteria and associated tests in OIML R 76-1 and -2. The words or condensed sentences intend to 
+remind the examiner of the requirements of R 76-1 and -2 without reproducing them. 
+ 
+All metrology services evaluating types of non-automatic weighing instruments according to OIML R 76-1 
+and -2 or to national or regional regulations based on OIML R 76-1 and -2 are strongly advised to use this 
+“Type evaluation report format”, directly or after translation into a language other than English or French. Its 
+direct use in English or in French, or in b oth languages, is even more strongly recommended whenever t he 
+results of type evaluation may be transmitted by the country performing these evaluations to the approving 
+authorities of another country, under bi - or multi-lateral cooperation agreements. In t he framework of the 
+OIML Certification System (OIML-CS), use of the “Type evaluation report format” is mandatory. 
+
+===== [PDF PAGE 6] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+ 
+6 
+Type evaluation report 
+Explanatory notes 
+ 
+ 
+Meaning of symbols: 
+ 
+I = Indication 
+In = nth indication 
+L = Load 
+L = Additional load to next changeover point 
+P = I + ½ e – L = Indication prior to rounding (digital indication) 
+E = I – L    or    = P – L    or    = I + ½ e – L – L   = Error 
+Ec = Corrected error 
+mpe = Maximum permissible error (absolute value) 
+EUT = Equipment under test 
+ 
+The name(s) or symbol(s) of the unit(s) used to express test results shall be specified in each form. 
+ 
+ 
+For each test, the “SUMMARY OF TYPE EVALUATION” and the 
+“CHECKLIST” shall be completed according to this example: 
+PASSED 
+FAILED 
+when the instrument has passed the test: X  
+when the instrument has failed the test:  X 
+when the test is not applicable: – – 
+  
+
+===== [PDF PAGE 7] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+7 
+Identification of the instrument 
+ 
+Application no.:  Type designation:  
+Identification no.:  Manufacturer:  
+Software version:    
+Report date:    
+ 
+ 
+Documentation from the manufacturer 
+ 
+(Record as necessary to identify the equipment under evaluation) 
+ 
+System or module name  Drawing number or software reference  Issue level  Serial no. 
+       
+       
+       
+       
+       
+       
+       
+       
+ 
+Simulator documentation (if applicable) 
+ 
+System or module name  Drawing number or software reference  Issue level  Serial no. 
+       
+       
+       
+       
+       
+       
+       
+       
+ 
+
+===== [PDF PAGE 8] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+8 
+Identification of the instrument (continued) 
+ 
+Application no.:  Type designation:  
+Identification no.:  Manufacturer:  
+Software version:    
+Report date:    
+ 
+ 
+Simulator function (summary) (if applicable) 
+ 
+(Simulator description and drawings, block diagram, etc. should be attached to the report if available) 
+
+===== [PDF PAGE 9] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+9 
+Identification of the instrument (continued) 
+ 
+Application no.:  Type designation:  
+Identification no.:  Manufacturer:  
+Software version:    
+Report date:    
+ 
+ 
+Description or other information pertaining to identification of the instrument: 
+(attach photograph here if available) 
+
+===== [PDF PAGE 10] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+10 
+General information concerning the type 
+ 
+Application no.:  Manufacturer:  
+Type designation:  Applicant:  
+Instrument category:    
+ 
+ Complete instrument  Module1 with error fraction pi =  
+ 
+Accuracy class2:         
+ 
+ Self-indicating  Semi-self-indicating  Non-self-indicating 
+ 
+Min =        
+        e =  Max =  d =  n =  
+        e1 =  Max1 =  d1 =  n1 =  
+e2 =  Max2 =  d2 =  n2 =  
+e3 =  Max3 =  d3 =  n3 =  
+ 
+T = +  T = –  
+ 
+Unom =  V Umin =  V Umax =  V f =  Hz Battery, Unom =  V 
+ 
+Zero-setting device: Tare device:   
+       Non-automatic  Tare balancing  Combined zero/tare device 
+       Semi-automatic  Tare weighing   
+       Automatic zero-setting  Preset tare device   
+       Initial zero-setting  Subtractive tare   
+       Zero-tracking  Additive tare   
+ 
+Initial zero-setting range =  % of Max Temperature range:  °C 
+ 
+Printer:  Built-in  Connected  Not present  No connection 
+      but connectable   
+ 
+Instrument submitted: ………………………… Load cell: ………………………… 
+Identification no.: ………………………… Manufacturer: ………………………… 
+Software version: ………………………… Type: ………………………… 
+Connected equipment: ………………………… Capacity: ………………………… 
+ ………………………… Number: ………………………… 
+Interfaces (number, nature): ………………………… Classification symbol: ………………………… 
+ ………………………… 
+ ………………………… Remarks: ………………………… 
+Evaluation period: ………………………… ………………………… 
+Date of report: ………………………… ………………………… 
+Observer: ………………………… ………………………… 
+ 
+ 
+1 The test equipment (simulator or a part of a complete instrument) connected to the module shall be defined in the 
+test form(s) used. 
+2 Please note that the class denominations used hereafter in this Recommendation do not include the oval around the 
+number for improved clarity of the Type Evaluation Report Format’s text. 
+
+
+===== [PDF PAGE 11] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+11 
+General information concerning the type (continued) 
+ 
+Application no.:  Manufacturer:  
+Type designation:  Applicant:  
+Instrument category:    
+ 
+ 
+ Complete instrument  Module3 with error fraction pi =  
+ 
+Use this space to indicate additional remarks and/or information: connecting equipment, interfaces and load cells, 
+choice of the manufacturer regarding protection against disturbances  (6.1.3 a) or 6.1.3 b) of R 76-1), etc. 
+  
+ 
+3 The test equipment (simulator or a part of a complete instrument) connected to the module shall be defined in the 
+test form(s) used. 
+
+===== [PDF PAGE 12] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+12 
+Configuration for type evaluation 
+ 
+Application no.:   Type designation:  
+Report date:   Manufacturer:  
+ 
+ 
+Use this space for additional information relating to equipment configuration, interfaces, data rates, load cells, EMC 
+protection options etc., for the instrument and/or simulator.  
+
+===== [PDF PAGE 13] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+13 
+Selection of sample(s) 
+ 
+Application no.:   Type designation:  
+Report date:   Manufacturer:  
+ 
+ 
+Use this space for additional information relating to the justification for the selection of sample(s), in particular in case 
+of a family of instruments or modules or if specific requirements are mentioned in OIML R 76-1 and -2. 
+
+===== [PDF PAGE 14] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+14 
+Adjustments or modifications 
+ 
+Application no.:   Type designation:  
+Report date:   Manufacturer:  
+ 
+ 
+Use this space for additional information relating to the identification of any authorized and agreed upon adjustments or 
+modifications made to the sample or samples during the evaluation.  
+ 
+  
+
+===== [PDF PAGE 15] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+15 
+Summary of test report(s) 
+ 
+Use the table below to summarize the test report(s) used to support the type evaluation: 
+ 
+Test Report Number Issued by Remarks* 
+ 
+ 
+  
+ 
+ 
+  
+ 
+ 
+  
+ 
+ 
+  
+ 
+ 
+  
+ 
+ 
+  
+ 
+ 
+  
+ 
+* Use this column to record if the test report was issued: 
+• under the OIML Basic Certificate System, the OIML Mutual Acceptance Arrangement (MAA) or the OIML 
+Certification System Scheme A or B. Where the test report was used as the basis for issuing an existing OIML 
+certificate, the relevant OIML Certificate Number should be noted; 
+• by a Manufacturer Test Laboratory (MTL);  
+• under the scope of ISO/IEC 17025 accreditation. 
+ 
+  
+
+===== [PDF PAGE 16] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+16 
+Summary of appraisal of test data (where applicable) 
+ 
+Use this space to record the appraisal of test data [reference OIML-CS PD-05 and PD-07]: 
+ 
+ 
+  
+
+===== [PDF PAGE 17] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+17 
+Summary of the checklist 
+ 
+For each test, the “Summary of the checklist” below and the “Checklist” in clause 1 shall be completed according to this 
+example: 
+ 
+ Passed Failed 
+When the instrument has passed the test: X  
+When the instrument has failed the test:  X 
+When the test is not applicable: / / 
+ 
+ 
+Summary of the checklist: 
+ 
+Requirement Passed Failed Remarks 
+Metrological requirements 
+ 
+R 76-1 clause 5 
+   
+Technical requirements 
+ 
+R 76-1 clause 6 
+   
+Specific technical requirements and uses 
+ 
+R 76-1 clause 7 
+   
+Technical requirements for non-self-
+indicating instruments 
+ 
+R 76-1 clause 8 
+   
+Marking of instruments and modules  
+ 
+R 76-1 clause 9 
+   
+Metrological controls 
+ 
+R 76-1 clause 10 
+   
+Test procedures 
+ 
+R 76-2 
+   
+Overall result    
+  
+
+===== [PDF PAGE 18] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+18 
+Application no.:   Type designation:  
+Report date:   Manufacturer:  
+ 
+ 
+Use this page to detail remarks from the summary of the checklist 
+  
+
+===== [PDF PAGE 19] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+19 
+Checklist 
+ 
+This checklist has been developed based on the following principles: 
+ 
+• to include requirements that cannot be tested according to tests specified in R 76-2, but that shall be checked 
+experimentally, e.g. the operating range of the tare device (R 76-1, 6.7.4), or visually, e.g. the descriptive 
+markings (R 76-1, 9.1); 
+• to include requirements which indicate prohibitions of some functions, e.g. automatic tare device for instruments 
+for direct sales to the public (R 76-1, 7.1.3.3); 
+• to include neither general requirements, e.g. suitability for use (R 76-1, 6.1.1), nor weights and verification 
+devices, e.g. auxiliary verification devices (R 76-1, 6.10); 
+• not to include requirements that allow functions or devices to be used, e.g. a combined semi -automatic zero-
+setting and tare device operated by the same key (R 76-1, 6.8.9). 
+ 
+This checklist is intended to serve as a summary of the results of examinations t o be performed and not as a procedure.  
+ 
+The items on this checklist are provided to recall the requirements specified in R 76 -1 and R 76-2, and they shall not be 
+considered as a substitution to these requirements. 
+ 
+As for non-self-indicating instruments, clause 8 of R 76 1 shall be followed in lieu of this checklist. 
+ 
+The requirements that are not included in this type evaluation report (tests specified in R 76-2) are considered to be 
+globally covered by the type approval or OIML certificate (e.g. classifi cation criteria [R 76-1, 5.2 and 5.3], suitability 
+for application, use and verification [R 76-1, 6.1.1.1, 6.1.1.2 and 6.1.1.3]). 
+ 
+For non-mandatory devices, the checklist provides space to indicate whether or not the device exists and, if appropriate, 
+its type. A cross in the box for “existent” indicates that the device exists and that it complies with the definition given i n 
+the terminology. When indicating that a device is non-existent, also check the boxes to indicate that the tests are not 
+applicable (see page 6). 
+ 
+If appropriate, the results stated in this checklist may be supplemented by remarks given on additional pages.  
+  
+
+===== [PDF PAGE 20] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+20 
+Checklist 
+ 
+Application no.:  Type designation:  
+All types of weighing instruments except non-self-indicating instruments (R 76-1, 8.1 - 8.9) 
+ 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+  Descriptive markings    
+9.1.1 Clause 4 Compulsory in all cases: 
+  manufacturer's mark or name    
+  accuracy class    
+(+5.3.1)  maximum capacity, Max, Max1, Max2,...    
+  minimum capacity, Min    
+(+5.3.1)  verification scale interval, e, e1, e2, ...    
+9.1.2 Clause 4 Compulsory if applicable: 
+  name or mark of manufacturer’s agent    
+  serial number    
+  identification marks on separate but associated units    
+  type approval mark    
+  scale interval, d (d < e)    
+  software identification (if applicable)    
+  maximum tare effect, T (subtractive tare only if T  Max)    
+  maximum safe load, Lim (if Lim > Max +  T)    
+  special temperature limits    
+  counting ratio    
+  ratio between weight platform and load platform    
+  range of plus/minus indication    
+9.1.3 Clause 4 Additional markings: 
+  not to be used for direct sales to the public     
+  to be used exclusively for:    
+  the stamp does not guarantee ..... / guarantees only .....    
+  to be used only as follows:    
+5.2  special applications clearly marked (weighing ranges in 
+classes I and II or II and III) 
+   
+7.3  near display “not to be used for direct sales to the public” 
+(for instruments similar to those used for direct sales to the 
+public) 
+   
+9.1.4 Clause 4 Presentation of markings: 
+  indelible    
+  easily readable    
+  grouped together in a clearly visible place    
+  Max, Min, e and d (if d  e) on or near display permanently 
+shown in a clearly visible position 
+   
+  possible to seal and apply a control mark/removal will result 
+in destruction 
+   
+  markings B and G    
+9.1.4 and 
+9.1.1 B, 
+9.1.2 G 
+ additional information shown alternatively on a plate or 
+displayed by a software solution either permanently or 
+accessed by a simple manual command 
+   
+9.1.5.1 Clause 4 Instruments with several load receptors and load measuring devices:  
+  identification mark, Max, Min and e of each load receptor 
+on relating load measuring device (Lim and T = + if 
+applicable) 
+   
+
+===== [PDF PAGE 21] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+21 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+9.1.5.2 Clause 4 Separately-built main parts: 
+  identification mark repeated in descriptive markings    
+6.1.1.3  Suitability for verification: 
+  identification of devices which have been subject to separate 
+type examination 
+   
+  Verification marks and sealing    
+9.2 Clause 4 Verification mark: 
+  cannot be removed     
+  easy application    
+  visibility without the instrument to be moved when it is in 
+service 
+   
+9.2  Verification mark support or space: 
+  which ensures conservation of the mark    
+  for stamp, stamping area  150 mm2    
+  for self-adhesive type, ø  15 mm    
+6.1.2.4 Clause 4 Securing of components and preset controls: 
+  location    
+  form    
+6.1.2.4   Securing with software means  
+6.1.2.4 a  legal status of the instrument recognizable     
+  evidence of any intervention     
+6.1.2.4 b  protection against changes of parameters and the reference 
+numbers 
+   
+6.1.2.4 c  facilities for affixing the reference number    
+6.1.2.5  Span adjustment device (automatic or semi-automatic): Existent     Non-existent  
+  external influence impossible after securing    
+6.1.2.6  Gravity compensation: Existent     Non-existent  
+  external influence on or access to impossible after securing    
+  Documentation    
+10.2.1 Clause 2 Technical information and data: 
+10.2.1.1,   characteristics of the instrument    
+5.9.2  specifications of modules    
+5.9.2.1  fractions, pi (modules tested separately)    
+5.9.4  specifications of families    
+  specifications of components    
+10.2.1.2  applicable descriptive documents (according to nos. 1-11)    
+6.1.5 Clause 2 specific declaration of the manufacturer    5.8.1.1  limiting value of tilting defined by the manufacturer   
+10.2.2 Clause 3 Examination of: 
+  documents   
+   functions (spot checks)   
+  test reports from other authorities   
+  Indicating device    
+6.4.1  Reading: 
+  reliable, easy and unambiguous    
+  overall inaccuracy   0.2 e (analog indication)    
+  size, shape and clarity    
+  by simple juxtaposition    
+6.4.2.1 Clause 4 Units of: 
+  mass    
+  price    
+
+
+===== [PDF PAGE 22] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+22 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+6.4.2.1  Form of indication: 
+  for one indication, one unit of mass    
+  scale interval in the form (1, 2 or 5) × 10 k    
+  same scale interval for all indicating devices, printing 
+devices and tare weighing devices 
+   
+6.4.2.2  Form of digital indication: 
+  at least one figure at right    
+  Decimal sign: 
+  shall maintain its position (scale interval changed 
+automatically) 
+   
+  separate at least one figure to the left and all to the right    
+  on one line with the bottom of the figures    
+  Zero: 
+  only one non-significant zero to the right     
+  for values with decimal sign, non-significant zero only in 
+third position 
+   
+6.4.3  Limits: 
+  preventing of indication above Max + 9 e    
+  preventing of indication below zero unless a tare device is in 
+operation (–20 d is accepted) 
+   
+6.4.4  “Approximate” displaying device: Existent      Non-existent  
+  scale interval > Max/100 without being smaller than 20 e    
+6.4.5  Semi-self indicating instruments: 
+  extension of self-indication range  self-indication capacity    
+  Analogue indication: 
+6.5.1  thickness and length of scale marks    
+6.5.2  scale spacing    
+6.5.3  limit of movement below zero and above capacity of self-
+indication 
+   
+6.5.4  damping of oscillations of displaying component    
+6.6.1  Changing of digital indication: 
+  after change in load, previous indication not longer than 1 s    
+6.6.2  Stable equilibrium of digital indication: 
+  printed or stored weight values do not deviate more than 1 e 
+from the final weight value  
+   
+  zero or tare operations are within their accuracy 
+requirements 
+   
+  no printing, data storage, zero-setting, or taring during 
+continuous or temporary disturbance of equilibrium 
+   
+6.6.3  Extended digital indication: Existent      Non-existent  
+  not allowed when there is a differentiated scale division    
+  displaying a smaller scale interval only during pressing a 
+key 
+   
+  at most, 5 s after manual command    
+  prevention of printing while the device is in operation    
+ 
+  
+
+
+===== [PDF PAGE 23] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+23 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+6.6.4  Digital indications other than primary indications: Existent      Non-existent  
+  additional indications do not lead to any ambiguity to 
+primary indications 
+   
+  quantities identified by units, symbols, signs or designations 
+thereof 
+   
+  weight values (not weighed) shall be clearly identified or    
+  display only temporarily on manual command and    
+  shall not be printed    
+  the inoperative weighing mode is clear and unambiguously 
+recognizable 
+   
+6.6.5  Digital printing: Existent      Non-existent  
+  clear and permanent    
+  figures  2 mm high    
+  name or symbol of units to the right of the value    
+   above column of values    
+  printing impossible when equilibrium not stable    
+6.6.6  Memory storage: Existent      Non-existent  
+  storage, transfer, totalizing, etc. inhibited when equilibrium 
+not stable 
+   
+5.4.1  Auxiliary indicating device (Classes I and II only; 
+not allowed on multi-interval instruments) 
+Existent     Non-existent  
+  If existent, type: rider  interpolation  complementary  differentiated scale division  
+  only to the right of decimal sign    
+5.4.2  d < e  10 d, e = 10k kg or e = 1 mg for class I with d < 1 mg    
+  Differences between results    
+5.5.6  Differences: 
+  between multiple indications:  mpe    
+  between digital indications and printout: zero    
+5.5.7  between two results:  mpe for same load when method of 
+balancing changed (semi-self-indicating) 
+   
+5.8.1.1  Tilting of instrument of class II, III or IIII 
+  a marking on the level indicator shows the limiting value of 
+tilting 
+   
+  level indicator fixed firmly in a place clearly visible to the 
+user 
+   
+  an automatic tilt sensor releases a display switch-off or other 
+appropriate alarm signal 
+   
+  and inhibits the printout and data transmission    
+  Zero-setting, -tracking and -indicating Existent       Non-existent 
+  Initial zero-setting                              
+  Automatic zero-setting                             
+  Semi-automatic zero-setting                             
+  Non automatic zero-setting                              
+  Zero-tracking                              
+  Zero-indicating                              
+6.7.1  Effect shall not alter Max    
+ 5.2.1 Overall effect of: zero-setting   =           %   zero-tracking   
+  initial zero-setting   =           % 
+ 
+
+
+===== [PDF PAGE 24] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+24 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+6.7.2 5.2.3 Accuracy: 
+  deviation  0.25 e    
+6.7.3  Multiple range: Existent      Non-existent  
+  effective for greater weighing range (if switching when 
+loaded possible) 
+   
+6.7.4  Control of zero-setting: 
+  separate from that of tare weighing device    
+  Semi-automatic zero-setting: functions only 
+  in stable equilibrium and    
+  if it cancels any previous tare operation    
+ 
+6.7.5 5.2.2 Zero-indicating device (digital indication): 
+  shows deviation  0.25 e    
+  not mandatory if auxiliary indicating device or rate of zero-
+tracking  0.25 d/s 
+   
+6.7.6  Automatic zero-setting: 
+  operates only when equilibrium stable and    
+  indication has remained stable below zero at least 5 seconds    
+6.7.7  Zero-tracking: 
+  operates only when indication at zero or    
+  at negative net value equivalent to gross zero and    
+  equilibrium stable    
+  corrections  0.5 d/s    
+  when operates after tare, the overall effect may be 4 % of 
+Max 
+   
+  Tare devices Existent           Non-existent 
+  Tare weighing   
+  Tare balancing   
+  Combined zero-setting and tare balancing   
+  Tare indicating   
+  Type: Subtractive  Additive  
+6.8.1  applicable requirements from 6.1 through 6.4 are fulfilled    
+6.8.2  Tare weighing device: 
+  dT = d    
+6.8.3 5.6.2 Accuracy: 
+  ±0.25 e (electronic instruments and instruments with analog 
+indication), e = e1 for multi-interval 
+   
+  better than 0.5 d (mechanical instruments with digital 
+indication 
+   
+6.8.4  Operating range:  
+  prevention of operation  at its zero effect    
+  or below its zero effect    
+  prevention of operation above its maximum indicated     
+6.8.5  Visibility of operation: 
+  operation indicated    
+  net with sign “NET”, “Net”, “net” or complete word (digital 
+indication) 
+   
+  NET disappears if gross displayed temporarily    
+  tare value or letter “T” (mechanical additive tare device)    
+ 
+
+
+===== [PDF PAGE 25] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+25 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+6.8.6  Subtractive tare: 
+  prevention of use above Max or indication that capacity is 
+reached 
+   
+6.8.7  Multiple range: 
+  operation effective in greater weighing ranges if switching 
+when loaded possible 
+   
+  tare values are rounded to the scale interval of the actual 
+weighing range which is in operation 
+   
+6.8.8  Semi-automatic or automatic tare: 
+  operation only in stable equilibrium    
+6.8.9  Combined zero/tare: 
+  accuracy (6.7.2)    
+  zero indicating device (6.7.5)    
+  zero-tracking (6.7.7)    
+6.8.10  Consecutive tare operations: 
+  indicated or printed tare weight values clearly designated (if 
+tare devices operative at the same time) 
+   
+6.8.11  Printing net or gross: 
+  without designation    
+  designation: by G or B (gross)    
+   by N (only net printed)    
+  designation of net and tare by N and T (if net printed with 
+gross and/or tare) 
+   
+  instead of G, B, N and T, complete words    
+  printing separately net and tare with identification 
+(determined by different tare devices) 
+   
+  Preset tare Existent    Non-existent   
+6.9.1  dT = d or automatically rounded to d    
+  transferred from one range to another one with larger ei, 
+shall be rounded to the latter (multiple range) 
+   
+  tare value  Max1 for the same net weight value (multi-
+interval) and calculated net value rounded to the scale 
+interval for the same net weight value 
+   
+6.9.2  6.7.10 applies    
+  cannot be modified/cancelled if tare operated after the preset 
+tare is still in use 
+   
+  operates automatically if clearly identified with load    
+6.9.3  6.8.5 applies    
+  possibility to indicate preset tare    
+  if calculated net printed then preset tare value is printed as 
+well 
+   
+  6.7.11 applies     
+  designation of preset tare by PT or complete word    
+  Locking devices Existent     Non-existent  
+6.10.1  Positions: 
+  only two stable positions    
+  weighing only in ‘weigh” position    
+6.10.2  positions clearly shown    
+ 
+ 
+ 
+
+
+===== [PDF PAGE 26] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+26 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+  Multiple ranges Existent     Non-existent  
+6.12  Selection of weighing ranges:    
+  range in operation clearly indicated    
+  selection from smaller to greater range possible at any load 
+(manual) 
+   
+  selection from smaller to the following greater range 
+(automatic) possible only for load  Maxi of smaller range 
+   
+  selection from a greater to a smaller range (manually) or to 
+the smallest range (automatically) only 
+   
+  ▪ at no load when zero or negative net value is indicated    
+  ▪ tare is cancelled automatically    
+  ▪ zero is set to ±0.25 e1 automatically    
+Selection between load receptors, transmitting and measuring devices  Existent     Non-existent  
+6.13, 6.13.1 
+6.13.2 
+6.13.3 
+6.13.4 
+ compensation for unequal no-load effect    
+zero-setting without ambiguity and in accordance with 6.6    
+weighing impossible while selection    
+combinations easy identifiable    
+6.14  “Plus and minus” comparator instruments    
+6.14.1  Distinction of zones: 
+  “+” and “–” signs (analog indication)    
+  by inscription (digital indication)    
+6.14.2  Scale: 
+  with at least one scale division, d = e on either side of zero 
+and 
+   
+  value of d = e shown at either end    
+  Mechanical counting instruments with unit weigh receptor 
+7.5.1  Scale: 
+  with at least one scale division, d = e on either side of zero 
+and 
+   
+  value of d = e shown on the scale    
+7.5.2  Counting ratio: 
+  shown clearly above each counting platform or    
+  each counting scale mark    
+6.15  Modes of operation:  
+  clearly identification of mode which is actually in operation    
+  manual switching back to weighing mode in any mode and 
+at any time possible 
+   
+  automatic selection of mode only within a weighing 
+sequence 
+   
+  automatic switching back to the weighing mode at the end 
+of the weighing sequence 
+   
+  zero indication after returning from switch-off condition    
+  automatic check of zero position before returning from 
+switch-off condition 
+   
+
+
+===== [PDF PAGE 27] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+27 
+Instruments for direct sales to the public and price-computing and labelling instruments 
+ 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+  Miscellaneous checks (direct sales to the public)    
+6.7.4  Combined semi-automatic zero-setting device and semi-automatic tare-balancing 
+device operated by the same key: 
+  not allowed    
+6.10.1  “Preweigh” position: 
+  not allowed    
+7.1.9  Counting ratio: 
+  1/10 or 1/100 (mechanical counting instrument)    
+7.1.4  Impossibility of weighing during: 
+  locking operation    
+  adding or subtracting weights    
+7.1.6  Auxiliary and extended indicating device: 
+  not allowed    
+7.1.8  When significant fault has been detected4 (electronic instruments): 
+  visible or audible alarm provided for customer and   
+   data transmission prevented   
+  until user takes action or cause disappears   
+  Indication device (direct sales to the public)    
+7.1.1, 7.1.5  Primary indications to both vendor and customer: 
+  two display sets, one vendor- and one customer display: Yes     No  
+  one display set for vendor and customer Yes     No  
+  weight    
+  information about correct zero position    
+  tare operation    
+  preset tare operation    
+  height of numerical figures displayed to the customer  
+≥ 9.5 mm 
+   
+  Instruments to be used with weights: 
+  value of weights possible to distinguish    
+  Zero-setting device (direct sales to the public)    
+7.1.2  Non-automatic zero-setting: 
+  only allowed when operated with a tool    
+  Tare device (direct sales to the public)    
+7.1.3  not allowed on mechanical instrument with weights receptor    
+  on instruments with one platform public can see whether: 
+ - tare is in use 
+   
+   - tare setting is 
+altered 
+   
+  only one tare shall be in operation at any given time    
+  while tare or preset tare is in operation recalling of gross 
+values is prohibited 
+   
+ 
+ 
+4 Checked by verifying the compliance with documents or by simulating faults; this check does not duplicate the 
+disturbance tests 8.3.1-8.3.7 specified in R 76-2. 
+
+
+===== [PDF PAGE 28] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+28 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+7.1.3.1  Non-automatic tare: 
+  displacement of 5 mm at most e    
+7.1.3.2  Semi-automatic tare: 
+  reduction of value of tare not permitted and    
+  canceling of tare effect only if no load on the receptor    
+  One of the following condition fulfilled: 
+  tare value indicated permanently in a separate display    
+  indicated with sign “–” when no load on the receptor    
+  tare effect cancelled automatically when unloading after net 
+weighing 
+   
+7.1.3.3  Automatic tare: 
+  not allowed    
+7.1.3.4  Preset tare: 
+  indicated on separate display clearly differentiated from 
+weight display 
+   
+  reduction of tare value not permitted and    
+  canceling of tare effect only if no load on the receptor    
+  impossible to operate if tare device in operation    
+  cancelled at the same time as PLU if associated with PLU    
+7.1.10  Self-service instruments: with one set of scales or displays   
+  two sets of scales or displays   
+  instrument has two sets of scales or displays    
+  Primary indications shall include the product designation if 
+a ticket is printed 
+   
+Price computing instruments and price scales 
+(direct sales to the public) 
+7.2  Requirements of 7.1 for direct sales to the public are met    
+7.2.1  Supplementary primary indications (7.1.5) 
+  unit price    
+  price to pay    
+  if applicable number, unit price and price to pay for non-
+weighed articles, price totals 
+   
+7.2.2 
+6.3 
+6.4.1-6.4.3 
+ Price scales: 
+6.3 and 6.4.1-6.4.3    
+error of price scale W  U – P  e  U    
+7.2.3  Price computing: 
+  multiplication of indicated weight and unit price as 
+indicated 
+   
+  rounding to the nearest interval of price to pay    
+  unit price: price/100 g or price/kg    
+  Indications of weights, unit price and price to pay visible: 
+  while load on load receptor and for at least 1 s after stable 
+weight indication or after any introduction of unit price 
+   
+  freezing for  3 s after removing load and not possible to 
+introduce or change unit price (if indication has been stable 
+before and would otherwise be zero) 
+   
+  printing weight, unit price and price to pay    
+  Stored in memory: 
+  before printing    
+  same data not to be printed twice for customer    
+ 
+ 
+
+
+===== [PDF PAGE 29] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+29 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+7.2.4  Additional functions for trade and management: 
+  all transactions are printed for customer     
+  they shall not lead to confusion    
+7.2.4.1  Prices-to-pay (positive or negative) of non-weighed articles: 
+  weight indication zero or    
+  weighing mode inoperative    
+  prices shall be shown on price-to-pay display    
+  Prices for more than one equal articles: 
+  number of articles shown on weight display without being 
+taken for a weight 
+   
+  price for one article shown on unit price display    
+  supplementary display for number of articles and/or article 
+prices 
+   
+7.2.4.2  Totalization of transactions on one or several tickets: 
+  price total indicated on price-to-pay display and    
+  printed accompanied by a special word or symbol and    
+  reference to commodities whose prices are totalized if a 
+separate ticket is issued for total 
+   
+  all prices-to-pay shall be printed and price total shall be the 
+algebraic sum of these printed prices 
+   
+  Totalization of transactions from linked instruments: 
+  price-to-pay scale intervals of all connected instruments 
+identical 
+   
+7.2.4.3  Instrument used by several vendors or to serve more than one customer  
+at the same time: 
+  connection between transactions and vendor or customer 
+identified 
+   
+7.2.4.4  Canceling previous transactions: 
+  transaction is already printed: the price-to-pay cancelled 
+shall be printed with comment  
+   
+  transaction not yet printed and displayed to customer: 
+transaction clearly differentiated from normal transactions 
+   
+7.2.4.5  Printing additional information: 
+  clearly correlated to transaction and    
+  does not interfere with assignment of weight value to unit 
+symbol 
+   
+  Price labeling instruments    
+7.4  requirements 7.1.8, 7.2.3 (paragraphs 1 and 5), 7.2.4.1 
+(paragraph 1) and 7.2.4.5 are met 
+   
+  Display: 
+  for weight    
+  possibility to verify values of unit price and preset tare 
+during the use of the instrument 
+   
+  Printing: 
+  prevention of printing below Min    
+  labels with fixed values of weight, unit price and price-to-
+pay allowed provided weighing mode is inoperative 
+   
+ 
+ 
+ 
+ 
+
+===== [PDF PAGE 30] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+30 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+  Mobile instruments used outside 
+7.6.2  means to indicate that the limiting value of tilting has been 
+exceeded and to inhibit printout and data transmission 
+   
+  automatic zero-setting or tare balancing operation after each 
+moving of the vehicle 
+   
+  Weighing window Existent     Non-existent  
+  indication when instrument is not in the weighing window 
+and the printout and data transmission is inhibited 
+   
+  equipped with an appropriate protection system if the load 
+measuring device is sensitive to moving or driving 
+influences 
+   
+  prevention of wrong weighing results if the cardanic 
+suspension system or load receptor comes into contact with 
+the surrounding frame construction 
+   
+7.6.3  Other mobile instruments not to be used outside 
+with a leveling device and a level indicator 
+  the leveling device shall be operated easily without tools    
+  appropriate inscription pointing the user to the necessity of 
+leveling after each movement 
+   
+
+
+===== [PDF PAGE 31] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+31 
+Electronic weighing instruments 
+ 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+ 
+PASSED 
+FAILED 
+Remarks 
+  Disturbances    
+6.1.3  indication of significant faults in the display does not lead to 
+confusion with other messages 
+   
+6.1.4  Acting upon significant faults in case 6.1.3 b): 
+  instrument made automatically inoperative5, or    
+  visual or audible indication until user takes action or fault 
+disappears1 
+   
+  Display check    
+6.1.5  Upon switch-on: 
+  signs of indication are active and non-active long enough to 
+be checked by operator 
+   
+  External equipment    
+6.1.5  Interfaces (mechanical, electrical, logical) do not allow: 
+  ▪ functions and measurement data to be inadmissibly 
+influenced by peripheral devices, or other connected 
+instruments, or disturbances 
+   
+  ▪ displaying data which could be mistaken for a weighing 
+result 
+   
+  ▪ falsifying weighing results (displayed, processed, 
+stored) 
+   
+  ▪ changing adjustment factor or adjusting the instrument 
+(except authorized cases) 
+   
+  ▪ falsifying displayed primary indications (direct sales)    
+  interfaces that do not fulfill 6.1.5 can be secured    
+  interfaces transmit data so that peripheral device can meet 
+requirements 
+   
+  metrologically relevant functions performed or initiated 
+through the interface meet relevant requirements of R 76-1 
+   
+ 
+5 Checked by verifying the compliance with documents or by simulating faults; this check does not duplicate the 
+disturbance tests 8.3.1-8.3.7 specified in R 76-2. 
+
+===== [PDF PAGE 32] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+32 
+Software-controlled digital devices and instruments 
+ 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+Software identification 
+6.2.2 AD + 
+VFTSw 
+Software of a software-controlled non-automatic weighing 
+instrument/component is clearly identified. 
+   
+The software identification is a legally relevant parameter.    
+At least one part of the identification is dedicated to the 
+legal purpose. 
+   
+The identification is displayed on command, or during 
+operation, or at start up, for a measuring instrument that 
+can be turned off and on again. 
+   
+If a measuring instrument or component has neither display 
+nor printer or if the instrument facilitates remote 
+verification, the identification is sent via a communication 
+interface. 
+   
+The software idenficiation is easily provided by the device 
+for metrological controls or inspections. 
+   
+Correctness of algorithms and functions 
+6.2.3 AD + 
+VFTSw 
+The measuring algorithms and functions of the non-
+automatic weighing instrument are appropriate and 
+functionally correct for the given application 
+   
+The measurement result is displayed or printed correctly.    
+No hidden or undocumented functions or parameters exist.    
+Evidence and prevention of misuse 
+6.2.4.1 AD + 
+VFTSw 
+The software of the non-automatic weighing instrument is 
+protected agains any changes. 
+   
+During processing, measurement data is protected and 
+secured. 
+   
+Evidence of intervention 
+6.2.4.2 AD + 
+VFTSw 
+The software is protected in such a way that evidence of 
+any intervention is available. 
+   
+The software is secured against unauthorized modification, 
+loading, or changes by swapping the memory device. 
+   
+If necessary for the purpose of verification, data containing 
+evidence of an intervention is displayed or printed on 
+command and, if applicable, transmitted to the verification 
+software. 
+ 
+   
+
+===== [PDF PAGE 33] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+33 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+6.2.4.3 AD + 
+VFTSw 
+All inputs from the user interface are handled by a 
+protective interface. 
+   
+Any function that can be activated by the user interface is 
+clearly documented and not able to influence the legally 
+relevant characteristics of the instrument. 
+   
+6.2.4.4 AD + 
+VFTSw 
+All inputs from communication interfaces are handled by a 
+protective interface. 
+   
+Any function that can be activated by 
+communicationinterfaces is clearly documented and not 
+able to influence the legally relevant characteristics of the 
+instrument. 
+   
+6.2.4.4.1 AD + 
+VFTSw 
+Legally relevant parameters are secured and protected in 
+such a way that evidence of an intervention shall be 
+available. 
+   
+If necessary for the purpose of verification, displaying or 
+printing and if applicable, transmitting the current relevant 
+parameter settings to the verification software is possible. 
+   
+6.2.4.5 AD + 
+VFTSw 
+Software protection comprises appropriate sealing by 
+mechanical, electronic and/or cryptographic means, making 
+an intervention evident. 
+   
+6.2.4.6 AD + 
+VFTSw 
+Audit trails and event counters are part of the legally 
+relevant software and are secured and protected as such. 
+   
+It is not possible to delete or inadmissible change the data 
+of the event counter or audit trails and it is not possible to 
+exchange the audit trails or the value of the event counter 
+when the software is updated. 
+   
+The weighing instrument or module is fitted with a 
+checking facility to ensure that if an irregularity is 
+detected, the non -automatic weighing instrument 
+stops weighing and displays an error. 
+   
+
+===== [PDF PAGE 34] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+34 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+The audit trail contains at minimum the following 
+information: 
+• time stamp of the event; 
+• in the case of a software download: 
+− success / failure of the update procedure, 
+− software identification of the installed version, 
+− software identification of the previous installed 
+version, 
+− time stamp of the event, 
+− identification of  the downloading part y if 
+available 
+• in the case of a parameter change: 
+− identification of the changed parameter; 
+− the old and new value of the changed 
+parameter. 
+   
+Prevention of misuse of measurement data 
+6.2.5 AD + 
+VFTSw 
+Measurement data is protected and secured against 
+modification.  
+   
+ The weighing instrument/component is constructed in 
+such a way that possibilities for unintentional, accidental, 
+or intentional misuse are minimal. 
+   
+Legally relevant software is secured against accidental or 
+unintentional changes. 
+   
+The presentation of the measurement results shall be 
+unambiguous for all parties affected. 
+   
+Demands on the user 
+6.2.6 AD + 
+VFTSw 
+The software of a measuring instrument is designed in such 
+a way that no unreasonable demands are required from the 
+user to obtain a correct measurement result. 
+   
+Detection of significant defects 
+6.2.7.1 AD + 
+VFTSw 
+The software of the non-automatic weighing instrument 
+appropriately acts upon any detected defect. 
+   
+Durability protection 
+6.2.7.2 AD + 
+VFTSw 
+If durability is detected as being jeopardized, the software-
+controlled non-automatic weighing instrument either starts 
+measures to ensure further durabilitydeactivates itself or 
+generates an alarm and/or record in an error log. 
+ 
+ 
+ 
+   
+
+===== [PDF PAGE 35] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+35 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+Information for remote verification 
+6.2.7.3 AD + 
+VFTSw 
+If support of 6.2.7.1 6.2.7.1 or 6.2.7.2 6.2.7.2 is part of the 
+remote verification procedure it is possible to transmit data 
+containing information in this respect to the verification 
+software. 
+   
+Specification and separation of legally relevant components and software modules and requirements for interfaces 
+6.3.2 AD  Legally relevant software modules or hardware components 
+– are not inadmissibly influenced by another device or by 
+other modules or components of the weighing instrument. 
+   
+Separation of components 
+6.3.2.1.1 
+ 
+AD The components of the non-automatic weighing instrument 
+that perform legally relevant functions are identified, 
+clearly defined and documented. 
+   
+6.3.2.1.2 AD A legally relevant software-controlled component 
+communicates with other components or devices through a 
+protective interface. 
+   
+It is not possible to inadmissibly influence the legally 
+relevant software, parameters or measurement data through 
+the communication interfaces 
+   
+It has been demonstrated that the functions and data of the 
+legally relevant components cannot be inadmissibly 
+influenced by commands received via the interface. 
+   
+There is an unambiguous assignment of each command to 
+all initiated functions or data changes in the component. 
+   
+6.3.2.1.3 AD If software seals are used to prevent components from 
+being exchanged and pairing parameters are part of the 
+seal, then these pairing parameters are legally relevant and 
+are secured and protected in such a way that evidence of an 
+intervention is available. 
+   
+6.3.2.1.4 AD In case the authenticity and/or integrity check fails, or the 
+other component is not available, the checking component 
+appropriately acts upon this. 
+   
+6.3.2.1.5 AD If a component is shared by multiple components 
+then all the components that share another 
+component are unambiguously identified. 
+   
+6.3.2.1.6 AD In case the completeness of the measuring instrument 
+cannot be visually checked 6.non-legally relevant software 
+modules shall be prevented from 
+calculation/presenting/spoofing the measurement result. 
+   
+
+===== [PDF PAGE 36] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+36 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+6.3.2.1.7 AD In case legally relevant components with limited 
+functionality and limited securing/protection capabilities 
+are applied, they have limited access to the measurement 
+data, i.e. they use the measurement data without 
+modification or further processing. 
+   
+The measurement data is prepared for transmission or 
+storage for further processing by a component that can be 
+fully secured and protected. 
+   
+The measurement data is received or retrieved for further 
+processing by a component that can be fully secured and 
+protected. 
+   
+Separation of software modules 
+6.3.2.2.1 
+ 
+AD 
+ 
+The requirement applies to the legally relevant software 
+part and it has been made identifiable as described in 6.2.2. 
+   
+If the legally relevant software part communicates with 
+other software parts, a protective software interface has 
+been defined.  
+   
+6.3.2.2.2 AD All legally relevant software modules communicate with 
+other modules through a protective interface.  
+   
+It has been demonstrated that the functions and data of 
+modules that are legally relevant cannot be inadmissibly 
+influenced by commands received via the protective 
+interface. 
+   
+The legally relevant software modules and the protective 
+interface are clearly documented. 
+   
+All legally relevant functions and data domains of the 
+software are described to enable a type evaluation authority 
+to decide on correct software separation. 
+   
+Measurement data is not made available to legally non-
+relevant modules prior to primary indication. 
+   
+6.3.2.2.3 
+ 
+AD There is an unambiguous assignment of each command to 
+all initiated functions or data changes in the legally relevant 
+software part.  
+   
+Functions that are triggered through the software interface 
+are declared and documented.  
+   
+Only documented functions are activated through the 
+protective software interface. 
+   
+
+===== [PDF PAGE 37] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+37 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+6.3.2.2.3 
+(cont.) 
+AD The manufacturer has attested that no hidden or 
+undocumented properties exist. 
+   
+6.3.2.2.4 AD Where the legally relevant software has been separated 
+from the non-relevant software, the legally relevant 
+software has priority using the resources over non-relevant 
+software. 
+   
+The legally relevant process is not inadmissibly interrupted by 
+legally non-relevant software. 
+   
+The measurement process (realised by the legally relevant 
+software) is not delayed or blocked by other processes. 
+   
+Shared indications 
+6.3.3 AD + 
+VFTSw 
+If a display or printout is used for both legally relevant and 
+legally non-relevant information, the legally relevant 
+information is always readable, and is clearly 
+distinguishable from other information. 
+   
+Storage of data 
+6.3.4.2 AD + 
+VFTSw 
+The stored measurement data include all relevant data 
+necessary for future legally relevant use. 
+   
+6.3.4.3 AD + 
+VFTSw 
+The stored legally relevant data is protected by appropriate 
+means to guarantee the authenticity and integrity. 
+   
+The software that displays or further processes the 
+measurement values and accompanying data checks the 
+authenticity and integrity of the data after having read them 
+from the storage. 
+   
+The storing device ensures that if an irregularity is 
+detected, the measurement data are discarded or marked 
+unusable. 
+   
+The storage device has sufficient permanency to ensure that 
+the stored data are not corrupted under normal storage 
+conditions. 
+   
+6.3.4.4 AD + 
+VFTSw 
+When, considering the application, data storage is required, 
+measurement data are stored automatically. 
+   
+A checking facility regularly checks the availability of the 
+storage and in the case the storage device is not available 
+no measurement is possible. 
+   
+6.3.4.5 AD + 
+VFTSw 
+There is sufficient memory storage for the intended 
+application. 
+   
+When the storage is full, the instrument can no longer be 
+used for new legal measurements. 
+   
+
+===== [PDF PAGE 38] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+38 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+6.3.4.6 AD + 
+VFTSw 
+When the data necessary for the calculation  of the 
+measurement result are relevant for legal purposes, 
+measurement result relevant data included in the 
+calcuation are automatically stored with the final value. 
+   
+6.3.4.7 AD + 
+VFTSw 
+Measurement data stored in a component to construct the 
+measurement result is deleted if the next module or 
+component state a proper completion of expected actions 
+engaged. 
+   
+The measurement result is deleted if the transaction is 
+settled. 
+   
+The measurement result is deleted if these data are printed 
+by a printing device subject to legal control. 
+   
+Transmission via communication lines 
+6.3.5.2 AD + 
+VFTSw 
+The transmitted measurement data include all data 
+necessary for future legally relevant use. 
+   
+6.3.5.3 AD + 
+VFTSw 
+The transmitted data is protected by software means to 
+guarantee the authenticity, integrity. 
+   
+The software that displays or further processes the 
+measurement data checks the authenticity and integrity of 
+the measurement data received from a transmission 
+channel. 
+   
+If an irregularity is detected, the measurement data are 
+discarded or marked unusable. 
+   
+Means are  provided whereby cryptographic keys used by 
+cryptographic methods can only be input or read if a seal 
+is broken. 
+   
+6.3.5.4 AD + 
+VFTSw 
+ 
+The measurement is not inadmissibly influenced by a 
+transmission delay. 
+   
+If network services become unavailable, no measurement 
+data are lost.  
+   
+If network sevices become unavailable, the measurement 
+process is stopped to avoid the loss of measurement 
+information. 
+   
+Compatibility of operating systems and hardware 
+6.3.6.2 AD + 
+VFTSw 
+Hardware interfaces not equipped with a protective 
+interface shall not be able to inadmissibly influence the 
+legally relevant software, parameters or measurement data. 
+   
+6.3.6.3.2 AD + 
+VFTSw 
+The boot process ensures integrity and authenticity of the 
+legally relevant software. 
+   
+
+===== [PDF PAGE 39] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+39 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+6.3.6.3.3 AD + 
+VFTSw 
+If the processing of the chain of trust is interrupted, its 
+integrity is preserved. 
+   
+6.3.6.3.4 AD + 
+VFTSw The boot configuration is secured and protected.    
+6.3.6.3.5 AD + 
+VFTSw Booting via open interfaces is prohibited.    
+Protection during use 
+6.3.6.4.1 AD + 
+VFTSw 
+The operation of software that is not legally relevant does 
+not inadmissibly influence the legally relevant application. 
+   
+6.3.6.4.2 AD + 
+VFTSw 
+The combination of legally relevant software and operating 
+system ensures that the legally relevant indication is 
+distinguishable from other information. 
+   
+6.3.6.4.3 AD + 
+VFTSw 
+The access control is configured in such way that the 
+intended use cannot be inadmissibly influenced. 
+   
+6.3.6.4.4 AD + 
+VFTSw 
+The administration tasks of the legally relevant software 
+are protected. 
+   
+6.3.6.5 AD + 
+VFTSw 
+Communication with legally relevant software is made via 
+protective interfaces. 
+   
+It has been demonstrated that the legally relevant software, 
+parameters, and data of components that are legally 
+relevant cannot be inadmissibly influenced by commands 
+received via the protective interface. 
+   
+Testability and traceability 
+6.3.6.6.1 AD + 
+VFTSw The configuration of the operating system is identifiable.    
+The identifier shall be displayed on command or during 
+operation and, if applicable, transmitted to the verification 
+software by the measuring instrument. 
+   
+6.3.6.6.2 AD + 
+VFTSw 
+Legally relevant configuration settings of the operating 
+system are protected, i.e. changes to the legally relevant 
+configuration are traceable. 
+   
+6.3.6.7 AD + 
+VFTSw 
+ 
+The manufacturer has identified the hardware and software 
+environment that is suitable. 
+   
+Minimum resources and a suitable configuration 
+management necessary to guarante the correct functioning 
+of the legally relevant software have been declared by the 
+manufacturer. 
+   
+
+===== [PDF PAGE 40] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+40 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+6.3.6.8 AD + 
+VFTSw 
+Technical means have been provided in the legally relevant 
+software to prevent operation, if the minimum resources or 
+a suitable configuration are not met. 
+ 
+ 
+ 
+   
+Verified update 
+6.3.78.1 AD A protection measure (i.e. physical or electronic seal that 
+must be broken for the update to take effect) provides 
+evidence of an intervention. 
+   
+Traced update 
+6.3.78.2.2 AD + 
+VFTSw 
+The weighing instrument has a feature for the user or 
+owner to express his consent before the update starts. 
+ 
+   
+It is possible to enable and disable the feature.    
+6.3.78.2.3 AD + 
+VFTSw 
+After initiation of the update procedure, the Traced Update 
+of software runs automatically. 
+   
+If some of the securing or protection measures of the 
+weighing instrument are turned off to enable updating, they 
+are turned on again immediately after update, independent 
+of the result of the update process. 
+   
+6.3.78.2.4 AD + 
+VFTSw 
+During a Traced update, any existing protection measures 
+are retained. 
+   
+6.3.78.2.5 AD + 
+VFTSw 
+Technical means are employed to guarantee the 
+authenticity of the loaded software, i.e. that it originates 
+from the owner of the certificate.  
+   
+6.3.78.2.6 AD + 
+VFTSw 
+Technical means are employed to ensure the integrity of 
+the loaded software, i.e. that it has not been inadmissibly 
+changed before loading. 
+   
+6.3.78.2.7 AD + 
+VFTSw 
+If the loaded software fails integrity test or authenticity test, 
+the weighing instrument discards the new version and uses 
+the previous version of the software or switches to an 
+inoperable mode. 
+   
+In this mode, the measuring functions are inhibited. It is 
+only possible to resume the download procedure, or to 
+show an error. 
+   
+
+===== [PDF PAGE 41] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+41 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+6.3.78.2.8 AD + 
+VFTSw 
+An audit trail is employed to ensure that Traced Updates of 
+legally relevant software are adequately traceable within 
+the weighing instrument for subsequent verification and 
+surveillance or inspection.  
+   
+The audit trail contains at minimum the following 
+information: 
+• success/failure of the update procedure; 
+• software identification of the installed version; 
+• software identification of the previous installed 
+version; 
+• time stamp of the event; 
+• identification of the uploading party, i.e. the 
+source of the update,  if available.  
+   
+An entry is generated for each update attempt regardless of 
+the success. 
+   
+The storage device that supports the Traced Update has a 
+sufficient capacity to ensure the traceability of Traced 
+Updates of legally relevant software between at least two 
+successive verifications in the field/inspections. 
+   
+After having reached the limit of the storage for the audit 
+trail, it is ensured by technical means that further 
+downloads are impossible without breaking a seal. 
+   
+6.3.78.2.9 AD + 
+VFTSw 
+If the audit trail has no more capacity, or the user or owner 
+denies consent, the update procedure does not start at all. 
+   
+Remote Verification Capability 
+6.3.98.1.1 AD + 
+VFTSw 
+The modules involved in the remote verification procedure 
+are part of the legally relevant software and shall fulfil the 
+relevant requirements. 
+   
+6.3.89.1.2 AD + 
+VFTSw 
+It is always possible to establish and ensure the integrity of 
+the instrument to be verified. 
+   
+6.3.89.1.3 AD + 
+VFTSw 
+It is possible to establish the authenticity of the instrument, 
+i.e. the instrument is uniquely identified and other means 
+are provided to ensure authenticity. 
+   
+6.3.89.1.4 AD + 
+VFTSw 
+The instrument stores logging data, audit trails, and make 
+these available for remote verification purposes.  
+   
+6.3.89.1.5 AD + 
+VFTSw 
+The instrument uses time stamps, provides evidence of an 
+intervention, audit trails and has a facility for detection of 
+significant defects for the purpose of remote verification. 
+   
+
+===== [PDF PAGE 42] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+42 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+6.3.89.1.6 AD + 
+VFTSw 
+An ongoing measurement is influenced by remote 
+verification or measurements are inhibited during the 
+remote verification. 
+   
+6.3.89.1.7 AD + 
+VFTSw 
+The use of the verification procedure does not influence the 
+compliance with other requirements. 
+   
+Access to the verification procedures, specific test items or 
+commands is available but is restricted if these influence 
+compliance with other requirements. 
+   
+6.3.89.1.8 AD + 
+VFTSw 
+The software integrity of the instrument is not influenced 
+by the remote verification procedure. 
+   
+6.3.89.1.9 AD + 
+VFTSw 
+There is a legally relevant interface for data extraction for 
+remote verification purposes. 
+   
+6.3.89.1.10 AD + 
+VFTSw Interfaces for remote verification are protected.    
+6.3.89.1.11 AD Access rights to the instrument for remote verification data 
+are described in the documentation. 
+   
+6.3.89.1.12 AD + 
+VFTSw 
+Provisions have been made to securely store the result of 
+the remote verification in the measuring instrument. 
+   
+This data is protected and secured.    
+The result of the remote verification contains, at least, a 
+unique ID (at least identifying the verification authority). 
+   
+The date of the verification is stored.    
+Stored results of the verification in the instrument comply 
+with clause 6.3.4. 
+   
+6.3.89.2 AD + 
+VFTSw 
+If an instrument does not pass remote verification, it 
+displays a permanent disqualification message.  
+   
+Direct extraction of test items 
+6.3.89.4.1 AD + 
+VFTSw 
+When checking software integrity, the integrity measure 
+(checksum, hash) is calculated immediately before 
+transmitting the integrity measure to the remote verification 
+software. 
+ 
+ 
+   
+
+===== [PDF PAGE 43] R76_Part4_type_evaluation_report_CD =====
+TC9_SC1_P1_N038  OIML R 76-4:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+43 
+Requirement 
+R 76-1 
+Testing 
+procedures 
+R 76-2 
+Requirement 
+PASSED 
+FAILED 
+Remarks 
+6.3.89.4.2 AD + 
+VFTSw Test items are uniquely identified.    
+The obtained test items are unambiguously linked to the 
+measuring instrument to be verified. 
+   
+6.3.89.4.3 AD + 
+VFTSw 
+Relevant test items identified by the PG (see XXX) are 
+available depending on the specific requirement to be 
+tested. 
+   
+Connection requirements 
+6.3.89.5 AD + 
+VFTSw 
+The connection to the remote verification software 
+complies with 6.3.5. 
+   
+ 
+  
+Commented [A2]: Reference needs to be added once clauses on 
+verification have been agreed upon. 
+
+===== [PDF PAGE 44] R76_Part4_type_evaluation_report_CD =====
+OIML R 76-4:202x (E) – 1.1CD TC9_SC1_P1_N038 
+Report page ..../.... 
+ 
+ 
+44 
+Use this page to detail remarks from the checklist 

@@ -1,0 +1,3127 @@
+
+
+===== [PDF PAGE 1] R76_Part2_test_procedures_CD =====
+ 
+1 
+ 
+INTERNATIONAL OIML R 76-2 
+RECOMMENDATION Edition 202x (E) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Non-automatic weighing instruments 
+Part 2: Test procedures 
+ 
+ 
+Instruments de pesage à fonctionnement non automatique  
+Partie 2: Procedures d’essais 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+OIML R 76-2 Edition 202x (E) 
+ 
+ 
+ 
+ 
+ 
+ ORGANISATION INTERNATIONALE 
+DE METROLOGIE LEGALE 
+ 
+INTERNATIONAL ORGANIZATION 
+OF LEGAL METROLOGY 
+ 
+  
+
+
+===== [PDF PAGE 2] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+2 
+ 
+Contents 
+1 Introduction .............................................................................................................................................................. 7 
+2 Administrative examination (R 76-1, 10.2.1) ......................................................................................................... 7 
+3 Compare construction with documentation (R  76-1, 10.2.2) ................................................................................ 7 
+4 Initial examination ................................................................................................................................................... 7 
+4.1 Metrological characteristics .............................................................................................................................. 7 
+4.2 Descriptive markings (R 76-1, 9.1) .................................................................................................................... 7 
+4.3 Stamping and securing (R 76-1, 6.1.2.4 and R 76-1, 9.2).................................................................................. 7 
+5 Performance tests ..................................................................................................................................................... 8 
+5.1 General conditions ............................................................................................................................................ 8 
+5.1.1 Normal test conditions (R 76-1, 5.5.3.1) ....................................................................................................... 8 
+5.1.2 Temperature .................................................................................................................................................. 8 
+5.1.3 Power supply ................................................................................................................................................. 8 
+5.1.4 Reference position before tests ...................................................................................................................... 8 
+5.1.5 Automatic zero-setting and zero-tracking ..................................................................................................... 8 
+5.1.6 Indication with a scale interval smaller than e .............................................................................................. 8 
+5.1.7 Using a simulator to test modules (R 76-1, 5.9.2 and 3.7.1) ......................................................................... 8 
+5.1.8 Adjustment (R 76-1, 6.1.2.5) ......................................................................................................................... 8 
+5.1.9 Recovery ....................................................................................................................................................... 9 
+5.1.10 Preloading ................................................................................................................................................. 9 
+5.1.11 Multiple range instruments ....................................................................................................................... 9 
+5.2 Checking of zero ................................................................................................................................................ 9 
+5.2.1 Range of zero-setting (R 76-1, 6.7.1) ............................................................................................................ 9 
+5.2.2 Zero indicating device (R 76-1, 6.7.5) ........................................................................................................ 10 
+5.2.3 Accuracy of zero-setting (R 76-1, 6.7.2) ..................................................................................................... 10 
+5.3 Setting to zero before loading .......................................................................................................................... 10 
+5.4 Determination of weighing performance ......................................................................................................... 10 
+5.4.1 Weighing test .............................................................................................................................................. 10 
+5.4.2 Supplementary weighing test (R 76-1, 6.7.1) .............................................................................................. 11 
+5.4.3 Evaluation of error (5.1.6) ........................................................................................................................... 11 
+5.4.4 Testing of modules ...................................................................................................................................... 11 
+5.4.5 Weighing test using substitution material (R 76-1, 5.6.3) ........................................................................... 12 
+5.5 Instruments with more than one indicating device (R  76-1, 5.5.6) .................................................................. 12 
+5.6 Tare ................................................................................................................................................................. 12 
+5.6.1 Weighing test (R 76-1, 5.5.3.3) ................................................................................................................... 12 
+5.6.2 Accuracy of tare setting (R 76-1, 6.8.3) ...................................................................................................... 12 
+5.6.3 Tare weighing device (R 76-1, 5.5.3.4 and R 76-1, 5.5.6) .......................................................................... 13 
+5.7 Eccentricity tests (R 76-1, 5.5.5) ..................................................................................................................... 13 
+5.7.1 Instruments with a load receptor having not more than four points of support  ........................................... 13 
+5.7.2 Instruments with a load receptor having more than four points of support  ................................................. 14 
+5.7.3 Instruments with special load receptors (tank, hopper, etc.)  ....................................................................... 14 
+5.7.4 Instruments used for weighing rolling loads (R 76-1, 5.5.5.4) .................................................................... 14 
+5.7.5 Eccentricity tests for mobile instruments .................................................................................................... 14 
+5.8 Discrimination test (R 76-1, 5.7) ..................................................................................................................... 14 
+5.8.1 Non-self-indication and analogue indication ............................................................................................... 14 
+5.8.2 Digital indication ......................................................................................................................................... 14 
+5.9 Sensitivity of a non-self-indicating instrument (R 76-1, 8.1)) .......................................................................... 15 
+Commented [ID1]: To be reviewed and updated later 
+
+===== [PDF PAGE 3] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+3 
+ 
+5.10 Repeatability test (R 76-1, 5.5.4) ..................................................................................................................... 15 
+5.11 Variation of indication with time (for instruments of classes II, III or IIII only)  ............................................. 15 
+5.11.1 Creep test (R 76-1, 5.8.4.1) ..................................................................................................................... 15 
+5.11.2 Zero return test (R 76-1, 5.8.4.2) ............................................................................................................ 15 
+5.12 Test for the stability of equilibrium (R 76-1, 6.6.2) ......................................................................................... 15 
+5.13 Additional tests for portable weighbridges (R  76-1, 7.7) ................................................................................ 16 
+6 Influence factors ..................................................................................................................................................... 17 
+6.1 Tilting (only class II, III and IIII instruments) (R 76-1, 5.8.1.1) ..................................................................... 17 
+6.1.1 Tilting of instruments with a level indicator or automatic tilt sensor (R 76-1, 5.8.1.1a and R 76-1, 
+5.8.1.1b) ................................................................................................................................................................... 17 
+6.1.2 Other instruments (R 76-1, 5.8.1.1c) ........................................................................................................... 17 
+6.1.3 Tilt test for mobile instruments used outside in open locations (R 76-1, 5.8.1.1d and R 76-1, 7.6.2) ........ 17 
+6.2 Warm-up time test (R 76-1, 6.1.5.5) ................................................................................................................ 18 
+6.3 Temperature tests ............................................................................................................................................ 18 
+6.3.1 Static temperatures (R 76-1, 5.8.2.1 and R 76-1, 5.8.2.2) ........................................................................... 18 
+6.3.2 Temperature effect on the no-load indication (R 76-1, 5.8.2.3) .................................................................. 18 
+6.4 Voltage variations (R 76-1, 5.8.3) ................................................................................................................... 19 
+6.4.1 Variations of AC mains voltage .................................................................................................................. 19 
+6.4.2 Variations of external or plug-in power supply device (AC or DC) ........................................................... 19 
+6.4.3 Variations of non-rechargeable battery power supply ................................................................................. 19 
+6.4.4 Voltage variations of a 12 V or 24 V road vehicle battery .......................................................................... 19 
+7 Endurance test (3.9.4.3) ......................................................................................................................................... 20 
+8 Additional tests for electronic instruments .......................................................................................................... 22 
+8.1 General requirements for electronic instruments under test  ........................................................................... 22 
+8.2 Damp heat, steady state ................................................................................................................................... 22 
+8.3 Performance tests for disturbances ................................................................................................................. 22 
+8.3.1 AC mains voltage dips and short interruptions ........................................................................................... 23 
+8.3.2 Bursts .......................................................................................................................................................... 23 
+8.3.3 Surge ........................................................................................................................................................... 24 
+8.3.4 Electrostatic discharge................................................................................................................................. 24 
+8.3.5 Immunity to radiated electromagnetic fields ............................................................................................... 25 
+8.3.6 Immunity to conducted radio-frequency fields ........................................................................................... 25 
+8.3.7 Special EMC requirements for instruments powered from a road vehicle power supply  ........................... 26 
+8.4 Span stability test ............................................................................................................................................. 28 
+9 Testing and certification of indicators and analogue data processing devices as modules of non-automatic 
+weighing instruments ...................................................................................................................................................... 30 
+9.1 Applicable requirements .................................................................................................................................. 30 
+9.1.1 Accuracy class ............................................................................................................................................. 31 
+9.1.2 Number of verification scale intervals ........................................................................................................ 31 
+9.1.3 Temperature range ...................................................................................................................................... 31 
+9.1.4 Range of input signal................................................................................................................................... 31 
+9.1.5 Minimum input signal per verification scale interval .................................................................................. 31 
+9.1.6 Range of load cell impedance ..................................................................................................................... 31 
+9.1.7 Maximum cable length ................................................................................................................................ 31 
+9.2 General principles of testing ........................................................................................................................... 31 
+
+===== [PDF PAGE 4] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+4 
+ 
+9.2.1 Worst case conditions.................................................................................................................................. 31 
+9.2.2 Testing at high or low simulated load cell impedance  ................................................................................ 32 
+9.2.3 Peripheral equipment................................................................................................................................... 33 
+9.2.4 Adjustment and performance tests .............................................................................................................. 33 
+9.2.5 Indication with a scale interval smaller than e ............................................................................................ 33 
+9.2.6 Load cell simulator ...................................................................................................................................... 34 
+9.2.7 Fractions, pi ................................................................................................................................................. 34 
+9.3 Tests ................................................................................................................................................................. 34 
+9.3.1 Temperature and performance tests ............................................................................................................ 34 
+9.3.2 Tare ............................................................................................................................................................. 35 
+9.3.3 Testing the sense function (with six wire load cell connection only)  .......................................................... 35 
+9.3.4 Other influences .......................................................................................................................................... 37 
+9.4 OIML certificates ............................................................................................................................................. 37 
+9.4.1 General ........................................................................................................................................................ 37 
+9.4.2 Test Report Format ..................................................................................................................................... 38 
+10 Testing and certification of digital data processing devices, terminals and digital displays as modules of 
+non-automatic weighing instruments ............................................................................................................................ 40 
+10.1 Applicable requirements .................................................................................................................................. 40 
+10.1.1 Requirements for digital data processing devices, terminals and digital displays  .................................. 40 
+10.1.2 Supplementary requirements .................................................................................................................. 41 
+10.2 General principles of testing ........................................................................................................................... 41 
+10.2.1 General .................................................................................................................................................... 41 
+10.2.2 Simulating devices .................................................................................................................................. 41 
+10.2.3 Displaying devices .................................................................................................................................. 41 
+10.2.4 Interface .................................................................................................................................................. 41 
+10.2.5 Peripheral devices ................................................................................................................................... 41 
+10.3 Tests ................................................................................................................................................................. 41 
+10.4 OIML certificates ............................................................................................................................................. 42 
+10.4.1 General .................................................................................................................................................... 42 
+10.4.2 Test Report Format ................................................................................................................................. 42 
+11 Testing and certification of weighing modules as modules of non -automatic weighing instruments .............. 44 
+11.1 Applicable requirements .................................................................................................................................. 44 
+11.1.1 Requirements for weighing modules ...................................................................................................... 44 
+11.1.2 Supplementary requirements .................................................................................................................. 44 
+11.2 General principles of testing ........................................................................................................................... 45 
+11.2.1 General .................................................................................................................................................... 45 
+11.2.2 Indicating devices ................................................................................................................................... 45 
+11.2.3 Interface .................................................................................................................................................. 45 
+11.2.4 Peripheral equipment .............................................................................................................................. 45 
+11.3 Tests ................................................................................................................................................................. 45 
+11.4 OIML certificates ............................................................................................................................................. 45 
+11.4.1 General .................................................................................................................................................... 45 
+11.4.2 Test Report Format ................................................................................................................................. 46 
+12 Compatibility checking of modules of non-automatic weighing instruments ................................................... 47 
+12.1 Weighing instruments ...................................................................................................................................... 47 
+12.2 Separately tested load cells ............................................................................................................................. 48 
+12.2.1 Accuracy classes ..................................................................................................................................... 49 
+12.2.2 Fraction of the maximum permissible error ............................................................................................ 49 
+12.2.3 Temperature limits .................................................................................................................................. 49 
+
+===== [PDF PAGE 5] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+5 
+ 
+12.2.4 Maximum capacity of the load cell ......................................................................................................... 49 
+12.2.5 Minimum dead load of the load cell ....................................................................................................... 49 
+12.2.6 Maximum number of load cell intervals ................................................................................................. 49 
+12.2.7 Minimum load cell verification interval ................................................................................................. 50 
+12.2.8 Input resistance of a load cell .................................................................................................................. 50 
+12.3 Separately tested indicators and analogue data processing devices  ............................................................... 50 
+12.3.1 Accuracy class ........................................................................................................................................ 50 
+12.3.2 Fraction of the maximum permissible error ............................................................................................ 50 
+12.3.3 Temperature limits .................................................................................................................................. 50 
+12.3.4 Maximum number of verification intervals ............................................................................................ 51 
+12.3.5 Electrical data with regard to the weighing instrument ........................................................................... 51 
+12.4 Compatibility checks for modules with analogue output ................................................................................. 51 
+12.5 Compatibility checks for modules with digital output  ..................................................................................... 55 
+12.6 Examples of compatibility checks for modules with analogue output  ............................................................. 55 
+12.6.1 Road vehicle weigher with one measuring range (Example no. 1)  ......................................................... 55 
+12.6.2 Industrial scale with three measuring ranges (Example no. 2) ................................................................ 60 
+13 Test procedures for software requirements ......................................................................................................... 64 
+13.1 General ............................................................................................................................................................ 64 
+13.2 Description of test procedures ......................................................................................................................... 64 
+13.2.1 Analysis of documentation and specification and evaluation of the design (AD) .................................... 64 
+13.2.2 Verification by functional testing of the software functions (VFTSw) .................................................... 65 
+13.3 Applicable test procedures for individual software requirements  ................................................................... 66 
+ 
+  
+
+===== [PDF PAGE 6] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+6 
+ 
+Foreword 
+LATEST FOREWORD TO BE ADDED BY THE BIML ON PUBLICATION 
+  
+
+===== [PDF PAGE 7] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+7 
+ 
+Non-automatic weighing instruments 
+Part 2 – Test procedures 
+1 Introduction 
+This OIML Recommendation consists of five separate parts: 
+Part 1: Metrological and technical requirements; 
+Part 2: Testing procedures; 
+Part 3: Test report format; 
+Part 4: Type evaluation report format; 
+Part 5: Verification and inspection procedures. 
+This part of the Recommendation sets out standardised test procedures to be used to check whether an 
+instrument complies with the metrological and technical requirements in R 76-1. 
+2 Administrative examination (R 76-1, 10.2.1) 
+Review the documentation that is submitted, including necessary photographs, drawings, relevant technical 
+specifications of main components, etc., to determine if it is adequate and correct. Consider  the operating 
+manual or equivalent user documentation. 
+Note: An “operating manual” may be a draft. 
+3 Compare construction with documentation (R 76-1, 10.2.2) 
+Examine the various devices of the instrument to ensure compliance with the documentation. Consider also 
+R 76-1, 5.9. 
+4 Initial examination 
+4.1 Metrological characteristics 
+Note the metrological characteristics according to the Test Report Format ( R 76-3) and the Type Evaluation 
+Report Format (R 76-4). 
+4.2 Descriptive markings (R 76-1, 9.1) 
+Check the descriptive markings according to the checklist given in the Typest Evaluation Report Format (R 76-
+34). 
+4.3 Stamping and securing (R 76-1, 6.1.2.4 and R 76-1, 9.2) 
+Check the arrangements for stamping and securing according to the checklist given in the T ypest Evaluation 
+Report Format (R 76-34). 
+ 
+
+===== [PDF PAGE 8] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+8 
+ 
+5 Performance tests 
+5.1 General conditions 
+5.1.1 Normal test conditions (R 76-1, 5.5.3.1) 
+Errors shall be determined under normal test conditions. When the effect of one factor is being evaluated, all 
+other factors are to be held relatively constant, at a value close to normal. 
+For instruments of class I, all necessary corrections in respect to influence factors due to the test load shall be 
+applied, i.e. influence of air buoyancy. 
+5.1.2 Temperature 
+The tests shall be performed at a steady ambient temperature, usually normal room temperature unless 
+otherwise specified. 
+The temperature is deemed to be steady when the difference between the extreme temperatures noted during 
+the test does not exceed one-fifth of the temperature range of the given instrument without being greater than 
+5 °C (2 °C in the case of a creep test), and the rate of change does not exceed 5 °C per hour. 
+5.1.3 Power supply 
+Instruments using electric power shall normally be connected to the mains power or power supply device and 
+switched on throughout the tests. 
+5.1.4 Reference position before tests 
+For an instrument liable to be tilted, the instrument shall be leveled at its reference position. 
+5.1.5 Automatic zero-setting and zero-tracking 
+During the tests, the effect of the automatic zero -setting device or the zero -tracking device may be swi tched 
+off or suppressed by starting the test with a load equal tosufficiently large enough to exit the range of operation 
+(e.g. say 10 e). 
+In certain tests where the automatic zero-setting or zero-tracking must be in operation (or not), specific mention 
+of this is made in those test descriptions. 
+5.1.6 Indication with a scale interval smaller than e 
+If an instrument with digital indication has a device for displaying the indication with a smaller scale interval 
+(not greater than 1/5 e), this device may be used to determine the error. If such a device is used it should be 
+noted in the Test Report. 
+5.1.7 Using a simulator to test modules (R 76-1, 5.9.2 and 3.7.1) 
+If a simulator is used to test a module, the repeatability and stability of the simulator should make it possible 
+to determine the performance of the module with at least the same accuracy as when a complete instrument is 
+tested with weights, the mpe to be considered being those applicable to the module. If a simulator is used, this 
+shall be noted in the Test Report Format and its traceability referenced. 
+5.1.8 Adjustment (R 76-1, 6.1.2.5) 
+A semi-automatic span adjustment device shall be initiated only once before the first test. 
+An instrument of class I shall, if applicable, be adjusted prior to each test following the instructions in the 
+operating manual. 
+Note: The temperature test 6.3.1 is considered as one test. 
+ 
+Commented [ID2]: Too vague.  Use “approximately”, “for 
+example”, …? 
+Commented [ID3]: No sure why this old R 76-1 clause was 
+referenced 
+
+===== [PDF PAGE 9] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+9 
+ 
+5.1.9 Recovery 
+After each test the instrument should be allowed to recover sufficiently before the following test. 
+5.1.10 Preloading 
+Before each weighing test the instrument shall be pre -loaded once to Max or to Lim if this is defined, except 
+for the tests in 6.2 and 6.3.2. For the test in 6.2 the pre-loading shall be performed with the instrument switched 
+off (power off, disconnected from any power supply). 
+Where load cells are tested separately, the pre-loading shall follow OIML R 60. 
+5.1.11 Multiple range instruments 
+In principle, each range should be tested as a separate instrument. For instruments with automatic change over, 
+however, combined tests can be possible. 
+5.2 Checking of zero 
+5.2.1 Range of zero-setting (R 76-1, 6.7.1) 
+5.2.1.1 Initial zero-setting 
+With the load receptor empty, set the instrument to zero. Place a test load on the load receptor and switch the 
+instrument off and then back on. Continue this process until, after placing a load on the load receptor and 
+switching the instrument off and on, it does not re-zero. The maximum load that can be re-zeroed is the positive 
+portion of the initial zero-setting range. 
+Remove any load from the load receptor and set the instrument to zero. Then remove the load receptor 
+(platform) from the instrument. If, at this point, the instrument can be reset to zero by switching it off and back 
+on, the mass of the load receptor is used as the negative portion of the initial zero-setting range. 
+If the instrument cannot be reset to zero with the load  receptor removed, add weights to any live part  of the 
+scale (e.g. on the parts where the load receptor rests) until the instrument indicates zero again. 
+Then remove weights and, after each weight is removed, switch the instrument off and back on. The maximum 
+load that can be removed while the instrument can still be reset to zero by switching it off and on is the negative 
+portion of the initial zero-setting range. 
+The initial zero-setting range is the sum of the positive and negative portions. If the load receptor cannot readily 
+be removed, only the positive part of the initial zero-setting range need be considered. 
+5.2.1.2 Non-automatic and semi-automatic zero-setting 
+This test is performed in the same manner as described in 5.2.1.1, except that the zero -setting means is used 
+rather than switching the instrument off and on. 
+5.2.1.3 Automatic zero-setting 
+Remove the load receptor as described in 5.2.1.1 and place weights on the instrument until it indicates zero. 
+Remove weights in small amounts and after each weight is removed allow time for the automatic zero- setting 
+device to function so as to see if the instrument is reset to zero automatically. Repeat this procedure until the 
+instrument will not reset to zero automatically. 
+The maximum loa d that can be removed so that the instrument can still be reset to zero is the zero - setting 
+range. 
+If the load receptor cannot readily be removed, a practical approach can be to add weights to the instrument 
+Commented [ID4]: Ref? 
+
+===== [PDF PAGE 10] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+10 
+ 
+and use another zero-setting device, if provided, to set the instrument to zero. Then remove weights and check 
+whether the automatic zero-setting still sets the instrument to zero. The maximum load that can be removed so 
+that the instrument can still be reset to zero is the zero-setting range. 
+5.2.2 Zero indicating device (R 76-1, 6.7.5) 
+For instruments fitted with a zero indicating device and digital indication, adjust  the instrument to about one 
+scale interval below zero; then by adding weights equivalent, for example, to 1/10 of  the scale interval, 
+determine the range over which the zero indicating device indicates the deviation from zero. 
+5.2.3 Accuracy of zero-setting (R 76-1, 6.7.2) 
+The test may be combined with 5.4.1. 
+5.2.3.1 Non-automatic and semi-automatic zero-setting 
+The accuracy of the zero -setting device is tested by first loading the instrument to  an indication as close as 
+possible to a changeover point, a nd then by initiating the zero -setting device and determining the additional 
+load at which the indication changes from zero to one scale interval above zero. The error at zero is calculated 
+according to the description in 5.4.3. 
+5.2.3.2 Automatic zero-setting or zero-tracking 
+The indication is brought out of the automatic range (e.g. by loading with 10 ea load greater than the automatic 
+range). Then the additional load at which the indication changes from one scale interval to the next above is 
+determined and the error is calculated according to the description in 5.4.3. It is assumed that the error at zero 
+load would be equal to the error at the load in question. 
+5.3 Setting to zero before loading 
+For instruments with digital indication, the adjustment to zero, or the determination of the zero point is carried 
+out as follows: 
+a) For instruments with non-automatic zero-setting, weights equivalent to half a scale interval are placed 
+on the load receptor  , and the instrument is adjusted until the indication alternates between  zero and 
+one scale interval. Then weights equivalent to half a scale interval are removed from the load receptor 
+to attain a centre of zero reference position. 
+b) For instruments with semi -automatic or automatic zero -setting or zero -tracking, the deviation from 
+zero is determined as described in 5.2.3. 
+5.4 Determination of weighing performance 
+5.4.1 Weighing test 
+Apply test loads from zero up to and including Max, and similarly remove the test loads back to zero. When 
+determining the initial intrinsic error, at least ten different test loads shall be selected, and for other weighing 
+tests at least five shall be sel ected. The test loads selected  shall include Max and Min  (Min only if Min ≥ 
+100 mg) and values at or near just below those at which the maximum permissible error (mpe) changes. 
+During type examination it should be noted that , when loading or unloading weig hts, the load shall be 
+progressively continuously increased or continuouslyprogressively decreased. It is recommended to apply the 
+same procedure as far as possible during initial verification and subsequent metrological control.  For further 
+details, see R 76-5. 
+If the instrument is provided with an automatic zero -setting or zero -tracking device, it may be in operation  
+during the tests, except for the temperature test. The error at zero point is then determined according to 5.2.3.2. 
+ 
+
+===== [PDF PAGE 11] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+11 
+ 
+ 
+ 
+5.4.2 Supplementary weighing test (R 76-1, 6.7.1) 
+For instruments with an initial zero -setting device with a range greater than 20  % of Max, a supplementary 
+weighing test shall be performed using the upper limit of the range as zero point. 
+5.4.3 Evaluation of error (5.1.6) 
+For instruments with digital indication and without a device for displaying the indication with a smaller scale 
+interval (not greater than 1/5  e), the changeover points are to be used to determine the indication of the 
+instrument, prior to rounding, as follows. 
+At a certain load, L, the indicated value, I, is noted. Additional weights of say 1/10 e are successively added 
+until the indication of the instrument is increased unambiguously by one scale interval (I + e). 
+The additional load, ΔL, added to the load receptor gives the indication, Ip P, prior to rounding by using the 
+following formula: 
+The error prior to rounding is: 
+IpP = I + ½ e – ΔL 
+E = IpP – L = I + ½ e – ΔL – L 
+The corrected error prior to rounding is: 
+Ec = E – E0 ≤ mpe 
+where E0 is the error calculated at zero or at a load close to zero (e.g. 10 e). 
+Example: An instrument with a verification scale interval, e, of 5 g is loaded with 1 kg and thereby indicates 
+1 000 g. After adding successive weights of 0.5 g, the indication changes from 1 000 g to 1 005 g 
+at an additional load of 1.5 g. Inserted in the above formula these observations give: 
+IpP = (1 000 + 2.5 – 1.5) g = 1 001 g 
+Thus the true indication prior to rounding is 1 001 g, and the error is: 
+E = (1 001 – 1 000) g = +1 g 
+If the changeover point at zero as calculated above was E0 = + 0.5 g, the corrected error is: 
+Ec = +1 – (+0.5) = + 0.5 g 
+In the tests 5.2.2 and 5.11.1, the error shall be determined with a sufficient accuracy in view of  
+the tolerance in question. 
+Note: The above description and formulae are also valid for m ulti-interval instruments. Where the load, L, and the 
+indication, I, are in different partial weighing ranges 
+▪ the additional weights ΔL are to be in steps of 1/10 ei, 
+▪ in the equation “ E = IpP – L = ...” above, the term “½  e” is to be ½  ei or ½ ei + 1 accor ding to the 
+partial weighing range in which the indication ( I + e) appears. 
+5.4.4 Testing of modules 
+When testing modules separately, it shall be possible to determine the errors with a sufficiently small 
+uncertainty considering the chosen fractions of the mpe either by using a device for displaying the indication 
+with a scale interval smaller than (1/5) pi × e or by evaluating the changeover point of the indication with an 
+Commented [ID5]: See earlier comment 
+Commented [ID6]: Comment in part 1 about use of “P” for 
+two different things. 
+
+===== [PDF PAGE 12] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+12 
+ 
+uncertainty better than (1/5) pi × e. 
+ 
+5.4.5 Weighing test using substitution material (R 76-1, 5.6.3) 
+The test shall be carried out only during verification and at the place of use taking 5.4.1 into account. 
+Determine the allowed number of substitutions according to R 76-1, 5.6.3. 
+Check the repeatability error at a load of about the value where the substitu tion is made, by placing it three 
+times on the load receptor. The results of the repeatability test ( 5.10) may be used if the test loads have a 
+comparable mass. 
+Apply test loads from zero up to and including the maximum quantity of standard weights. 
+Determine the error ( 5.4.3) and then remove the weights so that the no -load indication, or, in the case of an 
+instrument with a zero-tracking device, the indication of say approximately 10 e, is reached. 
+Substitute the previous weights with substitution material until the same changeover point, as used for the 
+determination of the error, is reached. Repeat the above procedure until Max of the instrument is reached. 
+Unload in reverse order to zero, i.e. unload the weights and determine the changeover point. Place the weights 
+back and remove the substitution mater ial until the same changeover point is reached. Repeat this procedure 
+until no-load indication. 
+Similar equivalent procedures may be applied. 
+5.5 Instruments with more than one indicating device (R 76-1, 5.5.6) 
+If the instrument has more than one indicating device, the indications of the various devices shall be compared 
+during the tests described in 5.4. 
+5.6 Tare 
+5.6.1 Weighing test (R 76-1, 5.5.3.3) 
+Weighing tests (loading and unloading according to 5.4.1) shall be performed with different tare values. At 
+least five load steps shall be selected. The steps shall include values close to Min (Min only if Min ≥ 100 mg), 
+values at or near those at which the maximum permissible error (mpe) changes and  the value close to the 
+maximum possible net load. 
+The weighing tests should be performed on instruments with 
+▪ subtractive tare: with one tare value between 1/3 and 2/3 of maximum tare; 
+▪ additive tare: with two tare values of about 1/3 and 3/3 of maximum tare effect. 
+For initial verification and subsequent metrological control (see R 76-5), the practical test may be replaced by 
+other appropriate procedures, such as: 
+▪ numerical or graphical considerations; 
+▪ simulation of a tare -balancing operation by displacement (shifting) of the error limits (mpe) to any 
+points of the error curve (curve of weighing test results); or 
+▪ checking if the error curve and hysteresis are inside the mpe at every point. 
+If the instrument is provided with automatic zero-setting or zero-tracking device it may be in operation during 
+the test, in which case the error at zero point shall be determined according to 5.2.3.2. 
+5.6.2 Accuracy of tare setting (R 76-1, 6.8.3) 
+The test may be combined with 5.6.1. 
+Commented [ID7]: See previous comment 
+
+===== [PDF PAGE 13] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+13 
+ 
+The accuracy of the tare device shall be established in a manner similar to the test described in 5.2.3 with the 
+indication set to zero using the tare device. 
+ 
+5.6.3 Tare weighing device (R 76-1, 5.5.3.4 and R 76-1, 5.5.6) 
+If the instrument has a tare weighing device, the results obtained for the same load (tare), by the tare weighing 
+device and the indicating device, shall be compared. 
+5.7 Eccentricity tests (R 76-1, 5.5.5) 
+Large weights should be used in preference to several small weights.  Smaller weights shall be placed on top 
+of larger weights, but unnecessary stacking should be avoided within the segment to be tested. The load shall 
+be applied centrally in the segment if a single weight is used, but applied uniformly over the segment, if several 
+small weights are used. It is sufficient to apply the load only to the eccentric segments, not to the centre of the 
+load receptor. 
+Note: If an instrument is designed in such a way that loads may be applied in different manners, it may be appropriate 
+to apply more than one of the tests described in 5.7.1-5.7.5. 
+The location of the load shall be marked on a sketch in the Test Report. 
+The error at each measurement is determined according to 5.4.3. The zero error, E0, used for the correction is 
+the value determined prior to each measurement. Normally it is sufficient to determine  the zero error only at 
+the beginning of the measurement, but on special instruments (accuracy class I, high capacity, etc.) it is 
+recommended that the zero error be determined prior to each ecce ntricity loading. However, if the mpe is 
+exceeded, the test with zero error prior to each loading is necessary. 
+If the instrument is provided with automatic zero -setting or zero-tracking, it shall not be in operation during 
+the following tests. 
+Note: If operating conditions are such that no eccentricity can occur, eccentricity tests need not be performed.  
+5.7.1 Instruments with a load receptor having not more than four points of support 
+The four quarter segments roughly equal to ¼ of the surface of the load receptor (as shown in the sketches in 
+Figure 9 or similar sketches) shall be loaded in turn. 
+ 
+Figure 9 – Quarter segments of the load receptor 
+Examples: A load receptor which transmits the force from the load: 
+▪ directly into one single point load cell has one point of support; 
+▪ directly into three load cells has three points of support; and 
+▪ with four mechanical connection elements into a lever works has four points of support. 
+Commented [ID8]: New caption as this was missing 
+
+===== [PDF PAGE 14] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+14 
+ 
+5.7.2 Instruments with a load receptor having more than four points of support 
+The load shall be applied over each support on an area of the same order of  magnitude as the fraction 1/n of 
+the surface area of the load receptor, where n is the number of points of support. 
+Where two points of support are too close together for the above -mentioned test load to be distributed as 
+indicated above, the load shall be doubled and distributed over twice the area on both sides of  the axis 
+connecting the two points of support. 
+5.7.3 Instruments with special load receptors (tank, hopper, etc.) 
+The load shall be applied to each point of support. 
+5.7.4 Instruments used for weighing rolling loads (R 76-1, 5.5.5.4) 
+A load shall be applied at different positions on the load receptor. These positions shall be at the beginning, 
+the middle and at the end of the load r eceptor in the normal driving direction. The positions shall then be 
+repeated in the reverse direction, if the application in both directions is possible. Before changing direction 
+zero has to be determined again.  If the load receptor consists of several sections, the test shall be applied to 
+each section. 
+5.7.5 Eccentricity tests for mobile instruments 
+5.7 and 5.7.1 to 5.7.4 should be applied as far as these points are applicable. If  not, the positions of the test 
+loads during this test have to be defined according to the operational conditions of use. 
+5.8 Discrimination test (R 76-1, 5.7) 
+The following tests shall be performed with three different loads, e.g. Min, ½ Max, and Max. 
+5.8.1 Non-self-indication and analogue indication 
+An extra load, but not less than 1  mg, shall be placed gently on  or removed from the load receptor while the 
+instrument is at equilibrium. For certainWhen the extra load is placed on or removed from the load receptor  
+the equilibrium mechanism shall assume a different position of equilibrium, as specified. 
+5.8.2 Digital indication 
+This test applies only to type examination and to instruments with d ≥ 5 mg. 
+A load plus sufficient additional weights (say approximately 10 × 1/10 d) shall be placed on the load receptor. 
+The additional weights shall then be removed successively until the indication, I, is decreased unambiguously 
+by one actual scale interval, I – d. One of the additional weights shall be placed back on the load receptor and 
+a load equal to 1.4 d shall then be gently placed on the load receptor and give a result increased by one actual 
+scale interval above the initial indication, I + d. See example in Figure 10. 
+ 
+Figure 10 – Instrument with d = 10 g 
+Commented [ID9]: See previous comment 
+
+===== [PDF PAGE 15] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+15 
+ 
+The indication at the start is I = 200 g. 
+Remove additional weights until the indication changes to I – d = 190 g. 
+Add 1/10 d = 1 g and thereafter 1.4 d = 14 g. 
+The indication shall then be I + d = 210 g. 
+5.9 Sensitivity of a non-self-indicating instrument (R 76-1, 8.1)) 
+During this test the instrument shall oscillate normally, and an extra load equal to the value of the mpe for the 
+applied load, but not less than 1 mg, shall be placed on the instrument while the load receptor is still oscillating. 
+For damped instruments the extra load shall be applied with a slight impact. The linear distance between the 
+middle points of t his reading and the reading without the  extra load shall be  taken as the permanent 
+displacement of the indication. The test shall be performed with a minimum of two different loads (e.g. zero 
+and Max). 
+5.10 Repeatability test (R 76-1, 5.5.4) 
+For type approval two series of weighings shall be performed, one with a load of about 50  % and one with a 
+load close to 100  % of Max. For instruments with Max less than 1  000 kg each series  shall consist of ten 
+weighings. In other cases each series shall consist o f at least three weighings. Readings shall be taken when 
+the instrument is loaded, and when the unloaded instrument has come to rest between weighings. In the case 
+of a zero deviation between the weighings, the instrument shall be reset to zero, without determining the error 
+at zero. The true zero position need not be determined between the weighings. 
+If the instrument is provided with automatic zero -setting or zero-tracking, it shall be in operation during the 
+test. 
+For verification one series of weighings with about 0.8 Max is sufficient. Three weighings on classes  III and 
+IIII or six weighings on classes I and II are necessary. 
+5.11 Variation of indication with time (for instruments of classes II, III or IIII only) 
+5.11.1 Creep test (R 76-1, 5.8.4.1) 
+Load the instrument close to Max. Take one reading as soon as the indication has stabilized and then note the 
+indication while the load remains on the instrument for a period of four hours. During this test the temperature 
+should not vary more than 2 °C. 
+The test may be terminated after 30 minutes if the indication differs less than 0.5 e during the first 30 minutes 
+and the difference between 15 and 30 minutes is less than 0.2 e. 
+5.11.2 Zero return test (R 76-1, 5.8.4.2) 
+The deviation in the zero indication before and after a per iod of loading with a load close to Max for  half an 
+hour, shall be determined. The reading shall be taken as soon as the indication has stabilized. 
+For multiple range instruments, continue to read the zero indication during the following five minutes after the 
+indication has stabilized. 
+If the instrument is provided with automatic zero-setting or zero-tracking, it shall not be in operation. 
+5.12 Test for the stability of equilibrium (R 76-1, 6.6.2) 
+Check whether the following stable equilibrium functions are described in detail and sufficiently  in the 
+manufacturer’s documentation: 
+▪ the basic principle, the function and the criteria for stable equilibrium; 
+
+===== [PDF PAGE 16] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+16 
+ 
+▪ all adjustable and not adjustable parameters of the stable equilibrium function (time interval, number 
+of measuring cycles, etc.); 
+▪ securing of these parameters; and 
+▪ definition of the most critical adjustment of the stable equilibrium (worst  case). This shall cover all 
+variants of a type. 
+Test the stable equilibrium with the most critical ad justment (worst case) and check that printing (or storing) 
+is not possible when stable equilibrium is not yet reached. 
+Check that, under continuous disturbance of the equilibrium, no functions can be performed which require 
+stable equilibrium, e.g. printing, storing, zero or tare operations. 
+Load the instrument up to 50  % of Max or up to a load included in the range of operation  of the relevant 
+function. Manually disturb the equilibrium by one single action and initiate the command for printing, data 
+storage, or other function, as soon as possible. In the case of printing or data storage, read the indicated value 
+over a period of five seconds following print -out. Stable equilibrium is considered to be achieved when no 
+more than two adjacent values are indica ted, one of which being  the printed value. For instruments with 
+differentiated scale divisions, this paragraph applies to e rather than to d. 
+In the case of zero-setting or tare balancing, check the accuracy according to 5.2.3/5.6.2. Perform the test five 
+times. 
+In case of vehicle -mounted, vehicle-incorporated or mobile instruments,  tests have to be performed with a 
+known operational test load, the instrument being in motion to ensure either that the stability criteria inhibit 
+any weighing operation or that the stable equilibrium criteria of R 76-1, 6.6.2 are met. In case the instrument 
+can be used to weigh liquid products in a vehicle, tests should be performed in conditions where the vehicle is 
+stopped just before testing so that either the stability criteria inhibit any weighing operation or that the st able 
+equilibrium criteria of R 76-1, 6.6.2 are met. 
+5.13 Additional tests for portable weighbridges (R 76-1, 7.7) 
+Note: Portable instruments have very different constructions for a large number of very different applications so that 
+it is principally not possib le to define uniform test procedures. Different requirements, conditions and 
+specifications could be necessary  depending on the construction and application and, of course, on the 
+metrological demands (e.g.  accuracy class). These should be mentioned and de scribed in the respective Test 
+Report. This clause therefore only provides some general means for properly testing a portable instrument.  
+Tests to be performed during type approval: 
+▪ At a site agreed with the manufacturer: 
+- examine the evenness of the reference area (all points of support of the bridge being at the same 
+level) and then perform an accuracy test and an eccentricity test; and 
+- realize several reference areas with some different faults in the evenness (the values of these faults 
+are to be equal to the limits given by the manufacturer) and then perform an eccentricity test for 
+each configuration. 
+▪ At a site where the instrument is used: 
+- examine the conformity to the requirements for the mounting surface; and 
+- examine the installation and perform tests  to establish conformity with  the metrological 
+requirements. 
+  
+
+===== [PDF PAGE 17] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+17 
+ 
+6 Influence factors 
+6.1 Tilting (only class II, III and IIII instruments) (R 76-1, 5.8.1.1) 
+The instrument shall be tilted both forwards and backwards longitudinally, and from side to side, transversely. 
+In practice the tests (no-load and loaded) described in 6.1.1.1 and 6.1.1.2 can be combined as follows. 
+After zero-setting in the reference position, the indication (prior to rounding) is determined at no -load and at 
+the two test loads. The instrument is then unloaded and tilted (without a new zero -setting), after which the 
+indications at no load and at the two test loads are determined. This procedure is repeated for each of the tilting 
+directions. 
+In order to determine the influence of tilting on the loaded instrument, the indication obtained at each tilt shall 
+be corrected for the deviation from zero which the instrument had prior to loading. 
+If the instrument is provided with automatic zero-setting or zero-tracking, it shall not be in operation. 
+6.1.1 Tilting of instruments with a level indicator or automatic tilt sensor (R 76-1, 5.8.1.1a and 
+R 76-1, 5.8.1.1b) 
+6.1.1.1 Tilting at no-load 
+The instrument shall be set to zero in its reference position (not tilted). The instrument shall then be  tilted 
+longitudinally up to the limiting value of tilting. The zero indication is noted. The test shall be repeated with 
+transverse tilting. 
+6.1.1.2 Tilting when loaded 
+The instrument shall be set to zero in its reference position and two weighings shall be carried out at a load 
+close to the lowest load where the maximum permissible error changes, and at a load  close to  Max. The 
+instrument is then unloaded and tilted longitudinally and set to zero. The tilting shall be equal to the limiting 
+value of tilting. Weighing tests as described above shall be performed. The test  shall be repeated with 
+transverse tilting. 
+6.1.2 Other instruments (R 76-1, 5.8.1.1c) 
+For instruments liable to be tilted and neither fitted with a level indicator nor with an automatic tilt sensor the 
+tests in 6.1.1 shall be performed with a tilting of 50/1000 or, in case of an instrument with automatic tilt sensor, 
+with a tilting equal to the limiting value of tilting as defined by the manufacturer. 
+6.1.3 Tilt test for mobile instruments used outside in open locations 
+(R 76-1, 5.8.1.1d and R 76-1, 7.6.2) 
+Appropriate load receptors for applying the test loads are to be provided by the applicant. The tilt test shall be 
+performed with the limiting value of tilting. 
+The instrument shall be tilted both forwards and backwards longitudinally, and from side to side, transversely. 
+Functional tests shall be performed to ensure that, if applicable, tilt sensors or inclination switches function 
+properly especially when generating the signal that the maximum permissible tilt is reached or exceeded (e.g. 
+display switch-off, error signal, lamp), and inhibiting transmission and printing of weighing results. 
+The test shall be performed near the switching-off point (in the case of an automatic tilt sensor) or near the tilt 
+where the load receptor comes into contact with the surrounding frame construction (in the case of a cardanic 
+suspension). This is the limiting value of tilting. 
+If the instrument is provided with automatic zero -setting or zero -tracking, it shall not be in operation. The 
+
+===== [PDF PAGE 18] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+18 
+ 
+instrument shall be tested according to 6.1 and 6.1.1 or 6.1.2. 
+6.2 Warm-up time test (R 76-1, 6.1.5.5) 
+An instrument using electric power shall be disconnected from the supply for a period of at least eight hours 
+prior to the test. The instrument shall then be connecte d and switched on and as soon as the indication has 
+stabilized, the instrument shall be set to zero and the error at zero shall be determined. Calculation of the error 
+shall be made according to 5.4.3. The instrument shall be loaded with a load close to Max. These observations 
+shall be repeated after 5, 15 and 30 minutes. Every individual measurement performed after 5, 15, and 30 
+minutes, shall be corrected for the zero error at that time. 
+For instruments of class I, the provisions of the operating manual for the time following connection to the 
+mains shall be observed. 
+6.3 Temperature tests 
+Note: See Figure 11 for a practical approach to performing the temperature tests. 
+6.3.1 Static temperatures (R 76-1, 5.8.2.1 and R 76-1, 5.8.2.2) 
+The test consists of exposure of the equipment under test (EUT) to constant (see 5.1.2) temperatures within 
+the range stated in R 76-1, 5.8.2, under free air conditions, for a two hour period after the EUT has reached 
+temperature stability. 
+The weighing tests (loading and unloading) shall be carried out according to 5.4.1: 
+▪ at a reference temperature (normally 20 °C but for class I instruments the mean value of the specified 
+temperature limits); 
+▪ at the specified high temperature; 
+▪ at the specified low temperature; 
+▪ at a temperature of 5 °C, if the specified low temperature is ≤ 0 °C; and 
+▪ at the reference temperature. 
+The rate of change of temperature shall not exceed 1  °C/min during heating and cooling down. For class I 
+instruments, changes in barometric pressure shall be taken into account. 
+For weighing tests at the specified high temperature the relative absolute humidity shall not exceed 20 g/m3. 
+Note: An absolute humidity of 20 g/m3 corresponds to a relative humidity of 39 % at 40 °C, of 50 % at 35 °C, and of 
+66 % at 30 °C. These values are valid for an air pressure of 1 013.25 hPa [4]. 
+6.3.2 Temperature effect on the no-load indication (R 76-1, 5.8.2.3) 
+The instrument shall be set to zero and then changed to the prescribed highest and lowest temperatures as well 
+as at 5 °C if applicable. After stabilization the error of the zero indication shall be determined. The change in 
+zero indication per 1 °C (class I instruments), or per 5 °C (other instruments) shall be calculated. The changes 
+of these errors per 1 °C (class I instruments), or per 5 °C (other instruments) shall be calculated for any two 
+consecutive temperatures of this test. 
+This test may be performed together  with the temperature test ( 6.3.1). The errors at zero shall then  be 
+additionally determined immediately before changing to the next temperature and after the two hour period 
+after the instrument has reached stability at this temperature. 
+Note: Preloading is not allowed before these measurements. 
+If the instrument is provided with automatic zero-setting or zero-tracking, it shall not be in operation. 
+ 
+ 
+
+===== [PDF PAGE 19] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+19 
+ 
+6.4 Voltage variations (R 76-1, 5.8.3) 
+Stabilize the EUT under constant environmental conditions. 
+The test consists of subjecting the EUT to voltage variations according to 6.4.1, 6.4.2, 6.4.3 or 6.4.4. 
+The test shall be performed with test loads of 10 e and a load between ½ Max and Max. 
+If the instrument is provided with an automatic zero -setting device or a zero -tracking device, it may be in 
+operation during the test, in which case the error at zero point shall be determined according to 5.2.3.2. 
+In the following , Unom designates the nominal value marked on the instrument. I f a range is  specified, Umin 
+relates to the lowest value, and Umax to the highest value of the range. 
+Reference: [4], [17] 
+6.4.1 Variations of AC mains voltage variation 
+Test severity: Voltage variations: lower limit 0.85 Unom or 0.85 Umin 
+ upper limit 1.10 Unom or 1.10 Umax 
+Maximum allowable variations: All functions shall operate as designed. 
+All indications shall be within the maximum permissible errors. 
+Note: Where an instrument is powered by a three-phase supply, the voltage variation is shall applyicable for each of 
+the phases successively. 
+6.4.2 Variations of external or plug-in power supply device (AC or DC) 
+Note: Applies also to  a rechargeable battery power supply if (re)charge of batteries during the operation of the 
+instrument is possible. 
+Test severity: Voltage variations: lower limit minimum operating voltage (see R 76-1, 5.8.3) 
+ upper limit: 1.20 Unom or 1.20 Umax 
+Maximum allowable variations: All functions shall operate as designed or the indication shall  
+switch off. 
+All indications shall be within the maximum permissible errors. 
+6.4.3 Variations of non-rechargeable battery power supply 
+Note: Applies also to a rechargeable battery power supply if (re)charge of batteries during the operation of the 
+instrument is not possible. 
+Test severity: Voltage variations: lower limit: minimum operating voltage (see R 76-1, 5.8.3) 
+ upper limit: Unom or Umax 
+Maximum allowable variations: All functions shall operate as designed or the indication shall  
+switch off. 
+All indications shall be within the maximum permissible errors. 
+6.4.4 Voltage variations of a 12 V or 24 V road vehicle battery 
+For specifications of the power supply used during the test to simulate the battery, refer to [21]. 
+Test severity: Voltage variations: lower limit: minimum operating voltage (see R 76-1, 5.8.3) 
+ upper limit for 12 V battery: 16 V 
+
+===== [PDF PAGE 20] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+20 
+ 
+ upper limit for 24 V battery: 32 V 
+Maximum allowable variations: All functions shall operate as designed or the indication shall  
+switch off. 
+All indications shall be within the maximum permissible errors. 
+7 Endurance test (3.9.4.3) 
+Note: Applicable only to instruments of classes II, III and IIII with Max ≤ 100 kg. The endurance test shall be 
+performed after all other tests. 
+Under normal conditions of use, the instrument shall be subjected to the repetitive loading and unloading of a 
+load approximately equal to 50 % of Max. The load shall be applied 100 000 times. The frequency and speed 
+of application shall be such that the instrument attains an equilibrium when  loaded and when unloaded. The 
+force of the load applied shall not exceed the force attained in a normal loading operation. 
+A weighing test in accordance with the procedure in 5.4.1 shall be performed before the endurance test is 
+started to obtain the intrinsic error. A weighing test shall be performed after the completion of the loadings to 
+determine the durability error due to wear and tear. 
+If the instrument is provided with an automatic zero -setting or zero -tracking device, it may be in operation 
+during the test, in which case the error at zero point shall be determined according to 5.2.3.2. 
+
+===== [PDF PAGE 21] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+21 
+ 
+Figure 11 - Proposed test sequence for test 6.3.1 combined with 6.3.2 (temperature test 
+where the temperature limits are –10 °C  / +40 °C / –10 °C 
+ 
+
+
+===== [PDF PAGE 22] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+22 
+ 
+ 
+8 Additional tests for electronic instruments 
+Preliminary note 1: The tests which are specific to electronic instruments described in this clause have been taken as 
+far as possible from the work of the International Electrotechnical Commission (IEC) , also 
+taking into consideration the latest edition of OIML D  11 General requirements for measuring 
+instruments - Environmental conditions [4]. 
+Preliminary note 2: Although references to current versions of IEC publications have been made, all EMC and other 
+additional tests for electronic instruments should be conducted  on the basis of most recent 
+versions valid at the time of testing. This should be mentioned in the Test Report. The objective 
+is to keep pace with future technical developments. 
+8.1 General requirements for electronic instruments under test 
+Energize the equipment under test (EUT) for a time period equal to or greater than the warm-up time specified 
+by the manufacturer and maintain the EUT energized for the duration of the test. 
+Adjust the EUT as closely as practicable to zero prior to each test, and do not readjust it at any time during the 
+test, except to reset it if a significant fault has been indicated. The deviation of the no -load indication due to 
+any test condition shall be recorded, and any load indication shall be corrected accordingly to obtain the 
+weighing result. 
+The handling of the instrument shall be such that no condensation of water occurs on the instrument. 
+8.2 Damp heat, steady state 
+Note: Not applicable to class I instruments or class II instruments where e is less than 1 g. 
+Test procedure in brief: The test consists of exposure of the EUT to a constant temperature (see 
+A.4.1.2) and a constant relative humidity The EUT shall be tested with 
+at least five different test loads (or simulated loads): 
+▪ at the reference temperature (20  °C or the mean value of the 
+temperature range whenever 20 °C is outside this range) and a 
+relative humidity of 50 % following conditioning; 
+▪ at the high temperature of the range specified in R 76-1, 5.8.2 
+and a relative humidity of 85  %, two days following 
+temperature and humidity stabilization; and 
+▪ at the reference temperature and relative humidity of 50 %. 
+Maximum allowable variations: All functions shall operate as designed. 
+All indications shall be within maximum permissible errors. 
+Reference: [8], [10] 
+8.3 Performance tests for disturbances 
+Prior to any test, the rounding error shall be set as chose as possible to zero. 
+If there are interfaces on the instrument, an appropriate peripheral device shall be connected to each different 
+type of interface during the tests. 
+For all tests note the environmental conditions at which they were realized. 
+Energize the EUT for a time period equal to or greater than the warm -up time specified by the manufacturer 
+and maintain the EUT energized for the duration of the test. 
+Adjust the EUT as closely as practicable to zero prior to each test, and do not readjust it at any time during the 
+
+===== [PDF PAGE 23] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+23 
+ 
+test, except to reset it if a significant fault has been indicated. The deviation of the no -load indication due to 
+any test condition shall be recorded, and any load indication shall be corrected accordingly to o btain the 
+weighing result. 
+The handling of the instrument shall be such that no condensation of water occurs on the instrument. 
+Necessary additional or alternative disturbance tests for non -automatic weighing instruments powered from 
+the vehicle battery shall be conducted according to [20], [21], [22] (see also 8.3.7). 
+8.3.1 AC mains voltage dips and short interruptions 
+Test procedure in brief: Stabilize the EUT under constant environmental conditions. 
+A test generator suitable to reduce for a defined period of time the 
+amplitude of one or more half cycles (at zero crossings) of  the AC 
+mains voltage shall be used. The test generator shall be adjusted before 
+connecting the EUT. The mains voltage reductions shall be repeated ten 
+times with an interval of at least ten seconds. 
+The test shall be performed with one small test load. 
+Test severity: 
+Test Reduction of 
+amplitude to 
+Duration / 
+number of cycles 
+Voltage dips: Test a 0 % 0.5 
+Voltage dips: Test b 0 % 1 
+Voltage dips: Test c 40 % 10 
+Voltage dips: Test d 70 % 25 
+Voltage dips: Test e 80 % 250 
+Short interruption 0 % 250 
+Maximum allowable variations: The difference between the weight indication due to the disturbance and 
+the indication without the disturbance shall either not exceed e or the 
+instrument shall detect and react to a significant fault. 
+Reference: [4] 
+8.3.2 Bursts 
+The test consists in exposing the EUT to specified bursts of voltage spikes for which the repetition frequency 
+of the impulses and peak values of the output voltage on a 50 Ω and a 1 000 Ω load are defined in the referenced 
+standard. The characteristics of the generator shall be adjusted before connecting the EUT. 
+Before any test stabilize the EUT under constant environmental conditions. The test shall be applied separately 
+to 
+▪ power supply lines, and 
+▪ I/O circuits and communication lines, if any. 
+The test shall be performed with one small test load. 
+Both positive and negative polarity of the bursts shall be applied. The duration of the test shall not be less than 
+one minute for each amplitude and polarity. The injection network on the mains shall contain blocking filters 
+to prevent the burst energy fr om being dissipated in the mains. For the coupling of the bursts into the 
+
+===== [PDF PAGE 24] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+24 
+ 
+input/output and communication lines, a capacitive coupling clamp as defined in the standard shall be used. 
+Test severity: Level 2 (see IEC xxxxxx [xx]) 
+Amplitude (peak value) Power supply lines: 1 kV, 
+ I/O signal, data and control lines: 0.5 kV. 
+Maximum allowable variations: The difference between the weight indication due to the disturbance and 
+the indication without the disturbance shall either not exceed e or the 
+instrument shall detect and react to a significant fault. 
+Reference: [14] 
+8.3.3 Surge 
+This test is only applicable in those cases where, based  on typical situations of installation, the risk of  a 
+significant influence of surges can be expected. This is e specially relevant in cases of outdoor installations 
+and/or indoor installations connected to long signal lines (lines longer than 30  m or those lines partially or 
+fully installed outside the buildings regardless of their length). 
+The test is applicable to power lines, communication lines (internet, dial up modem, etc.), and other lines for 
+control, data or signal mentioned above (lines to temperature sensors, gas or liquid flow sensors, etc.). 
+It is also applicable to DC powered instruments if the power supply comes from DC mains. 
+The test consists of exposing the EUT to surges for which the rise time, pulse width, peak values of the output 
+voltage/current on high/low impedance load and minimum time interval between two successive pulses are 
+defined in the referenced standard. The characteristics of the generator shall be adjusted before connecting the 
+EUT. 
+Before any test stabilize the EUT under constant environmental conditions. The test shall be applied to power 
+supply lines. 
+On AC mains supply lines at l east 3 positive and 3  negative surges shall be applied synchronously with AC 
+supply voltage in angles 0 °, 90 °, 180 ° and 270 °. On any other kind of power supply, at least three positive 
+and three negative surges shall be applied. 
+The test shall be performed with one small test load. 
+Both positive and negative polarity of the surges shall be applied. The duration of the test shall not be less than 
+one minute for each amplitude and polarity. The injection network on the mains shall contain blocking filters 
+to prevent the surge energy being dissipated in the mains. 
+Test severity: Level 2 
+Amplitude (peak value) Power supply lines: 0.5 kV (line to line) and 1 kV (line to earth) 
+Maximum allowable variations: The difference between the weight indication due to the disturbance and 
+the indication without the disturbance shall either not exceed e or the 
+instrument shall detect and react to a significant fault. 
+Reference: [15] 
+8.3.4 Electrostatic discharge 
+The test consists in exposing the EUT to specified direct and indirect electrostatic discharges. 
+An electrostatic discharge generator shall be used which has a performance as defined  in the referenced 
+standard. Before starting the tests, the performance of the generator shall be adjusted. 
+This test includes the paint penetration method, if appropriate. 
+For direct discharges the air discharge shall be used where the contact discharge method cannot be applied. 
+
+===== [PDF PAGE 25] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+25 
+ 
+Before any test stabilize the EUT under constant environmental conditions. 
+At least ten discharges shall be applied. The time interval between successive discharges shall be  at least ten 
+seconds. The test shall be performed with one small test load. 
+For an EUT not equipped with a ground terminal, the EUT shall be fully discharged between discharges. 
+Contact discharges shall be applied on conductive surfaces; air discharges shall be applied on non- conductive 
+surfaces. 
+Direct application: In the contact discharges mode the electrode shall be in contact with the 
+EUT. In the air discharge mode the electrode is approached to the EUT 
+and the discharge occurs by spark. 
+Indirect application: The discharges are applied in the contact mode to coupling  planes 
+mounted in the vicinity of the EUT. 
+Test severity: Level 3 (see IEC 61000-4-2 [12]) 
+DC voltage up to and including 6 kV for contact discharges and  8 kV 
+for air discharges. 
+Maximum allowable variations: The difference between the weight indication due to the disturbance and 
+the indication without the disturbance shall either not exceed e or the 
+instrument shall detect and react to a significant fault. 
+Reference: [12] 
+8.3.5 Immunity to radiated electromagnetic fields 
+The test consists of exposing the EUT to specified electromagnetic fields. 
+Test equipment: See IEC 61000-4-3 [13] 
+Test set-up: See IEC 61000-4-3 [13] 
+Test procedure: See IEC 61000-4-3 [13] 
+Before any test, stabilize the EUT under constant environmental conditions. 
+The EUT shall be exposed to electromagnetic fields of the strength and character as specified by the severity 
+level. 
+The test shall be performed with one small test load only. 
+Test severity: Frequency range: 80 MHz-2 000 MHz 
+Note: For instruments having no mains or other I/O ports available so that the 
+test according to 8.3.6 cannot be applied, the lower limit of the radiation 
+test is 26 MHz. 
+Field strength: 10 V/m 
+Modulation: 80 % AM, 1 kHz, since wave 
+Maximum allowable variations: The difference between the weight indication due to the disturbance and 
+the indication without the disturbance either shall not exceed e or the 
+instrument shall detect and react to a significant fault. 
+Reference: [13] 
+8.3.6 Immunity to conducted radio-frequency fields 
+The test consists in exposing the EUT to disturbances induced by conducted radio-frequency fields. 
+
+===== [PDF PAGE 26] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+26 
+ 
+Test equipment: See IEC 61000-4-6 [16] 
+Test set-up: See IEC 61000-4-6 [16] 
+Test procedure: See IEC 61000-4-6 [16] 
+Before any test, stabilize the EUT under constant environmental conditions. 
+The EUT shall be exposed to conducted disturbances of the strength and character as specified by the severity 
+level. 
+The test shall be performed with one small test load only. 
+Test severity: Frequency range: 0.15 MHz-80 MHz 
+RF amplitude (50 Ω): 10 V (emf) 
+Modulation: 80 % AM, 1 kHz, since wave 
+Maximum allowable variations: The difference between the weight indication due to the disturbance and 
+the indication without the disturbance either shall not exceed e or the 
+instrument shall detect and react to a significant fault. 
+Reference: [16] 
+8.3.7 Special EMC requirements for instruments powered from a road vehicle power supply 
+8.3.7.1 Electrical transient conduction along the supply line of external 12 V and 24 V batteries 
+The test consists in exposing the EUT to conducted transient disturbances along supply lines. 
+Test equipment: See ISO 7637-2 (2004) [21] 
+Test set-up: See ISO 7637-2 (2004) [21] 
+Test procedure: See ISO 7637-2 (2004) [21] 
+Applicable standard: ISO 7637-2 (2004) [21] 
+Before any test, stabilize the EUT under constant environmental conditions. 
+The EUT shall be exposed to conducted disturbances of the strength and character as specified by the severity 
+level. 
+The test shall be performed with one small test load only. 
+Test pulses: Test pulses 2a+2b, 3a+3b, 4 (not in OIML D 11:2013) 
+Objective of the test: To verify compliance with the provisions mentioned under “maximum 
+allowable variations” under the following conditions: 
+▪ transients due to a sudden interruption of current in a device 
+connected in parallel with the  device under  test due to the 
+inductance of the wiring harness (pulse 2a); 
+▪ transients from DC motors acting as generators after the 
+ignition is switched off (pulse 2b); 
+▪ transients on the supply lines, which occur as a result of the 
+switching processes (pulses 3a and 3b); 
+▪ voltage reductions caused by energizing the starter -motor 
+circuits of internal combustion engines (pulse 4). 
+Test severity: Level IV of ISO 7637-2 (2004) [21]: 
+ 
+
+===== [PDF PAGE 27] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+27 
+ 
+Battery voltage Test 2a pulse Conducted voltage 
+12 V 
+2a +50 V 
+2b +10 V 
+3a –150 V 
+3b +100 V 
+4 –7 V 
+24 V 
+2a +50 V 
+2b +20 V 
+3a –200 V 
+3b +200 V 
+4 –16 V 
+Maximum allowable variations: The difference between the weight indication due to the disturbance and 
+the indication without the disturbance either shall not exceed e or the 
+instrument shall detect and react to a significant fault. 
+Reference: [21] 
+8.3.7.2 Electrical transient transmission by capacitive and inductive coupling via lines other than 
+supply lines 
+The test consists in exposing the EUT to conducted disturbances along lines other than supply lines. 
+Test equipment: See ISO 7637-3 [22] 
+Test set-up: See ISO 7637-3 [22] 
+Test procedure: See ISO 7637-3 [22] 
+Applicable standard: ISO 7637-3 [22] 
+Before any test, stabilize the EUT under constant environmental conditions. 
+The EUT shall be exposed to conducted disturbances of the strength and character as specified by the severity 
+level. 
+The test shall be performed with one small test load only. 
+Test severity: According to ISO 7637-3 [22] 
+Test pulses: Test pulses a and b 
+Objective of the test: To verify compliance with the provisions mentioned under “maximum 
+allowable variations” under conditions of transients which occur on 
+other lines as a result of the switching processes (pulses a and b) 
+Test severity: Level IV of ISO 7637-3 [22] 
+ 
+Battery voltage Test pulse Conducted voltage 
+12 V a –60 V 
+
+===== [PDF PAGE 28] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+28 
+ 
+b +40 V 
+24 V 
+a –80 V 
+b +80 V 
+Maximum allowable variations: The difference between the weight indication due to the disturbance and 
+the indication without the disturbance either shall not exceed e or the 
+instrument shall detect and react to a significant fault. 
+Reference: [22] 
+8.4 Span stability test 
+Note: Not applicable to class I instruments. 
+Test procedure in brief: The test consists in observing the variations of the error of the  EUT 
+under sufficiently constant ambient conditions (reasonably constant 
+conditions in a normal laboratory environment) at various intervals 
+before, during and after the EUT  has been subjected to performance 
+tests. For instruments with an incorporated automatic span adjustment 
+device the device shall be activated during this test before each 
+measurement in order to prove its stability and its intended use. 
+The performance tes ts shall include the temperature test and, if 
+applicable, the damp heat test; they shall not include any endurance test; 
+other performance tests in Annexes A and B may be performed. 
+The EUT shall be disconnected from the mains power (also battery) or 
+power supply device, two times for at least eight hours during the period 
+of the test. The number of disconnections may be increased if the 
+manufacturer specifies so or at the discretion of the approval authority 
+in the absence of any such specification. 
+For the conduct of this test the manufacturer’s operating instructions 
+shall be considered. 
+The EUT shall be stabilized at sufficiently constant ambient conditions 
+after switch-on for at least five hours, but at least 16 hours after the 
+temperature and damp heat tests have been performed. 
+Test duration: 28 days or the period necessary for the performance tests to be carried 
+out, whichever is shorter. 
+Time between measurements: Between half a day and ten days, with a fairly even distribution of  the 
+measurements over the total duration of the test. 
+Test load: Near Max. The same test weights shall be used throughout this test. 
+Number of measurements: At least eight. 
+Test sequence: Stabilize all factors at sufficiently constant ambient conditions. 
+Adjust the EUT as close to zero as possible. 
+Automatic zero-tracking shall be made inoperative and automatic built-
+in span adjustment device shall be made operative. 
+Apply the test weight(s) and determine the error. 
+At the first measurement immediately repeat  zeroing and loading four 
+times to determine the average value of the error. For the next 
+measurements perform only one, unless either the result is outside the 
+
+===== [PDF PAGE 29] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+29 
+ 
+specified tolerance or the range of the five readings of the initial 
+measurement is more than 0.1 e. 
+Record the following data: 
+a) date and time; 
+b) temperature; 
+c) barometric pressure; 
+d) relative humidity; 
+e) test load; 
+f) indication; 
+g) errors; 
+h) changes in test location; 
+and apply all necessary corrections resulting from variations of 
+temperature, pressure, and other influence factors due to the test load 
+between the various measurements. 
+Allow full recovery of the EUT before any other tests are performed. 
+Maximum allowable variations: The variation in the errors of indication shall not exceed half the  
+verification scale interval or half the absolute value of the maximum 
+permissible error on initial verification for the test  load applied, 
+whichever is greater, on any of the n measurements. 
+Where the differences of the results indicate a trend more than half the 
+allowable variation specified above, the test shall be continued until the 
+trend comes to rest or reverses itself, or until the error exceeds the 
+maximum allowable variation. 
+  
+
+===== [PDF PAGE 30] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+30 
+ 
+9 Testing and certification of indicators and analogue data processing devices as 
+modules of non-automatic weighing instruments 
+9.1 Applicable requirements 
+The use of the term “indicator” in the following, includes any analogue data processing devices. Families of 
+indicators are possible if the requirements under R 76-1, 5.9.4 are observed. 
+The following requirements apply to indicators: 
+R 76-1, 5.1.1 Accuracy classes 
+R 76-1, 5.1.2 Verification scale interval 
+R 76-1, 5.2 Classification of instruments 
+R 76-1, 5.3 Additional requirements for multi-interval instruments 
+R 76-1, 5.4 Auxiliary indicating devices 
+R 76-1, 5.5 Maximum permissible errors 
+R 76-1, 5.8.2 Temperature 
+R 76-1, 5.8.3 Power supply 
+R 76-1, 5.9 Type evaluation tests and examinations 
+R 76-1, 6.1 General construction requirements 
+R 76-1, 6.1.1 Suitability 
+R 76-1, 6.1.2 Security 
+R 76-1, 6.4 Indication of weighing results 
+R 76-1, 6.5 Analogue indicating device 
+R 76-1, 6.6 Digital indicating devices 
+R 76-1, 6.7 Zero-setting and zero-tracking devices 
+R 76-1, 6.8 Tare devices 
+R 76-1, 6.9 Preset tare devices 
+R 76-1, 6.11 Auxiliary verification devices (removable or fixed) 
+R 76-1, 6.12 Selection of weighing ranges on a multiple range instrument 
+R 76-1, 6.13 Devices for selection (or switching) between various load receptors and/or load 
+transmitting devices and various load measuring devices 
+R 76-1, 6.14 “Plus and minus” comparator instruments 
+R 76-1, 7.1 Instruments for direct sales to public 
+R 76-1, 7.2 Additional requirements for price-computing instruments for direct sales to the public 
+R 76-1, 7.2 Price-labelling instruments 
+R 76-1, 6.1.3 Faults 
+R 76-1, 6.1.4 Acting upon significant faults 
+R 76-1, 6.1.5 Functional requirements 
+R 76-1, 6.1.6 Performance and span stability tests 
+R 76-1, 6.2 Software requirements 
+
+===== [PDF PAGE 31] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+31 
+ 
+Note: Especially for PCs, the category and necessary tests according to Table 11 should be observed. 
+9.1.1 Accuracy class 
+The indicator shall have the same accuracy class as the weighing instrument it is intended to be used with. An 
+indicator of class III can also be used in a weighing instrument of class IIII taking into account the requirements 
+of class IIII. 
+9.1.2 Number of verification scale intervals 
+The indicator shall have the same or a higher number of verification scale intervals as the weighing instrument 
+with which it is intended to be used. 
+9.1.3 Temperature range 
+The indicator shall have the same or a larger temperature range as the weighing instrument with which  it is 
+intended to be used. 
+9.1.4 Range of input signal 
+The range of the analogue output signal of the load cell(s) connected  shall be within the range of  the input 
+signal for which the indicator is specified. 
+9.1.5 Minimum input signal per verification scale interval 
+The minimum input signal per verification scale interval ( μV) the indicator is specified for shall be  equal or 
+smaller than the analogue output signal of the load cell(s) connected divided by the number of scale intervals 
+of the weighing instrument. 
+9.1.6 Range of load cell impedance 
+The resulting impedance of the load cell(s) connected to the indicator shall be within  the range specified for 
+the indicator. 
+9.1.7 Maximum cable length 
+Only indicators employing six-wire technology with remote sensing (of the load cell excitation voltage) shall 
+be used if the load cell cable has to be lengthened or if several load cells are connected by means of a separate 
+load cell junction box. However, the length  of the (additional) cable between the load cell or the load cell 
+junction box and the indicator shall not exceed the maximum length the indicator is specified for. The 
+maximum cable length depends on the material and the cross section of the single wire, and thus can also be 
+expressed as the maximum wire resistance, given in units of impedance. 
+9.2 General principles of testing 
+A number of tests can be performed with either a load cell or a simulat or but both have to fulfill the 
+requirements of 5.1.7. However the disturbance tests should be performed with a load cell or a weighing 
+platform with load cell being the most realistic case. 
+Note: For the testing of a family of indicators, in principle, the provisions described in R 76-1, 5.9.4 apply. Special 
+attention has to be paid to the possibly different EMC and  temperature behavior of different variants of 
+indicators. 
+9.2.1 Worst case conditions 
+In order to limit the number of tests the indicator shall, as far as possible, be tested under conditions which 
+cover the maximum range of applications. This means that most tests shall be performed under worst case 
+conditions. 
+
+===== [PDF PAGE 32] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+32 
+ 
+9.2.1.1 Minimum input signal per verification scale interval, e 
+The indicator shall be tested at minimum input signal (normally minimum input voltage) per verification scale 
+interval, e, specified by the manufacturer. This  is assumed to be the worst  case for  the performance tests 
+(intrinsic noise covering the load cell output signal) and for the disturbance tests (unfavorable ratio of signal 
+and e.g. high frequency voltage level). 
+9.2.1.2 Minimum simulated dead load 
+The simulated dead load shall be the minimum value the manufacturer has specified. A low input signal of the 
+indicator covers the maximum range of problems with regard to linearity and other significant properties. The 
+possibility of a larger zero drift with a larger dead load is regarded as a less significan t problem. However, 
+possible problems with the maximum value of the dead load (e.g. saturation of the input amplifier) have to be 
+considered. 
+9.2.2 Testing at high or low simulated load cell impedance 
+The disturbance tests (see R 76-1, 6.1.6.3) shall be performed with a load cell instead of a simulator and with 
+the highest practical value of the impedance (at least 1/3 of the specified highest impedance) for the load cell(s) 
+to be connected as specified by the manufacturer. For the “Immunity  to radiated electromagnetic fields” test, 
+the load cell(s) should be placed within the uniform area ( IEC 61000-4-3 [13]) inside the anechoic chamber. 
+The load cell cable shall not be decoupled because the load cell is supposed to be an essential part of the 
+weighing instrument and not a peripheral (see also Figure 6 in IEC 61000-4-3 [13] which shows a test set-up 
+for a modular EUT). 
+The influence tests (see R 76-1, 6.1.6.3) may either be performed using a load cell or a simulator. However 
+the load cell / simulator shall not be exposed to the influence during the tests (i.e. the simulator is outside the 
+climate chamber). The  influence tests shall be performed at the lowest impedance of  the load cell(s) to be 
+connected as specified by the applicant. 
+Table 12 indicates which test has to be performed with the lowest impedance (low) and which with the highest 
+practical value of the impedance (high). 
+Table 12 Tests to be performed with the lowest impedance (low) and which with the highest 
+practical value of the impedance (high) 
+ 
+R 76-1 
+clause Article concerning Fraction, pi Impedance µV/e 
+A.4.4 Weighing performance 0.3 … 0.8 low min 
+A.4.5 Multiple indicating device    
+ Analog 1 low min 
+ Digital 0 low min 
+A.4.6.1 Weighing accuracy with tare  low min 
+A.4.10 Repeatability  low min/max** 
+A.5.2 Warm-up time test 0.3 … 0.8 low min/max** 
+A.5.3.1 Temperature (effect on amplification) 0.3 … 0.8 low min/max** 
+A.5.3.2 Temperature (effect on no-load) 0.3 … 0.8 low min 
+A.5.4 Voltage variations 1 low min 
+3.9.5 Other influences    
+
+===== [PDF PAGE 33] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+33 
+ 
+B.2.2 Damp heat steady state 0.3 … 0.8 low min/max** 
+B.3.1 AC mains voltage dips and short interruptions 1 high* min 
+B.3.2 Bursts 1 high* min 
+B.3.3 Surge (if applicable) 1 high* min 
+B.3.4 Electrostatic discharge 1 high* min 
+B.3.5 Immunity to radiated electromagnetic fields 1 high* min 
+B.3.6 Immunity to conducted radio-frequency fields 1 high* min 
+B.3.7 Special EMC requirements for instruments  
+powered from road vehicle power supply 1 high* min 
+powered 
+from road 
+vehicle 
+power 
+supply 
+1 high* min  
+B.4 Span stability 1 low min 
+* Test has to be performed with load cell. 
+** See 9.3.1.1. 
+The impedance of the load  cell referred to in this Annex is the input impedance of the load  cell which is the 
+impedance that is connected between the excitation lines. 
+9.2.3 Peripheral equipment 
+Peripheral equipment shall be supplied by the applicant to demonstrate correct functioning  of the system or 
+sub-system and the non-corruption of weighing results. 
+When performing disturbance tests, perip heral equipment may be connected to all different interfaces. 
+However, if not all optional peripheral equipment is available or cannot be placed on the test site (especially 
+when having to place them in the uniform area during radiated fields tests), then at least  
+cables shall be connected to the interfaces. Cable types and lengths shall be as specified in the manufacturer’s 
+authorized manual. If cable lengths  longer than 3 m are specified, testing with  lengths of 3 m is regarded as 
+being sufficient. 
+9.2.4 Adjustment and performance tests 
+The adjustment (calibration) shall be performed as described by the manufacturer. Weighing tests shall be 
+performed with at least five different (simulated) loads from zero to the maximum number of verification scale 
+intervals, e, with the minimum input voltage per e (for high sensitive indicators possibly also with the 
+maximum input voltage per e, see 9.2.1.1). It is preferable to choose points close to the changeover points of 
+the error limits. 
+9.2.5 Indication with a scale interval smaller than e 
+If an indicator has a device for displaying the weight  value with a smaller scale interval (not greater  than 
+1/5 × pi × e, high resolution mode), thi s device may be used to determine the error. It may also be tested in 
+service mode where the “raw values” (counts) of the analog -to-digital converter are given. If either device is 
+used it should be noted in the Test Report. 
+Prior to the tests it shall be verified that this indicating mode is suitable for establishing the measuring errors. 
+
+===== [PDF PAGE 34] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+34 
+ 
+If the high resolution mode does not fulfill this demand, a load cell, weights and small additional weights shall 
+be used to determine the changeover points with an uncertainty better than 1/5 × pi × e (see 5.4.4). 
+9.2.6 Load cell simulator 
+The simulator shall be suitable for the indicator. The simulator shall be calibrated for the  used excitation 
+voltage of the indicator (AC excitation voltage also means AC calibration). 
+9.2.7 Fractions, pi 
+The standard fraction is pi = 0.5 of the maximum permissible error of the complete  instrument, however, it 
+may vary between 0.3 and 0.8. 
+The manufacturer shall state the fraction, pi, which is then used as a basis for the tests for which a range of pi 
+is assigned (see Table 12 under 9.2.2C.2.2). 
+No value for the fraction pi is given with respect to repeatability. Insufficient repeatability is a typical problem 
+of mechanical instruments with leverworks, knives and pans and other mechanical structures that may cause 
+e.g. a certain friction. It is expected that the indicator will normally not cause a lack in repeatability. In the rare 
+cases it does, this is not a lack of repeatability within the meaning of R 76-1, however, special attention shall 
+be paid to the reasons and the consequences. 
+9.3 Tests 
+The relevant parts of the Test Report Format (see 9.1R 76-3) and checklist of (R 76-24) shall be used for an 
+indicator. The parts of the R 76-42 checklist which are not relevant are those referring to the following R 76-
+1 requirements: 
+R 76-1, 5.8.1.1 Instruments liable to be tilted 
+R 76-1, 7.1.9 Counting ratio [instruments for direct sales to the public] 
+R 76-1, 7.5.1 Indicating devices [for mechnical counting instruments with unit-weight receptor] 
+R 76-1, 7.5.2 Counting ratio [for mechnical counting instruments with unit-weight receptor] 
+R 76-1, 9.1.5.1 Instruments having several load receptors and load measuring devices 
+12.1 Weighing instruments 
+12.2.4 Maximum capacity of the load cell 
+12.2.5 Minimum dead load of the load cell 
+12.2.6 Maximum number of load cell intervals 
+9.3.1 Temperature and performance tests 
+9.3.1 Temperature and performance tests 
+In principle, the temperature effect on the amplification is tested according to the following procedure: 
+▪ Carry out the prescribed adjustment procedure at 20 °C. 
+▪ Change the temperature and verify that the measuring points are within the error limits after correction 
+of a zero shift. 
+This procedure shall be carried out at the highest amplification and the lowest impedance to which the indicator 
+can be adjusted. However, those conditions shall ensure that the measurement can be performed with such an 
+accuracy that it is sufficiently certain that non-linearities found in the error  curve are not caused by the test 
+equipment used. 
+In case this accuracy cannot be reached (e.g. with high sensitive indicators) the procedure has to be carried out 
+twice (9.2.1.1). The first measurement has to be carried out with the lowest amplification, using at least five 
+
+===== [PDF PAGE 35] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+35 
+ 
+measuring points. The second measurement is carried out with the highest amplification, using two measuring 
+points, one at the low end and one at the high end of the measuring range. The change in amplification due to 
+temperature is acceptable if a line of the same form found at the first measurement, drawn between the two 
+points and corrected for a zero-shift, is inside the relevant error limits (error envelope). 
+The temperature effect on no load indication is the influence of temperature variation on the zero expressed in 
+changes of the input signal in µV. The zero drift is calculated with the help of a str aight line through the 
+indications at two adjacent temperatures. The zero drift should be less than pi × e / 5 K. 
+9.3.1.1 Tests with high and low amplification 
+If the minimum input voltage per verification scale interval is very low, i.e. less than or equal to 1 µV/e, it may 
+be difficult to find a suitable simulator or load cell  to determine the linearity. If the value of the fraction pi is 
+0.5 for an indicator with 1 µV/e then the maximum permissible error for simulated loads smaller than 500 e is 
+0.25 µV/e. The error of the simulator shall not cause an effect exceeding 0.05 µV/e or at least the repeatability 
+should be equal to or better than 0.05 µV/e. 
+In any case, the following has to be taken into account: 
+a) The linearity of the indicator is tested over the complete input range. 
+Example: A typical indicator with a load cell excitation power supply of 12 V has a measuring 
+range of 24 mV. If the indicator is specified for 6  000 e, the linearity can be tested 
+with 24 mV/6 000 e = 4 µV/e. 
+b) With the same setup, the temperature effect on the amplification shall be measured, during the 
+static temperature test and during the damp heat steady state test. 
+c) After that the indicator is set up with the minimum dead load specified and with the minimum 
+input voltage per verification scale interval, e. Suppose this value is 1  µV/e, which means that 
+only 25 % of the input range is used. 
+d) The indicator shall now be tested with an input voltage close to 0  mV and close to 6  mV. The 
+indication at both input voltages is regis tered at 20  °C, 40  °C, –10 °C, 5  °C and 20  °C. The 
+differences between the indication at 6 mV (corrected for the indication at 0 mV) at 20°C and the 
+corrected indications at the other temperatures are plotted on a graph. The points found are 
+connected to the zero point by means of curves of the same shape form as those found in (a) and 
+(b). The curves drawn shall be within the error envelope for 6 000 e. 
+e) During this test the temperature effect on no load indication can also be measured to see if the 
+effect is less than pi × e / 5 K. 
+f) If the indicator fulfils the above -mentioned requirements it also complies with R 76-1, 
+5.8.2.1-5.8.2.3 and it complies with the requirements for the static temperature test and damp heat 
+steady state test. 
+9.3.2 Tare 
+The influence of tare on the weighing performance depends exclusively on the linearity of the error curve. The 
+linearity will be determined when the normal weighing performance tests are carried out. If the error curve 
+shows a significant nonlinearity, the error envelope s hall be shifted along the curve, to see if the indicator 
+meets the demands for the tare value corresponding with the steepest part of the error curve. 
+9.3.3 Testing the sense function (with six wire load cell connection only) 
+9.3.3.1 Scope 
+Commented [ID10]: Why K here and ºC everywhere else? 
+
+===== [PDF PAGE 36] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+36 
+ 
+Indicators intended for connection of strain gauge load cells employ the 4 -wire or the 6-wire principle of the 
+load cell connection. When 4-wire technology is used, lengthening the load cell cable or using a separate load 
+cell junction box with an extra cable is not allowed at all. Ind icators using 6 -wire technology have a sense 
+input enabling the indicator to compensate variations in load cell excitation voltage due to lengthened cables 
+or changes of cable resistance due to temperature. However, in contrast to the theoretical principle of function, 
+the compensation of variations in load cell excitation voltage is limited due to a limited input resistance of the 
+sense input. This may lead to an influence by variation of cable resistance due to temperature variation a nd 
+result in a significant shift of the span. 
+9.3.3.2 Test 
+The sense function shall be tested under worst-case conditions, i.e.: 
+▪ the maximum value of the load cell excitation voltage; 
+▪ the maximum number of load cells that may be connected (can be simulated); and 
+▪ the maximum cable length (can be simulated). 
+9.3.3.2.1 Simulated maximum number of load cells 
+The maximum number of load cells can be simulated by putting an extra ohmic shunt resistor on the excitation 
+lines, connected in parallel with the load cell simulator or the load cell respectively. 
+9.3.3.2.2 Simulated maximum cable length 
+The maximum cable length can be simulated by putting variable ohmic resistors in all six lines. The resistors 
+shall be set to the maximum cable resistance and thus the maximum cable l ength (depending on the intended 
+material, e.g. copper or others, and the cross section). However, in most cases it is sufficient to place the 
+resistors only in the excitation lines and the sense lines, since the  input impedance of the signal input is 
+extremely high in comparison to that of the sense input. Therefore the signal input current is nearly zero or at 
+least extremely small in comparison to the current on the excitation and sense lines. The input current being 
+near to zero, no significant effect can be expected, since the voltage drop is negligible. 
+9.3.3.2.3 Readjustment of the indicator 
+The indicator shall be readjusted after having set the cable simulation resistors. 
+9.3.3.2.4 Determining the span variation 
+The span between zero and maximum (simulated) load shall be measured. It is assumed that under worst case 
+conditions a change of resistance due to a temperature change corresponding to the whole temperature range 
+of the instrument may occur. Therefore a variation of the resistance, ΔRTemp, corresponding to the difference 
+between minimum and maximum operating temperatures shall be  simulated. The expected variation of 
+resistance shall be determined according to the following formula: 
+ΔRTemp = Rcable × α × (Tmax – Tmin) 
+where: Rcable = resistance of a single wire, calculated according to the following formula: 
+Rcable = (ρ × l) / A 
+where: ρ = specific resistance of the material (e.g. copper: ρcopper = 0.017 5 Ω mm2/m) 
+l = length of the cable (in m) 
+A = cross section of the single wire (in mm2) 
+α = temperature coefficient of the cable material in 1/K (e.g. for copper, αcopper = 0.003 9 1/K) 
+After having set the variable ohmic resistors to the new value the span between zero and maximum load shall 
+be determined again. Since the variation can be positive or negative both directions shall be tested, e.g. for a 
+Commented [ID11]: K again 
+
+===== [PDF PAGE 37] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+37 
+ 
+class III instrument the variation of simulated cable resistance shall correspond to a variation of temperature 
+by 50 K in both directions, increasing and decreasing temperature (the temperature range being –10 °C to 
++40 °C). 
+9.3.3.2.5 Limits of span variation 
+For determining the limits of  span variation due to temperature influence on the cable,  the results of  the 
+temperature tests on the indicator shall be considered. The difference between the maximum span error of the 
+indicator due to temperature and the error limit may be assigned to the effect on the span  due to limited 
+compensation by the sense device. However, this effect shall not cause an error of more than one third of the 
+absolute value of the maximum permissible error multiplied by pi. 
+Δspan(ΔT) ≤ pi × mpe – Emax(ΔT) 
+where: Δspan(ΔT) ≤ 1/3 pi × mpeabs 
+If the indicator is not able to meet these conditions, the maximum cable resistance and thus the maximum cable 
+length has to be reduced or a larger cross section has to be chosen. 
+The specific cable length may be given in the form m/mm2 (depending on the material of the cable, e.g. copper, 
+aluminium). 
+ 
+Figure 12 – Span variation 
+9.3.4 Other influences 
+Other influences and restraints should be taken into consideration for the complete instrument and not for the 
+modules. 
+9.4 OIML certificates 
+9.4.1 General 
+The certificate shall contain common information and data about the Issuing Authority, the manufacturer and 
+the indicator. For the layout the general rules of OIML-CS PD-05 Edition 4, Annex A [3] shall be observed as 
+far as applicable. 
+Commented [ID12]: K again, withº C later in the sentence. 
+Commented [ID13]: Caption was missing 
+
+===== [PDF PAGE 38] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+38 
+ 
+The following important i nformation about the indicator shall be given under “Identification of the certified 
+module”: 
+▪ type, accuracy class; 
+▪ value of the fractional error, pi; 
+▪ temperature range; 
+▪ maximum number of verification scale intervals; 
+▪ minimum input voltage per verification scale interval; 
+▪ measuring range; and 
+▪ minimum load cell impedance. 
+9.4.2 Test Report Format 
+The R 76-3 Test Report Format shall contain detailed information about the indicator. These are technical data, 
+description of the functions, characteristics, features and the checklist from R 76-3. The relevant information 
+is as follows: 
+Report number: zzzzz 
+Type examination of: Indicator as a module of a non -automatic electromechanical  
+weighing instrument 
+Issuing authority: Name, address, person responsible 
+Manufacturer: Name, address 
+Type of module: ....................... 
+Test requirements: R 76-2:20xx 
+Summary of the examination: Separately tested module, pi = 0.5x, connected load cell or load cell 
+simulator, connected peripherals, special information if some tests 
+were performed by the manufacturer and why they were accepted, 
+results of the test in brief. 
+Evaluator: Name, date, signature 
+Table of contents: 
+This report belongs to OIML certificate no. R 76/xxxx-yy-zzzz 
+1 General information concerning the module: 
+Description of the housing, display, keyboard, plugs and connectors, etc. shall be briefly described and 
+supported by corresponding figures or photos of the indicator. 
+2 Functions, facilities and devices of the module: 
+Zero-setting devices, tare devices, weighing ranges, modes of operation, etc. ( see R 76-1, 4) shall be 
+listed. 
+3 Technical data: 
+In order to check the compatibility of modules when using the modular  approach (see 12 and R 76-1, 
+5.9.2) a certain set of data is necessary. This part contains the data of the indicator in the same 
+presentation and units that is needed to check the requirements of clause 12 easily. 
+3.1 Metrological data with regard to the weighing instrument 
+▪ Accuracy class 
+▪ Maximum number of verification scale intervals, n 
+
+===== [PDF PAGE 39] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+39 
+ 
+▪ Operating temperature range (°C) 
+▪ Value of the fractional error, pi 
+3.2 Electrical data 
+▪ Power supply voltage (V AC or DC) 
+▪ Form (and frequency (Hz)) of the power supply 
+▪ Load cell excitation voltage (V AC or DC) 
+▪ Minimum signal voltage for dead load (mV) 
+▪ Maximum signal voltage for dead load (mV) 
+▪ Minimum input voltage per verification scale interval, e (µV) 
+▪ Measuring range minimum voltage (mV) 
+▪ Measuring range maximum voltage (mV) 
+▪ Minimum load cell impedance (Ω) 
+▪ Maximum load cell impedance (Ω) 
+3.3 Sense system 
+Existing or not existing 
+3.4 Signal cable 
+Additional cable between the indicator and the load cell or the load cell junction box respectively (only 
+allowed with indicators using six wire system, i.e. sense system) shall be specified as follows: 
+▪ material (copper, aluminium, etc.); 
+▪ length (m) 
+▪ cross section (mm2); or 
+▪ specific length (m/mm2) when the material (copper, aluminium etc.) is specified; or 
+▪ maximum ohmic resistance per single wire. 
+4 Documents: 
+List of documents. 
+5 Interfaces: 
+Interface types and numbers for peripheral devices an d for other devices. All interfaces are protective 
+in the sense of R 76-1, 6.1.5.9. 
+6 Connectable devices: 
+Printer, display, etc. For applications not subject to mandatory verification, any peripheral devices may 
+be connected. Examples: D/A converters, PC, etc. 
+7 Descriptive markings and control marks: 
+The means to apply the descriptive markings shall be described considering R 76-1, 9.1.4 and R 76-1, 
+9.1.5 as far as applicable. In addition to the complete instrument the module itself must be clearly 
+identifiable. The places for the descriptive plate and the verification marks shall be described. If 
+applicable the means for sealing and securing the indicator  shall be described and shown in figures or 
+photos. 
+
+===== [PDF PAGE 40] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+40 
+ 
+8 Test equipment: 
+Information concerning the test equipment used for type evaluation of this module and  information 
+about calibration of the test equipment. Examples: load cell simulator, temperature cham bers, 
+voltmeters, transformers, disturbance test equipment, etc. 
+9 Remarks on the tests: 
+Example: In the R 76-2 checklist, the parts related to the complete weighing instrument (“descriptive 
+markings”, “verification marks and sealing” and partially “indicating device”) are not filled in. During 
+the disturbance tests a load cell of the type .... and a printer of the type .... was connected. 
+10 Measuring results: 
+Forms from R 76-23. 
+11 Technical requirements: 
+Checklist from R 76-2. 
+10 Testing and certification of digital data processing devices, terminals and digital 
+displays as modules of non-automatic weighing instruments 
+10.1 Applicable requirements 
+10.1.1 Requirements for digital data processing devices, terminals and digital displays 
+The following requirements apply to these modules as far as applicable: 
+3.3 Additional requirements for multi-interval instruments 
+3.9.3 Power supply 
+3.9.5 Other influence quantities and restraints 
+3.10 Type evaluation tests and examinations 
+4.1 General construction requirements 
+4.2 Indication of weighing results (not for digital data processing devices) 
+4.4 Digital indicating devices (not for digital data processing devices) 
+4.5 Zero-setting and zero-tracking devices 
+4.6 Tare devices 
+4.7 Preset-tare devices 
+4.10 Selection of weighing ranges on a multiple range instrument 
+4.11 Devices for selection (or switching) between various load receptors and/or load transmitting 
+devices and various load measuring devices 
+4.13 Instruments for direct sales to the public 
+4.14 Additional requirements for price computing instruments for direct sales to the public 
+4.16 Price-labeling instruments 
+5.1 General requirements 
+5.2 Acting upon significant faults 
+5.3 Functional requirements 
+5.4 Performance and span stability tests 
+
+===== [PDF PAGE 41] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+41 
+ 
+5.5 Additional requirements for software-controlled electronic devices 
+8.2.1.2 Descriptive documents 
+10.1.2 Supplementary requirements 
+10.1.2.1 Fraction of error limits 
+Digital data processing devices, terminals and digital displays are purely digital modules. For these modules, 
+the fraction is pi = 0.0 of the maximum permissible error of the complete instrument it is intended to be used 
+with. 
+10.1.2.2 Accuracy class 
+Digital data processing devices, terminals and digital displays are purely digital modules. Therefore  they can 
+be used in weighing instruments of all accuracy classes. The relevant  requirements of the class of weighing 
+instrument they are intended to be used with shall be taken into account. 
+10.2 General principles of testing 
+10.2.1 General 
+Digital data processing devices, terminals and digital displays are purely digital modules. Therefore the: 
+▪ design and construction according to the documentation (R 76-1, 10.2.1.2); 
+▪ functions and indications according to the requirements mentioned in 11.1.1; and 
+▪ disturbances according to 11.3 shall be tested. 
+However, all indicated values and all functions which are transmitted and/or released via an interface shall be 
+tested to ensure that they are correct and in compliance with this Recommendation. 
+10.2.2 Simulating devices 
+For testing these modules a suitable simulating device (e.g. ADC for testing a digital data processing device; 
+weighing module or digital data processing device for testing a terminal or digital display) shall be connected 
+to the input interface of the module so that all functions can be operated and tested. 
+10.2.3 Displaying devices 
+For testing a digital data processing device a suitable digital display or terminal shall be connected to display 
+the respective weighing results and to operate all functions of the digital data processing device. 
+10.2.4 Interface 
+The requirements of R 76-1, 6.1.5.6 are applicable to all interfaces. 
+10.2.5 Peripheral devices 
+Peripheral devices shall be supplied by the applicant to demonstrate correct functioning of the module and that 
+weighing results cannot inadmissibly be influenced by peripheral devices. 
+When performing disturbance tests peripheral devices shall be connected to every different interface. 
+10.3 Tests 
+For these modules the following tests (according to 5 and 8) shall be performed: 
+Voltage variations* 6.4 
+
+===== [PDF PAGE 42] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+42 
+ 
+AC mains voltage dips and short interruptions** 8.3.1 
+Bursts** 8.3.2 
+Surge (if applicable)** 8.3.3 
+Electrostatic discharge** 8.3.4 
+Immunity to radiated electromagnetic fields** 8.3.5 
+Immunity to conducted radio-frequency fields** 8.3.6 
+Special EMC requirements for instruments powered from road vehicle power supply** 8.3.7 
+* For the voltage variations test only the legally relevant functions and the easy and unambiguous reading  of the 
+primary indications shall be observed. 
+** Purely digital modules need not be tested for disturbances ( 8.3) if conformity to the relevant IEC Standards is 
+otherwise established to at least the same level as required in this Recommendation.  
+The Test Report and the checklist of R 76-3 shall be used also for these modules as far as applicable. 
+The parts of the checklist of R 76-34 related to “descriptive markings” and “verification marks and sealing” 
+are not relevant and must not be filled in. 
+10.4 OIML certificates 
+10.4.1 General 
+The certificate shall contain common information and data about the Issuing Authority, the manufacturer and 
+the module (digital data processing device, terminal or digital display).  For the layout, the general rules of 
+OIML-CS PD-05 Edition 4, Annex A [3] shall be observed as far as applicable. 
+10.4.2 Test Report Format 
+The R 76-3 Test Report shall contain detailed information about the module (digital data processing device, 
+terminal or digital display). These are technical data, description of the functions, characteristics,  and features 
+and the checklist of R 76-3. The relevant information is as follows: 
+Report number: zzzzz 
+Type examination of a: Module (digital data processing device, terminal or digital display)  
+for a non-automatic electromechanical weighing instrument. 
+Issuing authority: Name, address, person responsible. 
+Manufacturer: Name, address. 
+Type of module: ....................... 
+Test requirements: R 76-1:20xx 
+Summary of the examination: Separately tested module, pi = 0.0, connected devices for simulating 
+the input signal, for displaying the weighing results and to operate 
+the module, connected peripherals, special information as if some 
+tests were performed by the manufacturer and why they were 
+accepted, results of the test in brief. 
+Evaluator: Name, date, signature. 
+Table of contents: 
+This report belongs to OIML certificate no. R 76/xxxx-yy-zzzz. 
+1 General information concerning the type of module: 
+Short description of the module, interfaces. 
+Commented [ID14]: I replaced B 3 Annex A with this. Is it 
+correct? 
+
+===== [PDF PAGE 43] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+43 
+ 
+2 Functions, facilities and devices of the module: 
+Zero-setting devices, tare devices, multi -interval function, different weighing ranges, modes of 
+operation, etc. 
+3 Technical data: 
+Tare ranges, etc. 
+4 Documents: 
+List of documents. 
+5 Interfaces: 
+Interface types and numbers, for peripheral devices and for other devices. All interfaces are protective 
+in the sense of R 76-1, 6.1.5.9. 
+6 Connectable devices: 
+Terminal, printer, digital display, etc.. For applications not subject to mandatory verification, any 
+peripheral devices may be connected (examples: D/A converters, PC, etc.). 
+7 Control marks: 
+If securing (sealing) is required for the weighing instrument the adjustment elements of this module can 
+be protected by a control mark (adhesive mark or seal). 
+8 Test equipment: 
+Information concerning the test equipment used for type evaluation of this module. Information about 
+calibration of the equipment. Examples: voltmeters, transformers, disturbance test equipment, etc. 
+9 Remarks on the tests: 
+In the R 76-3 checklist, the parts related to the indicator (“descriptive markings”, “verification marks  
+and sealing” are not filled in . Example: During the disturbance tests a printer of the type ... was 
+connected. 
+10 Measuring results: 
+Forms from R 76-3. 
+11 Technical requirements: 
+Checklist from R 76-3. 
+  
+
+===== [PDF PAGE 44] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+44 
+ 
+11 Testing and certification of weighing modules as modules of non-automatic 
+weighing instruments 
+11.1 Applicable requirements 
+11.1.1 Requirements for weighing modules 
+The following requirements apply to weighing modules: 
+3.1 Principles of classification 
+3.2. Classification of instruments 
+3.3 Additional requirements for multi-interval instruments 
+3.5 Maximum permissible errors 
+3.6 Permissible differences between results 
+3.8 Discrimination 
+3.9 Variations due to influence quantities and time 
+3.10 Type evaluation tests and examinations 
+4.1 General construction requirements 
+4.2 Indication of weighing results 
+4.4 Digital indicating devices 
+4.5 Zero-setting and zero-tracking devices 
+4.6 Tare devices 
+4.7 Preset-tare devices 
+4.10 Selection of weighing ranges on a multiple range instrument 
+4.11 Devices for selection (or switching) between various load receptors and/or load transmitting 
+devices and various load measuring devices 
+4.13 Instruments for direct sales to the public 
+4.14 Additional requirements for price computing instruments for direct sales to the public 
+4.16 Price-labeling instruments 
+5.1 General requirements 
+5.2 Acting upon significant faults 
+5.3 Functional requirements 
+5.4 Performance and span stability tests 
+5.5 Additional requirements for software-controlled electronic devices 
+11.1.2 Supplementary requirements 
+11.1.2.1 Fraction of error limits 
+For a weighing module, the fraction is pi = 1.0 of the maximum permissible error of the complete instrument. 
+11.1.2.2 Accuracy class 
+The weighing module shall have the same accuracy class as the weighing instrument it is intended to be used 
+with. A weighing module of class III can also be used in a weighing instrument of class IIII taking into account 
+
+===== [PDF PAGE 45] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+45 
+ 
+the requirements of class IIII. 
+11.1.2.3 Number of verification scale intervals 
+The weighing module shall have at least the same number of verification scale intervals as  the weighing 
+instrument it is intended to be used with. 
+11.1.2.4 Temperature range 
+The weighing module shall  have the same or a wider temperature range as the weighing instrument it  is 
+intended to be used with. 
+11.2 General principles of testing 
+11.2.1 General 
+A weighing module shall be tested in the same way as a complete weighing instrument, with the exception of 
+testing the design and construction of the indicating device and control elements. However, all indicated values 
+and all functions which are transmitted and/or released via the interface shall be tested to ensure that they are 
+correct and in compliance with this Recommendation. 
+11.2.2 Indicating devices 
+For this test a suitable indicating device or terminal shall be connected to indicate the respective weighing 
+results and to operate all functions of the weighing module. 
+If the weighing results of the weighing module have a differentiated scale division according to R 76-1, 5.4.1 
+the indicating device shall indicate this digit. 
+The indicating device should preferably allow indication to a higher resolution to determine the error, e.g. in 
+a special service mode. If a higher resolution is used it should be noted in the Test Report. 
+11.2.3 Interface 
+The requirements of R 76-1, 6.1.5.6 are applicable to all interfaces. 
+11.2.4 Peripheral equipment 
+Peripheral equipment shall be supplied by the applicant to demonstrate correct operation of the system or sub-
+system and the non-corruption of weighing results. 
+When performing disturbance tests, peripheral equipment shall be connected to every different interface. 
+11.3 Tests 
+The complete testing procedure for non -automatic weighing instruments (according to 5 and 8) shall be 
+performed. 
+The Test Report of R 76-3 and the checklist of R 76-43 shall be used also for weighing modules. 
+The parts of the checklist of R 76-34 related to “descriptive markings”, “verification marks and sealing” and 
+partially to “indicating device” are not relevant and must not be filled in. 
+11.4 OIML certificates 
+11.4.1 General 
+The certificate shall contain common information and data about the Issuing Authority, the manufacturer and 
+the weighing module. For the layout, the general rules of OIML-CS PD-05 Edition 4, Annex A  [3] shall be Commented [ID15]: I replaced B 3 Annex A with this. Is it 
+correct? 
+
+===== [PDF PAGE 46] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+46 
+ 
+observed as far as applicable. 
+11.4.2 Test Report Format 
+The R 76-3 Test Report shall contain detailed information about the weighing module. These are technical 
+data, description of the functions, characteristics, and features and the checklist of R 76-3. The relevant  
+information is as follows: 
+Report number: zzzzz 
+Type examination of a: Weighing module for a non-automatic electromechanical weighing 
+instrument. 
+Issuing authority: Name, address, person responsible. 
+Manufacturer: Name, address. 
+Type of module: ....................... 
+Test requirements: R 76-1, edition xxxx. 
+Summary of the examination: Separately tested module, pi = 1.0, connected device for indicating  
+the weighing results and to operate the module, connected 
+peripherals, special information as if some tests were performed by 
+the manufacturer and why they were accepted, results of the test in 
+brief. 
+Evaluator: Name, date, signature. 
+Table of contents: 
+This report belongs to OIML certificate no. R 76/xxxx-yy-zzzz. 
+1 General information concerning the type of module: 
+Description of mechanical structures, load cell, analogue data processing device, interfaces. 
+2 Functions, facilities and devices of the module: 
+Zero-setting devices, tare devices, multi-interval weighing module, different weighing ranges, modes of 
+operation, etc. 
+3 Technical data: 
+Table with accuracy class, pi = 1.0, Max, Min, n, ni, tare, and temperature ranges, etc. 
+4 Documents: 
+List of documents. 
+5 Interfaces: 
+Interface types and numbers for the indicating and operatin g device (terminal), for peripheral devices 
+and for other devices. 
+All interfaces are protective in the sense of R 76-1, 6.1.5.9. 
+6 Connectable devices: 
+Indicating and operating device (terminal) with pi = 0.0, printer, display, etc. For applications not subject 
+to mandatory verification, any peripheral devices may be connected. Examples: D/A converters, PC, 
+etc. 
+7 Control marks: 
+If securing (sealing) is required for the weighing instrument, components and adjustment elements of 
+this module can be protected  by a control mark (adhesive mark or seal) over the housing screw under 
+
+===== [PDF PAGE 47] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+47 
+ 
+the plate of the load receptor. An additional securing is not necessary. 
+8 Test equipment: 
+Information concerning the test equipment used for type evaluation of this module. Informatio n about 
+calibration. Examples: standard weights (class), load cell simulator, temperature chambers, voltmeters, 
+transformers, disturbance test equipment, etc. 
+9 Remarks on the tests: 
+In the R 76-3 checklist, the parts related to the indicator (“descriptive markings”, “verification marks  
+and sealing” and partially “indicating device”) are not filled in. Example: During the disturbance tests a 
+printer of the type ... was connected. 
+10 Measuring results: 
+Forms from R 76-3. 
+11 Technical requirements: 
+Checklist from R 76-3. 
+12 Compatibility checking of modules of non-automatic weighing instruments 
+Note1: 12.1-12.4: 
+Only for analogue load cells in conformity with R 60 in combination with indicators in conformity with clause 
+9. 
+Note 2: 12.5: 
+Only for digital load cells in combination with indicators, analogue or digital data processing units or terminals. 
+Note 3: 12.6: 
+Examples of compatibility checks. 
+When using the modular approach, the compatibility check of the weighing instrument and the modules needs 
+certain sets of data. The first three subclauses of 12 describe the data of  the weighing instrument, the load 
+cell(s) and the indicator that are needed to check the compatibility requirements. 
+12.1 Weighing instruments 
+The following metrological and technical data of the weighing instrument are necessary for the compatibility 
+check: 
+Accuracy class of the weighing instrument. 
+Max (g, kg, t) Maximum capacity of weighing instrument according to R 76-1, 3.1.1.1. 
+(Max1, Max+, 2, …, Max in the case of a multi -interval weighing instrument and 
+Max1, Max2, …, Maxr in the case of a multiple range weighing instrument). 
+e (g, kg) Verification scale interval according to R 76-1, 3.3.2.3. 
+(e1, e2, e3) (in the case of a multi -interval or multiple range weighing instrument, 
+where e1 = emin). 
+n  Number of verification scale intervals according to R 76-1, 3.3.2.5: n = Max / e (n1, 
+n2, n3) (in the case of a multi-interval or multiple range weighing instrument, where 
+ni = Maxi / ei). 
+R  Reduction ratio, e.g. of a lever work according to R 76-1, 3.3.3, is the ratio (Force 
+on the load cell) / (Force on the load receptor). 
+
+===== [PDF PAGE 48] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+48 
+ 
+N  Number of load cells. 
+IZSR (g, kg) Initial zero setting range,  according to R 76-1, 3.2.7.2.4: the indication is 
+automatically set to zero when the weighing instrument is switched on, before any 
+weighing. 
+NUD (g, kg) Correction for non-uniform distributed load**. 
+DL (g, kg) Dead load of load receptor: mass of the load receptor itself resting upon the load 
+cells and any additional construction mounted on the load receptor. 
+T+ (g, kg, t) Additive tare. 
+Tmin (°C) Lower limit of temperature range. 
+Tmax (°C) Upper limit of temperature range. 
+CH, NH, SH Symbol of humidity test performed. 
+ 
+Connecting system, 6-wire-system: 
+L (m) Length of connecting cable. 
+A (mm²) Cross section of wire. 
+ 
+Q Correction factor. 
+The correction factor, Q > 1, considers the possible effects of eccentric loading (non 
+uniform distribution of the load), dead load of th e load receptor, initial zero setting 
+range and additive tare in the following form: 
+Q = (Max + DL + IZSR + NUD + T+) / Max 
+** The values for the non uniform distribution of the load generally might be assumed for typical constructions 
+of weighing instruments when no other estimations are presented. 
+▪ Weighing instruments (WIs) with lever work and one load cell, or WIs with  
+load receptors which allow only minimal eccentric load  application, or WIs with 
+one single point load cell: 0 % of Max 
+e.g. hopper or funnel hopper with a symmetric arrangement of the  load cells, but without shaker for 
+material flow on the load receptor 
+▪ Other conventional WIs: 20 % of Max 
+▪ Fork lift scales, over head track scales and weighbridges:  50 % of Max 
+▪ Multi-platform weighing machine: 
+fixed combination: 50 % of Maxtotal 
+variable selection or combined: 50 % of Maxsingle bridge 
+ 
+Connecting system, 6-wire-system: 
+L (m) Length of connecting cable. 
+A (mm²) Cross section of wire. 
+ 
+12.2 Separately tested load cells 
+Load cells that  have been tested separately according to R 60 may be used without repeated testing if a 
+
+===== [PDF PAGE 49] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+49 
+ 
+respective OIML certificate exists and the requirements in R 76-1, 5.9.2.1- R 76-1, 5.9.2.3 are met. Only SH 
+and CH tested load cells are allowed under the modular approach (not NH load cells). 
+12.2.1 Accuracy classes 
+The accuracy classes including temperature ranges and the evaluation of stability against humidity and creep 
+of load cell(s) (LC) must meet the requirements for the weighing instrument (WI). 
+Table 13 – Corresponding accuracy classes 
+ Accuracy Reference 
+WI I II III IIII OIML R 76 
+LC A A*, B B*, C C, D OIML R 60 
+* if the temperature ranges are sufficient and the evaluation of stability against humidity and creep correspond to the 
+requirement in the lower class. 
+12.2.2 Fraction of the maximum permissible error 
+If no value for the load cell is indicated in the OIML certificate, then pLC = 0.7.  The fraction  may be  
+0.3 ≤ pLC ≤ 0.8, in accordance with R 76-1, 5.9.2.1. 
+12.2.3 Temperature limits 
+If no value for the load cell i s indicated in the OIML certificate, then Tmin = –10 °C and Tmax = 40 °C. The 
+temperature range may be limited, in accordance with R 76-1,5.9.2.2. 
+12.2.4 Maximum capacity of the load cell 
+The maximum capacity of the load cell shall satisfy the condition: 
+Emax ≥ Q × Max × R / N 
+12.2.5 Minimum dead load of the load cell 
+The minimum load caused by the load receptor must equal or exceed the minimum dead load of a load cell (a 
+lot of load cells have Emin = 0): 
+Emin ≤ DL × R / N 
+12.2.6 Maximum number of load cell intervals 
+For each load cell the maximum number of load cell intervals, nLC, (see OIML R 60) shall not be less than the 
+number of verification scale intervals, n, of the instrument: 
+nLC ≥ n 
+On a multiple range or multi -interval instrument, this applies to any individual weighing range  or partial 
+weighing range: 
+nLC ≥ ni 
+On a multi-interval instrument, the minimum dead load output return, DR (see OIML R 60), shall satisfy the 
+condition: 
+DR × E / Emax ≤ 0.5 × e1 × R / N, or DR / Emax ≤ 0.5 × e1 / Max 
+Where: E = Max × R / N is the partial loading of the load cell when loading the weighing instrument with 
+
+===== [PDF PAGE 50] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+50 
+ 
+Max. 
+Acceptable solution: 
+Where DR is not known, the condition nLC ≥ 0.5 × Maxr / e1 is satisfied. 
+Furthermore on a multiple range instrument where the same load cell(s) is (are) used for more than one range, 
+the minimum dead load output return, DR, of the load cell (see OIML R 60) shall satisfy the condition: 
+DR × E / Emax ≤ e1ei·× R / N, or DR / Emax ≤ e1 ei / Maxr 
+Acceptable solution: 
+Where DR is not known, the condition nLC ≥ 0.4 × Maxr / e1 is satisfied. 
+12.2.7 Minimum load cell verification interval 
+The minimum load verification interval, vmin, (see OIML R 60) shall not be greater than the verification scale 
+interval, e, multiplied by the reduction ratio, R, of the load transmitting device and divided by the square root 
+of the number, N, of load cells, as applicable: 
+vmin ≤ e1 ×·R / √N 
+Note: vmin is measured in mass units. The formula applies to both analogue and digital load cells. 
+On a multiple range instrument where the same load cell(s) is (are) used for more than one range, or a multi -
+interval instrument, e is to be replaced by e1. 
+12.2.8 Input resistance of a load cell 
+The input resistance of a load cell, RLC, is limited by the indicator: 
+RLC / N has to be within the range for the indicator RLmin to RLmax 
+12.3 Separately tested indicators and analogue data processing devices 
+Indicators and analogue data processing devices that have been tested separately according to clause 9 may be 
+used without repeated testing if a respective OIML certificate exists and the requirements in R 76-1,  
+5.9.2.1- R 76-1, 5.9.2.3 are met. 
+12.3.1 Accuracy class 
+The accuracy classes including temperature ranges and the evaluation of stability against humidity must meet 
+the requirements for the weighing instrument (WI). 
+Table 14 – Corresponding accuracy classes 
+ Accuracy Reference 
+WI I II III IIII OIML R 76 
+IND I I*, II II*, III III, IIII OIML R 76 
+* if the temperature ranges are sufficient and the evaluation of stability against humidity correspond to the requirement 
+in the lower class. 
+12.3.2 Fraction of the maximum permissible error 
+If no value for the indicator is indicated in the OIML certificate, then pind = 0.5.  The fraction  may be 
+0.3 ≤ pind ≤ 0.8 in accordance with R 76-1, 5.9.2.1. 
+12.3.3 Temperature limits 
+If no value for the load cell is indicated in the OIML certificate, then Tmin = –10 °C and Tmax = 40 °C. The 
+
+===== [PDF PAGE 51] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+51 
+ 
+temperature range may be limited in accordance with R 76-1, 5.9.2.2. 
+12.3.4 Maximum number of verification intervals 
+For each indicator the maximum number of verification intervals, nind, shall not be  less than the number of 
+verification scale intervals, n, of the weighing instrument: 
+nind ≥ n 
+On a multiple range or multi -interval instrument, this applies to any individual weighing range  or partial 
+weighing range: 
+nind ≥ ni 
+In case of multi -interval or multiple range applications, these functions must be included  in the certified 
+indicator. 
+12.3.5 Electrical data with regard to the weighing instrument 
+Uexc (V) Load cell excitation voltage 
+Umin (mV) General minimum input voltage for indicator 
+Δumin (μV) Minimum input voltage per verification scale interval for the indicator The signal 
+per verification scale interval, Δu, is calculated as follows: 
+∆𝑢 = 𝐶
+𝐸max
+× 𝑈exc × 𝑅
+𝑁 × 𝑒 
+For multiple range or multi-interval WIs, e = e1 
+UMRmin (mV) Measuring range minimum voltage 
+UMRmax (mV) Measuring range maximum voltage 
+RLmin (Ω) Minimum load cell impedance 
+RLmax (Ω) Maximum load cell impedance 
+Note: RLmin and RLmax are the limits of the allowed impedance range for the electronic indicator for the actual applied 
+load cell input impedance(s). 
+12.3.5.1 Connection cable 
+Additional cable between the indicator and the load cell or the load cell junction box respectively (only allowed 
+with indicators using six wire system, i.e. sense system) must have been specified in the OIML certificate for 
+the indicator. 
+The most simple procedure is to specify a value for the ratio of the cable length to the cross section of one wire 
+(m/mm2) for a given material (copper, aluminium, etc.) in the indicator certificate. 
+In other cases it must be calculated from length (m), cross section (mm2), the conductor material data and the 
+maximum ohmic resistance (Ω) per single wire. 
+Note: For cable with different wire cross sections, the connection for the sense -wire is of interest.  When using 
+lightning barriers or barriers for explosion-proof applications, the excitation voltage at the load cells must be 
+checked, to prove conditions are met for the minimum input voltage per verification scale interval of the 
+indicator. 
+12.4 Compatibility checks for modules with analogue output 
+The relevant quantities and characteristics identified which together establish compatibility have been included 
+
+===== [PDF PAGE 52] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+52 
+ 
+in the following form. If all conditions are met, the compatibility requirements of R 76 are met. The Tables in 
+which data may be entered allow decisions to be taken easily as to whether or not the conditions are satisfied. 
+The manufacturer of the weighing instrument can check and prove this compatibility by filling in the form on 
+the following page. 
+Clause 12.6 provides typical examples of filled-in forms for compatibility checks. 
+  
+
+===== [PDF PAGE 53] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+53 
+ 
+Form: Compatibility check 
+1) Accuracy class of load cell (LC), indicator (IND) and weighing instrument (WI) 
+LC & IND equal or better WI  pass fail 
+ &  equal or better   ☐ ☐ 
+2) Temperature limits of the weighing instrument (WI) compared with the temperature limits of the load 
+cell (LC) and the indicator (IND) in °C 
+ LC  IND  WI  pass fail 
+Tmin  &  ≤   ☐ ☐ 
+Tmax  &  ≤   ☐ ☐ 
+3) Sum of the squares of the fractions pi of the max imum permissible errors of connecting elements, 
+indicator and load cells 
+pcon2 + pind2 + pLC2 ≤ 1  pass fail 
+ +  +  ≤ 1  ☐ ☐ 
+4) Maximum number of verification scale intervals of the indicator and number of scale intervals  of the 
+weighing instrument 
+   nind ≥ ni = Maxi / ei  pass fail 
+Single range weighing instrument  ≥   ☐ ☐ 
+Multi interval, or multi 
+range weighing instrument 
+i = 1  ≥   ☐ ☐ 
+i = 2  ≥   ☐ ☐ 
+i = 3  ≥   ☐ ☐ 
+5) Maximum capacity of load cells must be compatible with Max of the weighing instrument 
+Factor, Q: Q = (Max + DL + IZSR + NUD + T+) / Max = ............... 
+  Q × Max × R/N ≤ Emax  pass fail 
+   ≤   ☐ ☐ 
+6a) Maximum number of verification scale intervals of the load cell and number of scale intervals of the 
+weighing instrument 
+   nLC ≥ ni = Maxi / ei  pass fail 
+Single range weighing instrument  ≥   ☐ ☐ 
+Multi-interval, or multiple 
+range weighing instrument 
+i = 1  ≥   ☐ ☐ 
+i = 2  ≥   ☐ ☐ 
+i = 3  ≥   ☐ ☐ 
+ 
+ 
+
+===== [PDF PAGE 54] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+54 
+ 
+ 
+ 
+6b) Minimum dead load output return of the load cell and smallest verification scale interval, e1, of a multi-
+interval weighing instrument 
+DR known  nLC or Z = Emax / (2 × DR) ≥ Maxr / e1  pass fail 
+   ≥   ☐ ☐ 
+ 
+DR unknown  nLC ≥ Max / e1  pass fail 
+   ≥   ☐ ☐ 
+ 
+6c) Minimum dead load output return of the load cell and smallest verification scale interval, e1, of a 
+multiple range weighing instrument 
+DR known  nLC or Z = Emax / (2 × DR) ≥ 0.45×Maxr/e1  pass fail 
+   ≥   ☐ ☐ 
+ 
+DR unknown  nLC ≥ 0.4×Maxr/e1  pass fail 
+   ≥   ☐ ☐ 
+ 
+6d) Actual dead load of the load receptor to the minimum dead load of the load cells in kg 
+  DL × R/N ≥ Emin  pass fail 
+   ≥   ☐ ☐ 
+7) Verification scale interval of the weighing instrument and minimum load cell scale interval (in kg) must 
+be compatible 
+  e × R/√N ≥ vmin = Emax/Y  pass fail 
+   ≥   ☐ ☐ 
+8) Minimum input voltage in general for the electronic indicator and minimum input voltage per 
+verification scale interval and actual output of the load cells 
+Minimum input voltage in 
+general for electronic 
+indicator (unloaded 
+weighing instrument) 
+U = C × Uexe × R × DL / (Emax × N) ≥ Umin  pass fail 
+ ≥   ☐ ☐ 
+Minimum input voltage per 
+verification scale interval 
+Δu = C × Uexe × R × e / (Emax × N) ≥ Δumin  pass fail 
+ ≥   ☐ ☐ 
+9) Allowed impedance range for the electronic indicator and actual load cell impedance in Ω 
+ RLmin ≤ RLC / N ≤ RLmax  pass fail 
+  ≤  ≤   ☐ ☐ 
+10) Length of extension cable between the load cell(s) and indicator per wire cross section of this cable in 
+m/mm2 
+
+===== [PDF PAGE 55] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+55 
+ 
+  (L / A) ≤ (L / A)max  pass fail 
+   ≤   ☐ ☐ 
+12.5 Compatibility checks for modules with digital output 
+For weighing modules and other digital modules or devices (see Figure 1), no special compatibility checks are 
+necessary; testing of the correct operation of one complete instrument is sufficient. If there  is no correct data 
+transmission between the modules (and probably between other components/devices) the instrument will not 
+work at all or some functions will fail, e.g. zero-setting or tare. 
+For digital load cells, the same compatibility check as in 12.4 applies, with the exception of conditions 8), 9) 
+and 10) in the form. 
+12.6 Examples of compatibility checks for modules with analogue output 
+12.6.1 Road vehicle weigher with one measuring range (Example no. 1) 
+Weighing instrument: 
+accuracy class III 
+maximum capacity Max = 60 t 
+verification scale interval e = 20 kg 
+number of load cells N = 4 
+without leverwork R = 1 
+dead load of load receptor DL = 12 t 
+initial zero-setting range IZSR = 10 t 
+correction for non uniform distributed load NUD = 30 t 
+additive tare T+ = 0 
+temperature range –10 °C to +40 °C 
+cable length L = 100 m 
+cross section of wire A = 0.75 mm2 
+Indicator: 
+accuracy class III 
+max. number of verification scale intervals nind = 3 000 
+load cell excitation voltage Uexc = 12 V 
+minimum input voltage Umin = 1 mV 
+min. input voltage per verification scale interval Δumin = 1 µV 
+min./max. load cell impedance 30 Ω to 1 000 Ω 
+temperature range –10 °C to +40 °C 
+fraction of mpe pind = 0.5 
+cable connection 6 wires 
+max. value of cable length per wire cross section (L / A)max = 150 m/mm2 
+Load cell(s): 
+accuracy class C 
+maximum capacity Emax = 30 t 
+minimum dead load Emin = 2 t 
+
+===== [PDF PAGE 56] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+56 
+ 
+rated output1 C = 2 mV/V 
+max. number of verification scale intervals nLC = 3 000 
+ratio Emax / vmin Y = 6 000 
+ratio Emax / (2 × DR) Z = 3 000 
+input resistance of one load cell RLC = 350 Ω 
+temperature range –10 °C to +40 °C 
+fraction of mpe pLC = 0.7 
+  
+ 
+1 Change of output signal of the load cell related to input voltage after loading with Emax, normally in mV/V. 
+
+===== [PDF PAGE 57] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+57 
+ 
+Note: For a more moderate calculation the following relative values are used in R  60: 
+Y = (Emax-Emin) / vmin (new formula in R 60) 
+Z = Emax / (2 × DR) 
+Connecting elements: 
+fraction of mpe pcon = 0.5 
+  
+
+===== [PDF PAGE 58] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+58 
+ 
+Compatibility check (Example no. 1) 
+1) Accuracy class of load cell (LC), indicator (IND) and weighing instrument (WI) 
+LC & IND equal or better WI  pass fail 
+C & III equal or better III  ☒ ☐ 
+2) Temperature limits of the weighing instrument (WI) compared with the temperature limits of the load 
+cell (LC) and the indicator (IND) in °C 
+ LC  IND  WI  pass fail 
+Tmin -10 °C & -10 °C ≤ -10 °C  ☒ ☐ 
+Tmax 40 °C & 40 °C ≤ 40 °C  ☒ ☐ 
+3) Sum of the squares of the fractions pi of the maximum permissible errors of connecting elements, 
+indicator and load cells 
+pcon2 + pind2 + pLC2 ≤ 1  pass fail 
+0.25 + 0.25 + 0.49 ≤ 1  ☒ ☐ 
+4) Maximum number of verification scale intervals of the indicator and number of scale intervals of the 
+weighing instrument 
+   nind ≥ ni = Maxi / ei  pass fail 
+Single range weighing instrument 3 000 ≥ 3 000  ☒ ☐ 
+Multi interval, or multi 
+range weighing instrument 
+i = 1 - ≥ -  ☐ ☐ 
+i = 2 - ≥ -  ☐ ☐ 
+i = 3 - ≥ -  ☐ ☐ 
+5) Maximum capacity of load cells must be compatible with Max of the weighing instrument 
+Factor, Q: Q = (Max + DL + IZSR + NUD + T+) / Max = 1.867 
+  Q × Max × R/N ≤ Emax  pass fail 
+  28 000 kg ≤ 30 000 kg  ☒ ☐ 
+6a) Maximum number of verification scale intervals of the load cell and number of scale intervals of the 
+weighing instrument 
+   nLC ≥ ni = Maxi / ei  pass fail 
+Single range weighing instrument 3 000 ≥ 3 000  ☒ ☐ 
+Multi-interval, or multiple 
+range weighing instrument 
+i = 1 - ≥ -  ☐ ☐ 
+i = 2 - ≥ -  ☐ ☐ 
+i = 3 - ≥ -  ☐ ☐ 
+ 
+ 
+6b) Minimum dead load output return of the load cell and smallest verification scale interval, e1, of a multi-
+interval weighing instrument 
+
+===== [PDF PAGE 59] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+59 
+ 
+  nLC or Z = Emax / (2 × DR) ≥ Maxr / e1  pass fail 
+  - ≥ -  ☐ ☐ 
+6c) Minimum dead load output return of the load cell and smallest verification scale interval, e1, of a 
+multiple range weighing instrument 
+  nLC or Z = Emax / (2 × DR) ≥ 0.4×Maxr/e1  pass fail 
+  - ≥ -  ☐ ☐ 
+6d) Actual dead load of the load receptor to the minimum dead load of the load cells in kg 
+  DL × R/N ≥ Emin  pass fail 
+  3 000 kg ≥ 2 000 kg  ☒ ☐ 
+7) Verification scale interval of the weighing instrument and minimum load cell scale interval (in kg) must 
+be compatible 
+  e × R/√N ≥ vmin = Emax/Y  pass fail 
+  10.00 kg ≥ 5.00 kg  ☒ ☐ 
+8) Minimum input voltage in general for the electronic indicator and minimum input voltage per 
+verification scale interval and actual output of the load cells 
+Minimum input voltage in 
+general for electronic 
+indicator (unloaded 
+weighing instrument) 
+U = C × Uexe × R × DL / (Emax × N) ≥ Umin  pass fail 
+2.40 mV ≥ 1 mV  ☒ ☐ 
+Minimum input voltage per 
+verification scale interval 
+Δu = C × Uexe × R × e / (Emax × N) ≥ Δumin  pass fail 
+4.00 μV ≥ 1.0 μV  ☒ ☐ 
+9) Allowed impedance range for the electronic indicator and actual load cell impedance in Ω 
+ RLmin ≤ RLC / N ≤ RLmax  pass fail 
+ 30 ≤ 87.5 ≤ 1 000  ☒ ☐ 
+10) Length of extension cable between the load cell(s) and indicator per wire cross section of this cable in 
+m/mm2 
+  (L / A) ≤ (L / A)max  pass fail 
+  133.3 ≤ 150  ☒ ☐ 
+  
+
+===== [PDF PAGE 60] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+60 
+ 
+12.6.2 Industrial scale with three measuring ranges (Example no. 2) 
+Weighing instrument 
+accuracy class III 
+maximum capacity Max3 = 5 000 kg 
+ Max2 = 2 000 kg 
+ Max1 = 1 000 kg 
+verification scale interval e3 = 2 kg 
+ e2 = 1 kg 
+ e1 = 0.5 kg 
+number of load cells N = 4 
+without leverwork R = 1 
+dead load of load receptor DL = 250 kg 
+initial zero setting range IZSR = 500 kg 
+correction for non-uniform distributed load NUD = 1 000 kg 
+additive tare T+ = 0 
+temperature range –10 °C to + 40 °C 
+cable length L = 20 m 
+cross section of wire A = 0.75 mm2 
+Indicator: 
+accuracy class III 
+max. number of verification scale intervals nind = 3 000 
+load cell excitation voltage Uexc = 10 V 
+minimum input voltage Umin = 0.5 mV 
+min. input voltage per verification scale interval Δumin = 1 µV 
+min./max. load cell impedance 30 Ω to 1 000 Ω 
+temperature range –10 °C to +40°C 
+fraction of mpe pind = 0.5 
+cable connection 6 wires 
+max. value of cable length per wire cross section (L/A)max = 150 m/mm2 
+Load cell(s): 
+accuracy class C 
+maximum capacity Emax = 2 000 kg 
+minimum dead load Emin = 0 t 
+rated output2 C = 2 mV/V 
+max. number of verification scale intervals nLC = 3000 
+minimum verification scale interval vmin = 0.2 kg 
+ratio Emax / (2 × DR) Z = 5000 
+input resistance of one load cell RLC = 350 Ω 
+temperature range –10 °C to +40 °C 
+fraction of mpe pLC = 0.7 
+Connecting elements: 
+fraction of mpe pcon = 0.5 
+ 
+2 Change of output signal of the load cell related to input voltage after loading with Emax, normally in mV/V. 
+
+===== [PDF PAGE 61] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+61 
+ 
+Note: For a more moderate calculation the following relative  values are used in R 60: 
+Y = (Emax-Emin) / vmin (new formula in R 60) 
+Z = Emax / (2 × DR) 
+  
+
+===== [PDF PAGE 62] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+62 
+ 
+Compatibility check (Example no. 2) 
+1) Accuracy class of load cell (LC), indicator (IND) and weighing instrument (WI) 
+LC & IND equal or better WI  pass fail 
+C & III equal or better III  ☒ ☐ 
+2) Temperature limits of the weighing instrument (WI) compared with the temperature limits of the load 
+cell (LC) and the indicator (IND) in °C 
+ LC  IND  WI  pass fail 
+Tmin -10 °C & -10 °C ≤ -10 °C  ☒ ☐ 
+Tmax 40 °C & 40 °C ≤ 40 °C  ☒ ☐ 
+3) Sum of the squares of the fractions pi of the maximum permissible errors of connecting elements, 
+indicator and load cells 
+pcon2 + pind2 + pLC2 ≤ 1  pass fail 
+0.25 + 0.25 + 0.49 ≤ 1  ☒ ☐ 
+4) Maximum number of verification scale intervals of the indicator and number of scale intervals of the 
+weighing instrument 
+   nind ≥ ni = Maxi / ei  pass fail 
+Single range weighing instrument - ≥ -  ☐ ☐ 
+Multi interval, or multi 
+range weighing instrument 
+i = 1 3 000 ≥ 2 000  ☒ ☐ 
+i = 2 3 000 ≥ 2 000  ☒ ☐ 
+i = 3 3 000 ≥ 2 500  ☒ ☐ 
+5) Maximum capacity of load cells must be compatible with Max of the weighing instrument 
+Factor, Q: Q = (Max + DL + IZSR + NUD + T+) / Max = 1.35 
+  Q × Max × R/N ≤ Emax  pass fail 
+  1 687.5 kg ≤ 2 000 kg  ☒ ☐ 
+6a) Maximum number of verification scale intervals of the load cell and number of scale intervals of the 
+weighing instrument 
+   nLC ≥ ni = Maxi / ei  pass fail 
+Single range weighing instrument - ≥ -  ☐ ☐ 
+Multi-interval, or multiple 
+range weighing instrument 
+i = 1 3 000 ≥ 2 000  ☒ ☐ 
+i = 2 3 000 ≥ 2 000  ☒ ☐ 
+i = 3 3 000 ≥ 2 500  ☒ ☐ 
+ 
+ 
+6b) Minimum dead load output return of the load cell and smallest verification scale interval, e1, of a multi-
+interval weighing instrument 
+
+===== [PDF PAGE 63] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+63 
+ 
+  nLC or Z = Emax / (2 × DR) ≥ Maxr / e1  pass fail 
+  - ≥ -  ☐ ☐ 
+6c) Minimum dead load output return of the load cell and smallest verification scale interval, e1, of a 
+multiple range weighing instrument 
+  nLC or Z = Emax / (2 × DR) ≥ 0.4×Maxr/e1  pass fail 
+  5 000 ≥ 4 000  ☒ ☐ 
+6d) Actual dead load of the load receptor to the minimum dead load of the load cells in kg 
+  DL × R/N ≥ Emin  pass fail 
+  62.5 kg ≥ 0 kg  ☒ ☐ 
+7) Verification scale interval of the weighing instrument and minimum load cell scale interval (in kg) must 
+be compatible 
+  e × R/√N ≥ vmin = Emax/Y  pass fail 
+  0.25 kg ≥ 0.2 kg  ☒ ☐ 
+8) Minimum input voltage in general for the electronic indicator and minimum input voltage per 
+verification scale interval and actual output of the load cells 
+Minimum input voltage in 
+general for electronic 
+indicator (unloaded 
+weighing instrument) 
+U = C × Uexe × R × DL / (Emax × N) ≥ Umin  pass fail 
+0.625 mV ≥ 0.5 mV  ☒ ☐ 
+Minimum input voltage per 
+verification scale interval 
+Δu = C × Uexe × R × e / (Emax × N) ≥ Δumin  pass fail 
+1.25 μV ≥ 1 μV  ☒ ☐ 
+9) Allowed impedance range for the electronic indicator and actual load cell impedance in Ω 
+ RLmin ≤ RLC / N ≤ RLmax  pass fail 
+ 30 ≤ 87.5 ≤ 1 000  ☒ ☐ 
+10) Length of extension cable between the load cell(s) and indicator per wire cross section of this cable in 
+m/mm2 
+  (L / A) ≤ (L / A)max  pass fail 
+  26.67 ≤ 150.0  ☒ ☐ 
+  
+
+===== [PDF PAGE 64] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+64 
+ 
+13 Test procedures for software requirements 
+13.1 General 
+Test procedures described in the following clauses are applicable for software requirements from R 76-1, 6.2. 
+Clause 13.2 describes the test themselves wheras clause 13.3 maps these procedures to the individual software 
+requirements. 
+13.2 Description of test procedures 
+13.2.1 Analysis of documentation and specification and evaluation of the design (AD) 
+Application: Basic procedure for software evaluation. 
+Preconditions: The procedure is based on the manufacturer’s documentation of the measuring instrument. 
+This documentation shall have a scope which is adequate for the application: 
+1) Specification of the externally accessible functions of the instrument in a general 
+form; 
+2) Specification of the software functions and interfaces (necessary for instruments with 
+interfaces and for instrument functions that cannot be functionally tested and in 
+case of increased risk of fraud). The description shall make evident and explain all 
+software functions that may have an impact on the metrological features; 
+3) Concerning interfaces, the documentation shall include a complete list of 
+commands or signals  that the software is able to interpret. The effect of each 
+command shall be documented in detail. The way shall be described in whi ch the 
+instrument reacts on commands that are not described in the documentation; 
+4) Additional documentation of the software for complex measuring algorith ms, 
+cryptographic functions, or crucial timing constraints shall be provided, if necessary 
+for understanding and evaluating the software functions. 
+A general precondition for examination is the completeness of the documentation and the 
+clear identification of  the EUT, i.e. of the software packages that contribute to the 
+metrological functions (see R 76-1, 10.2.1). 
+Description: The examiner evaluates the functions and features of the measuring instrument using the 
+documentation and decides whether they comply with the requirements of the relevant 
+Recommendation. Metrological requirements as well as software-functional requirements 
+defined in R 76-1, 6 6 (e.g. evidence of intervention, protection of adjustment parameters, 
+disallowed functions, communication with other devices, update of software, detection of 
+significant defects, etc.) shall be considered and evaluated. This task may be supported by 
+the Software Test Report Format (see R 76-34). 
+Result: The procedure gives a result for all characteristics of the measuring instrument, provided 
+that the appropriate documentation has been submitted by the manufacturer. The result 
+should be documented in a clause related to software in athe Software Test Report 
+Format (see R 76-34) included in the Evaluation Report Format of  the relevant 
+Recommendation. 
+Complementary 
+procedures: Additional procedures should be applied, if examining the documentation cannot provide 
+substantiated evaluation results. In most cases “Verifying the metrological functions by 
+functional testing” (see 13.2.2) is a complementary procedure. 
+Reference: IEC 61508-5:2010 [7]. 
+  
+
+===== [PDF PAGE 65] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+65 
+ 
+13.2.2 Verification by functional testing of the software functions (VFTSw) 
+Application: For evaluation  of e.g. protection of parameters, indication of a software  identification, 
+software supported detection of significant defects, configuration of the system (especially 
+of the software environment), etc. 
+Preconditions: Operating manual, software documentation, functioning specimen, test equipment, test 
+cases, instructions for test equipment. 
+When it is not clear how to verify a function of a software part, the onus to develop a test 
+method should be placed on the manufacturer. In addition, the services of the programmer 
+should be made available to the examiner for the purposes of answering questions. 
+Description: Required features described in the operating manual, instrument documentation or software 
+documentation are checked  practically. If they are software -controlled, they are to be  
+regarded as verified if  they function correctly without any further software anal ysis. 
+Features addressed here are e.g.: 
+▪ normal operation of the instrument, if  its operation is software-controlled. All 
+switches or keys and described combinations should be employed and the reaction 
+of the instrument evaluated. In  graphical user interfaces, all  menus and other 
+graphical elements should be activated and checked; 
+▪ effectiveness of parameter protection may be checked by activating the protection 
+means and trying to change a parameter; 
+▪ effectiveness of the protection of stored data may be checked by changing some 
+data in the file and then checking whether this is detected by the software; 
+▪ indication of the software identification may be verified by practical checking; 
+▪ if detection of significant defects is software supported, the relevant software parts 
+may be verified by provoking, implementing or simulating a fault and checking 
+the correct reaction of the instrument; 
+▪ protection means that there is evidence of an intervention if changes are made to 
+software, parameters, audit trails, etc. This can be tested by making changes and 
+checking if this leads to evidence of an intervention. 
+Result: Software-controlled feature under consideration is acceptable or not acceptable. 
+  
+Commented [GF16]: We still need a reference to the main 
+part of R 76 where possible significant defects are described. 
+
+===== [PDF PAGE 66] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+66 
+ 
+13.3 Applicable test procedures for individual software requirements 
+Table 1 lists the applicable test procedure for each individual software requirement from  R 76-1, 6.2 and 
+R 76-1, 6.3. 
+Table 1 – Mapping of applicable test procedures to the various software requirements 
+R 76-1 requirement Examination level A 
+(normal examination level) 
+6.2.2 Software identification AD + VFTSw 
+6.2.3 Correctness of algorithms and functions AD 
+6.2.4.1 Prevention of misuse AD + VFTSw 
+6.2.4.2 
+Software shall be protected in such a way that evidence of any 
+intervention (e.g. software updates, parameters changes) shall be 
+available. 
+AD + VFTSw 
+6.2.4.3 All inputs from the user interface shall be handled by a protective 
+interface. AD + VFTSw 
+6.2.4.4 All inputs from communication interfaces shall be handled by a 
+protective interface. AD + VFTSw 
+6.2.4.5 
+Software protection means shall comprise appropriate sealing by 
+mechanical, software and/or cryptographic means, making an 
+intervention impossible or evident. 
+AD + VFTSw 
+6.2.4.6 
+Audit trails  and event counters  are part of the legally relevant 
+software and shall be secured and protected as such. It shall not 
+be possible to delete or inadmissibly change the data of the event 
+counter or audit trails and it shall not be possible to exchange the 
+audit trails or the value of the event counter when the software is 
+updated. 
+AD + VFTSw 
+6.2.5 
+Measurement data shall be protected and secured against 
+modification. The weighing instrument/component shall be 
+constructed in such a way that possibilities for unintentional, 
+accidental, or intentional misuse are minimal. 
+AD + VFTSw 
+6.2.6 Demands on the user AD + VFTSw 
+6.2.7.1 Detection of significant defects AD + VFTSw 
+6.2.7.2 Durability protection AD + VFTSw 
+6.2.7.3 Information for remote verification AD + VFTSw 
+6.3.2.1 Separation of components AD 
+6.3.2.2 Separation of software modules AD 
+6.3.3 Shared indications AD + VFTSw 
+6.3.4.2 The stored measurement data shall include all relevant data for 
+future legally relevant use. AD + VFTSw 
+
+===== [PDF PAGE 67] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+67 
+ 
+R 76-1 requirement Examination level A 
+(normal examination level) 
+6.3.4.3 
+Stored legally relevant measurement data shall be protected by 
+appropriate means to guarantee the authe nticity, integrity.  The 
+software that displays or further processes the measurement 
+values and accompanying data shall check the authenticity and 
+integrity of the data after having read them from the storage.  
+AD + VFTSw 
+6.3.4.4 When, considering the application, data storage is required, 
+measurement data shall be stored automatically. AD + VFTSw 
+6.3.4.5 There shall be sufficient memory storage for the intended 
+application. AD + VFTSw 
+6.3.4.6 
+When the data necessary for the cal culation of the measurement 
+result are relevant for legal purposes, all measurement result 
+relevant data included in the calculation shall be automatically 
+stored with the final value. 
+AD + VFTSw 
+6.3.4.7 
+Measurement data stored in a component to construct the 
+measurement result can be deleted if the next module or 
+component state a proper completion of expected actions 
+engaged. The measurement result  may be deleted if either  the 
+transaction is settled or these data are printed by a printing device 
+subject to legal control. 
+AD + VFTSw 
+6.3.5.2 The transmitted measurement data shall include all data 
+necessary for future legally relevant use. AD + VFTSw 
+6.3.5.3 
+The transmitted data shall be protected by software means to 
+guarantee the authenticity, integrity.  The software that displays 
+or further processes the measurement values and shall check the 
+authenticity and integrity of the data received from a transmission 
+channel. Means shall be provided whereby cryptographic ke ys 
+used by cryptographic methods can only be input or read if a 
+seal is broken. 
+AD 
+6.3.5.4 
+The measurement shall not be inadmissibly influenced by a  
+transmission delay. If network services bec ome unavailable  or 
+very slow, no measurement data shall be lost. 
+AD + VFTSw 
+6.3.6.2 
+Hardware interfaces not equipped with a protective interface 
+shall not be able to inadmissibly influence the legally relevant 
+software, parameters or measurement data. 
+AD + VFTSw 
+6.3.6.3 Boot process AD + VFTSw 
+6.3.6.4 Protection during use AD + VFTSw 
+6.3.6.5 Communication with the legally relevant software shall be made 
+via protective interfaces. AD 
+6.3.6.6 Testability and traceability AD + VFTSw 
+6.3.6.7 Suitable environment AD + VFTSw 
+6.3.6.8 Constrains for operation AD + VFTSw 
+
+===== [PDF PAGE 68] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+68 
+ 
+R 76-1 requirement Examination level A 
+(normal examination level) 
+6.3.8.1 Verified update AD 
+6.3.8.2 Traced update AD + VFTSw 
+6.3.9.1 Remote Verification Capability - General AD + VFTSw 
+6.3.9.2 
+If an instrument does not pass remote verification, the 
+consequences depend on national legislation. It is recommended 
+to display a permanent disqualification message.  
+AD + VFTSw 
+6.3.9.4 Direct extraction of test items AD + VFTSw 
+ 
+
+===== [PDF PAGE 69] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+69 
+ 
+ANNEX A 
+(Mandatory) 
+Comparison table 
+ 
+OIML R 76-2:20XX OIML R 76-1:2006 
+Remarks 
+Ref. Description Ref. Description 
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+Commented [ID17]: To be completed in next CD 
+
+===== [PDF PAGE 70] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+70 
+ 
+ 
+
+===== [PDF PAGE 71] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+71 
+ 
+ANNEX B 
+(Informative) 
+Index of terms defined 
+The numbers in brackets refer to important chapters of this Recommendation. 
+Actual scale interval ...................................................(3.4.3, 3.5.3.2, 3.8.2.2, A.4.8.2) T.3.2.2 
+Analogue data processing device ...................................(3.10.2.2, 3.10.2.4, F.3) ................................................................. T.2.2.3 
+Analogue indication .......................................................(3.8.2.1, 4.6.3, A.4.8.1) ................................................................. T.5.1.2 
+Automatic zero-setting device....................................(4.5.6, A.4.1.5, A.4.2.1.3)........................................................... T.2.7.2.3 
+Auxiliary indicating devices.......................................(3.1.2, 3.4, 4.13.7) ............................................................................ T.2.5 
+Auxiliary verification device......................................(3.7.2, 4.9) ..................................................................................... T.2.7.7 
+Calculated net value ...................................................(4.7.1) ............................................................................................ T.5.3.2 
+Calculated weight value .............................................(4.6.11) .......................................................................................... T.5.3.3 
+Complementary indicating device ..............................(3.4.1, 4.3.2) .................................................................................. T.2.5.3 
+Device for interpolation of reading ............................(3.4.1) ............................................................................................ T.2.5.2 
+Device-specific parameter ..........................................(4.1.2.4, 7.1.4, G.2.2.3) ................................................................. T.2.8.4 
+Digital indication........................................................(3.5.3.2, 3.8.2.2, 4.2.2.2, 4.5.5, 4.13.6, A.4.1.6, A.4.4.3, A.4.8.2) T.5.1.3 
+Digital device .............................................................(3.10.2.1, 3.10.4.6, 4.13.6, F.5, G) ................................................ T.2.3.4 
+Digital display ............................................................(3.10.2.4, C.1) ............................................................................... T.2.2.6 
+Discrimination............................................................(3.8, 6.1, A.4.8) ................................................................................ T.4.2 
+Displaying component................................................(4.3, 6.2, 6.3, 6.6) .......................................................................... T.2.4.1 
+Displaying device.......................................................(2.4, 3.6.3, 4.2.1, 4.2.4, 4.3, 4.4, 4.17.1, 6.2, A.4.5, E.2.2)............... T.2.4 
+Disturbance ................................................................(3.10.2.2, 3.10.3, 5.1.1, 5.3, 5.4.3, B.3) ......................................... T.6.1.2 
+Durability ...................................................................(3.9.4.3, A.6) .................................................................................... T.4.4 
+Durability error...........................................................(3.9.4.3, A.6) ................................................................................. T.5.5.7 
+Electronic component.................................................(4.1.2.4) ......................................................................................... T.2.3.3 
+Electronic device ........................................................(5.5) ............................................................................................... T.2.3.1 
+Electronic instrument .................................................(2.3, 5, B) ...................................................................................... T.1.2.6 
+Electronic sub-assembly.............................................(4.1.2.4) ......................................................................................... T.2.3.2 
+Error (of indication) ...................................................(2.2, 3.1.1, 3.5, 3.6, 5.1.1, 8.3.3) ................................................... T.5.5.1 
+Extended displaying device........................................(3.4.1, 4.4.3, 4.13.7) ......................................................................... T.2.6 
+Extension interval of self-indication...........................(4.2.5) ............................................................................................ T.3.1.5 
+Family ........................................................................(3.10.4, 8.2.1) ................................................................................... T.3.5 
+Fault ...........................................................................(5.1, 5.2) ........................................................................................ T.5.5.5 
+Final weight value ......................................................(4.4.2) ............................................................................................... T.4.6 
+Grading instrument.....................................................(3.2) ............................................................................................. T.1.2.13 
+Graduated instrument .................................................(3.1.2) ............................................................................................ T.1.2.1 
+Gross value.................................................................(4.6.5, 4.13.3) ................................................................................ T.5.2.1 
+Indications of an instrument .......................................(3.8.2, 4.2, 4.3.3, 4.4, 4.6.12) ........................................................... T.1.3 
+Indicating device with a differentiated scale division.(3.4.1) ............................................................................................ T.2.5.4 
+Indicator .....................................................................(3.10.2, 5.3.1, 5.5.2, 7.1.5.3, C, F)................................................. T.2.2.2 
+Influence factor ..........................................................(3.5.3.1, 5.4.3, A.5) ....................................................................... T.6.1.1 
+Initial intrinsic error ...................................................(A.4.4.1) ........................................................................................ T.5.5.3 
+Initial zero-setting device ...........................................(4.5.1, 4.5.4, A.4.4.2) ................................................................. T.2.7.2.4 
+Instrument with price scales .......................................(4.14.2) .......................................................................................... T.1.2.7 
+Intrinsic error..............................................................(5.3.4, A.4.4.1, A.6) ...................................................................... T.5.5.2 
+Legally relevant parameter .........................................(5.5.2.2, 5.5.3) ............................................................................... T.2.8.2 
+Legally relevant software ...........................................(5.5.2, 5.5.3, G.1, G.2)................................................................... T.2.8.1 
+Levelling device ..........................................................(3.9.1, 4.18.2) ................................................................................ T.2.7.1 
+Load cell.....................................................................(3.10.2.1, 3.10.2.4, 7.1.5.3, C, F)................................................... T.2.2.1 
+Load-measuring device ..............................................(2.4, 6.9, 4.11, 7.1.5.1) .................................................................. T.2.1.3 
+Load receptor .............................................................(3.6, 4.11, 7.1.5.1, A.4.7) .............................................................. T.2.1.1 
+Load-transmitting device............................................(3.10.2.1, 4.11) .............................................................................. T.2.1.2 
+Locking device ...........................................................(4.8.1) ............................................................................................ T.2.7.6 
+Long-term storage of measurement data ....................(5.5.3) ............................................................................................ T.2.8.5 
+Commented [ID18]: Is this annex necessary or useful? 
+Other Recommendations don’t have this. 
+Commented [ID19]: This was previously R 76-1, 3.8. No 
+definition xrefs have yet been updated, others have not yet 
+been checked in case Annex is deleted. 
+Would need to be cleaned up to include on R 76-2. 
+
+===== [PDF PAGE 72] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+72 
+ 
+Maximum capacity.....................................................(3.3, 4.13, 6.6, 6.8) ........................................................................ T.3.1.1 
+Maximum permissible error .......................................(2.2, 3.1, 3.5, A.4.4.1) ................................................................... T.5.5.4 
+Maximum safe load....................................................(7.1.2) ............................................................................................ T.3.1.7 
+Maximum tare effect ..................................................(A.4.6.1) ........................................................................................ T.3.1.6 
+Metrologically relevant ..............................................(3.10.4) ............................................................................................. T.2.9 
+Minimum capacity .....................................................(2.2, 3.2, 3.4.3) .............................................................................. T.3.1.2 
+Minimum reading distance.........................................(4.3.1, 4.3.2) .................................................................................. T.5.4.4 
+Mobile instrument ......................................................(3.9.1.1, 4.18, A.4.7.5, A.4.12, A.5.1.3) ...................................... T.1.2.11 
+Module .......................................................................(3.10.2, 5.5.2, 7.1.5.3, C, E, F) ......................................................... T.2.2 
+Multi-interval instrument ...........................................(3.3, 3.4.1) ..................................................................................... T.3.2.6 
+Multiple range instrument ..........................................(3.2, 4.5.3, 4.6.7, 4.10) .................................................................. T.3.2.7 
+Net value ....................................................................(3.5.3.3, 4.6.5, 4.6.11) ................................................................... T.5.2.2 
+Non-automatic weighing instrument ..........................(1 etc.) .............................................................................................. T.1.2 
+Non-automatic zero-setting device.............................(4.13.2) T.2.7.2.1 
+Non-graduated instrument ..........................................(3.1.2) ............................................................................................ T.1.2.2 
+Non-self-indicating instrument...................................(3.8.1, 6) ........................................................................................ T.1.2.5 
+Number of verification scale intervals........................(2.2, 3.2, 3.3.1, 3.4.4, C.1.2, E.1.2.3, F) ........................................ T.3.2.5 
+Overall inaccuracy of reading ....................................(4.2.1) ............................................................................................ T.5.4.2 
+Performance test .........................................................(5.4, A.4, B.3, B.4, C.2.1.1, C.2.4, C.3.1) ........................................... T.7 
+Peripheral device ........................................................(3.10.3, 5.3.6, 5.5.2, 7.1.5.4, B.3).................................................. T.2.3.5 
+Portable instrument ....................................................(4.3.4, 4.19, A.4.13) .................................................................... T.1.2.12 
+Preset tare device........................................................(2.4, 4.7, 4.13.4) ............................................................................ T.2.7.5 
+Preset tare value .........................................................(3.5.3.3, 4.7, 4.13.4, 4.16) ............................................................. T.5.3.1 
+Price-computing instrument .......................................(4.13.11, 4.14) ............................................................................... T.1.2.8 
+Price-labelling instrument .........................................(4.16) ............................................................................................. T.1.2.9 
+Primary indications ....................................................(4.4.4, 4.4.6, 4.13, 4.14.1, 4.14.4, 5.3.6.1, 5.3.6.3, 5.5.2.1) ......... T.1.3.1 
+Protective interface.....................................................(3.10.3, 5.5.2.2) ............................................................................. T.2.3.6 
+Reading by simple juxtaposition ................................(4.2.1) ............................................................................................ T.5.4.1 
+Reduction ratio ...........................................................(6.2.3, F.1, F.2.7).............................................................................. T.3.3 
+Reference position......................................................(3.9.1.1, 6.2.1.3, 6.3.1, A.4.1.4, A.4.3, A.5.1) .................................. T.6.4 
+Repeatability ..............................................................(3.6.1, 3.7.3, 8.3.3, A.4.1.7, A.4.4.5, A.4.10, C.2.7, C.3.1.1) ........... T.4.3 
+Rider...........................................................................(3.4.1) ............................................................................................ T.2.5.1 
+Rounding error or digital indication ...........................(3.5.3.2, B.3) ................................................................................. T.5.4.3 
+Scale interval used for numbering ..............................(4.3.1) ............................................................................................ T.3.2.4 
+Scale mark..................................................................(4.3.1, 4.17.2, 6.2, 6.3, 6.6.1.1) ..................................................... T.2.4.2 
+Scale spacing..............................................................(4.3, 6.2.2.2, 6.6.1.1, 6.9.3) ........................................................... T.3.2.1 
+Secondary indications ................................................(4.2.4) ............................................................................................ T.1.3.2 
+Selection device for load receptors and load-measuring devices.......(4.11) ...................................................................... T.2.7.8 
+Self-indicating instrument ..........................................(3.8.2, 4, 5, 6) ................................................................................ T.1.2.3 
+Self-indication capacity..............................................(3.6.4, 3.9.1.1, 4.2.5) ..................................................................... T.3.1.3 
+Self-service instrument...............................................(4.13.11) ...................................................................................... T.1.2.10 
+Semi-automatic zero-setting device ...........................(4.5.4, 4.6.5, 4.6.9) ..................................................................... T.2.7.2.2 
+Semi-self-indicating instrument .................................(3.8.2, 4.2.5, 4.12, 4.17, 5) ............................................................ T.1.2.4 
+Sensitivity...................................................................(4.1.2.4, 6.1, A.4.9) .......................................................................... T.4.1 
+Significant fault ..........................................................(4.13.9, 5.1, 5.2, 5.3.4, B.1, B.3) ................................................... T.5.5.6 
+Software .....................................................................(4.1.2.4, 5.5.1, 5.5.2.2, 5.5.3, 7.1.4, 8.2.1.2, C.1, E.1, G) ................. T.2.8 
+Software identification ...............................................(5.5.1, 5.5.2.2, 7.1.2, 8.3.2, G.1, G.2.4)......................................... T.2.8.6 
+Software separation ....................................................(5.5.2.2, G.2.3) .............................................................................. T.2.8.7 
+Span stability..............................................................(3.10, 5.3.3, 5.4, B.4)..................................................................... T.5.5.9 
+Tare-balancing device ................................................(4.6) ............................................................................................ T.2.7.4.1 
+Tare device .................................................................(3.3.4, 4.2.3, 4.6, 4.13.3, 6.3.5, A.4.6.2)........................................ T.2.7.4 
+Tare value...................................................................(3.5.3.4, 4.6.5, 4.6.11, 4.13.3.2, 5.5.3.2, A.4.6.1, C.3.2, G.3.3)..... T.5.2.3 
+Tare-weighing device .................................................(3.5.3.4, 3.6.3, 4.2.2.1, 4.5.4, 4.6.2, A.4.6.3).............................. T.2.7.4.2 
+Terminal .....................................................................(3.10.2.4, 5.5.2, C.1, E.2.2) ........................................................... T.2.2.5 
+Type ...........................................................................(2.3 etc.) ........................................................................................... T.3.4 
+Type specific parameter .............................................(5.5.2.2, G.2.2, G.2.4) ................................................................... T.2.8.3 
+Verification scale interval ..........................................(2.2, 3.1.2, 3.2, 3.3.1, 3.4, 3.5.1) ................................................... T.3.2.3 
+Warm-up time ............................................................(5.3.5, A.5.2, B.1, B.3) ..................................................................... T.4.5 
+Weighing instrument ..................................................(1) ..................................................................................................... T.1.1 
+Weighing module .......................................................(3.10.2, 7.1.5.3, E.1, E.2, E.3, E.4)................................................ T.2.2.7 
+Weighing range ..........................................................(3.2, 3.3, 3.9.5, 4.2.3, 4.10) ........................................................... T.3.1.4 
+Weighing results.........................................................(3.6, 4.2, 4.3.1, 4.4.4, 4.6.11, 4.6.12, 4.13.1).................................... T.5.2 
+Zero-setting device.....................................................(4.5, 4.6.5, 4.13.2, 6.4.2, 6.6, 6.7, 6.8, A.4.2.1.3, A.4.2.3.1) ......... T.2.7.2 
+Zero-tracking device ..................................................(4.5, A.4.1.5) ................................................................................. T.2.7.3 
+
+===== [PDF PAGE 73] R76_Part2_test_procedures_CD =====
+TC9_SC1_P1_N036 OIML R 76-2:20xx (E) – 1.1CD 
+ 
+ 
+73 
+ 
+BIBLIOGRAPHY 
+ 
+Ref. Standards and reference documents Description 
+[1] OIML V 1:2022 International Vocabulary of 
+Terms in Legal Metrology (VIML) 
+Vocabulary including only the concepts used in the field of 
+legal metrology. These concepts concern the activities of 
+the legal metrology service, the relevant documents as well 
+as other problems linked with this activity. Also included in 
+this Vocabulary are certain concepts of a general character 
+which have been drawn from the VIM. 
+[2] V 2-200:2012 
+International Vocabulary of Metrology - Basic 
+and General Concepts and Associated Terms 
+(VIM). 3rd Edition 
+Vocabulary, prepared by a joint working group  consisting 
+of experts appointed by BIPM, IEC, IFCC, ISO, IUPAC, 
+IUPAP and OIML 
+[3] OIML B 18:2022 
+Framework for the OIML Certification System 
+(OIML-CS) 
+System for issuing, registering and using OIML type 
+examination certificates and associated OIML type 
+evaluation reports for types of measuring instruments based 
+on the requirements of OIML Recommendations. 
+[4] OIML R 34:1979 
+Accuracy classes of measuring instruments 
+Lays down the principles for the classification of measuring 
+instruments according to their accuracy. 
+The measuring instruments to which this Recommendation 
+applies are 
+▪ material measures, 
+▪ measuring instruments, 
+▪ measuring transducers, 
+where these instruments are intended for use in conditions 
+in which errors due to inertia are negligible in relation to the 
+maximum errors laid down for them. 
+[5] OIML R 50:2014 
+Continuous totalizing automatic weighing 
+instruments (belt weighers) 
+Specifies the metrological and technical requirements for 
+continuous totalizing automatic weighing instruments of the 
+belt conveyor type that are subject to national metrological 
+control. 
+It is intended to provide standardized requirements and test 
+procedures for evaluating metrological and technical 
+characteristics in a uniform and traceable way . 
+[6] OIML R 51:2006 
+Automatic catchweighing instruments 
+Specifies the metrological and technical requirements and 
+test procedures for automatic catchweighing instruments 
+(catchweighers) that are subject to national metrological 
+control. 
+It is intended to provide standardized requirements and 
+testing procedures to evaluate the metrological and 
+technical characteristics in a uniform and traceable way.  
+[7] OIML R 60:2021 
+Metrological regulation for load cells 
+Provides the principal static characteristics and static 
+evaluation procedures for load cells used in the evaluation 
+of mass. 
+[8] OIML R 61:2017 
+Automatic gravimetric filling instruments 
+Specifies the metrological and technical requirements for 
+automatic gravimetric filling instruments which produce 
+predetermined mass of individual fills of products from  one 
+or more loads by automatic weighing. 
+Commented [ID20]: This is just the same as R 76-1 at the 
+moment. 
+All updated to latest editions, including replacing B 3 and 
+B 10 with B 18. 
+
+===== [PDF PAGE 74] R76_Part2_test_procedures_CD =====
+OIML R 76-2:20xx (E) – 1.1CD TC9_SC1_P1_N036 
+ 
+74 
+ 
+Ref. Standards and reference documents Description 
+[9] OIML R 106:2011 
+Automatic rail-weighbridges 
+Specifies the requirements and test methods for automatic 
+railweighbridges which are used to determine the mass of 
+railway vehicles when they are weighed in motion.  
+It is intended to provide standardized requirements and test 
+procedures to evaluate the metrological and technical 
+characteristics of such instruments in a uniform and 
+traceable way. 
+[10] OIML R 107:2007 
+Discontinuous totalizing automatic weighing 
+instruments (totalizing hopper weighers) 
+Specifies the requirements and test methods for 
+discontinuous totalizing automatic weighing instruments 
+(totalizing hopper weighers). 
+It is intended to provide standardized requirements and test 
+procedures to evaluate the metrological and technical 
+characteristics of an instrument in a uniform and traceable 
+way. 
+[11] OIML R 111:2004 Weights of classes E1, E2, F1, 
+F2, M1, M1-2, M2, M2-3 and M3 
+ 
+[12] OIML R 134:2006 
+Automatic instruments for weighing road 
+vehicles in motion and measuring axle loads 
+Specifies the requirements and test methods for automatic  
+instruments for weighing road vehicles in motion that are 
+used to determine the vehicle mass, the axle loads, and if 
+applicable the axle-group loads of road vehicles when the 
+vehicles are weighed in motion. 
+It provides standardized requirements and test procedures to 
+evaluate the metrological and technical characteristics of 
+such instruments in a uniform and traceable way. 
+[13] OIML R 150:2020 
+Continuous totalizing automatic weighing 
+instruments of the arched chute type 
+Specifies the metrological and technical requirements for 
+arched chute weighers that are subject to national 
+metrological control. 
+[14] OIML D 28 Conventional value of the result of 
+weighing in air (Revision of R 33) 
+ 
+[15] OIML D 31:2019 General requirements for 
+software-controlled measuring instruments 
+ 
+ 

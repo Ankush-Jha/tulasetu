@@ -1,0 +1,660 @@
+
+
+===== [PDF PAGE 1] R76_Part5_verification_inspection_CD =====
+INTERNATIONAL OIML R 76-5 
+RECOMMENDATION Edition 202x (E) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Non-automatic weighing instruments 
+Part 5: Verification and in-service inspection 
+ 
+ 
+Instruments de pesage à fonctionnement non automatique 
+Partie 5: Vérification et xxxx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+OIML R  76-5 Edition 202x (E) 
+ 
+ 
+ 
+ 
+ 
+ ORGANISATION INTERNATIONALE 
+DE METROLOGIE LEGALE 
+ 
+INTERNATIONAL ORGANIZATION 
+OF LEGAL METROLOGY 
+ 
+  
+
+
+===== [PDF PAGE 2] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+2 
+ 
+  
+
+===== [PDF PAGE 3] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+3 
+ 
+Contents 
+1 Introduction .............................................................................................................................. 5 
+2 Verification activities ............................................................................................................... 5 
+3 General recommendations for  verification ......................................................................... 6 
+3.1 Initial verification: Summary of  tasks ............................................................................. 6 
+3.2 Recommended tasks to be carried out at first subsequent  verification ......................... 7 
+3.3 Tasks to be carried out at any subsequent  verifications ................................................. 7 
+3.4 Reverification required after modification or repair of a weighing  instrument ............ 8 
+4 Examples of equipment for verification  .............................................................................. 9 
+5 Class of weights to be  used................................................................................................... 10 
+6 Recommended verification and calibration  intervals ..................................................... 11 
+7 Specific topics dealing with  verification ............................................................................ 11 
+7.1 Procedure for evaluation of errors for instruments without auxiliary  indication ....... 11 
+7.2 Repeatability test ............................................................................................................. 13 
+7.3 Eccentricity test ............................................................................................................... 13 
+7.4 Example of eccentricity loading for a hand pallet truck ................................................... 14 
+7.5 Weighing Performance using substitution loads  .......................................................... 14 
+7.6 Weighing Performance of wheel load scales and crane  scales .................................... 15 
+7.7 Correction of the gravity value  ...................................................................................... 15 
+7.8 Verification of class I and II weighing instruments  ..................................................... 15 
+ 
+  
+
+===== [PDF PAGE 4] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+4 
+Foreword 
+ 
+LATEST FOREWORD TO BE ADDED BY THE BIML 
+  
+
+===== [PDF PAGE 5] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+5 
+ 
+Non-automatic weighing instruments 
+Part 5 – Verification and in-service inspection 
+(Informative) 
+1 Introduction 
+The applicable error limits and tests to be carried out during type approval and initial verification of a 
+weighing instrument are described in OIML R 76-1. 
+This Part recommends 
+▪ the type of inspections or tests that should be carried out during verification  and in-service 
+inspection, considering the limited time and budget available for these activities, 
+▪ the type and amount of test-equipment to be used for verification of various types of weighing 
+instruments, 
+▪ verification intervals for various types of weighing instruments as well as calibration intervals 
+for reference weights, and 
+▪ specific guidance on verification topics. 
+The focus of this part of the Recommendation is the verification of weighing accuracy. The verification 
+of software, data storage, price computation, printing and Point-of-Sale (POS) systems is not covered. 
+These inspection tasks are typically conducted using specially developed checklists. 
+Note: The information presented in italics is provided as examples or as suggested guidance for verification 
+inspectors or accredited / authorised bod ies. Several notes are provided to illustrate a variety of ways 
+the verification inspection and tests can be modified or simplified.  
+2 Verification and in-service inspection activities 
+The different activities associated with  evaluation, verification and in-service inspection are 
+summarizsed below: in Table 1. These activities are performed by authorised peronnel according to 
+national regulations. 
+Table 1 – Verification and in-service inspection activities 
+Verification 
+aActivity Short description Conducted by2 
+Type evaluation or 
+approval (see also 
+R 76-1, 10.2) 
+In depth system evaluation, comprehensive 
+functional testing, including influence of 
+environmental conditions such as 
+temperature, humidity, EMC, compatibility 
+checking of modules. 
+National metrology institute or accredited 
+body 
+Initial verification 
+Tests carried out on a certified weighing 
+system instrument either directly after 
+production, or after installation on site. 
+National metrology institute or accredited 
+body 
+Subsequent 
+verification 
+Tests carried out periodically, that cover a 
+subset of initial verification. Verification inspector or authorised body 
+
+===== [PDF PAGE 6] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+6 
+In-service 
+inspection 
+Short verification that could be done at any 
+time, with error limits being twice those of 
+initial verification. 
+Verification inspector or authorised body 
+3 General recommendations for verification 
+This section summarises the verifications that should be conducted, depending on the type of weighing 
+instrument. The list of tests normally applied at initial verification is taken as a reference.  
+Note: The verification procedure can be optimised dependi ng on the type of instrument and the 
+application: 
+The cost of the verification should be covered by the prices fixed in the verification catalogue. The 
+handling of heavy weights and other logistics can be time -consuming and the verification costs must 
+be reasonable. 
+For example, for a weighing instrument of 1000  kg capacity which is essentially used for weighing 
+containers between 100  kg and 300 kg, the repeatability test could be carried out at 300  kg instead of 
+0.8 × Max as specified in R 76-2, 5.10. 
+3.1 Tasks to be carried out at Iinitial verification : Summary of  tasks 
+This section describes provides a summary of tasks carried out for at initial verification (see Table 2). 
+These are considered to be the minimum tests to be carried out on weighing instrumentsrequired. 
+Verification  inspectors The authorised person may repeat tests or perform additional tests based on the 
+circumstances of the inspectioninitial verification. 
+Table 2  - Initial Verification – Summary of Tasks 
+No R 76 reference Test Description 
+1  
+Inspect the instrument’s descriptive plate and record:  
+▪ manufacturer, type & serial number, 
+▪ instrument characteristics Min, Max, e, d, accuracy class, 
+and temperature range, and 
+▪ type approval mark, 
+Record load receptor dimensions 
+2  
+Record information on the weighing instrument: 
+▪ application field; 
+▪ certification validity; 
+▪ version of software or checksum, if applicable; and 
+▪ modules, if applicable. 
+3  
+Inspect environmental conditions: 
+The instrument must conform to accuracy class and temperature range, and be 
+protected from dust and water for accuracy classes I, II, III . 
+Determine if the location and installation of the instrument are appropriate:  
+The instrument must be level and / or installed properly on a suitable support. 
+4  Gravity check for accuracy classes I, II, III instruments which are not equipped  with an 
+internal adjustment system. 
+5 R 76-2, 5.1.10 Preload with 1 × Max 
+6 R 76-1, 6.4.3 Test overload indication (at Max + 9e) 
+7 R 76-1, 6.7.1 
+R 76-2, 5.2.1 Test range of zero-setting 
+8 R 76-1, 6.7.2 
+R 76-2, 5.2.3 Test accuracy of zero setting 
+Commented [ID1]: Harmonise with R 76-1:2006, 8.3.2 and 
+8.3.3. 
+
+===== [PDF PAGE 7] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+7 
+ 
+No R 76 reference Test Description 
+9 R 76-2, 5.8 
+R 76-2, 5.9 
+Discrimination test (only for instruments with analogue indication) 
+Sensitivity test (only for non-self-indicating instruments) 
+10 R 76-1, 5.5.4 
+R 76-2, 5.10 Repeatability test 
+11 R 76-1, 5.5.5 
+R 76-2, 5.7 Eccentricity test 
+12 R 76-2, 5.4 Performance test: increasing and decreasing loads from zero to Max 
+13 R 76-2, 5.6 
+Test subtractive tare: performance test with tare = Max/2 
+Test additive tare: successive performance tests followed by tare until the total weighing 
+capacity is reached 
+14 R 76-2, 6.1.3 Tilt test, specific to “mobile” weighing instruments  
+15  Marking and securing, initial verification mark 
+3.2 Recommended tasks to be carried out at first subsequent  verification 
+▪ Record the information on the weighing instrument into an instrument verification database or 
+register; 
+▪ Carry out tasks 1, 2, 3, 4 (refer to table 2) as done at initial verification; 
+▪ Take photos of the weighing instrument, indication and descriptive marking; 
+▪ Determine the optimal verification procedure taking into consideration the instrument type and 
+its application; and 
+▪ Define the verification interval according to national regulations. 
+3.33.2 Tasks to be carried out at any subsequent verifications 
+Assuming the same authorised body is in charge, the administrative tasks already carried  out  at first 
+subsequent verification are no longer required. Other tasks may be simplified: 
+▪ Carry out Ttasks 1, 2, 3, 4 (refer to table 2) having been already carried out as done at first 
+initial verification, just check that the instrument’s descriptive plate is still present and readable; 
+▪ Carry out tTasks 6, 7, 8: (the overload indication, weighing range, and accuracy of zero-setting 
+are supposed to work identically as long as the instrument has not been modified). 
+▪ Task 9: the discrimination and sensitivity are implicitly tested during the performance tests. 
+▪ Task 14: the tilt test of mobile instruments is not conducted unless the firmware has been 
+modified or level sensors replaced or adjusted. 
+The preload  (task 5), repeatability (10), eccentricity (11), performance (12) and tare (13) tests are 
+important and should be carried out. 
+The existence of securing (task 15) must be checked and the verification mark must be affixed. 
+Note: In order to reduce the number of handling for high capacity weighing scales above 100  kg: 
+▪ The repeatability test (10) can be carried out with a reduced load corresponding to the 
+application instead of 0.8 × Max; 
+▪ The eccentricity test (11) can be carried out using rolling loads, and for weighbridges a forklift 
+or pallet truck, loading successively the different areas of the load receptor can be used; 
+▪ The performance test (12) can be carried out on a limited number of pointsloads, but at least 
+three points loads for each partial weighing range (for multi -interval instruments) and or for 
+each weighing range (for multiple range instruments), respectively; 
+▪ The tare weighing test can be performed numerically by deduction from the performance test 
+Commented [ID1]: Harmonise with R 76-1:2006, 8.3.2 and 
+8.3.3. 
+Commented [ID2]: Tasks from tabke 2, othere points as 
+notes 
+
+===== [PDF PAGE 8] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+8 
+(refer to section R 76-2, 5.6.1), and 
+▪ The measuring range may be reduced. 
+3.43.3 Reverification required after modification or repair of a weighing  instrument 
+A secured weighing instrument must be re-verified and sealed after modification or repair which affects 
+the metrological characteristics or performance , or which results in a seal being broken . Typical 
+examples are: 
+▪ replacement of a load cell, an amplifier or indicator, 
+▪ internal adjustment for improvement of weighing accuracy, 
+▪ modification of the load receptor, 
+▪ modification of the measuring range (see note 4), 
+▪ addition of an auxiliary indicating device, 
+▪ seal broken by accident. 
+Note 1: Typically weighing instruments are approved as being suitable for a specific application or location 
+(e.g. environment, support, viewing position in direct -sale situations) and reverification may  be 
+necessary when an instrument is relocated, or is used in a different weighing application. 
+Note 2: In order to reduce the logistic costs related to such an action, the final test can be carried out by the 
+service technician in the presence of the verification inspector who is in charge of approval and sealing. 
+Note 3: Depending on national regulations a nd on the type of modification, an “ initial verification” may be  
+required. 
+Note 4: The measuring range of a high capacity weighing scale which is never used up to maximum capacity 
+may be reduced in order to facilitate the verification task. A typical example is a 60 t weighbridge used 
+for weighing trucks, which are in any case limited to 40 t due to national regulations. 
+3.4 Tasks to be carried out at in -service inspection  
+  
+
+===== [PDF PAGE 9] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+9 
+ 
+4 Examples of equipment for verification 
+This section describes the typical test equipment recommended to allow a verification inspector to 
+conduct an adequate test of typical weighing instruments. 
+Table 3 - Typical equipment for verification 
+Maximum capacity Equipment1, 2 
+Up to 100 kg Set of weights from 1 g to 10 kg 
+Set of additional weights2: 2 × 0.1 g, 0.2 g, 0.5 g, 1 g, 2 g, 5 g, 10 g1 
+100 kg to 500 kg 
+Van equipped with: 
+▪ Set of weights from 1 kg to 10 kg 
+▪ 1-2 calibrated rack(s) including a set of 20 kg weights 
+▪ Sets of additional weights12: 2 × 10 g, 20 g, 50 g, 100 g 
+Over 500 kg up to 5000 kg  
+Small weighbridge 
+Small truck equipped with: 
+▪ 2-4 calibrated racks, each including a set of 20 kg weights, 
+▪ Set of 500 kg weights, 
+▪ Sets of additional weights12: 2 × 100 g, 200 g, 500 g, 1 kg 
+Over 5 t to 50 t 
+weighbridge for trucks 
+Truck equipped with: 
+▪ Set of 500 kg and 1000 kg weights. 
+▪ Sets of additional weights12: 2 × 1 kg, 2 kg, 5 kg, 10 kg, 20 kg 
+1 All weights shall be calibrated and of an appropriate class a ccording to OIML R 111[x]. 
+2 Access to further calib rated weights of an appropriate class sufficient to reach the full capacity of the 
+instrument may be required. 
+12 These weights are used for determining changeover points of instruments with digital indication and without 
+auxiliary indication (mainly class II & IIII instruments). 
+ 
+ 
+ 
+ 
+ 
+Figure 1 - Set of calibrated weights from 
+1 g to 2 kg and a protective carrying case. 
+Figure 2 -– Example of a rRack containing a set 
+of 
+20 kg weights that can be handled by 
+a pallet truck or a crane 
+  
+
+
+===== [PDF PAGE 10] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+10 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 3 -– Example of a vVan for the verification of medium-size weighing instruments, 
+equipped with a crane, 2-4 racks containing 20 kg weights, a set of 500 kg weights, sets of 
+additional weights, 
+and various accessories 
+ 
+ 
+Figure 4 -– Example of a Ttruck for weighbridge verification, total weight 40 t, equipped with a 
+set of 
+500 kg and 1000 kg weights that can be handled by a pallet truck 
+5 Class of weights to be used 
+This section provides guidance on the class of weight to be used , which is determined based on the 
+accuracy class of the weighing instrument (see Table 4). 
+General rule: The uncertainty or maximum permissible error of reference weights , expressed in 
+weighing units, must be not greater than 1/3 of mpe. 
+Table 4 - Weight classes for use with weighing instruments 
+Class of weighing 
+instrument 
+Class of weights 
+according to OIML R 111-1 
+Relative uncertainty of weights 
+in ppm (parts per million) 
+I E2 / F1 1.6 / 5 
+II F1 / F2 5 / 16 
+III M1, M2 50 / 160 
+IIII M3 or better 500 
+
+
+===== [PDF PAGE 11] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+11 
+ 
+For example: Use class M 1 weights with a relative uncertainty of 50  ppm to test a class III retail scale with 
+Max = 10 000 g and e = 2 g. 
+Measuring range mpe Class M1 weight 
+uncertainty in g Ratio weight uncertainty / mpe 
+0 to 1 000 g ±0.5 e = ±1 g 0.05 g at 1000 g 5 % 
+1 000 g to 4 000 g ±1.0 e = ±2 g 0.2 g at 4000 g 10 % 
+4 000 g to 10 000 g ±1.5 e = ±3 g 0.5 g at 10 000 g 16.7 % 
+Conclusion: In the worst case, which is at full scale, the reference weight uncertainty is 0.5  g, i. e. negligible 
+compared to an mpe of 3 g. 
+6 Recommended verification and calibration intervals 
+This section describes : 
+the recommended verification intervals for a variety of weighing instruments. 
+▪ , and 
+▪ Note: See OIML D 10 [x] for the recommended calibration intervals for reference weights. 
+Table 5 - Recommended verification intervals 
+Type of weighing instrument Verification interval1, 2, 3, 4 
+Weighing instruments used intensively (over 500 weighing per 
+year), and mobile instruments 1-2 years 
+Weighing instruments used occasionally and mechanical 
+weighing instruments 2–4 years 
+1 Verification intervals are determined using many factors, and are based on the history of reverification results 
+and typical applications, and depend on, among other factors, frequency of use, typical load, environment, 
+maintenance, and handling. 
+2 Instruments used for high-cost products or in high volume weighing should be tested more frequently by the 
+end-user based on a risk-based analysis. 
+3 Most class I and II precision scales are equipped with an internal adjustment function  that can be activated 
+periodically, typically every day. 
+4 Checking and recording of instrument performance by the user should be encouraged. The verification 
+interval of an instrument may be extended based on recorded performance. 
+Table 6 - Recommended calibration intervals for reference weights 
+Type of reference weights Calibration interval4 
+Set of weights of class E2, F1, F2 made of stainless steel, protected 
+in a suitcase and handled with much care 4-6 years 
+Set of weights of class F and M, frequently used and without 
+special care, subject to wear and dust 1-2 years 
+Note: In case of very frequent use, or after having been used in a harsh industrial environment, doubtful weights 
+should be verified before the calibration deadline using a precision scale or a comparator.  
+7 Specific topics dealing with verification 
+7.1 Procedure for evaluation of errors for instruments without auxiliary  indication 
+For instruments of class III and IIII without an auxiliary indicating device, the evaluation of errors using 
+small additional weights (1/10 e) according to R 76-2, 5.4.3 may be a demanding task. This alternative 
+procedure shows how to proceed using a single additional weight of ΔL= 0.5 e: 
+
+===== [PDF PAGE 12] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+12 
+1) Determine the maximum permissible error “mpe” for the load applied using R  76-1 table 6 
+which is repeated below: 
+ 
+Table 6 – Maximum permissible errors according to class and load 
+Maximum 
+permissible 
+errors on initial 
+verification 
+For loads, m, expressed in verification scale intervals, e 
+Class I Class II Class III Class IIII 
+±0.5 e 0  m  50 000 0  m  5 000 0  m  500 0  m  50 
+±1.0 e 50 000 < m  
+200 000 5 000 < m  20 000 500 < m  2 000 50 < m  200 
+±1.5 e 200 000 < m 20 000 < m  100 000 2 000 < m  10 000 200 < m  1 000 
+2) Apply the load to the load receptor. 
+3) If the load and the indication are the same, no further testing is required, as the indication is 
+within the mpe in all cases. The assessment is: Pass 
+4) If the load and the indication are not the same, then use table below: 
+4) Table 7 – Assessment where load and indication are not the same 
+MPE I1 ΔL I2 Assessment 
+±0.5 e 
+L - 1e - - Fail 
+L - - Pass 
+L + 1e - - Fail 
+±1.0 e 
+L - 2e - - Fail 
+L - 1e +0.5 e L - 1e Fail 
+L - 1e +0.5 e L Pass 
+L  - Pass 
+L + 1e +0.5 e L + 1e Pass 
+L + 1e +0.5 e L + 2e Fail 
+L + 2e - - Fail 
+±1.5 e 
+L - 2e - - Fail 
+L - 1e - - Pass 
+L - - Pass 
+L + 1e - - Pass 
+L + 2e - - Fail 
+±2.0 e 
+L - 3e - - Fail 
+L - 2e +0.5 e L - 2e Fail 
+L - 2e +0.5 e L - 1e Pass 
+L to L ± e - - Pass 
+L + 2e +0.5 e L + 2e Pass 
+L + 2e +0.5 e L + 3e Fail 
+L + 3e -  Fail 
+±3.0 e 
+L - 4e -  Fail 
+L - 3e +0.5 e L - 3e Fail 
+L - 3e +0.5 e L - 2e Pass 
+L to L ± 2e - - Pass 
+Commented [ID3]: New caption as this was missing. 
+
+===== [PDF PAGE 13] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+13 
+ 
+L + 3e +0.5 e L + 3e Pass 
+L + 3e +0.5 e L + 4e Fail 
+L + 4e - - Fail 
+where: 
+L = applied load 
+I1 = indication after applying load on load receptor 
+I2 = indication after applying additional weight ΔL 
+7.2 Repeatability test 
+The mpe for the repeatability test is described in R 76-1, 5.5.4 and the procedure is explained  in R 76-
+2, 5.10. 
+Note: For subsequent verification one series of weighings with about 0.8 × Max is sufficient. Three weighings 
+on classes III and IIII or six weighings on classes I and II are necessary. 
+7.3 Eccentricity test 
+ 
+As described in R 76-2, 5.7, the load shall be applied over each support on an area of the same order of 
+magnitude as the fraction 1/n of the surface area of the load receptor, where n is the number of points 
+of support. Load to be applied, according to R 76-1, 5.5.5 : 
+▪ for n = 2 to 4: L ≈ Max / 3 
+▪ for n > 4: L ≈ Max / (n - 1) 
+Here are several examples of eccentricity loading: 
+ 
+Commented [ID4]: Diagram to be redone to correct: 
+variables in italics. 
+Commented [ID5]: Caption to be added 
+
+===== [PDF PAGE 14] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+14 
+7.4 Example of eccentric ity loading for a hand pallet truck  
+Load receptor with n = 4 points of support, Max = 600 kg, e = 0.5 kg 
+A wooden pallet should be systematically used to be close the practical application. 
+A suitable pallet or similar should be used for the testing. This shall be as close as possible to that used for 
+the application of the weighing instrument. 
+L ≈ 200 kg + pallet weight 
+ 
+ 
+ 
+7.5 Example of eccentric ity loading for rail weighbridge: 
+Due to the railway track, the rolling load cannot be positioning on the left and right sides. As stated in R 76-
+2, 5.7.4, the rolling load should be applied at the beginning, the middle and at the end of the load receptor, 
+in both directions, and with a test load corresponding to the usual rolling load. Taking into account the high 
+capacity (up to 150 t) of a rail weighbridge, the application of a test load equal to 1 / (n - 1) of Max may 
+not be possible. 
+L≈ usual rolling load 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+7.57.6 Weighing Pperformance using substitution  loads 
+ 
+The conditions for using substitution loads are defined in R 76-1, 5.6.3 and the substitution procedure is 
+explained in R 76-2, 5.4.5. 
+Note: For subsequent verification, the condition for the substitution load is more tolerant than for the initial 
+verification: if the repeatability error is not greater than 0.3  e, the  portion of standard  weights may be 
+reduced from 1/2 Max to 1/5 Max. 
+  
+L1 
+ L2 
+L4 
+ L3 
+ 
+ 
+ 
+Commented [ID6]: Caption to be added, and redo figure 
+Commented [ID7]: Caption to be added 
+
+===== [PDF PAGE 15] R76_Part5_verification_inspection_CD =====
+OIML R 76-5:20xx (E) 
+ 
+ 
+15 
+7.67.7 Weighing Performance of wheel load scales and crane  scales 
+Due to their limited surface (typically 500 × 700 mm) and to their high capacity (typically 5 t to 10 t), wheel 
+load scales cannot be tested up to full scale using calibrated weights. Specific test equipment must therefore 
+be used during verification. 
+Due to their limited dimensions and their high capacity (typically 3  t to 20 t), crane scales can hardly be 
+tested up to full scale using calibrated weights.  Specific test equipment must therefore be used during 
+verification. 
+ 
+Portable wheel load scales with control unit 
+. 
+Crane scale 
+ 
+ 
+Note: The weighing performance must be carried out using a specific test equipment that can be: a 
+mechanical press equipped with a calibrated reference load cell or proving ring, or a dead load 
+machine, which is typically only available in metrology institutes. 
+7.77.8 Correction of the gravity  value 
+For class I and II weighing instruments equipped with a self-adjustment system, the effect of gravity change 
+and buoyant force of the environmental air are automatically compensated. For class IIII weighing 
+instruments, the effect of local gravity is negligible. 
+For other weighing instruments, most of them being of class III, the following rule can be considered: 
+If the indication error due to the gravity cha nge is greater than 1/3 of the mpe, then the gravity value g1 
+shall be corrected in the setup of the instrument: 
+ 
+∆𝑚grav = 𝑚t
+𝑔local − 𝑔1
+𝑔1
+ 
+ 
+where: Δmgrav = indication error due to gravity change 
+mt = mass of test load 
+glocal = local gravity 
+g1 = gravity value at place of adjustment, normally written on the nameplate 
+ 
+Note: See additional information on local gravity at: http://www.ptb.de/cartoweb3/SISproject.php 
+ 
+7.87.9 Verification of class I and II weighing  instruments 
+a) For class I and II weighing instruments equipped with a self -adjustment device, the self -
+
+
+===== [PDF PAGE 16] R76_Part5_verification_inspection_CD =====
+ 
+OIML R 76-5:20xx (E) – 1.1CD 
+ 
+ 
+16 
+adjustment must be carried out j ust before verification in order to compensate the effect of local 
+gravity and air buoyancy. 
+b) For class I weighing instruments, an internal self -adjustment device is mandatory  according to 
+R 76-1,xxx, because the effects of the gravity and air buoyancy cann ot be neglected . T he air 
+density variation essentially depending on p (hPa) and T (°C) may affect the measurement by the 
+same order magnitude as the accuracy of the instrument (i.e. 10  ppm). 
+c) For class II weighing instruments not equipped with a self -adjustment device, the local gravity 
+value must be verified in the setup of the  instrument. 
+d) For class I and II weighing instruments,  special care must be taken o f environmental conditions 
+and weighing instrument  installation: 
+▪ The instrument  shall be installed on a stable table or other firm support with a smooth and 
+level surface, ideally a heavy marble or concrete table or bench that is non -magnetic and is 
+protected against electrostatic discharge.  
+▪ The environment in which the weighing inst rument is used must be controlled (e.g. air 
+circulation, temperature, humidity and other factors such as the effects of magnetism, 
+electrostatic forces, dust, moisture or other contaminants) in accordance with the 
+requirements specified by the manufacturer  of the instrument.  
+  
+
+===== [PDF PAGE 17] R76_Part5_verification_inspection_CD =====
+OIML R 76-5:20xx (E) 
+ 
+ 
+17 
+BIBLIOGRAPHY 
+ 
+Ref. Standards and reference documents Description 
+[1]   
+[2]   
+[3]   
+[4]   
+ 
+Commented [ID8]: To be deteremined. 

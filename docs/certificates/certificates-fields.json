@@ -1,0 +1,114 @@
+[
+  {
+    "cert": "1",
+    "mark": "IND/09/26/",
+    "make": null,
+    "sw_version": null,
+    "checksum_raw": null
+  },
+  {
+    "cert": "8",
+    "mark": "IND/09/26/08",
+    "make": null,
+    "sw_version": "V 14.10",
+    "checksum_raw": "34559a18232bc0c6c417"
+  },
+  {
+    "cert": "50",
+    "mark": "IND/09/26/50",
+    "make": null,
+    "sw_version": "Eagle",
+    "checksum_raw": "0B6A"
+  },
+  {
+    "cert": "56",
+    "mark": "IND/09/26/",
+    "make": null,
+    "sw_version": null,
+    "checksum_raw": null
+  },
+  {
+    "cert": "100",
+    "mark": "IND/09/26/100",
+    "make": "KELI",
+    "sw_version": "2.6",
+    "checksum_raw": "8100kb"
+  },
+  {
+    "cert": "150",
+    "mark": "IND/09/26/150",
+    "make": "TEDEA HUNTLEIGH.",
+    "sw_version": "V 9.3",
+    "checksum_raw": null
+  },
+  {
+    "cert": "200",
+    "mark": "IND/09/26/200",
+    "make": "- CZL",
+    "sw_version": "PMS63 VER 1.03",
+    "checksum_raw": "3A7F"
+  },
+  {
+    "cert": "251",
+    "mark": "IND/09/26/251",
+    "make": "- ZEMIC",
+    "sw_version": "3.35",
+    "checksum_raw": "D300"
+  },
+  {
+    "cert": "259",
+    "mark": "IND/09/26/259",
+    "make": "Green Label",
+    "sw_version": "v1.5.0.hex",
+    "checksum_raw": "e24a8d3c12b7f5a89e1b"
+  },
+  {
+    "cert": "278",
+    "mark": "IND/09/26/278",
+    "make": null,
+    "sw_version": "DJ623 GT",
+    "checksum_raw": "0970"
+  },
+  {
+    "cert": "289",
+    "mark": "IND/09/26/",
+    "make": "- Hunan Guangyushun",
+    "sw_version": "SD8114",
+    "checksum_raw": "CS1621"
+  },
+  {
+    "cert": "300",
+    "mark": "IND/09/26/300",
+    "make": "ADI ARTECH",
+    "sw_version": "v1.5.0.hex",
+    "checksum_raw": "e24a8d3c12b7f5a89e1b"
+  },
+  {
+    "cert": "320",
+    "mark": "IND/09/26/320",
+    "make": null,
+    "sw_version": "of the model is 010002 an",
+    "checksum_raw": "is"
+  },
+  {
+    "cert": "340",
+    "mark": "IND/09/26/340",
+    "make": null,
+    "sw_version": "2.xx.yyyy",
+    "checksum_raw": "Details"
+  },
+  {
+    "cert": "349",
+    "mark": "IND/09/26/349",
+    "make": "Flintech",
+    "sw_version": "Ver.2.0",
+    "checksum_raw": "65536"
+  },
+  {
+    "cert": "362",
+    "mark": "IND/09/26/",
+    "make": "- LCT",
+    "sw_version": "CAD",
+    "checksum_raw": "0970"
+  }
+]

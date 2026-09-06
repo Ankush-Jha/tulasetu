@@ -1,0 +1,2894 @@
+
+
+===== [PDF PAGE 1] R76_Part3_test_report_format_CD =====
+INTERNATIONAL OIML R 76-3 
+RECOMMENDATION Edition 202x (E) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Non-automatic weighing instruments 
+Part 3: Test report format 
+ 
+ 
+Instruments de pesage à fonctionnement non automatique 
+Partie 3: Format du rapport d’essais 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+OIML R 76-3 Edition 202x (E) 
+ 
+ 
+ 
+ 
+ 
+ ORGANISATION INTERNATIONALE 
+DE METROLOGIE LEGALE 
+ 
+INTERNATIONAL ORGANIZATION 
+OF LEGAL METROLOGY 
+ 
+
+
+===== [PDF PAGE 2] R76_Part3_test_report_format_CD =====
+  
+
+===== [PDF PAGE 3] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+ 
+3 
+Contents 
+Foreword............................................................................................................................................................ 4 
+Introduction ....................................................................................................................................................... 5 
+Explanatory notes .............................................................................................................................................. 6 
+Identification of the instrument ......................................................................................................................... 7 
+General information concerning the type ........................................................................................................ 10 
+Information concerning the test equipment used for type evaluation .............................................................. 12 
+Configuration for test ...................................................................................................................................... 13 
+Adjustments or modifications .......................................................................................................................... 14 
+Summary of type evaluation tests .................................................................................................................... 15 
+1 WEIGHING PERFORMANCE (R 76-2, 5.4.1) (6.3.1) .......................................................................... 16 
+2 TEMPERATURE EFFECT ON NO-LOAD INDICATION (R 76-2, 6.3.2) .......................................... 17 
+3 ECCENTRICITY (R 76-2, 5.7) ............................................................................................................... 18 
+3.1 Eccentricity using weights (R 76-2, 5.7.1, 5.7.2 and 5.7.3)............................................................. 18 
+3.2 Eccentricity using a rolling load (R 76-2, 5.7.4) ............................................................................. 19 
+4 DISCRIMINATION AND SENSITIVITY ............................................................................................. 20 
+4.1 Discrimination ................................................................................................................................. 20 
+4.2 Sensitivity (non-self-indicating instrument) (R 76-2, 5.9) .............................................................. 22 
+5 REPEATABILITY (R 76-2, 5.10) ........................................................................................................... 23 
+6 TIME-DEPENDENCE ............................................................................................................................ 24 
+6.1 Zero return (R 76-2, 5.11.2) ............................................................................................................ 24 
+6.2 Creep (R 76-2, 5.11.1) ..................................................................................................................... 25 
+7 STABILITY OF EQUILIBRIUM (R 76-2, 5.12) .................................................................................... 26 
+8 TILTING (R 76-2, 6.1, 6.1.1-6.1.3) ......................................................................................................... 27 
+9 TARE (WEIGHING TEST) (R 76-2, 5.6.1) ............................................................................................ 28 
+10 WARM-UP TIME (R 76-2, 6.2) .............................................................................................................. 29 
+11 VOLTAGE VARIATIONS (R 76-2, 6.4) ............................................................................................... 30 
+12 ELECTRICAL DISTURBANCES .......................................................................................................... 31 
+12.1 AC mains voltage dips and short interruptions (R 76-2, 8.3.1) ................................................... 31 
+12.2 Electrical bursts (R 76-2, 8.3.2) ................................................................................................... 32 
+12.3 Surges (R 76-2, 8.3.3) .................................................................................................................. 34 
+12.4 Electrostatic discharges (R 76-2, 8.3.4) ....................................................................................... 36 
+12.5 Immunity to radiated electromagnetic fields (R 76-2, 8.3.5) ....................................................4039 
+12.6 Immunity to conducted radio-frequency fields (R 76-2, 8.3.6) ................................................4241 
+12.7 Electrical transients on instruments powered from a road vehicle power supply (R 76-2, 8.3.7)
+ 4342 
+13 DAMP HEAT, STEADY STATE (R 76-2, 8.2) ..................................................................................4544 
+14 SPAN STABILITY (R 76-2, 8.4) .........................................................................................................4847 
+15 ENDURANCE (R 76-2, clause 7) ........................................................................................................5453 
+ 
+  
+Commented [A1]: To be reviewed and updated later 
+
+===== [PDF PAGE 4] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+ 
+4 
+Foreword 
+The International Organization of Legal Metrology (OIML) is a worldwide, intergovernmental organization 
+whose primary aim is to harmonize the regulations and metrological controls applied by the national 
+metrological services, or related organizations, of its Member States. The main categories of OIML 
+publications are: 
+▪ International Recommendations (OIML R), which are model regulations that establish the 
+metrological characteristics required of certain measuring instruments and which specify methods and 
+equipment for checking their conformity. OIML Member States shall implement these 
+Recommendations to the greatest possible extent; 
+▪ International Documents (OIML D), which are informati ve in nature and which are intended to 
+harmonize and improve work in the field of legal metrology; 
+▪ International Guides (OIML G), which are also informative in nature and which are intended to give 
+guidelines for the application of certain requirements to legal metrology; and 
+▪ International Basic Publications (OIML B), which define the operating rules of the various OIML 
+structures and systems. 
+OIML Draft Recommendations, Documents and Guides are developed by Project Groups linked to Technical 
+Committees or Subcommittees which comprise representatives from the Member States. Certain international 
+and regional institutions also participate on a consultation basis. Cooperative agreements have been established 
+between the OIML and certain institutions, such as I SO and the IEC, with the objective of avoiding 
+contradictory requirements. Consequently, manufacturers and users of measuring instruments, test 
+laboratories, etc. may simultaneously apply OIML publications and those of other institutions. 
+International Recommendations, Documents, Guides and Basic Publications are published in English (E) and 
+translated into French (F) and are subject to periodic revision. 
+Additionally, the OIML publishes or participates in the publication of Vocabularies (OIML V) and 
+periodically commissions legal metrology experts to write Expert Reports (OIML E) . Expert Reports are 
+intended to provide information and advice, and are written solely from the viewpoint of their author, without 
+the involvement of a Technical Committee or Subco mmittee, nor that of the CIML. Thus, they do not 
+necessarily represent the views of the OIML. 
+This publication - reference OIML R 76-3, Edition 202x - was developed by Project Group 2 of OIML TC 
+9/SC 1 Non-automatic weighing instruments . It was approved fo r final publication by the International 
+Committee of Legal Metrology in 202x and supersedes the previous edition of R 76-2 (2007). 
+OIML Publications may be downloaded from the OIML web site in the form of PDF files. Additional 
+information on OIML Publications may be obtained from the Organization’s headquarters: 
+Bureau International de Métrologie Légale 
+11, rue Turgot - 75009 Paris - France 
+Telephone: 33 (0)1 48 78 12 82 
+Fax: 33 (0)1 42 82 17 27 
+E-mail: biml@oiml.org 
+Internet: www.oiml.org 
+  
+
+===== [PDF PAGE 5] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+ 
+5 
+ 
+Introduction 
+ 
+The “Test report format”, the subject of OIML R 76-3, aims at presenting, in a standardized format, the results 
+of the various tests and examinations to which a type of a non-automatic weighing instrument  shall be 
+submitted with a view to its approval. 
+ 
+The “Test report” is a record of the results of the te sts carried out on the instrument. The “t est report” forms 
+have been produced based on the tests detailed in the performance test procedures (OIML R 76-2). 
+ 
+The “information concerning the test equipment used for type evaluation” shall cover all test equipment which 
+has been used in determining the test results given in a report. The information may be a short list containing 
+essential data (name, type, reference number for purpose of traceability). For example: 
+ 
+▪ Verification standards (accuracy or accuracy class, and no.); 
+▪ Simulator for testing of modules (name, type, traceability and no.); 
+▪ Climatic test and static temperature chamber (name, type and no.); 
+▪ Electrical tests, bursts (name of the instrument, type and no.); 
+▪ Description of the procedure of field calibration for the electromagnetic susceptibility test. 
+ 
+All metrology services or laboratories evaluating types of non-automatic weighing instrument  according to 
+OIML R 76-1 and -2 or to national or regional regulations based on OIML R 76-1 and -2 are strongly advised 
+to use this “Test report format”, directly or after translation into a language other than English or French. Its 
+direct use in English or in French, or in both languages, is even more strongly recommended whenever test 
+results may be transmitted by the country performing these tests to the approving authorities of another country, 
+under bi - or multi -lateral cooperation agreements.  In the framework of the OIML Certificat ion System 
+(OIML-CS), use of the “Test report format” is mandatory. 
+ 
+Note concerning the numbering of the following pages 
+ 
+In addition to a sequential numbering: “R 76 -3 page .....” at the bottom of the pages of this  publication, a 
+special place is left at the top of each page (starting with the following page) for numbering the pages of reports 
+established following this model; in particular, some tests (e.g. weighing performance) shall be repeated 
+several times, eac h test being reported individually on a separate page following the relevant format; in the 
+same way, a multiple range instrument shall be tested separately for each range and a separate form (including 
+the general information form) shall be filled out for each range. For a given report, it is advisable to complete 
+the sequential numbering of each page by the indication of the total number of pages of the report. 
+
+===== [PDF PAGE 6] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+ 
+6 
+Test report 
+ 
+Explanatory notes 
+ 
+ 
+Meaning of symbols: 
+ 
+I = Indication 
+In = nth indication 
+L = Load 
+L = Additional load to next changeover point 
+P = I + ½ e – L = Indication prior to rounding (digital indication) 
+E = I – L    or    = P – L    or    = I + ½ e – L – L   = Error 
+Ec = Corrected error 
+mpe = Maximum permissible error (absolute value) 
+EUT = Equipment under test 
+ 
+The name(s) or symbol(s) of the unit(s) used to express test results shall be specified in each form. 
+ 
+The white spaces in boxes in the headings of the report should always be filled in according to the following 
+example: 
+ 
+ At start At max At end  
+Temp.: 20.5  21.2 °C 
+Rel. h.:    % 
+Time:     
+Bar. pres.:    hPa 
+ 
+where: 
+Temp. = temperature 
+Rel. h. = relative humidity 
+Bar. pres. = barometric pressure (barometric pressure is necessary for the span stability test and when 
+specified by IEC test provisions; in other cases it may be necessary only for class I instruments). 
+ 
+“Date” in the test report refers to the date on which the test was performed. 
+ 
+In the disturbance tests (R 76-2, 8.3.1 - 8.3.7), faults greater than e are acceptable provided that they are 
+detected and acted upon, or that they result from circumstances such that these faults shall not be considered 
+as significant (see R 76-1, 3.5.5.6); an appropriate explanation shall be given in the column “Yes (remarks)”. 
+ 
+Numbers in brackets refer to the corresponding subclauses of OIML R 76-2. 
+  
+
+===== [PDF PAGE 7] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+7 
+Identification of the instrument 
+ 
+Application no.:  Type designation:  
+Identification no.:  Manufacturer:  
+Software version:    
+Report date:    
+ 
+ 
+Documentation from the manufacturer 
+ 
+(Record as necessary to identify the equipment under test) 
+ 
+System or module name  Drawing number or software reference  Issue level  Serial no. 
+       
+       
+       
+       
+       
+       
+       
+       
+ 
+Simulator documentation (if applicable) 
+ 
+System or module name  Drawing number or software reference  Issue level  Serial no. 
+       
+       
+       
+       
+       
+       
+       
+       
+ 
+
+===== [PDF PAGE 8] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+8 
+Identification of the instrument (continued) 
+ 
+Application no.:  Type designation:  
+Identification no.:  Manufacturer:  
+Software version:    
+Report date:    
+ 
+ 
+Simulator function (summary) (if applicable) 
+ 
+(Simulator description and drawings, block diagram, etc. should be attached to the report if available) 
+
+===== [PDF PAGE 9] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+9 
+Identification of the instrument (continued) 
+ 
+Application no.:  Type designation:  
+Identification no.:  Manufacturer:  
+Software version:    
+Report date:    
+ 
+ 
+Description or other information pertaining to identification of the instrument:  
+(attach photograph here if available) 
+
+===== [PDF PAGE 10] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+10 
+General information concerning the type 
+ 
+Application no.:  Manufacturer:  
+Type designation:  Applicant:  
+Instrument category:    
+ 
+ Complete instrument  Module1 with error fraction pi =  
+ 
+Accuracy class2:         
+ 
+ Self-indicating  Semi-self-indicating  Non-self-indicating 
+ 
+Min =        
+        
+e =  Max =  d =  n =  
+        
+e1 =  Max1 =  d1 =  n1 =  
+e2 =  Max2 =  d2 =  n2 =  
+e3 =  Max3 =  d3 =  n3 =  
+ 
+T = +  T = –  
+ 
+Unom =  V Umin =  V Umax =  V f =  Hz Battery, Unom =  V 
+ 
+Zero-setting device: Tare device:   
+      
+ Non-automatic  Tare balancing  Combined zero/tare device 
+      
+ Semi-automatic  Tare weighing   
+      
+ Automatic zero-setting  Preset tare device   
+      
+ Initial zero-setting  Subtractive tare   
+      
+ Zero-tracking  Additive tare   
+ 
+Initial zero-setting range =  % of Max Temperature range:  °C 
+ 
+Printer:  Built-in  Connected  Not present  No connection 
+      but connectable   
+ 
+  
+ 
+1 The test equipment (simulator or a part of a complete instrument) connected to the module shall be defined in the 
+test form(s) used. 
+2 Please note that the class denominations used hereafter in this Recommendation do not include the oval around the 
+number for improved clarity of the Test Report Format’s text. 
+
+
+===== [PDF PAGE 11] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+11 
+General information concerning the type (continued) 
+ 
+Instrument submitted: …………………….……… Load cell: …...……………………....... 
+Identification no.: ……………………………. Manufacturer: …...……………………....... 
+Software version: ……………………………. Type: …...……………………....... 
+Connected equipment: ……………………………. Capacity: …...……………………....... 
+ ……………………………. Number: …...……………………....... 
+Interfaces (number, nature): ……………………………. Classification symbol: …...……………………....... 
+ ……………………………. 
+ ……………………………. Remarks: …...……………………....... 
+Evaluation period: ……………………………. …...……………………....... 
+Date of report: …………………………….  …...……………………....... 
+Observer: …………………………….  …...……………………....... 
+ 
+ 
+Use this space to indicate additional remarks and/or information: connecting equipment, interfaces and load cells, 
+choice of the manufacturer regarding protection against disturbances  (R 76-1, 6.1.3 a or 6.1.3 b), etc. 
+
+===== [PDF PAGE 12] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+12 
+Information concerning the test equipment used for type evaluation 
+ 
+ 
+Application no.:   Type designation:  
+Report date:   Manufacturer:  
+ 
+ 
+List all test equipment used in this report (including descriptions of the equipment used for testing) 
+ 
+Equipment name  Manufacturer  Type no.  Serial no.  Used for 
+(test references) 
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+
+===== [PDF PAGE 13] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+13 
+Configuration for test 
+ 
+Application no.:   Type designation:  
+Report date:   Manufacturer:  
+ 
+ 
+Use this space for additional information relating to equipment configuration, interfaces, data rates, load cells, EMC 
+protection options etc., for the instrument and/or simulator.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+===== [PDF PAGE 14] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+14 
+Adjustments or modifications 
+ 
+Application no.:   Type designation:  
+Report date:   Manufacturer:  
+ 
+ 
+Use this space for additional information relating to the identification of any authorized and agreed upon adjustments or 
+modifications made to the sample or samples during the evaluation.  
+ 
+  
+
+===== [PDF PAGE 15] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+15 
+Summary of type evaluation tests 
+ 
+Application no.:   Type designation:  
+Report date:   Manufacturer:  
+ 
+ Tests 
+Report page 
+PASSED 
+FAILED 
+Remarks 
+1 Weighing performance Initial                     °C 
+°C 
+°C 
+°C 
+°C 
+°C 
+°C 
+   
+ 
+2 Temperature effect on no-load indication     
+3.1 Eccentricity using weights     
+3.2 Eccentricity using a rolling load     
+4.1 Discrimination     
+4.2 Sensitivity     
+5 Repeatability     
+6.1 Zero return     
+6.2 Creep     
+7 Stability of equilibrium Printing, storage     
+Zero-setting, tare balancing     
+8 Tilting     
+9 Tare     
+10 Warm-up time     
+11 Voltage variations     
+12.1 AC mains voltage dips and short interruptions     
+12.2 Electrical bursts a) Mains power supply lines     
+b) I/O circuits and communication lines     
+12.3 Surges a) AC mains power supply     
+b) Any other kind of power supply lines     
+12.4 Electrostatic discharges a) Direct application     
+b) Indirect application (contact discharges only)     
+12.5 Immunity to radiated electromagnetic fields     
+12.6 Immunity to conducted radio-frequency fields     
+12.7 
+Electrical transients on 
+instruments powered from a 
+road vehicle power supply 
+a) Conduction along supply lines of external 
+12 V and 24 V batteries     
+b) Capacitive and inductive coupling via lines 
+other than supply lines     
+13 Damp heat, 
+steady state 
+a) Initial test (at reference temperature)     
+b) Test at high temperature and 85 % relative 
+humidity     
+c) Final test (at reference temperature)     
+14 Span stability     
+15 Endurance a) Initial test     
+c) Final test     
+
+===== [PDF PAGE 16] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+16 
+1 WEIGHING PERFORMANCE (R 76-2, 5.4.1) (6.3.1) 
+(Calculation of the error) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+Initial zero-setting > 20 % of Max:  Yes  No  (see R 76-2, 5.2.1) 
+ 
+E = I + ½ e – L – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Load, L Indication, I Add. load, 
+L Error, E Corrected error, Ec mpe 
+        
+ *    *     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+Check if Ec  mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 17] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+17 
+2 TEMPERATURE EFFECT ON NO-LOAD INDICATION (R 76-2, 6.3.2) 
+ 
+Application no.: …………………………………………………………………………………..  
+Type designation: …………………………………………………………………………………..  
+Date: ………………………………………… 
+Observer: ………………………………………… 
+Verification  
+scale interval, e: ………………………………………… 
+Resolution during test  
+(smaller than e): ………………………………………… 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+P = I + ½ e – L 
+ 
+Report 
+page* 
+ 
+Date Time Temp. 
+(°C) 
+Zero indication, 
+I 
+Add. load, 
+L P P Temp. Zero-change 
+per … °C 
+          
+ 
+      
+ 
+         
+ 
+      
+ 
+         
+ 
+      
+ 
+                
+ 
+P = difference of P for two consecutive tests at different temperatures 
+Temp. = difference of Temptemperature. for two consecutive tests at different temperatures 
+ 
+Check if the zero-change per 5 °C is smaller than e (class II, III or IIII) 
+Check if the zero-change per 1 °C is smaller than e (class I) 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+*  Give the report page of the relevant weighing test where weighing tests and temperature effect on no -load indication 
+test are conducted together (see R 76-2, Figure 11). 
+
+===== [PDF PAGE 18] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+18 
+3 ECCENTRICITY (R 76-2, 5.7) 
+3.1 Eccentricity using weights (R 76-2, 5.7.1, 5.7.2 and 5.7.3) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+1) Test(s) performed on a mobile instrument (R 76-2, 5.7.5):   Yes  No 
+ 
+2) In case of “Yes” to 1): R 76-2, 5.7 and R 76-2, 5.7.1 to 5.7.4 have been applied:  Yes  No 
+ 
+ 3) In case of “No” to 2): Description of eccentricity test(s) (see R 76-2, 5.7.5) under “Remarks” 
+ 
+Location of test loads: mark on a sketch (see example below) the successive locations of test loads, using numbers 
+which shall be repeated in the table below. 
+ 
+1 2 
+4 3 
+ 
+Also indicate in the sketch the location of the display or of another perceptible part of the instrument.  
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+E = I + ½ e – L – L 
+Ec = E – E0 with E0 = error calculated at or near zero* determined prior to each measurement 
+Location Load, L Indication,  
+I 
+Add. load, 
+L 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+ *   *   
+1       
+ *   *   
+2       
+ *   *   
+3       
+ *   *   
+4       
+       
+ 
+Check if Ec  mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 19] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+19 
+3.2 Eccentricity using a rolling load (R 76-2, 5.7.4) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Number of sections of the divided load receptor    Undivided load receptor 
+ 
+Location of test loads for each section of the load receptor: mark on a sketch (see example below) the successive 
+locations of test loads, using numbers which shall be repeated in the table below. Also indicate in the sketch the location 
+of the display or of another perceptible part of the instrument. 
+ 
+1 2 3 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+E = I + ½ e – L – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Section Direction 
+( / →) Location Load, L Indication, 
+I 
+Add. load, 
+L 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+  
+ *   *   
+       
+       
+       
+  
+ *   *   
+       
+       
+       
+  
+ *   *   
+       
+       
+       
+  
+ *   *   
+       
+       
+       
+ 
+Check if Ec  mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 20] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+20 
+4 DISCRIMINATION AND SENSITIVITY 
+4.1 Discrimination 
+4.1.1 Digital indication (R 76-2, 5.8.2) 
+ 
+Application no.: ………………………………………………….     
+Type designation: …………………………………………………. At start At max At end  
+Date: …………………………………… Temp.:    °C 
+Observer: …………………………………..… Rel. h.:    % 
+Verification scale interval, e: ……………………………..……… Time:     
+Scale interval, d: ……………………………..……… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I1 
+Removed load 
+L Add 1/10 d Extra load, 
+= 1.4 d 
+Indication, 
+I2 I2 – I1 
+       
+       
+       
+ 
+Check if I2 – I1 ≥ d 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+ 
+4.1.2 Analogue indication (R 76-2, 5.8.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: …………………………………………………. At start At max At end  
+Date: …………………………………… Temp.:    °C 
+Observer: …………………………………..… Rel. h.:    % 
+Verification scale interval, e: ……………………………..……… Time:     
+Scale interval, d: ……………………………..……… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I1 
+Extra load 
+= mpe 
+Indication, 
+I2 I2 – I1 
+     
+     
+     
+ 
+Check if I2 – I1  0.7 mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 21] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+21 
+4.1.3 Non-self-indicating instrument (R 76-2, 5.8.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+  Rel. h.:    % 
+ ………………………………………… Time:     
+ ………………………………………… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I 
+Extra load, 
+= 0.4 mpe 
+Visible 
+displacement* 
+    
+    
+    
+* Mark a visible displacement by “+” 
+ 
+Check if there is a visible displacement 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+  
+
+===== [PDF PAGE 22] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+22 
+4.2 Sensitivity (non-self-indicating instrument) (R 76-2, 5.9) 
+ 
+Application No.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+  Rel. h:    % 
+ ………………………………………… Time:     
+ ………………………………………… Bar. pres:    hPa 
+ 
+Load L Extra load 
+= mpe 
+Permanent displacement of 
+indicating element 
+   mm 
+   mm 
+   mm 
+ 
+Check if the permanent displacement is equal to or greater than: 
+1 mm for an instrument of accuracy class I or II 
+2 mm for an instrument of accuracy class III or IIII with Max ≤ 30 kg 
+5 mm for an instrument of accuracy class III or IIII with Max > 30 kg 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 23] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+23 
+5 REPEATABILITY (R 76-2, 5.10) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): ………………………………………… (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ 
+ Non-existent  In operation 
+ 
+Load (weighing 1-10)  Load (weighing 11-20)     
+ 
+E= I + 1/2 e – L – L 
+ 
+ Indication 
+of load, I 
+Add. load, 
+L E 
+ 
+ Indication 
+of load, I 
+Add. load, 
+L E 
+1    11    
+2    12    
+3    13    
+4    14    
+5    15    
+6    16    
+7    17    
+8    18    
+9    19    
+10    20    
+ 
+Emax – Emin (weighing 1-10)   Emax – Emin (weighing 11-20)   
+ 
+mpe   mpe   
+ 
+Check if a) E ≤ mpe (5.5.3 of R 76-1) 
+ b) Emax – Emin ≤ absolute value of mpe (5.5.4 of R 76-1) 
+ 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 24] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+24 
+6 TIME-DEPENDENCE 
+6.1 Zero return (R 76-2, 5.11.2) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+Verification  Rel. h:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+P = I + ½ e – L 
+ 
+Time of reading Load, 
+L0 
+Indication 
+of zero, I0 
+Add. load, 
+L P   
+0 min     P0 =   
+       
+Load during 30 minutes =       
+    Change after 30 minutes: 
+30 min     P30 = (P30 – P0) =  
+       
+For multiple range instruments keep instrument unloaded for further 5 minutes:   Change 5 minutes later: 
+35 min     P35 = (P35 – P30)  =  
+ 
+Check if a) (P30 – P0)
+  
+  0.5 e 
+ b) (P35 – P30)
+   e1 (for multiple range instruments only) 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 25] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+25 
+6.2 Creep (R 76-2, 5.11.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+Verification  Rel. h:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+ 
+P = I + ½ e – L 
+ 
+Time of reading Load, 
+L 
+Indication, 
+I 
+Add. load, 
+L P P 
+ 0 min 
+ 
+    
+ 5 min     
+ 15 min     
+ 30 min*     
+ 
+ 1 h 
+ 
+    
+ 2 h     
+ 3 h     
+ 4 h     
+ 
+P = difference between P at the start (0 min) and P at a given time. 
+ 
+*  If condition a) is met, the test is terminated. If not, the test shall be continued for the next 3.5 hours and  
+condition b) shall be met. 
+ 
+Condition a): P ≤ 0.5 e after 30 minutes; and 
+P ≤ 0.2 e between the indication obtained at 15 minutes and that at 30 minutes 
+ 
+Condition b): P ≤ absolute value of mpe during the period of 4 hours 
+ 
+Check if condition a) or b) is fulfilled 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 26] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+26 
+7 STABILITY OF EQUILIBRIUM (R 76-2, 5.12) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+Verification  Rel. h:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+In the case of printing or data storage: 
+No. Load 
+(about 50 % of Max) 
+First printed or stored weight value 
+after disturbance and command 
+Reading during 5 s after print-out or storage 
+minimum value maximum value 
+1 
+ 
+   
+2    
+3    
+4    
+5    
+ 
+Check if the first printed or stored weight value does not deviate more than 1 e from the readings during 5 seconds after 
+print-out or storage (only two adjacent values allowed) 
+ Passed  Failed 
+In the case of zero-setting or tare balancing: 
+Zero-setting  E0 = I0 + ½ e – L – L0 
+No.* Zero-load 
+(< 4 % of Max) 
+Load, L0** 
+(10 e) 
+Indication, I0 
+after zero-setting Add. load, L Error, E0 
+1 
+  
+   
+2    
+3    
+4    
+5    
+      
+Tare balancing  E0 = I0 + ½ e – L – L0 
+No.* Tare load 
+(about 30 % of Max) 
+Load, L0 ** 
+(10 e) 
+Indication, I0, 
+after tare balancing Add. load, L Error, E0 
+1 
+  
+   
+2    
+3    
+4    
+5    
+*  Apply the zero or tare load, disturb the equilibrium and immediately release zero -setting or tare, apply L0 if necessary   
+and calculate the error according to 5.2.3/5.6.2 of R 76-2. Perform this five times. 
+**  L0 (10 e) shall be applied only if an automatic zero-setting or zero-tracking device is in operation. L0 shall be applied 
+after releasing tare or zero-setting, immediately after zero is displayed the first time. 
+Check if E0 ≤ 0.25 e 
+ Passed  Failed 
+Remarks: 
+
+===== [PDF PAGE 27] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+27 
+8 TILTING (R 76-2, 6.1, 6.1.1-6.1.3) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+ Instrument with leveling device and level indicator 
+   Instrument with automatic tilt sensor 
+   Instrument without level indicator or automatic tilt sensor 
+   Mobile instrument with automatic tilt sensor 
+   Mobile instrument with Cardanic suspension 
+ 
+Limiting value of tilting =  
+ 
+Give (if appropriate on a separate sheet) a sketch of the load receptor showing the location of the level indicator or 
+direction of the tilting, if provided. 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+Ev = Iv + ½ e – Lv – L (v = 1, 2, 3, 4, 5), Iv = Indication, Lv = additional load 
+Ec v = Ev – Ev 0 with Ev 0 = error calculated at or near zero 
+Load, L 
+ Reference 
+position  Tilted position 
+with the limiting value of tilting   
+ 
+ 
+ 
+ 
+    
+  
+ 1  2 3 4 5   
+          
+unloaded Iv =         
+ Lv =       2 e =  
+Ev0 =       E1 0 – Ev 0max =  
+          
+L = Iv =         
+ Lv =         
+Ev =       mpe =  
+Ec v =       Ec 1 – Ec vmax =  
+          
+(Max) Iv =         
+ Lv =         
+Ev =       mpe =  
+Ec v =       Ec 1 – Ec vmax =  
+Check if the differences are 
+a)  2 e for the unloaded instrument (not valid for class II instruments, if they are not used for direct sales to 
+the public) 
+b)  absolute value of mpe for the loaded instrument 
+ 
+ Passed   Failed 
+ 
+Remarks: 
+
+
+===== [PDF PAGE 28] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+28 
+9 TARE (WEIGHING TEST) (R 76-2, 5.6.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+E = I + ½ e – L – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+ 
+ 
+Load, L Indication, I Add. load, 
+L Error, E Corrected error, Ec mpe 
+          
+First 
+tare load 
+  *    *     
+          
+            
+            
+           
+            
+            
+            
+            
+            
+            
+Second 
+tare load 
+  *    *     
+           
+            
+            
+            
+            
+            
+            
+            
+            
+ 
+Check if Ec ≤ mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 29] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+29 
+10 WARM-UP TIME (R 76-2, 6.2) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+Duration of disconnection before test:  hours 
+ 
+E = I + ½ e – L – L 
+E0 = error calculated prior to each measurement at or near zero (unloaded) 
+EL = error calculated at load (loaded) 
+ 
+ Time* Load, L Indication, 
+I 
+Add. load, 
+L 
+Error, 
+E EL – E0 mpe = 
+         
+Unloaded  0 min     
+Loaded       
+         
+Unloaded  5 min     
+Loaded       
+         
+Unloaded  15 min     
+Loaded       
+         
+Unloaded  30 min     
+Loaded       
+ 
+*  counted from the moment an indication has first appeared. 
+ 
+Check if EL – E0  mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 30] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+30 
+11 VOLTAGE VARIATIONS (R 76-2, 6.4) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+ Mains power supply (AC), R 76-2, 6.4.1 
+   External or plug-in power supply device (AC or DC), R 76-2, 6.4.2 
+   Rechargeable battery power supply, (re)charge during the operation of the instrument is possible, R 76-2, 6.4.2 
+   Non-rechargeable and rechargeable battery power supply, (re)charge during the operation of the instrument is not 
+ possible, R 76-2, 6.4.3 
+   12 V or 24 V road vehicle battery power supply, R 76-2, 6.4.4 
+ 
+Unom =  V Umin =  V Umax =  V 
+Calculate lower and upper limits of applied voltages according to R 76-2, 6.4.4. If a voltage-range (Umin / Umax) is 
+marked, use the average value as reference value. 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+Category of power supply (if an instrument has more than one power supply): ................................................. .............. 
+E = I + ½ e – L – L            Ec = E – E0 with E0 = error calculated at or near zero 
+Voltage U, 
+(V) 
+Load, 
+L 
+Indication, 
+I 
+Add. load, 
+L 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+Reference value  10 e =      
+      
+Lower limit  10 e =      
+      
+Upper limit  10 e =      
+      
+Category of power supply (if an instrument has more than one power supply): ..................................................................  
+E = I + ½ e – L – L            Ec = E – E0 with E0 = error calculated at or near zero 
+Voltage U, 
+(V) 
+Load, 
+L 
+Indication, 
+I 
+Add. load, 
+L 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+Reference value  10 e =      
+      
+Lower limit  10 e =      
+      
+Upper limit  10 e =      
+      
+Check if Ec ≤ mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 31] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+31 
+12 ELECTRICAL DISTURBANCES 
+12.1 AC mains voltage dips and short interruptions (R 76-2, 8.3.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ 
+Mains power supply voltage: Unom V Umin V Umax V  
+        
+Power supply voltage for the test: Utest V = Unom or the average value of Umin and Umax 
+ 
+Load 
+Disturbance Result 
+Amplitude 
+of Utest 
+Duration / 
+number of 
+cycles 
+Number of 
+disturbances 
+≥ 10 
+Repetition 
+interval (s) 
+≥ 10 s 
+Indication, I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (see remarks) 
+ 
+Without disturbance    
+0 % 0.5      
+0 % 1      
+40 % 10      
+70 % 25      
+80 % 250      
+0 % 250      
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 32] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+32 
+12.2 Electrical bursts (R 76-2, 8.3.2) 
+ 
+a) Mains power supply lines 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+Mains power supply voltage: Unom V Umin V Umax V  
+        
+Power supply voltage for the test: Utest V = Unom or the average value of Umin and Umax 
+        
+Repetition frequency:  Hz  
+ 
+Test voltage (bursts) on each connection of the mains power supply lines: 1 kV  
+Duration of the test at connection and each polarity: 1 min 
+ 
+Load 
+Disturbance Result 
+Bursts on connection 
+Polarity Indication, I 
+Significant fault (> e) 
+or detection and reaction L 
+ 
+ground 
+N 
+ 
+ground 
+PE 
+ 
+ground No Yes (see remarks) 
+ 
+ Without disturbance    
+X   positive    
+negative    
+ Without disturbance    
+ X  positive    
+negative    
+ Without disturbance    
+  X positive    
+negative    
+ 
+L = phase, N = neutral, PE = protective earth 
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 33] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+33 
+b) I/O circuits and communication lines 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+Test voltage (bursts) on each cable/interface (I/O signals, data and control lines): 0.5 kV  
+Duration of the test at each cable/interface and each polarity: 1 min 
+ 
+Load 
+Disturbance Result 
+Bursts on cable/interface 
+(Type, nature) 
+Polarity/ 
+disturbance Indication, I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (see remarks) 
+ 
+1 Without disturbance    
+positive    
+negative    
+2 Without disturbance    
+positive    
+negative    
+3 Without disturbance    
+positive    
+negative    
+4 Without disturbance    
+positive    
+negative    
+5 Without disturbance    
+positive    
+negative    
+6 Without disturbance    
+positive    
+negative    
+7 Without disturbance    
+positive    
+negative    
+8 Without disturbance    
+positive    
+negative    
+9 Without disturbance    
+positive    
+negative    
+ 
+Explain or make a sketch indicating where the clamp is located on the cable; if necessary, use additional page.  
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 34] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+34 
+12.3 Surges (R 76-2, 8.3.3) 
+a) AC mains power supply  
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e):      
+Surges on AC mains power supply lines 
+Load 
+Disturbance Result 
+3 positive and 3 negative surges 
+synchronously with AC supply voltage 
+Polarity Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction amplitude/ 
+apply on 
+angle 
+0° 90° 180° 270° No Yes (see remarks) 
+ 
+ 
+0.5 kV 
+ 
+ 
+L 
+↓ 
+N 
+Without disturbance    
+X    pos    
+neg    
+ X   pos    
+neg    
+  X  pos    
+neg    
+   X pos    
+neg    
+ 
+1 kV 
+ 
+ 
+ 
+L 
+↓ 
+PE 
+Without disturbance    
+X    pos    
+neg    
+ X   pos    
+neg    
+  X  pos    
+neg    
+   X pos    
+neg    
+ 
+1 kV 
+ 
+ 
+ 
+N 
+↓ 
+PE 
+Without disturbance    
+X    pos    
+neg    
+ X   pos    
+neg    
+  X  pos    
+neg    
+   X pos    
+neg    
+L = phase, N = neutral, PE = protective earth 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+Remarks: 
+
+===== [PDF PAGE 35] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+35 
+b) Any other kind of power supply 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ 
+Kind or type of power supply  
+ 
+  DC  Other form  Voltage  
+ 
+ 
+Surges on other power supply lines 
+Load 
+Disturbance Result 
+3 positive and 3 negative surges 
+Polarity Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+apply on amplitude No Yes (see remarks) 
+ 
+L 
+↓ 
+N 
+Without disturbance    
+0.5 kV pos    
+neg    
+L 
+↓ 
+PE 
+Without disturbance    
+1 kV pos    
+neg    
+N 
+↓ 
+PE 
+Without disturbance    
+1 kV pos    
+neg    
+L = positive conductor, N = negative or neutral conductor, PE = protective earth  
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+  
+
+===== [PDF PAGE 36] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+36 
+ 
+c) Surges on signal, data and control lines 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+Cable/interface Polarity 
+Result 
+Load,  
+L 
+Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (see remarks) 
+Without disturbance     
+C/1,1 positive     
+negative     
+Without disturbance     
+C/1,2 positive     
+negative     
+Without disturbance     
+C/1,3 positive     
+negative     
+Without disturbance     
+C/1,4 positive     
+negative     
+Without disturbance     
+C/1,5 positive     
+negative     
+Without disturbance     
+C/1,6 positive     
+negative     
+Note: Explain or make a sketch indicating where the clamp is located on the cable; if necessary, add an additional 
+page. 
+ 
+ Passed  Failed 
+ 
+Remarks:
+
+===== [PDF PAGE 37] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+37 
+12.4 Electrostatic discharges (R 76-2, 8.3.4) 
+ 
+a) Direct application 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ Contact discharge  Paint penetration 
+ 
+ Air discharges 
+ 
+Load 
+Discharges Result 
+Test 
+voltage 
+(kV) 
+Polarity 
+Number of 
+discharges 
+ 10 
+Repetition 
+interval 
+ 10 s 
+Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (remarks, test points) 
+ 
+Without disturbance    
+2 pos.      
+4 pos.      
+6 pos.      
+8  
+(air discharges) pos.      
+Without disturbance    
+2 neg.      
+4 neg.      
+6 neg.      
+8  
+(air discharges) neg.      
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed Note: If the EUT fails, the test point at which this occurs shall be recorded. 
+ 
+Remarks: 
+
+===== [PDF PAGE 38] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+38 
+b) Indirect application (contact discharges only) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+Horizontal coupling plane 
+Load 
+Discharges Result 
+Test 
+voltage 
+(kV) 
+Polarity 
+Number of 
+discharges 
+ 10 
+Repetition 
+interval 
+ 10 s 
+Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (remarks, test points) 
+ 
+Without disturbance    
+2 pos.      
+4 pos.      
+6 pos.      
+Without disturbance    
+2 neg.      
+4 neg.      
+6 neg.      
+ 
+Vertical coupling plane 
+Load 
+Discharges Result 
+Test 
+voltage 
+(kV) 
+Polarity 
+Number of 
+discharges 
+ 10 
+Repetition 
+interval 
+ 10 s 
+Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (remarks, test points) 
+ 
+Without disturbance    
+2 pos.      
+4 pos.      
+6 pos.      
+Without disturbance    
+2 neg.      
+4 neg.      
+6 neg.      
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed Note: If the EUT fails, the test point at which this occurs shall be recorded.  
+ 
+Remarks:
+
+===== [PDF PAGE 39] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+39 
+Specification of test points of EUT (direct application), e.g. by photos or sketches  
+ 
+a) Direct application 
+ 
+Contact discharges: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Air discharges: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+b) Indirect application 
+
+===== [PDF PAGE 40] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+40 
+12.5 Immunity to radiated electromagnetic fields (R 76-2, 8.3.5) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ Frequency range 26-2000 MHz if the test according to R 76-2, 8.3.6 cannot be applied (no mains or I/O ports 
+available) 
+  
+ Frequency range 80-2000 MHz if the test according to R 76-2, 8.3.6 is performed (see form no. 12.6) 
+ 
+Rate of sweep:  Material of load:  
+ 
+Load 
+Disturbance Result 
+Antenna Frequency 
+range (MHz) Polarization Facing 
+EUT 
+Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (remarks) 
+ 
+Without disturbance    
+  
+Vertical 
+Front    
+Right    
+Left    
+Rear    
+Horizontal 
+Front    
+Right    
+Left    
+Rear    
+  
+Vertical 
+Front    
+Right    
+Left    
+Rear    
+Horizontal 
+Front    
+Right    
+Left    
+Rear    
+Frequency range: 26-2000 MHz or 80-2000 MHz 
+Field strength: 10 V/m 
+Modulation: 80 % AM, 1 kHz, sine wave 
+ 
+Note: If EUT fails, the frequency at which this occurs shall be recorded 
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 41] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+41 
+Description of the set-up of EUT, e.g. by photos or sketches: 
+  
+
+===== [PDF PAGE 42] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+42 
+12.6 Immunity to conducted radio-frequency fields (R 76-2, 8.3.6) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+Rate of sweep:    
+    
+Load:  Material of load:  
+ 
+Cable / Interface Frequency range 
+(MHz) 
+Result 
+Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (remarks) 
+ 
+without disturbance    
+    
+ 
+without disturbance    
+    
+ 
+without disturbance    
+    
+ 
+without disturbance    
+    
+ 
+without disturbance    
+    
+ 
+without disturbance    
+    
+ 
+without disturbance    
+    
+ 
+without disturbance    
+    
+ 
+without disturbance    
+    
+ 
+without disturbance    
+    
+Frequency range: 0.15-80 MHz    RF amplitude (50 ohms): 10 V (e.m.f.)    Modulation: 80 % AM, 1 kHz, sine wave 
+Check if a significant fault occurred. 
+Note: If the EUT fails, the frequency at which this occurs shall be recorded 
+ 
+ Passed  Failed 
+Remarks: 
+
+===== [PDF PAGE 43] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+43 
+12.7 Electrical transients on instruments powered from a road vehicle power supply (R 76-2, 8.3.7) 
+ 
+a) Conduction along supply lines of external 12 V and 24 V batteries  
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ 12 V battery voltage  24 V battery voltage 
+ 
+ 
+12 V battery voltage 
+Load 
+Disturbance Result 
+Test pulse Conducted 
+voltage 
+Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (remarks) 
+ 
+Without disturbance    
+2a +50 V    
+2b* +10 V    
+3a –150 V    
+3b +100 V    
+4 –7 V    
+ 
+24 V battery voltage 
+Load 
+Disturbance Result 
+Test pulse Conducted 
+voltage 
+Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (remarks) 
+ 
+Without disturbance    
+2a +50 V    
+2b* +20 V    
+3a –200 V    
+3b +200 V    
+4 –16 V    
+ 
+*  Test pulse 2b is only applicable if the measuring instrument may be connected to the battery via the main (ignition) 
+switch of the car, i.e. if the manufacturer of the measuring instrument has not specified that the instrument is to be 
+connected directly (or by its own main switch) to the battery. 
+ 
+Check if a significant fault occurred 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 44] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+44 
+b) Capacitive and inductive coupling via lines other than supply lines  
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+ 12 V battery voltage  24 V battery voltage 
+ 
+12 V battery voltage 
+Kind or type of other 
+lines 
+(no power supply 
+lines) 
+Disturbance Result 
+Load Test pulse Conducted 
+voltage 
+Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (remarks) 
+ 
+Without disturbance    
+a –60 V    
+b +40 V    
+ 
+Without disturbance    
+a –60 V    
+b +40 V    
+ 
+Without disturbance    
+a –60 V    
+b +40 V    
+ 
+24 V battery voltage 
+Kind or type of other 
+lines 
+(no power supply 
+lines) 
+Disturbance Result 
+Load Test pulse Conducted 
+voltage 
+Indication, 
+I 
+Significant fault (> e) 
+or detection and reaction 
+No Yes (remarks) 
+ 
+Without disturbance    
+a –80 V    
+b +80 V    
+ 
+Without disturbance    
+a –80 V    
+b +80 V    
+ 
+Without disturbance    
+a –80 V    
+b +80 V    
+Check if a significant fault occurred. 
+Note: If EUT fails, the frequency at which this occurs shall be recorded 
+ Passed  Failed 
+Remarks: 
+
+===== [PDF PAGE 45] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+45 
+13 DAMP HEAT, STEADY STATE (R 76-2, 8.2) 
+ 
+a) Initial test (at reference temperature) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………     
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+E = I + ½ e – L – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Load, L Indication, I Add. load, 
+L Error, E Corrected 
+error, Ec mpe 
+        
+*     *     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+Check if Ec ≤ mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 46] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+46 
+b) Test at high temperature and 85 % relative humidity 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………      
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+ 
+E = I + ½ e – L – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Load, L Indication, I Add. load, 
+L Error, E Corrected 
+error, Ec mpe 
+        
+*     (*)     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+Check if Ec ≤ mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 47] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+47 
+c) Final test (at reference temperature) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………     
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+E = I + ½ e – L – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Load, L Indication, I Add. load, 
+L Error, E Corrected 
+error, Ec mpe 
+        
+*     *     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+Check if Ec ≤ mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+===== [PDF PAGE 48] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+48 
+14 SPAN STABILITY (R 76-2, 8.4) 
+ 
+Application no.: ………………………………………………………………….. 
+Type designation: ………………………………………………………………….. 
+Verification scale interval, e: …………………… 
+Resolution during test (smaller than e): …………………… 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+Zero load =  Test load =  
+ 
+Automatic span adjustment device: 
+ Existent  Non-existent 
+ 
+ 
+Measurement no. 1: Initial measurement  At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Automatic span adjustment device activated (if existent) 
+ 
+E0 = I0 + ½ e – L0 – L0 EL = IL + ½ e – L – L 
+ Indication 
+of zero, I0 
+Add. load, 
+L0 E0 Indication 
+of load, IL 
+Add. load, 
+L EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+ 
+Average error = average (EL – E0) =  
+  
+(EL – E0)max – (EL – E0)min =  
+  
+0.1 e =  
+ 
+If (EL – E0)max – (EL – E0)min  0.1 e, the loading and reading will be sufficient for each of the subsequent  
+measurements; if not, five loadings and readings shall be performed at each measurement.  
+ 
+Remarks: 
+
+===== [PDF PAGE 49] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+49 
+Subsequent measurements 
+Measurement no. 2:   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: ………………………………………………………………………………………....  
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – L0 – L0 EL = IL + ½ e – L – L 
+ Indication 
+of zero, I0 
+Add. load, 
+L0 E0 Indication 
+of load, IL 
+Add. load, 
+L EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+*  When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks. 
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+ 
+ 
+Measurement no. 3:   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: ………………………………………………………………………………………....  
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – L0 – L0 EL = IL + ½ e – L – L 
+ Indication 
+of zero, I0 
+Add. load, 
+L0 E0 Indication 
+of load, IL 
+Add. load, 
+L EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+*  When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+
+===== [PDF PAGE 50] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+50 
+Subsequent measurements 
+Measurement no. 4:   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: ………………………………………………………………………………………....  
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – L0 – L0 EL = IL + ½ e – L – L 
+ Indication 
+of zero, I0 
+Add. load, 
+L0 E0 Indication 
+of load, IL 
+Add. load, 
+L EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+*  When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+ 
+Measurement no. 5:   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: ………………………………………………………………………………………....  
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – L0 – L0 EL = IL + ½ e – L – L 
+ Indication 
+of zero, I0 
+Add. load, 
+L0 E0 Indication 
+of load, IL 
+Add. load, 
+L EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+*  When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+
+===== [PDF PAGE 51] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+51 
+Subsequent measurements 
+Measurement no. 6:   At start At max At end  
+Date: ………………………………………… Temp:    °C 
+Observer: ………………………………………… Rel. h:    % 
+Location: ………………………………………… Time:     
+  Bar. pres:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: ………………………………………………………………………………………....  
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – L0 – L0 EL = IL + ½ e – L – L 
+ Indication 
+of zero, I0 
+Add. load, 
+L0 E0 Indication 
+of load, IL 
+Add. load, 
+L EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+*  When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+ 
+Measurement no. 7:   At start At max At end  
+Date: ………………………………………… Temp:    °C 
+Observer: ………………………………………… Rel. h:    % 
+Location: ………………………………………… Time:     
+  Bar. pres:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: ………………………………………………………………………………………....  
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – L0 – L0 EL = IL + ½ e – L – L 
+ Indication 
+of zero, I0 
+Add. load, 
+L0 E0 Indication 
+of load, IL 
+Add. load, 
+L EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+*  When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+
+===== [PDF PAGE 52] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+52 
+Subsequent measurements 
+Measurement no. …. :   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: ………………………………………………………………………………………....  
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – L0 – L0 EL = IL + ½ e – L – L 
+ Indication 
+of zero, I0 
+Add. load, 
+L0 E0 Indication 
+of load, IL 
+Add. load, 
+L EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+*  When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.  
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+ 
+Measurement no. …. :   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+ Measurement after the temperature test  Measurement after the damp heat test 
+ Measurement after disconnection from the mains  Measurement after change in test location 
+ Other condition: ………………………………………………………………………………………....  
+ 
+ Automatic span adjustment device activated (if existent) 
+E0 = I0 + ½ e – L0 – L0 EL = IL + ½ e – L – L 
+ Indication 
+of zero, I0 
+Add. load, 
+L0 E0 Indication 
+of load, IL 
+Add. load, 
+L EL EL – E0 Corrected 
+value* 
+1         
+2         
+3         
+4         
+5         
+*  When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks. 
+If five loadings and readings have been performed: Average error = average (EL – E0) =  
+Remarks: 
+  
+
+===== [PDF PAGE 53] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+53 
+ 
+……………………………………………………………………………………………………………  
+……………………………………………………………………………………………………………  
+Plot on the diagram the indication of temperature test  T , damp heat test   D  and disconnections from the mains power supply   P 
+                                 
+Maximum allowable variation 
+ 
+                                   
+                                   
+                                   
+                                   
+ 
+                                  
+ 
+                                  
+ 
+                                  
+14   SPAN STABILITY (R 76-2, 8.4) 
+                                 
+ Failed                                  
+ 
+Application no.: 
+Type designation: 
+                              
+ Passed                               
+ 
+          
+ 
++1.5 e 
+ 
++1 e 
+ 
++0.5 e 
+ 
+0 
+ 
+–0.5 e 
+ 
+–1 e 
+ 
+–1.5 e 
+Average error e 
+6 7 8 Measurement 
+no. 
+5 4 1 2 3 
+
+===== [PDF PAGE 54] R76_Part3_test_report_format_CD =====
+OIML R 76-3:202x (E) – 1.1CD TC9_SC1_P1_N037 
+Report page ..../.... 
+ 
+ 
+54 
+15 ENDURANCE (R 76-2, clause 7) 
+ 
+Application no.: …………………………………………………………………………………..  
+Type designation: …………………………………………………………………………………..  
+Verification  
+scale interval, e: ………………………………………… 
+Resolution during test  
+(smaller than e): ………………………………………… 
+ 
+ 
+a) Initial test   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+E = I + ½ e – L – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Load, L Indication, I Add. load, 
+L Error, E Corrected error, 
+Ec mpe 
+        
+ *    *     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+
+===== [PDF PAGE 55] R76_Part3_test_report_format_CD =====
+TC9_SC1_P1_N037  OIML R 76-3:202x (E) – 1.1CD 
+Report page ..../.... 
+ 
+ 
+55 
+b) Performance of the test 
+ 
+Number of loadings:  Load applied:  
+ 
+ 
+ 
+ 
+c) Final test   At start At max At end  
+Date: ………………………………………… Temp.:    °C 
+Observer: ………………………………………… Rel. h.:    % 
+Location: ………………………………………… Time:     
+  Bar. pres.:    hPa 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+E = I + ½ e – L – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Durability error due to wear and tear = Ec initial – Ec final** 
+Load, L 
+Indication, I Add. load, 
+L Error, E Corrected 
+error, Ec mpe 
+Durability 
+error due to 
+wear and 
+tear**         
+*     *      
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+Check if the durability error due to wear and tear is  mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 

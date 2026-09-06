@@ -1,0 +1,332 @@
+
+
+===== [PDF PAGE 1] Australia_Comments_on_R76_draft =====
+  Organisation Internationale de Métrologie Légale  COMMENTS TEMPLATE 
+Template revision date: 2020-01-10 
+TC9_SC1_P1_N041 International Organization of Legal Metrology
+TC 9/SC 1/p 1:  Revision of R 76: Non-automatic weighing instruments 
+PG vote/comments on 1CD: TC9_SC1_P1_N035 (part 1), N036 (part 2), N037 (part 3), N038 (part 4), N039 (part 5) 
+Circulation date:  30 April 2024 Conveners: Closing date for comments: 30 July 2024 at 17:00 CET 
+Date comments submitted: 30 July 2024 Please type your comments in this form and post it (in Word format) as soon as possible and no later than the closing date  
+using the CD vote and comment page on the OIML website (My access  CD vote & comment). 
+PLEASE INSERT THE COUNTRY CODE AND THE PART AND CLAUSE NUMBER IN EACH ROW. 
+PLEASE DO NOT MODIFY THE NUMBER OF COLUMNS IN THE TABLE. 
+ 
+1 Country code = ISO 3166 two-letter country code, e.g. CN for China 
+2 Type of comment : ge = general te = technical              ed = editorial  
+Instructions for using this template: 
+ 
+The structure of this table allows for the automatic collation of all the comments posted by the participants. However, this is only possible if the following instructions are 
+followed. Please 
+ 
+ do not add any columns to the table, 
+ do not merge any of the cells, 
+ add the Country Code in each row, 
+ fill in the Part number in each row (if the document to be commented has no parts, leave this column blank), 
+ enter one reference per row in the Clause/Sub clause column. If your comment applies to more than one clause, please repeat the row or make the reference in the 
+Comments column, 
+ do not embed other tables in the table, 
+ enter the date on which you make the comments in the heading. 
+ 
+ 
+  
+
+===== [PDF PAGE 2] Australia_Comments_on_R76_draft =====
+Country 
+Code1 
+Part Clause/ Sub 
+clause 
+Paragraph
+/ Figure/ 
+Table/ 
+Type of 
+comment2 
+ 
+COMMENTS PROPOSED CHANGE 
+OBSERVATIONS OF THE 
+CONVENER/PG 
+on each comment submitted 
+ 
+Page 2 of 5 
+ 
+AU    ge It is not clear whether the scope of the current 
+review is intended to consider technical 
+changes. Or whether it is limited to formatting 
+and structural changes. Australia has concerns 
+with some of the technical changes being 
+proposed. Australia does have technical issues 
+that it wants considered and we have included 
+some technical comments as part of this 
+revision, however we suggest technical 
+changes be deferred to a more substantive 
+review. 
+  
+AU 1 3.1.2 Note 1 ed A non-automatic weighing process allows the 
+operator to take an action (i.e., adjust the unit 
+price) 
+Adjusting the unit price won’t influence the 
+weighing result, only the transaction result.   
+Delete ‘adjust the unit price’ or reword by changing 
+‘influences the weighing result’ to the transaction or 
+measurement result. 
+ 
+AU 1 5.5.1 1 te As 5.5.3.3 regarding exception for preset tare has 
+been removed.  Now MPEs also apply to 
+calculated net value when a preset tare device is in 
+use.  Net value is not calculated net value and tare 
+device is not the same as preset tare device. The 
+statement ‘The MPEs apply to the net value when a 
+tare is in use’ is not 100% correct. 
+The MPEs apply to the net value/calculated net value when a 
+tare/preset tare is in use. 
+ 
+R76-2 5.6.1 is the test for tare device.  Should the similar test 
+to R76-2 5.6.1 to be implemented? 
+ 
+ 
+ 
+AU 1 5.5.2  ge 
+Australia strongly objects to the proposed content of 
+5.5.2 and the doubling of MPEs for in-service 
+inspections. Australia’s legislated in-service MPE’s 
+are equal to the value of Verification MPEs. 
+There is no definition of an in-service inspection. 
+Remove all reference to in-service inspection and in-service 
+MPEs. 
+ 
+We suggest that the topic of in-service MPEs be removed from 
+the scope of this revision of OIML R 76 The topic of in-
+service inspections and MPEs has significant implications at a 
+national level and should be deferred to the next full revision 
+of OIML R 76 to allow for the necessary consultation and 
+analysis processes to occur to support the definition and 
+introduction of in-service MPEs 
+ 
+AU 1 7.1.10  te Clause 7.1.3.2, Semi-automatic tare devices, does 
+not permit reduction of tare value, but permits the 
+increase of tare value.  In the self-service bring 
+own container case (an increased trend), it is 
+possible for a customer to tare off the empty 
+container first then fill the container with product 
+and tare off the partially filled container, then fill 
+the container again with more product.  The 
+customer only pays for the last part of fill.   
+Add: The action of the tare device must not permit an 
+increase of a value of the tare when using the same 
+container. 
+ 
+
+===== [PDF PAGE 3] Australia_Comments_on_R76_draft =====
+Country 
+Code1 
+Part Clause/ Sub 
+clause 
+Paragraph
+/ Figure/ 
+Table/ 
+Type of 
+comment2 
+ 
+COMMENTS PROPOSED CHANGE 
+OBSERVATIONS OF THE 
+CONVENER/PG 
+on each comment submitted 
+ 
+Page 3 of 5 
+AU 2 5.1.11  te But no details of how to interpret the MPE 
+requirements, especially when unloading. The 
+EUT meets MPE of higher range does not 
+mean it could meet the MPE of lowest range.  
+Add note: when unloading an instrument with multiple 
+ranges the MPE of the instrument at smaller loads uses 
+the MPEs of the highest range reached in loading the 
+instrument before it returns to zero. 
+ 
+AU 2 5.6.1  ed Weighing test (R 76-1, 5.5.3.3).  5.5.3.3 has been 
+deleted 
+Should be 5.5.1  
+AU 2 5.10  ge For Verification testing, the current 
+Australian requirements are 2/3 (66.66%) 
+Max. On a Class III 15 kg capacity instrument 
+as an example this would equate to 10 kg – 
+the OIML standard is 14 kg. Likewise with a 
+pallet scale of 1,500 kg capacity would 
+require 1,000 kg at 2/3 Max – or 1,200 kg at 
+0.8 Max. A 1,000 kg test using one block is 
+simpler, more efficient and safer than e.g. a 
+1,000 kg block with 10 x 20 kg blocks sitting 
+on top. 
+At 2/3 capacity, typically the 2nd changeover 
+point (2000e for a 3000 VSI Instrument), 
+therefore determination of any error is made 
+easier also. 
+ 
+5.10 Repeatability test (R 76-1, 5.5.4) 
+For type approval two series of weighings shall be 
+performed, one with a load of about 50 % and one with a 
+load close to 100 % of Max. For instruments with Max 
+less than 1 000 kg each series shall consist of ten 
+weighings. In other cases each series shall consist of at 
+least three weighings. Readings shall be taken when the 
+instrument is loaded, and when the unloaded instrument 
+has come to rest between weighings. In the case of a 
+zero deviation between the weighings, the instrument 
+shall be reset to zero, without determining the error at 
+zero. The true zero position need not be determined 
+between the weighings. 
+If the instrument is provided with automatic zero-setting 
+or zero-tracking, it shall be in operation during the test. 
+For verification one series of weighings with 2/3 Max is 
+sufficient. Three weighings on classes III and IV or six 
+weighings on classes I and II are necessary. 
+ 
+ 
+AU 2 12.2.6  te You agreed with the previous comments that for 
+multiple range instrument, where DR is unknown, 
+the last paragraph should be the condition nLC ≥ 
+0.5 × Maxr / e1 is satisfied.  But CD1.1 is, nLC ≥ 
+0.4 × Maxr / e1 is satisfied. 
+The last paragraph is 0.5 instead of 0.4. 
+Also the compatibility check form needs to be updated. 
+ 
+AU  2 12.2.6  ed For multi-interval instrument where DR is 
+unknown, the condition nLC ≥ 0.5 × Maxr / e1 is 
+satisfied. 
+Go back to nLC ≥ Max / e1 is satisfied.  
+AU 3 6.2 creep te R76-1 5.8.4.1 requires observation at 5 min 
+intervals 
+Additional rows for 10, 20, 25 min  
+
+===== [PDF PAGE 4] Australia_Comments_on_R76_draft =====
+Country 
+Code1 
+Part Clause/ Sub 
+clause 
+Paragraph
+/ Figure/ 
+Table/ 
+Type of 
+comment2 
+ 
+COMMENTS PROPOSED CHANGE 
+OBSERVATIONS OF THE 
+CONVENER/PG 
+on each comment submitted 
+ 
+Page 4 of 5 
+AU 5 6 Table 5 ge Australia does not legislate a reverification 
+period for NAWI’s excepting public 
+weighbridges. Noting this we provide the 
+following as part of our submission. 
+We strongly disagree with the varying 
+verification periods being based on “intensive 
+use”, especially when 10 weighing’s per week 
+on average is the decisive number. We point 
+out that recording the number of weighings a 
+NAWI is used for would be impractical to 
+regulate. 
+Consideration could be given to some sort of 
+“Class Based” system as being a fairer and 
+more appropriate option. Generally, Class I, II 
+and smaller capacity Class III instruments are 
+more cared for and in better environments, 
+whereas Class IV and Y (Front End Loaders, 
+etc) are used extensively with many factors 
+that can affect weighing performance. Such 
+factors in weighbridges include, but are not 
+limited to, mud build up around the load cells, 
+build up under the decks and general wear 
+and tear of the load cells and retaining plates. 
+Similar issues can also apply to Pallet scales 
+of up to 3 tonne capacity. Class Y instruments 
+could have hydraulic parts replaced which can 
+affect weighing performance.  Mechanical 
+Instruments are more inclined to wear over 
+time and have greater potential of binding and 
+fouling in their mechanisms. 
+In short, Class I, II, and smaller capacity 
+Class III instruments operate off a single 
+point load cell, everything else has moving 
+parts which can wear or get inhibited in their 
+performance. 
+Option 1: 
+Class I 2 years 
+Class II 2 years 
+Class III Single Point load cell system 2 years 
+All other Class III 1 year 
+Class IV & Y and mechanical 1 year 
+ 
+Option 2: 
+Class I 2 years 
+Class II 2 years 
+Class III <= 300 kg 2 years 
+Class III > 300 kg) 1 year 
+Class IV & Y and mechanical 1 year 
+ 
+ 
+AU 5 6 Table 5 ge A recommendation should also be inserted 
+that a check / inspection be conducted where 
+weighing instruments have been relocated 
+from the verification location, to ensure that 
+Gravity change or manual handling of this 
+relocation has not altered the weighing 
+instruments metrological performance.  
+Add note: Where environment conditions impact the 
+ability for the weighing instrument to maintain usability 
+and display accuracy then a re-verification of less than 
+the recommended verification interval may be required. 
+In such case a Risk assessment may need to be 
+conducted to determine suitable re-verification period 
+ 
+
+===== [PDF PAGE 5] Australia_Comments_on_R76_draft =====
+Country 
+Code1 
+Part Clause/ Sub 
+clause 
+Paragraph
+/ Figure/ 
+Table/ 
+Type of 
+comment2 
+ 
+COMMENTS PROPOSED CHANGE 
+OBSERVATIONS OF THE 
+CONVENER/PG 
+on each comment submitted 
+ 
+Page 5 of 5 
+AU 5 7.1  ge Some Digital Indicators have a Hi Resolution 
+mode (generally x10), permitted with regard 
+to higher capacity instruments, where the 
+Digital Indicator has been endorsed a “Hi Res 
+approved for Verification purposes” in its 
+type approval. 
+Add note: For instruments that have an approved digital 
+indicator “endorsed to display in hi-resolution mode 
+(auxiliary indication) for the purposes of verification”, 
+testing can be performed using the instrument’s 
+auxiliary indication to determine the error. 
+ 
+AU 5 7.8  ge Inappropriate to include Euro-specific link in 
+OIML document. It is noted the link takes the 
+user to an invalid service. 
+  
+AU 5 7.8 First and 
+second 
+para. 
+ge 
+Is the statement “For class IIII weighing 
+instruments, the effect of local gravity is 
+negligible” always true? 
+Delete last sentence of first paragraph.  
+Amend second paragraph: For other weighing 
+instruments, being for class 3 and class 4, the following 
+rule can be considered. 
+ 
+AU 5 7.8  Ge. Do not agree that gravity value at place of 
+adjustment is “normally written on the 
+nameplate”. 
+Remove “normally written on the nameplate” from g1  
+ 
+ 

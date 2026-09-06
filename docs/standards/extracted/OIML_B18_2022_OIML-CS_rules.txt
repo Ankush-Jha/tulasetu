@@ -1,0 +1,922 @@
+
+
+===== [PDF PAGE 1] OIML_B18_2022_OIML-CS_rules =====
+Fram ework for the O IM L Certification System  
+(O IM L-CS) 
+Cadre pour le Système de Certification O IM L (O IM L-CS) 
+O IM L B 18 Edition 2022 (E) 
+O IM L B 18 
+Edition 2022 (E) 
+O RG AN ISATIO N IN TERN ATIO N ALE 
+DE M ÉTRO LO G IE LÉG ALE 
+IN TERN ATIO N AL O RG AN IZATIO N 
+O F LEG AL M ETRO LO G Y 
+BASIC 
+PUBLICATIO N 
+
+===== [PDF PAGE 2] OIML_B18_2022_OIML-CS_rules =====
+ 
+ 
+ 
+ 
+  
+
+===== [PDF PAGE 3] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+3
+Contents 
+ 
+Foreword ................................................................................................................................................. 4 
+1 Introduction ................................................................................................................................... 5 
+2 Objectives of the OIML-CS .......................................................................................................... 6 
+3 Terminology and abbreviations ..................................................................................................... 6 
+4 Scope ........................................................................................................................................... 13 
+5 Participation in the OIML-CS ..................................................................................................... 14 
+6 Governing documents ................................................................................................................. 15 
+7 Standards ..................................................................................................................................... 16 
+8 Structure ...................................................................................................................................... 16 
+9 Responsibilities of the CIML within the OIML-CS.................................................................... 17 
+10 Responsibilities of the BIML within the OIML-CS.................................................................... 17 
+11 Management Committee ............................................................................................................. 18 
+12 Test Laboratories Forum ............................................................................................................. 21 
+13 Board of Appeal .......................................................................................................................... 21 
+14 Conduct of the work .................................................................................................................... 22 
+15 Operation of the OIML-CS ......................................................................................................... 22 
+16 Finance ........................................................................................................................................ 23 
+17 References ................................................................................................................................... 23 
+Annex A ................................................................................................................................................ 25 
+ 
+  
+
+===== [PDF PAGE 4] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+4
+Foreword 
+The International Organization of Legal Metrology (OIML) is a worldwide, intergovernmental organisation whose 
+primary aim is to harmonise the regulations and metrological controls applied by the national metrological 
+services, or related organisations, of its Member States. The main categories of OIML publications are: 
+ International Recommendations (OIML R), which are model regulations that establish the 
+metrological characteristics required of certain measuring instruments and which specify methods and 
+equipment for checking their conformity. OIML Member States shall implement these Recommendations 
+to the greatest possible extent; 
+ International Documents (OIML D), which are informative in nature and which are intended to 
+harmonise and improve work in the field of legal metrology; 
+ International Guides (OIML G), which are also informative in nature and which are intended to give 
+guidelines for the application of certain requirements to legal metrology; 
+ International Basic Publications (OIML B), which define the operating rules of the various OIML 
+structures and systems; and 
+OIML Draft Recommendations, Documents and Guides are developed by Project Groups linked to Technical 
+Committees or Subcommittees which comprise representatives from OIML Member States. Certain international 
+and regional institutions also participate on a consultation basis. Cooperative agreements have been established 
+between the OIML and certain institutions, such as ISO and the IEC, with the objective of avoiding contradictory 
+requirements. Consequently, manufacturers and users of measuring instruments, test laboratories, etc. may 
+simultaneously apply OIML publications and those of other institutions. 
+International Recommendations, Documents, Guides and Basic Publications are published in English (E) and 
+translated into French (F) and are subject to periodic revision.  
+Additionally, the OIML publishes or participates in the publication of Vocabularies (OIML V) and periodically 
+commissions legal metrology experts to write Expert Reports (OIML E). Expert Reports are intended to provide 
+information and advice, and are written solely from the viewpoint of their author, without the involvement of a 
+Technical Committee or Subcommittee, nor that of the CIML. Thus, they do not necessarily represent the views 
+of the OIML. 
+This publication –  reference OIML B  18 Framework for the OIML Certification System (OIML -CS), edition 
+2022 (E) – was developed by the OIML Certification System Management Committee. It was approved for final 
+publication by the International Committee of  Legal Metrology at its 57th meeting in October 2022. It replaces 
+the previous edition dated 2018. 
+The OIML acknowledges that parts of the terminology, operational rules and organisational structure in this OIML 
+Basic Publication and in the OIML -CS Operati onal and Procedural Documents were developed following 
+discussions with the IEC and from documents developed and published by the IEC for the operation of their global 
+Conformity Assessment Systems. The OIML thanks the IEC for granting the OIML permission to use its 
+intellectual property and agreeing to explore opportunities for cooperation in areas of mutual interest.  
+OIML Publications may be downloaded from the OIML web site in the form of PDF files. Additional information 
+on OIML Publications may be obtained from the Organisation’s headquarters: 
+Bureau International de Métrologie Légale 
+11, rue Turgot - 75009 Paris - France 
+Telephone: 33 (0)1 48 78 12 82 
+Fax:  33 (0)1 42 82 17 27 
+E-mail:  biml@oiml.org 
+Internet:  www.oiml.org 
+ 
+
+===== [PDF PAGE 5] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+5
+Framework for the OIML Certification System (OIML-CS) 
+ 
+1 Introduction 
+1.1 The OIML Certification System (hereafter referred to as the “OIML -CS”) is a system for 
+issuing, registering and using OIML type examination certificates (hereafter referred to as OIML 
+certificates) and associated OIML type evaluation reports for types of measuring instruments (including 
+families of measuring instruments, modules, or families of modules), based on the requirements of 
+OIML Recommendations. 
+The OIML-CS replaces the previous OIML Basic Certificate System  [1] introduced in 1991, and also 
+the OIML Mutual Acceptance Arrangement (MAA) [2] introduced in 2005. It aims to facilitate, 
+accelerate and harmonise the work of national and regional bodies that are responsible for type 
+evaluation and approval of measuri ng instruments subject to legal metrological control. In the same 
+way, instrument manufacturers, who are required to obtain type approval in some countries in which 
+they wish to sell their products, should benefit from the OIML -CS as it provides evidence t hat their 
+instrument type complies with the requirements of the relevant OIML Recommendation(s). The 
+OIML-CS may also help to promote the manufacture, marketing and use of measuring instruments that 
+comply with OIML requirements for applications which are not subject to legal metrological control by 
+a national metrology authority. 
+1.2 The OIML-CS is a voluntary system and all OIML Member States and Corresponding Members 
+are free to participate. Participating in the OIML -CS, and signing a Declaration (see 5.2.4, 5.3.1 and 
+5.3.2), commits in principle the signatories to abide by the rules of the OIML -CS. This Framework 
+establishes these rules whereby signatories voluntarily accept and utilise OIML type evaluation reports, 
+when associated with an OIML certificate issued by an OIML Issuing Authority, for type approval or 
+recognition in their national or regional metrological controls. 
+1.3 The OIML-CS requires a type evaluation of sample(s) of measuring instruments which should 
+be representative of the production. However, the type evaluation conducted within the OIML-CS does 
+not include any formal evaluation to establish that the type is representative of the intended production. 
+Such an evaluation, and the assessment of the conformity of the produced instruments to the certified 
+type, may be addressed in other OIML publications. 
+Note: The OIML-CS is classified to Scheme 1a defined in ISO/IEC 17067 [3]. 
+1.4 A manufacturer or its authorised representative from any country may apply for type evaluation 
+and for an OIML certificate to be issued by an OIML Issuing Authority in any OIML Member State that 
+participates in the OIML -CS. Likewise, any OIML certificate and/or its associated OIML type 
+evaluation report may be accepted and utilised by any national issuing authority or national responsible 
+body in any country. 
+1.5 This publication, OIML B  18 Framework for the OIML Certification System (OIML -CS), 
+is supplemented by Operational Documents and Procedural Documents which are developed,  
+maintained and approved by the OIML-CS Management Committee. 
+
+===== [PDF PAGE 6] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+6
+2 Objectives of the OIML-CS 
+The objectives of the OIML-CS are 
+a) to promote the global harmonisation, uniform interpretation and implementation of legal 
+metrological requirements for measuring instruments and/or modules, 
+b) to avoid unnecessary re-testing when obtaining national type evaluations and approvals, 
+and to support the recognition of measuring instruments and/or modules under legal 
+metrological control, while achieving and maintaining confidence in the results in support 
+of facilitating the global trade of individual instruments, and 
+c) to establish rules and procedures for fostering mutual confidence among participating 
+OIML Member States and Corresponding Members in the results of type evaluations that 
+indicate conformity of measuring instruments and/or modules, under legal metrological 
+control, to the metrological and technical requirements established in the applicable 
+OIML Recommendation(s). 
+3 Terminology and abbreviations 
+The definitions and abbreviations listed below apply to this publication and the OIML-CS Operational 
+Documents and Procedural Documents. 
+3.1  
+accreditation (from ISO/IEC 17000, 7.7 [4]) 
+third-party attestation related to a conformity assessment body, conveying formal demonstration of its 
+competence, impartiality and consistent operation in performing specific conformity assessment 
+activities 
+Note: In the OIML-CS, accreditation is equivalent to peer assessment (see 3.33). 
+3.2  
+additional national requirement 
+requirement that is not included in the relevant OIML Recommendation but that is required in order to 
+issue a national/regional type approval, and that has been included in the scope of the Declaration 
+3.3  
+applicant 
+manufacturer and/or authorised representative who applies for an OIML type evaluation of a measuring 
+instrument to an OIML Issuing Authority in order to receive an OIML type evaluation report and an 
+OIML certificate for that type of measuring instrument 
+Note: Upon issuance of the OIML certificate, the applicant becomes the owner of the OIML 
+certificate. 
+ 
+ 
+ 
+ 
+
+===== [PDF PAGE 7] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+7
+3.4  
+Associate 
+national issuing authority or national responsible body from an OIML Corresponding Member that has 
+signed the Declaration indicating the terms of acceptance of OIML certificates and/or OIML type 
+evaluation reports 
+3.5  
+Board of Appeal 
+internal appeals committee of the OIML-CS 
+3.6  
+category 
+classification of measuring instruments for which technical and metrological requirements are laid down 
+in an OIML Recommendation (for instance OIML R 76 [5] for the category of non-automatic weighing 
+instruments) 
+3.7  
+certification body (from ISO/IEC 17065, 3.12 [6]) 
+third-party conformity assessment body operating certification schemes 
+Note: A certification body can be non -governmental or governmental (with or without regulatory 
+authority). 
+3.8  
+conformity assessment (from ISO/IEC 17000, 4.1 [4]) 
+demonstration that specified requirements are fulfilled 
+3.9  
+conformity assessment body (from ISO/IEC 17000, 4.6 [4]) 
+body that performs conformity assessment activities, excluding accreditation 
+3.10  
+Declaration 
+document that is signed by an individual OIML Issuing Authority, Utilizer or Associate, whereby it 
+accepts to abide by the rules of the OIML-CS 
+Note 1: The scope of certification is detailed in the individual Declaration for each OIML Issuing 
+Authority, and the scope of acceptance of OIML type evaluation reports issued with an OIML 
+certificate under Scheme A or B is detailed in the individual Declaration for each Utilizer and 
+Associate. 
+Note 2: Each OIML Issuing Authority, Utilizer and Associate signs an individual Declaration under the 
+OIML-CS. 
+ 
+ 
+
+===== [PDF PAGE 8] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+8
+3.11  
+Executive Secretary 
+staff member of the International Bureau of Legal Metrology (BIML), appointed by the BIML Director, 
+who is responsible for the day-to-day operation of the OIML-CS under the direction of the Management 
+Committee 
+3.12  
+family of measuring instruments 
+identifiable group of measuring instruments belonging to the same manufactured type that have the same 
+design features and metrological principles for measurement but which may differ in some metrological 
+and technical performance characteristics, as defined in the relevant Recommendation 
+Note: The concept of a “family” primarily aims to reduce the testing required for OIML type 
+evaluation. It does not preclude the possibility of listing more than one family in one OIML 
+certificate. 
+3.13  
+family of modules 
+identifiable group of modules belonging to the same manufactured type that have similar design features 
+but which may differ in some metrological and technical performance requirements as defined in the 
+relevant Recommendation 
+3.14  
+field site test 
+test performed on a measuring instrument at a site or facility outside of the permanent control of a Test 
+Laboratory 
+Note: Field site tests are generally the only practical way to test very large scale or large capacity 
+measuring instruments, where it is not possible to perform the testing in a controlled laboratory 
+environment. 
+3.15  
+internal Test Laboratory 
+Test Laboratory that is designated by an OIML Issuing Authority, and registered in the Declaration, that 
+is part of the same organisation as the OIML Issuing Authority 
+3.16  
+Legal Metrology Expert 
+person, approved by the Management Committee, who provides specific technical and metrological 
+expertise with respect to the scope of an accreditation or peer assessment; is a team member who 
+provides advice but is not considered to be  an assessor unless he/she has the relevant assessor 
+qualifications and training 
+ 
+ 
+ 
+
+===== [PDF PAGE 9] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+9
+3.17  
+Management Committee 
+committee established by the International Committee of Legal Metrology (CIML) to manage the 
+OIML-CS (see clause 11) 
+3.18  
+Management Committee Chairperson 
+individual, appointed by the CIML, who presides over the Management Committee and is responsible 
+for the operation of the Management Committee  
+Note: The Management Committee Chairperson is the functional supervisor of the Executive 
+Secretary in matters related to the OIML-CS. 
+3.19  
+Management System Expert 
+person, approved by the Management Committee, who has overall responsibility for leading a peer 
+assessment 
+3.20  
+manufacturer 
+company or person legally responsible for producing measuring instruments  and/or modules which 
+conform to the certified type 
+3.21  
+Manufacturer’s Test Laboratory 
+Test Laboratory of a manufacturer that is designated by an OIML Issuing Authority, and registered in 
+the Declaration, that performs specific tests under controlled supervision (see PD-04 [7]) or as a third-
+party laboratory of an OIML Issuing Authority 
+Note 1: A Manufacturer Test Laboratory may conduct tests for the parent company and/or for other 
+companies. The requirements for controlled supervision apply if tests are perfo rmed for the 
+parent company. Otherwise the Manufacturer Test Laboratory is considered as a third -party 
+Test Laboratory, in which case the requirements for third-party laboratories must be satisfied. 
+Note 2: In the event that test data is obtained from a Manufacturer Test Laboratory this must be clearly 
+indicated on the OIML type evaluation report (see PD-05 [8]) and acceptance of that report is 
+on a voluntary basis (see PD-06 [9]). 
+3.22  
+measuring instrument 
+device used for making measurements, alone or in conjunction with one or more supplementary devices 
+(VIM, 3.1 [10]) 
+ 
+ 
+ 
+
+===== [PDF PAGE 10] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+10
+3.23  
+module 
+identifiable part of a measuring instrument or of a family of measuring instruments that performs a 
+specific function or functions that can be separately evaluated according to prescribed metrological and 
+technical performance requirements in the relevant Recommendation 
+3.24  
+national issuing authority 
+certifying body or person in an OIML Member State or Corresponding Member that is responsible for 
+national type approval and that issues national/regional type approval certificates for specific categories 
+of measuring instruments or modules on the basis of examination and testing under its own control 
+3.25  
+national responsible body 
+organisation within an OIML Member State or Correspondi ng Member that does not conduct type 
+evaluation but that is responsible for the metrological control of measuring instruments and/or modules 
+3.26  
+OIML certificate 
+type examination certificate, issued by an OIML Issuing Authority, attesting the conformity of a type of 
+a measuring instrument or module with the relevant requirements of an OIML Recommendation at the 
+time of testing and evaluation 
+3.27  
+OIML Certification System (OIML-CS) 
+system for issuing, registering and using OIML certificates and associated OIML type evaluation reports 
+for types of measuring instruments (including families of measuring instruments, modules, or families 
+of modules), based on the requirements in the relevant OIML Recommendation(s) 
+3.28  
+OIML Issuing Authority 
+certification body or inspection body from an OIML Member State approved by the Management 
+Committee to issue OIML certificates and associated OIML type evaluation reports in accordance with 
+Scheme A or Scheme B 
+Note 1: An OIML Member State having an OIML Issuing Authority for a categor y of measuring 
+instrument under Scheme A shall designate at least one Utilizer (see 3.45) for that category of 
+measuring instrument. The Utilizer(s) may be a differ ent organisation(s) than the OIML 
+Issuing Authority. 
+Note 2: The requirement to designate at least one Utilizer (see 3.45) shall not apply when the OIML 
+Member Sta te does not regulate that particular category of measuring instrument in their 
+country. 
+ 
+ 
+
+===== [PDF PAGE 11] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+11
+3.29  
+OIML Technical Committees and Subcommittees (TC/SC) 
+committees comprising representatives from OIML Member States and OIML Corresponding 
+Members, with linked Project  Groups, responsible for the development and revision of OIML 
+Recommendations, Documents and Guides (see OIML B 6-1 [11]) 
+3.30  
+OIML test report 
+report issued by a test laboratory that includes the results of tests and examinations it carried out on the 
+basis of the relevant OIML Recommendation during OIML type evaluation on identified sample(s) of a 
+given type of measuring instrument or module 
+Note: Unless the OIML Recommendation states otherwise, several test reports may be issued if 
+several test laboratories are involved in covering all of the tests and examinations specified in 
+the relevant OIML Recommendation. 
+3.31  
+OIML type evaluation 
+type evaluation conducted on the basis of the relevant OIML Recommendation(s) 
+3.32  
+OIML type evaluation report 
+report issued by an OIML Issuing Authority participating in the OIML-CS that assesses the conformity 
+of the type of a measuring instrument or module to the requirements in the relevant Recommendation 
+and, if applicable, to the additional national requirements specified in the Declaration 
+3.33  
+peer assessment (from ISO/IEC 17000, 6.7 [4]) 
+assessment of a body against specified requirements by representatives of other bodies in, or candidates 
+for, an agreement group 
+Note 1:  Within the context of the OIML-CS implementation, this is the procedure by which approved 
+experts assess, against specified requirements, on site, the competence of OIML Issuing 
+Authorities and Test Laboratories to be registered in the Declaration. 
+Note 2: In the OIML-CS, peer assessment is equivalent to accreditation (see 3.1). 
+3.34  
+peer evaluation 
+process whereby Management Committee members evaluate the compliance of OIML Issuing 
+Authorities and Test Laboratories based on a recommendation from the Review Committee 
+3.35  
+Review Committee 
+sub-committee of the Management Committee that provides recommendations on the approval of OIML 
+Issuing Authorities, Test Laboratories, Legal Metrology Experts and Management System Experts 
+ 
+
+===== [PDF PAGE 12] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+12
+3.36  
+Scheme 
+part of the OIML -CS covering one or more categories of measuring instruments and with common 
+requirements for participation (see 4.1 and clause 5) 
+3.37  
+Scheme A 
+advanced level of the OIML -CS where accreditation or peer assessment is used as the basis for 
+demonstrating compliance with the requirements of the OIML-CS 
+3.38  
+Scheme B 
+introductory level of the OIML -CS where a self -declaration is used as the basis for demonstrating 
+compliance with the requirements of the OIML-CS 
+3.39  
+self-declaration 
+statement by an organisation that they fulfil requirements 
+3.40  
+Test Laboratory 
+laboratory performing certain or all tests on a type of measuring instrument 
+Note 1: A Test Laboratory is designated by an OIML Issuing Authority and approved by the 
+Management Committee. 
+Note 2: A Test Laboratory may be an internal Test Laboratory of an OIML Issuing Authority, a third-
+party Test Laboratory or a Manufacturer’s Test Laboratory. 
+Note 3: The OIML Issuing Authority, and not the Test Laboratory, is responsible for issuing the OIML 
+type evaluation report. 
+3.41  
+Test Laboratories Forum 
+advisory group that provides a platform for discussion on practical issues pertaining to testing 
+Note: Each Test Laboratory in the OIML-CS may be represented in the Test Laboratories Forum. 
+3.42  
+third-party Test Laboratory 
+Test Laboratory that is designated by an OIML Issuing Authority, and registered in the Declaration, and 
+which is independent from the OIML Issuing Authority 
+ 
+ 
+ 
+
+===== [PDF PAGE 13] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+13
+3.43  
+type (pattern) evaluation 
+conformity assessment procedure on one or more specimens of an identified type (pattern) of measuring 
+instruments which results in an evaluation report and / or an evaluation certificate 
+Note:  “Pattern” is used in legal metrology with the same meaning as “type” (VIML, 2.04 [12]). 
+3.44  
+user 
+any organisation other than a Utilizer or an Associate that accepts OIML certificates and/or OIML type 
+evaluation reports issued under Scheme A or Scheme B 
+3.45  
+Utilizer 
+national issuing authority or national responsible body from an OIML Member State that has signed the 
+Declaration, indicating the terms of acceptance of OIML certificates and/or OIML type evaluation 
+reports issued under Scheme A or Scheme B 
+4 Scope 
+4.1 The OIML-CS is a single Certification System with two Schemes: 
+a) Scheme A, and 
+b) Scheme B. 
+4.2 Those categories of measuring instruments (including families of instruments, modules, or 
+families of modules) for which the relevant OIML Recommendation specifies 
+a) the metrological and technical requirements, 
+b) the test procedures, including (where applicable) the selection of the instrument or module 
+to be tested from the family of measuring instru ments or family of modules under 
+evaluation, 
+c) the OIML test report format, and 
+d) the OIML type evaluation report format 
+are automatically included in the OIML-CS. 
+Note: The OIML test report format and the OIML type evaluation report format may be separate Parts 
+of an OIML Recommendation or may be combined in the same Part of an OIML 
+Recommendation. 
+4.3 A category of measuring instrument is initially placed in Scheme B, with the intention that all 
+categories of measuring instruments in the OIML -CS will transition to Scheme A two years after first 
+being included in the OIML-CS. 
+4.4 Concerning families of instruments, modules and families of modules, the relevant 
+Recommendation(s) shall specify what can be considered as a family and/or a module as well as the 
+specific metrological and technical requirements and test procedures applicable to such 
+families/modules. 
+
+===== [PDF PAGE 14] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+14
+4.5 A list of the categories of measuring instruments in the OIML -CS, with references to the 
+relevant Recommendations, is maintained by the BIML and is permanently available to Member States, 
+Corresponding Members, and other interested parties on the OIML website and on request. 
+5 Participation in the OIML-CS 
+5.1 Type of participation 
+5.1.1 The CIML Member in a given Member State may put forward to the Management Committee 
+one or more OIML Issuing Authorities in that State per category of measuring instruments for its 
+acceptance under Scheme A or Scheme B. 
+Note: An OIML Issuing Authority that issues OIML certificates may or may not be the same 
+organisation as the national body t hat issues national type approval certificates and whose 
+responsibilities are governed by national regulations. 
+5.1.2 The CIML Member in a given Member State may designate one or more Utilizers in that State 
+per category of measuring instrument. 
+5.1.3 The OIML Corresp onding Member Representative may designate one or more Associates in 
+that country per category of measuring instrument. 
+5.1.4 A list of all OIML Issuing Authorities and Utilizers in the various Member States and Associates 
+from OIML Corresponding Members is main tained by the BIML and is permanently available to 
+Member States, Corresponding Members and other interested parties on the OIML website and on 
+request. 
+ 
+5.2 OIML Issuing Authorities and Test Laboratories 
+5.2.1 OIML Issuing Authorities are required to demonstrate th eir competence through compliance 
+with either ISO/IEC 17065 [6] or ISO/IEC 17020 [13] (with additional requirements as detailed in 
+Procedural Document PD-03 [14]). The OIML Issuing Authority shall decide whether to use ISO/IEC 
+17065 [6] or ISO/IEC 17020 [13] (with additional requirements) to demonstrate their competence. 
+Note 1: ISO/IEC 17065 [6] is the preferred standard for OIML Issuing Authorities to use to demonstrate 
+ their competence. 
+Note 2: Information on the OIML-CS and the functional approach is given in Annex A. 
+5.2.2 Test Laboratories are required to demonstrate their competence through compliance with 
+ISO/IEC 17025 [15].  
+5.2.3 For participation in Scheme B, it is sufficient to demonstrate compliance on the basis of a self-
+declaration with additional supporting evidence. For participation in Scheme A, compliance shall be 
+demonstrated by peer evaluation, on the basis of an accreditation or peer assessment. Accreditation 
+assessment teams shall include Legal Metrology Expert(s), and peer assessment teams shall comprise a 
+Management System Expert and Legal Metrology Expert(s), as specified in Procedural Documents 
+PD-03 [14] and PD-04 [7]. 
+  
+
+===== [PDF PAGE 15] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+15
+5.2.4 OIML Issuing Authorities that have been accepted for participation in the OIML -CS (see 
+11.5 f)) sign a Declaration indicating their scope for issuing OIML certificates and OIML type 
+evaluation reports under Scheme A and/or Scheme B. When an OIML Issuing Authority is accepted 
+under Scheme A, the OIML Member State shall designate at least one Utilizer for the respective 
+category(ies) of measuring instrument(s). The Utilizer(s) sign(s) the Declaration indicating their 
+acceptance of OIML certificates and/or OIML type evaluation reports issued under Scheme A for the 
+respective category(ies) of measuring instrument(s). The Utilizer(s) may specify additional national 
+requirements or special requirements which deviate from those in the relevant OIML 
+Recommendation(s). 
+Note: The requirement to designate at least one Utilizer shall not apply when the OIML Member State 
+does not regulate that particular category of measuring instrument in their country. 
+5.3 Utilizer and Associates 
+5.3.1 Utilizers sign a Declaration indicating their scope of acceptance of OIML certificates and/or 
+OIML type evaluation reports issued under Scheme A and/or Scheme B. They may specify additional 
+national requirements or special requirements which deviate from those in the relevant OIML 
+Recommendation(s). 
+5.3.2 Associates sign a Declaration indicating their scope of acceptance of OIML certificates and/or 
+OIML type evaluation reports issued under Scheme A and/or Scheme B. They may specify additional 
+national requirements or special requirements which deviate from those in the relevant OIML 
+Recommendation(s). 
+5.3.3 It is the responsibility of Utilizers and Associates to specify from which O IML Issuing 
+Authorities and Test Laboratories they will accept evaluation reports, test reports and test data for 
+additional national requirements. It is also the responsibility of Utilizers and Associates to specify 
+whether they will accept OIML certifica tes and/or type evaluation reports issued on the basis of a test 
+report(s) from a Manufacturer Test Laboratory. This information shall be provided in the Declaration of 
+the Utilizer or Associate. 
+6 Governing documents 
+The governing documents for the OIML-CS are 
+a) OIML B 18 Framework for the OIML Certification System (OIML-CS) (hereafter referred 
+to as “B 18”), approved by the CIML; 
+b) OIML-CS Clarification and Interpretation Document (numbered CID -01) developed, 
+maintained and approved by the Management Committee, 
+c) OIML-CS Operational Documents (numbered OD -xx) developed, maintained and 
+approved by the Management Committee; 
+d) OIML-CS Procedural Documents (numbered PD -xx) developed, maintained and 
+approved by the Management Committee; and 
+e) OIML-CS Guidance, Forms and Templates developed, maintained and approved by the 
+Management Committee. 
+  
+
+===== [PDF PAGE 16] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+16
+In the event of a conflict, contradiction or inconsistency between the provisions of one of the above -
+mentioned documents and the provisions of another of the above-mentioned documents, the provisions 
+of the document listed in a higher position shall take precedence over the provisions of the document 
+listed in a lower position. 
+7 Standards 
+The standards applicable within the OIML-CS as defined by the Management Committee are 
+a) OIML Recommendations and Documents, 
+b) ISO/IEC conformity assessment standards, and 
+c) other relevant international standards. 
+A complete list of the documents and standards identified by the Management Committee and accepted 
+by the CIML is published and updated by the BIML on the OIML website.  
+8 Structure 
+8.1 The structure of the OIML-CS comprises: 
+a) Management Committee; 
+b) Review Committee, which is a sub-committee of the Management Committee; 
+c) Test Laboratories Forum; and 
+d) Board of Appeal. 
+Figure 1 illustrates the structure of the OIML-CS within the OIML structure. 
+ 
+ 
+Figure 1  Structure of the OIML-CS within the OIML structure 
+  
+
+
+===== [PDF PAGE 17] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+17
+9 Responsibilities of the CIML within the OIML-CS 
+The CIML is responsible for 
+a) appointing the Chairperson of the Management Committee, 
+b) appointing the Deputy Chairperson of the Management Committee, 
+c) appointing the Chairperson and members of the Board of Appeal, 
+d) approving revisions to B 18, and 
+e) approving proposals of the Management Committee concerning 
+i. including a new category of measuring instrument in the OIML-CS, 
+ii. moving a category of measuring instrument (and the applicable OIML 
+Recommendation) from Scheme A back to Scheme B,  
+iii. extending or reducing the two -year transition period for a category of measuring 
+instrument when moving from Scheme B to Scheme A, and 
+iv. withdrawing previous editions of an OIML Recommendation from the OIML -CS 
+(see 15.5). 
+10 Responsibilities of the BIML within the OIML-CS 
+10.1 The BIML acts as the secretariat of the OIML -CS and undertakes the relevant administrative 
+functions to support the operation of the OIML-CS, for example (but not limited to) 
+a) registering and publishing OIML certificates, 
+b) collecting OIML certificate registration fees, and 
+c) maintaining the OIML-CS pages on the OIML website. 
+10.2 The Executive Secretary is a BIML staff member, appointed by the BIML Director. The 
+Executive Secretary is responsible for the day-to-day operation of the OIML-CS under the direction of 
+the Management Committee. The tasks and duties of the Executive Secretary are to 
+a) provide general administrative and secretarial services for the Management Committee, 
+the Management Committee Working Groups, the Review Committee, the Test 
+Laboratories Forum and the Board of Appeal, 
+b) organise meetings of the Management Committee, Management Committee  Working 
+Groups, Test Laboratories Forum and (where necessary) Board of Appeal, 
+c) process applications from OIML Issuing Authorities or Test Laboratories in accordance 
+with the Operational and Procedural rules approved by the Management Committee, 
+d) provide advice on initial peer assessment and peer reassessment of OIML Issuing 
+Authorities and Test Laboratories, including the selection of assessors, 
+e) maintain up to date records regard ing the OIML Issuing Authorities and Test 
+Laboratories, 
+f) maintain up to date records of Management Committee members and representatives of 
+Test Laboratories in the Test Laboratories Forum, 
+g) assume responsibility for editing and organising the publication of  OIML-CS 
+publications, 
+
+===== [PDF PAGE 18] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+18
+h) assume responsibility for maintaining a list of Legal Metrology Experts and Management 
+System Experts approved by the Management Committee, 
+i) monitor OIML-CS activities for reporting purposes, and 
+j) monitor the countries that have signed the Declaration. 
+11 Management Committee 
+11.1 Composition 
+a) the CIML Member of an OIML Member State that has at least one OIML Issuing 
+Authority or Utilizer may designate up to four representatives to participate in the 
+Management Committee. One of the representati ves shall be designated by the CIML 
+Member as the “Management Committee Member” for the purposes of voting; 
+b) the Representative of an OIML Corresponding Member that has at least one Associate 
+may designate up to four representatives to participate in the Management Committee; 
+c) a Chairperson, nominated from amongst the representatives from OIML Member States 
+and appointed by the CIML; 
+d) a Deputy Chairperson, nominated from amongst the representatives from OIML Member 
+States and appointed by the CIML; 
+e) an Executive Secretary; 
+f) Secretaries (or their nominated representatives) of relevant OIML TCs/SCs as observers;  
+g) representatives from Organisations in Liaison as observers; and 
+h) representatives from OIML Member States or Corresponding Members that have 
+expressed a clear intention to participate in the OIML -CS, with the agreement of the 
+Chairperson, as observers. 
+11.2 The principal duties of the Chairperson are to 
+a) convene and preside over meetings of the Management Committee, 
+b) determine the agenda for Management Committee meetings, 
+c) represent the Management Committee between its meetings, and 
+d) report to the CIML. 
+11.3 Meetings and other activities 
+In addition to its ongoing activities, the Management Committee shall meet at least once a year. At 
+meetings of the Management Committee a delegation of up to three of the representatives from each 
+OIML Member State and Corresponding Member participating in the OIML-CS may attend. For OIML 
+Member States, the Management Committee Member designated by the CIML Member (see 11.1  a)) 
+has the vote for that country (see 11.4.1 a)). The Chairperson can invite guest s, e.g. guest speakers, to 
+attend Management Committee meetings in support of the activities of the Management Committee.  
+  
+
+===== [PDF PAGE 19] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+19
+11.4 Voting 
+11.4.1 Eligibility 
+a) the Management Committee Member from each OIML Member State has a vote; 
+b) the Chairperson and Deputy Chairperson have a vote, if their Member State is not 
+otherwise represented in the Management Committee; 
+c) the representatives from OIML Corresponding Members have a voice but do not have a 
+vote; 
+d) the Executive Secretary does not have a vote; 
+e) secretaries (or their nominated representatives) of OIML TCs/SCs do not have a vote;  
+f) representatives of Organisations in Liaison do not have a vote; and 
+g) representatives from OIML Member States or Corresponding Members that have 
+expressed a clear intention to participate in the OIML-CS do not have a vote. 
+11.4.2 Decisions taken during a Management Committee meeting 
+Approval, re-approval or suspension of an OIML Issuing Authority or a Test Laboratory requires the 
+support of at least 80 % of the Management Committee Members from OIML Member States. All other 
+proposals require the support of at least half of the Management Committee Members from OIML 
+Member States. 
+In exceptional cases, a Management Committee Member from an OIML Member State who is unable 
+to be present at a Management Commi ttee meeting may give a proxy either to another representative 
+from their own country, or to another Management Committee Member. 
+A Management Committee Member from an OIML Member State shall not hold more than two proxies 
+(in additional to their own vote) at a Management Committee meeting. 
+Abstentions are not considered as voting. A Management Committee Member from an OIML Member 
+State who votes against a proposal or abstaining shall provide their reason(s) for doing so. 
+11.4.3 Decisions taken outside a Management Committee meeting 
+Decisions are normally taken during meetings. Between meetings, if the Chairperson so decides, voting 
+can take place by correspondence. 
+Approval, re-approval or suspension of an OIML Issuing Authority or a Test Laboratory requires the 
+support of at least 80 % of the Management Committee Members from OIML Member States. Other 
+decisions shall be valid when two -thirds of the votes cast by Management Committee Members from 
+OIML Member States are in favour. 
+Abstentions are not considered as v otes cast. Management Committee Members who vote against a 
+proposal shall provide their reasons for doing so. 
+ 
+11.5 Duties and responsibilities 
+The Management Committee is responsible for the operation of the OIML-CS under the authority of the 
+CIML. The Management Committee shall 
+a) report annually to the CIML, 
+b) develop and make proposals to the CIML for changes in OIML-CS strategy and policy, 
+c) promote and raise awareness of the OIML-CS and its schemes, 
+
+===== [PDF PAGE 20] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+20
+d) make proposals to the CIML to extend or reduce the transition period from Scheme B to 
+Scheme A for a measuring instrument category in the OIML-CS, 
+e) make proposals to the CIML on the transition of measuring instrument categories from 
+Scheme A back to Scheme B, 
+f) make decisions on the participation of new OIML Issuing Aut horities and Test 
+Laboratories in a scheme, 
+g) organise periodic reviews on the continuity of participation of OIML Issuing Authorities 
+and Test Laboratories in a scheme, 
+h) appoint the Review Committee Chairperson, 
+i) approve and maintain the list of Legal Metrolo gy Experts and Management System 
+Experts, 
+j) develop recommendations to the CIML for improvements/changes to B 18, 
+k) develop, maintain and approve rules and procedures for the operation of the schemes in 
+accordance with B 18, 
+l) develop and maintain guidance docum ents, templates and forms in support of the rules 
+and procedures of B 18, 
+m) monitor the operation and effectiveness of the OIML-CS Schemes, 
+n) establish working groups to enhance the efficiency of its operation, 
+o) develop proposals for the content and functionality of the OIML-CS pages on the OIML 
+website,  
+p) define the roles and duties of the Executive Secretary, and 
+q) develop and approve proposals for periodic reviews of OIML publications of relevance 
+to the OIML-CS (see OIML B 6-1 [11]). 
+11.6 Review Committee 
+The Review Committee is a sub-committee of the Management Committee. 
+11.6.1 Composition 
+a) a minimum of six members from the representatives of OIML Member States in the 
+Management Committee (11.1 a)); 
+b) a Chairperson, from amongst the members from OIML Member States, appointed by the 
+Management Committee; and 
+c) the Executive Secretary. 
+11.6.2 The tasks of the Review Committee are to 
+a) review the documentation submitted by potential OIML Issuing Authorities and Test 
+Laboratories, including accreditation certificates and assessment reports, peer assessment 
+reports, etc. and to make recommendations to the Management Committee on the 
+acceptance of potential OIML Issuing Authorities and Test Laboratories, 
+b) review the documentation submitted by OIML Issuing Authorities and Test Laboratories 
+for periodic reviews of the participation, and to make recommendations to the 
+Management Committee on the continuation as OIML Issuing Authorities and Test 
+Laboratories, 
+
+===== [PDF PAGE 21] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+21
+c) make recommendations to the Management Co mmittee on the validation of the Legal 
+Metrology Experts and Management System Experts who will participate in accreditation 
+or peer assessments of test laboratories, and 
+d) make recommendations to the Management Committee on the validity of complaints. 
+11.7 Working Groups 
+The Management Committee may establish Working Groups, with clearly defined terms of reference, 
+to advise it on matters related to the management of the OIML -CS or to enhance the efficiency of its 
+operation. 
+12 Test Laboratories Forum 
+12.1 Composition 
+a) one representative from each Test Laboratory, including Manufacturer Test Laboratories, 
+listed in the Declarations of OIML Issuing Authorities; and 
+b) the Executive Secretary. 
+12.2 The tasks of the Test Laboratories Forum are to 
+a) provide a platform for handling pract ical and/or technical questions pertaining to test 
+specifications, test methods and test equipment detailed in standards (see clause 7 ) 
+accepted for use in the OIML-CS, 
+b) detail the way in which the tests specified in OIML Recommendations may be carried out 
+so as to achieve the necessary reproducibility of test results, 
+c) draw up “best practice” papers and/or propose amendments to OIML Recommendations 
+relating to test specifications, test procedures and reporting of test results. 
+Note: It is envisaged that the Test Laboratories Forum will focus on issues that are 
+common across Recommendations, thereby supporting a consistent means of 
+resolving issues across OIML technical work, and 
+d) work towards the development of inter -laboratory comparison programs for the Test 
+Laboratories of the OIML Issuing Authorities. 
+13 Board of Appeal 
+The Board of Appeal is independent of the Management Committee. 
+13.1 Composition 
+a) a Chairperson appointed by the CIML; and 
+b) four members appointed by the CIML. 
+13.2 The tasks of the Board of Appeal are to 
+a) manage appeals against decisions of the Management Committee relating to 
+i. participation in the OIML-CS, and 
+ii. Legal Metrology Experts and Management System Experts, 
+
+===== [PDF PAGE 22] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+22
+b) recommend solutions to any other dispute referred to it with regard to the application of 
+the rules of the OIML-CS. 
+14 Conduct of the work 
+The Management Committee, Management Committee Working Groups, Test Laboratories Forum and 
+Board of Appeal shall perform their activities primarily by correspondence. Detailed arrangements are 
+provided in the respective OIML -CS Operational Documents and Procedural Documents. All 
+documents, meeting reports, etc. shall be public, unless otherwise defined in the OIML-CS Operational 
+Documents and Procedural Documents. 
+15 Operation of the OIML-CS 
+15.1 A category of measuring instrument that is covered by a new or existing OIML 
+Recommendation that fulfils the conditions mentioned in 4.2 shall automatically be included in the 
+OIML-CS in Scheme B. 
+15.2 Two years after inclusion in the OIML -CS, the category of measuring instrument shall 
+automatically transition to Scheme A. The Management Committee may propose to the CIML that a 
+category of measuring instrument transitions to Scheme A in a time period less than two years. 
+15.3 The Management Committee may propose to the CIML that a category of measuring instrument 
+does not automatically t ransition after two years, e.g. suitable experts for assessments have yet to be 
+identified, in which case a time period for transition will be defined. 
+15.4 For both new and revised OIML Recommendations the BIML is responsible for publishing the 
+appropriate information on the OIML -CS pages of the OIML website. This information includes the 
+date on which the new or revised OIML Recommendation is published on the OIML website. 
+15.5 When a revised edition of an OIML Recommendation is published, the earlier edition is 
+maintained in the OIML-CS as long as the CIML, on a recommendation by the Management Committee, 
+does not decide to withdraw the earlier edition from the OIML-CS. 
+Note: The earlier edition may be maintained in order to accommodate situations where the earlier  
+edition is still in use in certain countries. 
+15.6 When a revised edition of an OIML Recommendation is published the revised edition of the 
+Recommendation shall be included in the OIML -CS. A category of measuring instrument covered by 
+the revised edition of the OIML Recommendation shall remain in the same Scheme (A or B as 
+appropriate). An existing OIML Issuing Authority or Test Laboratory wishing to include the revised 
+edition in its scope shall provide evidence of its competency in respect of the revised edit ion. Utilizers 
+and Associates shall indicate their acceptance of OIML certificates and/or OIML type evaluation reports 
+issued in accordance with the revised edition in their Declaration. 
+Note 1: An OIML Issuing Authority may issue OIML certificates and OIML type evaluation reports for 
+any edition of an OIML Recommendation that is within its scope and included in the OIML-CS. 
+Note 2: A Test Laboratory may issue OIML test reports for any edition of an OIML Recommendation 
+that is within its scope and included in the OIML-CS. 
+15.7 It may be proposed by the Management Committee and decided by the CIML to move a certain 
+category of measuring instrument from Scheme A back to Scheme B. 
+
+===== [PDF PAGE 23] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+23
+15.8 The only valid version of an OIML certificate is the printed or electronic version issued by an 
+OIML Issuing Authority. The validity of any OIML certificate (printed or electronic) can be verified 
+with the copy of the OIML certificate registered and published on the OIML -CS pages of the OIML 
+website. 
+15.9 In the event that questions arise during  the review of an OIML certificate and/or OIML type 
+evaluation report, a Utilizer or Associate shall consult the relevant OIML Issuing Authority for 
+clarification of the matter and take any further appropriate actions. If the test data are not accepted, 
+written justification for denial shall be sent to the relevant OIML Issuing Authority, manufacturer and 
+the Management Committee. The OIML Issuing Authority may subsequently appeal this decision to the 
+Board of Appeal. 
+15.10 OIML MAA certificates that were issued under the OIML MAA Certificate System are 
+considered to remain valid. Utilizers and Associates in the OIML -CS may establish conditions for 
+acceptance of these OIML MAA certificates and/or OIML MAA type evaluation reports in the 
+Declaration defined in 3.10. 
+15.11 OIML Basic certificates that were issued under the OIML Basic Certificate System are 
+considered to remain valid. Utilizers, Associates and users may continue to accept these OIML Basic 
+certificates and/or OIML Basic type evaluation reports on a voluntary basis. 
+16 Finance 
+16.1 The BIML Director is responsible for drawing up an annual budget and the accounts applicable 
+to the operation of the OIML-CS. 
+16.2 To help facilitate that the operation of the OIML -CS will not lead to an increase in OIML 
+membership fees, income and expenses for the OIML -CS are budgeted and accounted for separately 
+from the OIML budget, but are consolidated into the OIML budget and accounts. 
+16.3 Income consists of the fees from the registration of OIML certificates. No entrance fees will be 
+charged for OIML Issuing Authorities, Test Laboratories, Utilizers or Associates. 
+17 References 
+[1] OIML B  3:2011 OIML Basic Certificate System for OIML Type Evaluation of Measu ring 
+Instruments 
+[2] OIML B  10:2011 Framework for a Mutual Acceptance Arrangement on OIML Type 
+Evaluations  
+[3] ISO/IEC 17067:2013 Conformity assessment – Fundamentals of product certification and 
+guidelines for product certification schemes 
+[4] ISO/IEC 17000:2020 Conformity assessment – Vocabulary and general principles 
+[5] OIML R 76:2006 Non-automatic weighing instruments 
+[6] ISO/IEC 17065:2012 Conformity assessment –  Requirements for bodies certifying products, 
+processes and services 
+[7] PD-04 OIML-CS Procedural Document PD-04: Assessment of Test Laboratories 
+[8] PD-05 OIML-CS Procedural Document PD-05: Processing an OIML Type Evaluation Report 
+and OIML certificate 
+
+===== [PDF PAGE 24] OIML_B18_2022_OIML-CS_rules =====
+OIML B 18:2022 (E)    
+24
+[9] PD-06 OIML-CS Procedural Document PD -06: Use of  OIML Type Evaluation Reports and 
+OIML certificates 
+[10] VIM (OIML V  2-200:2012) International vocabulary of metrology – Basic and general 
+concepts and associated terms 
+[11] OIML B 6-1:2019 Directives for OIML technical work 
+[12] OIML V 1:2022 International vocabulary of terms in legal metrology (VIML) 
+[13] ISO/IEC 17020:2012 Conformity assessment - Requirements for the operation of various types 
+of bodies performing inspection 
+[14] PD-03 OIML-CS Procedural Document PD -03: Application and approval of OIML Issuing 
+Authorities, Utilizers and Associates 
+[15] ISO/IEC 17025:2017 General requirements for the competence of testing and calibration 
+laboratories 
+[16] OIML D 37:2022 Guide for the application of ISO/IEC 17020 to the assessment of OIML 
+Issuing Authorities under the OIML Certification System 
+  
+
+===== [PDF PAGE 25] OIML_B18_2022_OIML-CS_rules =====
+  OIML B 18:2022 (E) 
+25
+Annex A 
+(Informative) 
+OIML-CS and the functional approach 
+ 
+A.1 The ISO Committee on Conformity Assessment (ISO/CASCO) has developed International 
+Standards and Guides to support conformity assessment. The basic concept under these standards is the 
+Functional Approach as described in ISO/IEC 17000:2020, Annex A [4], which divides conformity 
+assessment into three functions: 
+• selection; 
+• determination; and 
+• review, decision and attestation. 
+A.2 Under the functional approach, ISO/IEC 17065 [6] is a standard for certifying products which 
+includes requirements corresponding to all three functions. Furthermore, ISO/IEC 17065 [6] includes 
+requirements for the processes after attestation. Consequently, it is the preferred standard to be applied 
+by OIML Issuing Authorities to demonstrate their competence under the OIML-CS. 
+A.3 OIML Issuing Authorities can instead choose to apply ISO/IEC 17020 [13] to demonstrate their 
+competence. ISO/IEC 17020 [13] on itself is a standard only for the “determination” function covering 
+only the performance of the inspection. However, with the existence of specific rules detailed in OIML 
+publications (e.g. Recommendations, Guidance and OIML-CS Procedural Documents), the “selection” 
+and “review, decision and attestation” functions, and the processes after attestation can be supplemented. 
+Therefore, in addition to demonstrating compliance with the requirements of ISO/IEC  17020 [13], the 
+OIML Issuing Authority must also demonstrate compliance with the relevant OIML publications, 
+including the additional guidance in OIML D 37 [16] which supplements the specific requirements 
+necessary for operation of the OIML Issuing Authority under the OIML-CS and are included in ISO/IEC 
+17065 [6]. 
+ 
