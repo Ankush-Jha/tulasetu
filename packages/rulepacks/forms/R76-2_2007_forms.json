@@ -1,0 +1,1169 @@
+{
+  "source": "OIML R 76-2:2007 (E) — Non-automatic weighing instruments, Part 2: Test report format",
+  "derivedFrom": {
+    "primary": "docs/standards/extracted/OIML_R76-2_2007_report_format.txt",
+    "crossChecked": "docs/standards/OIML_R76-2_2007_report_format.pdf (pages 9, 10, 12, 13, 16, 19, 20, 24, 25 rendered and visually compared to the extracted text)",
+    "method": "Manual read of the full 62-page extract, page by page, table by table. Column order, formulas and acceptance criteria were copied verbatim from the printed form. Pages with two-dimensional table layouts that the text extraction could mangle (7, 8, 12.x, 14) were additionally verified against the rendered PDF page images."
+  },
+  "markingConvention": {
+    "description": "For each test, the SUMMARY OF TYPE EVALUATION and the CHECKLIST shall be completed according to this example (R 76-2 p.5, Explanatory notes):",
+    "passed": "X in the PASSED column/box",
+    "failed": "X in the FAILED column/box",
+    "notApplicable": "– –",
+    "verbatim": "when the instrument has passed the test: X (in PASSED) / when the instrument has failed the test: X (in FAILED) / when the test is not applicable: – –"
+  },
+  "explanatoryNotes": {
+    "page": 5,
+    "symbols": {
+      "I": "Indication",
+      "In": "nth indication",
+      "L": "Load",
+      "ΔL": "Additional load to next changeover point",
+      "P": "I + ½ e – ΔL = Indication prior to rounding (digital indication)",
+      "E": "I – L  or  = P – L  or  = I + ½ e – ΔL – L  = Error",
+      "Ec": "Corrected error",
+      "mpe": "Maximum permissible error (absolute value)",
+      "EUT": "Equipment under test"
+    },
+    "unitsNote": "The name(s) or symbol(s) of the unit(s) used to express test results shall be specified in each form.",
+    "environmentalHeaderExample": {
+      "verbatim": "The white spaces in boxes in the headings of the report should always be filled in according to the following example: At start / At max / At end — Temp.: 20.5 / (blank) / 21.2 °C ; Rel. h.: %; Time:; Bar. pres.: hPa",
+      "fields": {
+        "Temp.": "temperature",
+        "Rel. h.": "relative humidity",
+        "Bar. pres.": "barometric pressure (necessary for the span stability test and when specified by IEC test provisions; in other cases it may be necessary only for class I instruments)"
+      }
+    },
+    "dateNote": "\"Date\" in the test report refers to the date on which the test was performed.",
+    "disturbanceFaultNote": "In the disturbance tests (12.1 through 12.7), faults greater than e are acceptable provided that they are detected and acted upon, or that they result from circumstances such that these faults shall not be considered as significant (see T.5.5.6 in R 76-1); an appropriate explanation shall be given in the column \"Yes (remarks)\".",
+    "clauseReferenceNote": "Numbers in brackets refer to the corresponding subclauses of OIML R 76-1."
+  },
+  "summaryTable": {
+    "title": "Summary of type evaluation",
+    "page": 9,
+    "columns": ["No.", "Tests", "Report page", "PASSED", "FAILED", "Remarks"],
+    "notes": [
+      "Row 1 (Weighing performance) has a sub-column 'Initial' plus 7 repeated '°C' lines, one per report page for a weighing-performance test that may be run at several temperatures/loads — each repetition is reported on its own page (see R 76-2 Introduction, p.4).",
+      "Row 7 (Stability of equilibrium) has two sub-rows: 'Printing, storage' and 'Zero-setting, tare balancing', matching the two/three sub-tables on form 7.",
+      "Rows 12.2, 12.3, 12.4, 12.7 and 13 have lettered sub-rows a)/b)/(c) that correspond 1:1 with the lettered sub-forms in this file.",
+      "Row 15 (Endurance) only lists sub-rows a) Initial test and c) Final test — b) Performance of the test is a procedural note, not a pass/fail item.",
+      "A row labelled 'EXAMINATIONS' (no data) separates the test rows (1–15) from rows 16–17."
+    ],
+    "rows": [
+      { "id": "1", "test": "Weighing performance", "subrows": ["Initial", "°C", "°C", "°C", "°C", "°C", "°C", "°C"] },
+      { "id": "2", "test": "Temperature effect on no-load indication" },
+      { "id": "3.1", "test": "Eccentricity using weights" },
+      { "id": "3.2", "test": "Eccentricity using a rolling load" },
+      { "id": "4.1", "test": "Discrimination" },
+      { "id": "4.2", "test": "Sensitivity" },
+      { "id": "5", "test": "Repeatability" },
+      { "id": "6.1", "test": "Zero return" },
+      { "id": "6.2", "test": "Creep" },
+      { "id": "7", "test": "Stability of equilibrium", "subrows": ["Printing, storage", "Zero-setting, tare balancing"] },
+      { "id": "8", "test": "Tilting" },
+      { "id": "9", "test": "Tare" },
+      { "id": "10", "test": "Warm-up time" },
+      { "id": "11", "test": "Voltage variations" },
+      { "id": "12.1", "test": "AC mains voltage dips and short interruptions" },
+      { "id": "12.2", "test": "Electrical bursts", "subrows": ["a) Mains power supply lines", "b) I/O circuits and communication lines"] },
+      { "id": "12.3", "test": "Surges", "subrows": ["a) AC mains power supply", "b) Any other kind of power supply lines"] },
+      { "id": "12.4", "test": "Electrostatic discharges", "subrows": ["a) Direct application", "b) Indirect application (contact discharges only)"] },
+      { "id": "12.5", "test": "Immunity to radiated electromagnetic fields" },
+      { "id": "12.6", "test": "Immunity to conducted radio-frequency fields" },
+      { "id": "12.7", "test": "Electrical transients on instruments powered from a road vehicle power supply", "subrows": ["a) Conduction along supply lines of external 12 V and 24 V batteries", "b) Capacitive and inductive coupling via lines other than supply lines"] },
+      { "id": "13", "test": "Damp heat, steady state", "subrows": ["a) Initial test (at reference temperature)", "b) Test at high temperature and 85 % relative humidity", "c) Final test (at reference temperature)"] },
+      { "id": "14", "test": "Span stability" },
+      { "id": "15", "test": "Endurance", "subrows": ["a) Initial test", "c) Final test"] },
+      { "id": "EXAMINATIONS", "test": "EXAMINATIONS", "isSectionHeader": true },
+      { "id": "16", "test": "Examination of the construction" },
+      { "id": "17", "test": "Checklist" }
+    ]
+  },
+  "forms": [
+    {
+      "formId": "1",
+      "title": "Weighing performance",
+      "clause": "(A.4.4) (A.5.3.1)",
+      "clauses": ["A.4.4", "A.5.3.1"],
+      "page": 10,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "correctedError", "label": "Corrected error, Ec", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "mpe", "label": "mpe", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E = I + ½ e – ΔL – L", "Ec = E – E0 with E0 = error calculated at or near zero*"],
+      "acceptance": "Check if |Ec| ≤ |mpe|",
+      "notes": [
+        "(Calculation of the error) subtitle printed under the form title.",
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range / In operation.",
+        "Initial zero-setting > 20 % of Max: Yes / No (see R 76-1, A.4.4.2).",
+        "Columns Indication, Add. load, Error and Corrected error each carry two sub-columns marked ↓ and ↑ for the two directions of loading.",
+        "* marks the row(s) used to determine E0 near zero."
+      ]
+    },
+    {
+      "formId": "2",
+      "title": "Temperature effect on no-load indication",
+      "clause": "(A.5.3.2)",
+      "clauses": ["A.5.3.2"],
+      "page": 11,
+      "kernel": "K4",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": false,
+        "capturesPressure": false,
+        "checkpoints": [],
+        "_note": "This form has no 'At start / At max / At end' header block (unlike most other forms); Temp (°C) is captured per-row inside the observation table itself, alongside Date and Time."
+      },
+      "columns": [
+        { "key": "reportPage", "label": "Report page*", "unit": "text", "kind": "input" },
+        { "key": "date", "label": "Date", "unit": "text", "kind": "input" },
+        { "key": "time", "label": "Time", "unit": "text", "kind": "input" },
+        { "key": "temperature", "label": "Temp (°C)", "unit": "temperature", "kind": "input" },
+        { "key": "zeroIndication", "label": "Zero indication, I", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+        { "key": "p", "label": "P", "unit": "mass", "kind": "computed" },
+        { "key": "deltaP", "label": "ΔP", "unit": "mass", "kind": "computed" },
+        { "key": "deltaTemp", "label": "ΔTemp.", "unit": "temperature", "kind": "computed" },
+        { "key": "zeroChangePerInterval", "label": "Zero-change per … °C", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": [
+        "P = I + ½ e – ΔL",
+        "ΔP = difference of P for two consecutive tests at different temperatures",
+        "ΔTemp. = difference of Temp. for two consecutive tests at different temperatures"
+      ],
+      "acceptance": "Check if the zero-change per 5 °C is smaller than e (class II, III or IIII); Check if the zero-change per 1 °C is smaller than e (class I)",
+      "notes": [
+        "* Give the report page of the relevant weighing test where weighing tests and temperature effect on no-load indication test are conducted together (see R 76-1, Figure 11)."
+      ]
+    },
+    {
+      "formId": "3.1",
+      "title": "Eccentricity using weights",
+      "clause": "(A.4.7) (A.4.7.1, 2 and 3)",
+      "clauses": ["A.4.7", "A.4.7.1", "A.4.7.2", "A.4.7.3"],
+      "page": 12,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "location", "label": "Location", "unit": "count", "kind": "input" },
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed" },
+        { "key": "correctedError", "label": "Corrected error, Ec", "unit": "mass", "kind": "computed" },
+        { "key": "mpe", "label": "mpe", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E = I + ½ e – ΔL – L", "Ec = E – E0 with E0 = error calculated at or near zero* determined prior to each measurement"],
+      "acceptance": "Check if |Ec| ≤ |mpe|",
+      "notes": [
+        "1) Test(s) performed on a mobile instrument (A.4.7.5): Yes / No.",
+        "2) In case of \"Yes\" to 1): A.4.7 and A.4.7.1 to A.4.7.4 have been applied: Yes / No.",
+        "3) In case of \"No\" to 2): Description of eccentricity test(s) (see A.4.7.5) under \"Remarks\".",
+        "Location of test loads: mark on a sketch (example given: positions numbered 1 top-left, 2 top-right, 4 bottom-left, 3 bottom-right) the successive locations of test loads, using numbers repeated in the table.",
+        "Also indicate in the sketch the location of the display or of another perceptible part of the instrument.",
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range (no 'In operation' option on this form, unlike form 1)."
+      ]
+    },
+    {
+      "formId": "3.2",
+      "title": "Eccentricity using a rolling load",
+      "clause": "(A.4.7.4)",
+      "clauses": ["A.4.7.4"],
+      "page": 13,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "section", "label": "Section", "unit": "count", "kind": "input" },
+        { "key": "direction", "label": "Direction (⇐ / ⇒)", "unit": "text", "kind": "input" },
+        { "key": "location", "label": "Location", "unit": "count", "kind": "input" },
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed" },
+        { "key": "correctedError", "label": "Corrected error, Ec", "unit": "mass", "kind": "computed" },
+        { "key": "mpe", "label": "mpe", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E = I + ½ e – ΔL – L", "Ec = E – E0 with E0 = error calculated at or near zero*"],
+      "acceptance": "Check if |Ec| ≤ |mpe|",
+      "notes": [
+        "Number of sections of the divided load receptor, or mark 'Undivided load receptor'.",
+        "Location of test loads for each section of the load receptor: mark on a sketch (example: three positions 1, 2, 3) the successive locations of test loads, using numbers repeated in the table. Also indicate the location of the display.",
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range."
+      ]
+    },
+    {
+      "formId": "4.1.1",
+      "title": "Discrimination — Digital indication",
+      "clause": "(A.4.8.2)",
+      "clauses": ["A.4.8.2"],
+      "page": 14,
+      "kernel": "K2",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row (no explicit '(only class I)' annotation printed on this form, unlike forms 1/3.x)",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication1", "label": "Indication, I1", "unit": "mass", "kind": "input" },
+        { "key": "removedLoad", "label": "Removed load, ΔL", "unit": "mass", "kind": "input" },
+        { "key": "add1_10d", "label": "Add 1/10 d", "unit": "mass", "kind": "input" },
+        { "key": "extraLoad", "label": "Extra load, = 1.4 d", "unit": "mass", "kind": "input" },
+        { "key": "indication2", "label": "Indication, I2", "unit": "mass", "kind": "input" },
+        { "key": "difference", "label": "I2 – I1", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["extra load = 1.4 d"],
+      "acceptance": "Check if I2 – I1 ≥ d",
+      "notes": ["Scale interval, d, recorded alongside the verification scale interval, e."]
+    },
+    {
+      "formId": "4.1.2",
+      "title": "Discrimination — Analog indication",
+      "clause": "(A.4.8.1)",
+      "clauses": ["A.4.8.1"],
+      "page": 14,
+      "kernel": "K2",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication1", "label": "Indication, I1", "unit": "mass", "kind": "input" },
+        { "key": "extraLoad", "label": "Extra load = |mpe|", "unit": "mass", "kind": "input" },
+        { "key": "indication2", "label": "Indication, I2", "unit": "mass", "kind": "input" },
+        { "key": "difference", "label": "I2 – I1", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if I2 – I1 ≥ 0.7 mpe",
+      "notes": []
+    },
+    {
+      "formId": "4.1.3",
+      "title": "Discrimination — Non-self-indicating instrument",
+      "clause": "(A.4.8.1)",
+      "clauses": ["A.4.8.1"],
+      "page": 15,
+      "kernel": "K2",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "extraLoad", "label": "Extra load, = 0.4 |mpe|", "unit": "mass", "kind": "input" },
+        { "key": "visibleDisplacement", "label": "Visible displacement*", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if there is a visible displacement",
+      "notes": ["* Mark a visible displacement by \"+\"."]
+    },
+    {
+      "formId": "4.2",
+      "title": "Sensitivity (non-self-indicating instrument)",
+      "clause": "(A.4.9)",
+      "clauses": ["A.4.9"],
+      "page": 15,
+      "kernel": "K3",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "extraLoad", "label": "Extra load = |mpe|", "unit": "mass", "kind": "input" },
+        { "key": "permanentDisplacement", "label": "Permanent displacement of indicating element", "unit": "displacement", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if the permanent displacement is equal to or greater than: 1 mm for an instrument of accuracy class I or II; 2 mm for an instrument of accuracy class III or IIII with Max ≤ 30 kg; 5 mm for an instrument of accuracy class III or IIII with Max > 30 kg",
+      "notes": ["Three rows for three test loads, displacement recorded in mm each."]
+    },
+    {
+      "formId": "5",
+      "title": "Repeatability",
+      "clause": "(A.4.10)",
+      "clauses": ["A.4.10"],
+      "page": 16,
+      "kernel": "K1",
+      "_kernelNote": "This form is NOT listed under any kernel in CLAUDE.md §5. It uses the K1 error formula (E = I + 1/2 e – ΔL – L) but its acceptance criterion has two independent parts: a) E ≤ mpe (a K1-style check) AND b) Emax – Emin ≤ |mpe| (a spread/range check across 10 repeated weighings that no existing kernel in CLAUDE.md's table captures). Flagged for the team — see report.",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "weighingNo", "label": "No. (1–10, 11–20)", "unit": "count", "kind": "input" },
+        { "key": "indication", "label": "Indication of load, I", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+        { "key": "error", "label": "E", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E = I + 1/2 e – ΔL – L"],
+      "acceptance": "Check if a) E ≤ mpe (3.6 of R 76-1); b) Emax – Emin ≤ absolute value of mpe (3.6.1 of R 76-1)",
+      "notes": [
+        "Automatic zero-setting and zero-tracking device is: Non-existent / In operation (only two options on this form).",
+        "Table is split into two identical panels of 10 rows each: 'Load (weighing 1-10)' and 'Load (weighing 11-20)', each a fixed single load value entered once above its panel.",
+        "Emax – Emin and mpe are recorded separately for each of the two panels (weighing 1-10, weighing 11-20)."
+      ]
+    },
+    {
+      "formId": "6.1",
+      "title": "Zero return",
+      "clause": "(A.4.11.2)",
+      "clauses": ["A.4.11.2"],
+      "page": 17,
+      "kernel": "K4",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "timeOfReading", "label": "Time of reading (0 min / 30 min / 35 min)", "unit": "time", "kind": "input" },
+        { "key": "load0", "label": "Load, L0", "unit": "mass", "kind": "input" },
+        { "key": "indicationOfZero", "label": "Indication of zero, I0", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+        { "key": "p", "label": "P", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["P = I + ½ e – ΔL"],
+      "acceptance": "Check if a) |Δ(P30 – P0)| ≤ 0.5 e; b) |Δ(P35 – P30)| ≤ e1 (for multiple range instruments only)",
+      "notes": [
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range.",
+        "Rows: 0 min (P0), 'Load during 30 minutes = ___', 30 min (P30, with change |Δ(P30 – P0)| computed), and for multiple-range instruments only, 35 min after keeping unloaded a further 5 minutes (P35, with change |Δ(P35 – P30)| computed)."
+      ]
+    },
+    {
+      "formId": "6.2",
+      "title": "Creep",
+      "clause": "(A.4.11.1)",
+      "clauses": ["A.4.11.1"],
+      "page": 18,
+      "kernel": "K4",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "timeOfReading", "label": "Time of reading (0, 5, 15, 30* min, 1h, 2h, 3h, 4h)", "unit": "time", "kind": "input" },
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+        { "key": "p", "label": "P", "unit": "mass", "kind": "computed" },
+        { "key": "deltaP", "label": "ΔP", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["P = I + ½ e – ΔL", "ΔP = difference between P at the start (0 min) and P at a given time."],
+      "acceptance": "Check if condition a) or b) is fulfilled. a) ΔP ≤ 0.5 e after 30 minutes; and ΔP ≤ 0.2 e between the indication obtained at 15 minutes and that at 30 minutes. b) ΔP ≤ absolute value of mpe during the period of 4 hours",
+      "notes": ["* If condition a) is met, the test is terminated. If not, the test shall be continued for the next 3.5 hours and condition b) shall be met."]
+    },
+    {
+      "formId": "7",
+      "title": "Stability of equilibrium",
+      "clause": "(A.4.12)",
+      "clauses": ["A.4.12"],
+      "page": 19,
+      "kernel": "K1",
+      "_kernelNote": "This form does NOT match K1's formula/acceptance pattern cleanly, and it is NOT listed under K1 in CLAUDE.md §5 at all. It has two independent checks, neither of which is 'error vs mpe from the resolver': (i) printing/storage — a fixed 1e deviation check on raw readings, no E/Ec computed; (ii) zero-setting/tare-balancing — uses the K1-shaped formula E0 = I0 + ½e – ΔL – L0 but checks against a FIXED 0.25e threshold, not the class/load-band mpe. CLAUDE.md's K4 row lists 'stability' as a K4 (time-dependence) user, but nothing on this form is time-based — that reference more likely means form 14 'Span stability', not this form. Flagged for the team — see report.",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [],
+      "subforms": [
+        {
+          "id": "printingStorage",
+          "title": "In the case of printing or data storage",
+          "columns": [
+            { "key": "no", "label": "No.", "unit": "count", "kind": "input" },
+            { "key": "load", "label": "Load (about 50 % of Max)", "unit": "mass", "kind": "input" },
+            { "key": "firstPrintedOrStoredValue", "label": "First printed or stored weight value after disturbance and command", "unit": "mass", "kind": "input" },
+            { "key": "readingMin", "label": "Reading during 5 s after print-out or storage — minimum value", "unit": "mass", "kind": "input" },
+            { "key": "readingMax", "label": "Reading during 5 s after print-out or storage — maximum value", "unit": "mass", "kind": "input" }
+          ],
+          "formulas": [],
+          "acceptance": "Check if the first printed or stored weight value does not deviate more than 1 e from the readings during 5 seconds after print-out or storage (only two adjacent values allowed)",
+          "rows": 5
+        },
+        {
+          "id": "zeroSetting",
+          "title": "Zero-setting",
+          "columns": [
+            { "key": "no", "label": "No.*", "unit": "count", "kind": "input" },
+            { "key": "zeroLoad", "label": "Zero-load (< 4 % of Max)", "unit": "mass", "kind": "input" },
+            { "key": "load0", "label": "Load, L0** (10 e)", "unit": "mass", "kind": "input" },
+            { "key": "indicationAfterZeroSetting", "label": "Indication, I0 after zero-setting", "unit": "mass", "kind": "input" },
+            { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+            { "key": "error0", "label": "Error, E0", "unit": "mass", "kind": "computed" }
+          ],
+          "formulas": ["E0 = I0 + ½ e – ΔL – L0"],
+          "acceptance": "Check if E0 ≤ 0.25 e",
+          "rows": 5
+        },
+        {
+          "id": "tareBalancing",
+          "title": "Tare balancing",
+          "columns": [
+            { "key": "no", "label": "No.*", "unit": "count", "kind": "input" },
+            { "key": "tareLoad", "label": "Tare load (about 30 % of Max)", "unit": "mass", "kind": "input" },
+            { "key": "load0", "label": "Load, L0** (10 e)", "unit": "mass", "kind": "input" },
+            { "key": "indicationAfterTareBalancing", "label": "Indication, I0 after tare balancing", "unit": "mass", "kind": "input" },
+            { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+            { "key": "error0", "label": "Error, E0", "unit": "mass", "kind": "computed" }
+          ],
+          "formulas": ["E0 = I0 + ½ e – ΔL – L0"],
+          "acceptance": "Check if E0 ≤ 0.25 e",
+          "rows": 5
+        }
+      ],
+      "formulas": ["E0 = I0 + ½ e – ΔL – L0"],
+      "acceptance": "See per-subform acceptance: printing/storage ≤ 1 e deviation; zero-setting and tare balancing each E0 ≤ 0.25 e",
+      "notes": [
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range / In operation.",
+        "* Apply the zero or tare load, disturb the equilibrium and immediately release zero-setting or tare, apply L0 if necessary and calculate the error according to A.4.2.3/A.4.6.2 of R 76-1. Perform this five times.",
+        "** L0 (10 e) shall be applied only if an automatic zero-setting or zero-tracking device is in operation. L0 shall be applied after releasing tare or zero-setting, immediately after zero is displayed the first time.",
+        "The printing/storage sub-table and the zero-setting/tare-balancing sub-tables each have their own Passed/Failed boxes on the form."
+      ]
+    },
+    {
+      "formId": "8",
+      "title": "Tilting",
+      "clause": "(A.5.1, A.5.1.1-A.5.1.3)",
+      "clauses": ["A.5.1", "A.5.1.1", "A.5.1.2", "A.5.1.3"],
+      "page": 20,
+      "kernel": "K1",
+      "_kernelNote": "Tilting is NOT listed under any kernel in CLAUDE.md §5 at all — a gap. It uses the K1-shaped formula (Ev = Iv + ½e – ΔLv – L) but the unloaded-instrument check compares to a fixed 2e, not to mpe; only the loaded-instrument check compares to mpe. Flagged for the team — see report.",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "loadCondition", "label": "Load, L (row groups: unloaded / L= / (Max))", "unit": "mass", "kind": "input" },
+        { "key": "position", "label": "Position (1 = reference position; 2–5 = tilted position with the limiting value of tilting)", "unit": "count", "kind": "input" },
+        { "key": "indication", "label": "Iv = Indication", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad", "label": "ΔLv = additional load", "unit": "mass", "kind": "input" },
+        { "key": "error", "label": "Ev (unloaded row: Ev0)", "unit": "mass", "kind": "computed" },
+        { "key": "correctedError", "label": "Ecv = Ev – Ev0 (loaded rows only)", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": [
+        "Ev = Iv + ½ e – ΔLv – L (v = 1, 2, 3, 4, 5)",
+        "Ecv = Ev – Ev0 with Ev0 = error calculated at or near zero"
+      ],
+      "acceptance": "Check if the differences are a) ≤ 2 e for the unloaded instrument (not valid for class II instruments, if they are not used for direct sales to the public); b) ≤ absolute value of mpe for the loaded instrument",
+      "notes": [
+        "Table is a 3×5 matrix: 3 load-condition row-groups (unloaded, L=, (Max)) × 5 tilt positions (position 1 = reference, positions 2–5 = tilted, each with the limiting value of tilting, shown with distinct tilt-direction icons).",
+        "Unloaded row records |E10 – Ev0|max and compares to 2e.",
+        "Loaded rows (L and Max) each record mpe and |Ec1 – Ecv|max, compared to mpe.",
+        "Instrument-type checkboxes: Instrument with leveling device and level indicator / Instrument with automatic tilt sensor / Instrument without level indicator or automatic tilt sensor / Mobile instrument with automatic tilt sensor / Mobile instrument with Cardanic suspension.",
+        "Limiting value of tilting recorded as a single numeric field.",
+        "A sketch of the load receptor showing the location of the level indicator or direction of tilting may be attached on a separate sheet.",
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range."
+      ]
+    },
+    {
+      "formId": "9",
+      "title": "Tare (weighing test)",
+      "clause": "(A.4.6.1)",
+      "clauses": ["A.4.6.1"],
+      "page": 21,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "correctedError", "label": "Corrected error, Ec", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "mpe", "label": "mpe", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E = I + ½ e – ΔL – L", "Ec = E – E0 with E0 = error calculated at or near zero*"],
+      "acceptance": "Check if |Ec| ≤ |mpe|",
+      "notes": [
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range / In operation.",
+        "Table has two row-blocks labelled 'First tare load' and 'Second tare load'."
+      ]
+    },
+    {
+      "formId": "10",
+      "title": "Warm-up time",
+      "clause": "(A.5.2)",
+      "clauses": ["A.5.2"],
+      "page": 22,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "time", "label": "Time* (0, 5, 15, 30 min)", "unit": "time", "kind": "input" },
+        { "key": "loadCondition", "label": "Load, L (Unloaded / Loaded)", "unit": "text", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed" },
+        { "key": "elMinusE0", "label": "EL – E0", "unit": "mass", "kind": "computed" },
+        { "key": "mpe", "label": "mpe =", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": [
+        "E = I + ½ e – ΔL – L",
+        "E0 = error calculated prior to each measurement at or near zero (unloaded)",
+        "EL = error calculated at load (loaded)"
+      ],
+      "acceptance": "Check if |EL – E0| ≤ |mpe|",
+      "notes": [
+        "Duration of disconnection before test recorded in hours.",
+        "* Time counted from the moment an indication has first appeared.",
+        "For each time point (0, 5, 15, 30 min) both an Unloaded reading and a Loaded reading are recorded (two rows per time point).",
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range / In operation."
+      ]
+    },
+    {
+      "formId": "11",
+      "title": "Voltage variations",
+      "clause": "(A.5.4)",
+      "clauses": ["A.5.4"],
+      "page": 23,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "pressureNote": "Bar. pres. row marked '(only class I)'",
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "voltage", "label": "Voltage U, (V)", "unit": "voltage", "kind": "input" },
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed" },
+        { "key": "correctedError", "label": "Corrected error, Ec", "unit": "mass", "kind": "computed" },
+        { "key": "mpe", "label": "mpe", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E = I + ½ e – ΔL – L", "Ec = E – E0 with E0 = error calculated at or near zero"],
+      "acceptance": "Check if |Ec| ≤ |mpe|",
+      "notes": [
+        "Power-supply-type checkboxes: Mains power supply (AC), A.5.4.1 / External or plug-in power supply device (AC or DC), A.5.4.2 / Rechargeable battery power supply, (re)charge during operation possible, A.5.4.2 / Non-rechargeable and rechargeable battery power supply, (re)charge during operation not possible, A.5.4.3 / 12 V or 24 V road vehicle battery power supply, A.5.4.4.",
+        "Unom, Umin, Umax recorded; 'Calculate lower and upper limits of applied voltages according to A.5.4. If a voltage-range (Umin/Umax) is marked, use the average value as reference value.'",
+        "Each of the three rows (Reference value, Lower limit, Upper limit) records a minimum load of 10 e.",
+        "The form has two identical tables, each preceded by a 'Category of power supply (if an instrument has more than one power supply)' free-text line — for instruments with more than one power supply.",
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range / In operation."
+      ]
+    },
+    {
+      "formId": "12.1",
+      "title": "Electrical disturbances — AC mains voltage dips and short interruptions",
+      "clause": "(B.3.1)",
+      "clauses": ["B.3.1"],
+      "page": 24,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load", "unit": "mass", "kind": "input" },
+        { "key": "amplitude", "label": "Amplitude of Utest", "unit": "percent", "kind": "input" },
+        { "key": "durationCycles", "label": "Duration / number of cycles", "unit": "count", "kind": "input" },
+        { "key": "numberOfDisturbances", "label": "Number of disturbances ≥ 10", "unit": "count", "kind": "input" },
+        { "key": "repetitionInterval", "label": "Repetition interval (s) ≥ 10 s", "unit": "time", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (see remarks)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred",
+      "notes": [
+        "Mains power supply voltage Unom, Umin, Umax and power supply voltage for the test Utest (= Unom or the average value of Umin and Umax) recorded at top.",
+        "First row is a baseline 'Without disturbance' reading.",
+        "Fixed test sequence printed on the form: 0 % / 0.5 cycles; 0 % / 1 cycle; 40 % / 10 cycles; 70 % / 25 cycles; 80 % / 250 cycles; 0 % / 250 cycles."
+      ]
+    },
+    {
+      "formId": "12.2a",
+      "title": "Electrical bursts — a) Mains power supply lines",
+      "clause": "(B.3.2)",
+      "clauses": ["B.3.2"],
+      "page": 25,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load", "unit": "mass", "kind": "input" },
+        { "key": "burstToGroundL", "label": "Bursts on connection: L → ground", "unit": "boolean", "kind": "input" },
+        { "key": "burstToGroundN", "label": "Bursts on connection: N → ground", "unit": "boolean", "kind": "input" },
+        { "key": "burstToGroundPE", "label": "Bursts on connection: PE → ground", "unit": "boolean", "kind": "input" },
+        { "key": "polarity", "label": "Polarity (positive / negative)", "unit": "text", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (see remarks)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred",
+      "notes": [
+        "Test voltage (bursts) on each connection of the mains power supply lines: 1 kV.",
+        "Duration of the test at connection and each polarity: 1 min.",
+        "L = phase, N = neutral, PE = protective earth.",
+        "Each connection (L, N, PE) has its own 'Without disturbance' baseline row plus positive/negative polarity rows."
+      ]
+    },
+    {
+      "formId": "12.2b",
+      "title": "Electrical bursts — b) I/O circuits and communication lines",
+      "clause": "(B.3.2)",
+      "clauses": ["B.3.2"],
+      "page": 26,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load", "unit": "mass", "kind": "input" },
+        { "key": "cableInterface", "label": "Bursts on cable/interface (Type, nature) — no. 1–9", "unit": "text", "kind": "input" },
+        { "key": "polarity", "label": "Polarity/disturbance (positive / negative)", "unit": "text", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (see remarks)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred",
+      "notes": [
+        "Test voltage (bursts) on each cable/interface (I/O signals, data and control lines): 0.5 kV.",
+        "Duration of the test at each cable/interface and each polarity: 1 min.",
+        "Up to 9 cables/interfaces, each with its own 'Without disturbance' baseline plus positive/negative rows.",
+        "Explain or make a sketch indicating where the clamp is located on the cable; if necessary, use additional page."
+      ]
+    },
+    {
+      "formId": "12.3a",
+      "title": "Surges — a) AC mains power supply",
+      "clause": "(B.3.3)",
+      "clauses": ["B.3.3"],
+      "page": 27,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load", "unit": "mass", "kind": "input" },
+        { "key": "applyOn", "label": "Surge amplitude/apply on (L→N 0.5 kV / L→PE 1 kV / N→PE 1 kV)", "unit": "text", "kind": "input" },
+        { "key": "angle", "label": "Synchronization angle (0° / 90° / 180° / 270°)", "unit": "angle", "kind": "input" },
+        { "key": "polarity", "label": "Polarity (positive / negative)", "unit": "text", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (see remarks)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred",
+      "notes": [
+        "3 positive and 3 negative surges synchronously with AC supply voltage angle, applied at 0°, 90°, 180° and 270°.",
+        "Surge locations and amplitudes: L→N at 0.5 kV; L→PE at 1 kV; N→PE at 1 kV, each with its own 'Without disturbance' baseline row.",
+        "L = phase, N = neutral, PE = protective earth."
+      ]
+    },
+    {
+      "formId": "12.3b",
+      "title": "Surges — b) Any other kind of power supply",
+      "clause": "(B.3.3)",
+      "clauses": ["B.3.3"],
+      "page": 28,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load", "unit": "mass", "kind": "input" },
+        { "key": "applyOn", "label": "Apply on (L→N / L→PE / N→PE)", "unit": "text", "kind": "input" },
+        { "key": "amplitude", "label": "Amplitude (0.5 kV / 1 kV)", "unit": "voltage", "kind": "input" },
+        { "key": "polarity", "label": "Polarity (positive / negative)", "unit": "text", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (see remarks)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred",
+      "notes": [
+        "Kind or type of power supply checkboxes: DC / Other form, with a Voltage field.",
+        "3 positive and 3 negative surges.",
+        "L = positive conductor, N = negative or neutral conductor, PE = protective earth."
+      ]
+    },
+    {
+      "formId": "12.4a",
+      "title": "Electrostatic discharges — a) Direct application",
+      "clause": "(B.3.4)",
+      "clauses": ["B.3.4"],
+      "page": 29,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load", "unit": "mass", "kind": "input" },
+        { "key": "testVoltage", "label": "Test voltage (kV)", "unit": "voltage", "kind": "input" },
+        { "key": "polarity", "label": "Polarity (positive / negative)", "unit": "text", "kind": "input" },
+        { "key": "numberOfDischarges", "label": "Number of discharges ≥ 10", "unit": "count", "kind": "input" },
+        { "key": "repetitionInterval", "label": "Repetition interval ≥ 10 s", "unit": "time", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (remarks, test points)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred",
+      "notes": [
+        "Checkboxes: Contact discharge / Paint penetration; Air discharges.",
+        "Discharge sequence: 2, 4, 6, 8 (air discharges) positive; then 2, 4, 6, 8 (air discharges) negative, each with its own 'Without disturbance' baseline row.",
+        "Note: If the EUT fails, the test point at which this occurs shall be recorded.",
+        "'Specification of test points of EUT (direct application), e.g. by photos or sketches' is captured on a following page (Contact discharges / Air discharges)."
+      ]
+    },
+    {
+      "formId": "12.4b",
+      "title": "Electrostatic discharges — b) Indirect application (contact discharges only)",
+      "clause": "(B.3.4)",
+      "clauses": ["B.3.4"],
+      "page": 30,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "couplingPlane", "label": "Coupling plane (Horizontal / Vertical)", "unit": "text", "kind": "input" },
+        { "key": "load", "label": "Load", "unit": "mass", "kind": "input" },
+        { "key": "testVoltage", "label": "Test voltage (kV)", "unit": "voltage", "kind": "input" },
+        { "key": "polarity", "label": "Polarity (positive / negative)", "unit": "text", "kind": "input" },
+        { "key": "numberOfDischarges", "label": "Number of discharges ≥ 10", "unit": "count", "kind": "input" },
+        { "key": "repetitionInterval", "label": "Repetition interval ≥ 10 s", "unit": "time", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (remarks, test points)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred",
+      "notes": [
+        "Two identical sub-tables, one for the Horizontal coupling plane and one for the Vertical coupling plane.",
+        "Each plane's discharge sequence: 2, 4, 6 positive; 2, 4, 6 negative, each with its own 'Without disturbance' baseline row.",
+        "Note: If the EUT fails, the test point at which this occurs shall be recorded."
+      ]
+    },
+    {
+      "formId": "12.5",
+      "title": "Immunity to radiated electromagnetic fields",
+      "clause": "(B.3.5)",
+      "clauses": ["B.3.5"],
+      "page": 32,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load", "unit": "mass", "kind": "input" },
+        { "key": "antenna", "label": "Antenna", "unit": "text", "kind": "input" },
+        { "key": "frequencyRange", "label": "Frequency range (MHz)", "unit": "frequency", "kind": "input" },
+        { "key": "polarization", "label": "Polarization (Vertical / Horizontal)", "unit": "text", "kind": "input" },
+        { "key": "facingEUT", "label": "Facing EUT (Front / Right / Left / Rear)", "unit": "text", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (remarks)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred",
+      "notes": [
+        "Checkboxes: 'Frequency range 26-2000 MHz if the test according to B.3.6 cannot be applied (no mains or I/O ports available)' / 'Frequency range 80-2000 MHz if the test according to B.3.6 is performed (see form no. 12.6)'.",
+        "Rate of sweep and material of load recorded as free text.",
+        "For each polarization (Vertical, Horizontal), 4 facing directions (Front, Right, Left, Rear) are tested, each with a 'Without disturbance' baseline.",
+        "Fixed test parameters printed on the form: Frequency range 26-2000 MHz or 80-2000 MHz; Field strength: 10 V/m; Modulation: 80 % AM, 1 kHz, sine wave.",
+        "Note: If EUT fails, the frequency at which this occurs shall be recorded.",
+        "'Description of the set-up of EUT, e.g. by photos or sketches' captured on a following page."
+      ]
+    },
+    {
+      "formId": "12.6",
+      "title": "Immunity to conducted radio-frequency fields",
+      "clause": "(B.3.6)",
+      "clauses": ["B.3.6"],
+      "page": 34,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "cableInterface", "label": "Cable / Interface", "unit": "text", "kind": "input" },
+        { "key": "frequencyRange", "label": "Frequency range (MHz)", "unit": "frequency", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (remarks)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred. Note: If the EUT fails, the frequency at which this occurs shall be recorded",
+      "notes": [
+        "Rate of sweep, Load and Material of load recorded as free text.",
+        "10 rows, each preceded by a 'without disturbance' baseline reading.",
+        "Fixed test parameters printed on the form: Frequency range 0.15-80 MHz; RF amplitude (50 ohms): 10 V (e.m.f.); Modulation: 80 % AM, 1 kHz, sine wave."
+      ]
+    },
+    {
+      "formId": "12.7a",
+      "title": "Electrical transients on instruments powered from a road vehicle power supply — a) Conduction along supply lines of external 12 V and 24 V batteries",
+      "clause": "(B.3.7)",
+      "clauses": ["B.3.7"],
+      "page": 35,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "batteryVoltage", "label": "Battery voltage (12 V / 24 V)", "unit": "voltage", "kind": "input" },
+        { "key": "load", "label": "Load", "unit": "mass", "kind": "input" },
+        { "key": "testPulse", "label": "Test pulse (2a / 2b* / 3a / 3b / 4)", "unit": "text", "kind": "input" },
+        { "key": "conductedVoltage", "label": "Conducted voltage", "unit": "voltage", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (remarks)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred",
+      "notes": [
+        "12 V battery test pulses and fixed conducted voltages printed on the form: 2a +50 V, 2b* +10 V, 3a –150 V, 3b +100 V, 4 –7 V.",
+        "24 V battery test pulses and fixed conducted voltages printed on the form: 2a +50 V, 2b* +20 V, 3a –200 V, 3b +200 V, 4 –16 V.",
+        "* Test pulse 2b is only applicable if the measuring instrument may be connected to the battery via the main (ignition) switch of the car, i.e. if the manufacturer of the measuring instrument has not specified that the instrument is to be connected directly (or by its own main switch) to the battery.",
+        "Each battery-voltage table has its own 'Without disturbance' baseline row."
+      ]
+    },
+    {
+      "formId": "12.7b",
+      "title": "Electrical transients on instruments powered from a road vehicle power supply — b) Capacitive and inductive coupling via lines other than supply lines",
+      "clause": "(B.3.7)",
+      "clauses": ["B.3.7"],
+      "page": 36,
+      "kernel": "K5",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "batteryVoltage", "label": "Battery voltage (12 V / 24 V)", "unit": "voltage", "kind": "input" },
+        { "key": "kindOfOtherLines", "label": "Kind or type of other lines (no power supply lines)", "unit": "text", "kind": "input" },
+        { "key": "load", "label": "Load", "unit": "mass", "kind": "input" },
+        { "key": "testPulse", "label": "Test pulse (a / b)", "unit": "text", "kind": "input" },
+        { "key": "conductedVoltage", "label": "Conducted voltage", "unit": "voltage", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input" },
+        { "key": "significantFaultNo", "label": "Significant fault (> e) or detection and reaction — No", "unit": "boolean", "kind": "input" },
+        { "key": "significantFaultYes", "label": "Significant fault (> e) or detection and reaction — Yes (remarks)", "unit": "boolean", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": "Check if a significant fault occurred. Note: If EUT fails, the frequency at which this occurs shall be recorded",
+      "_uncertain": true,
+      "notes": [
+        "12 V battery test pulses printed on the form: a –60 V, b +40 V (repeated for up to 3 different 'other lines').",
+        "24 V battery test pulses printed on the form: a –80 V, b +80 V.",
+        "The printed acceptance note says 'If EUT fails, the frequency at which this occurs shall be recorded' — but this is a voltage-transient test with no frequency parameter; this appears to be copy-pasted verbatim from the RF-immunity forms (12.5/12.6) and is transcribed here exactly as printed, flagged as likely an error in the standard itself rather than an extraction artifact."
+      ]
+    },
+    {
+      "formId": "13a",
+      "title": "Damp heat, steady state — a) Initial test (at reference temperature)",
+      "clause": "(B.2)",
+      "clauses": ["B.2"],
+      "page": 37,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "correctedError", "label": "Corrected error, Ec", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "mpe", "label": "mpe", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E = I + ½ e – ΔL – L", "Ec = E – E0 with E0 = error calculated at or near zero*"],
+      "acceptance": "Check if |Ec| ≤ |mpe|",
+      "notes": ["Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range / In operation."]
+    },
+    {
+      "formId": "13b",
+      "title": "Damp heat, steady state — b) Test at high temperature and 85 % relative humidity",
+      "clause": "(B.2)",
+      "clauses": ["B.2"],
+      "page": 38,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "correctedError", "label": "Corrected error, Ec", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "mpe", "label": "mpe", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E = I + ½ e – ΔL – L", "Ec = E – E0 with E0 = error calculated at or near zero*"],
+      "acceptance": "Check if |Ec| ≤ |mpe|",
+      "notes": [
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range / In operation.",
+        "The first data row's asterisk marks are printed as '*' then '(*)' (parenthesized) rather than '*'/'*' as on the other K1 forms — transcribed verbatim; meaning of the parentheses is not explained in the extracted text."
+      ]
+    },
+    {
+      "formId": "13c",
+      "title": "Damp heat, steady state — c) Final test (at reference temperature)",
+      "clause": "(B.2)",
+      "clauses": ["B.2"],
+      "page": 39,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "correctedError", "label": "Corrected error, Ec", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "mpe", "label": "mpe", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E = I + ½ e – ΔL – L", "Ec = E – E0 with E0 = error calculated at or near zero*"],
+      "acceptance": "Check if |Ec| ≤ |mpe|",
+      "notes": ["Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range / In operation."]
+    },
+    {
+      "formId": "14",
+      "title": "Span stability",
+      "clause": "(B.4)",
+      "clauses": ["B.4"],
+      "page": 40,
+      "kernel": "K1",
+      "_kernelNote": "Span stability's acceptance criterion is the ONLY one among the K1-tagged forms that does NOT reference 'mpe' at all — it is a graphical check of average error against fixed bands of ±0.5e / ±1e / ±1.5e ('Maximum allowable variation'), read directly off a plotted chart, not resolved via the class/load-band mpe resolver. This is a meaningful divergence from CLAUDE.md's description of K1 ('pass if |Ec| ≤ mpe') and from design rule #2 ('never hardcode a threshold') — here the standard's own form hardcodes the e-multiples. Flagged for the team — see report.",
+      "_uncertain": true,
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"],
+        "_note": "Header block repeats once per 'Measurement no. N' sub-section (there are at least 2, printed up to 8, with extension rows for more), not once for the whole form."
+      },
+      "columns": [
+        { "key": "no", "label": "No. (1–5)", "unit": "count", "kind": "input" },
+        { "key": "indicationOfZero", "label": "Indication of zero, I0", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad0", "label": "Add. load, ΔL0", "unit": "mass", "kind": "input" },
+        { "key": "error0", "label": "E0", "unit": "mass", "kind": "computed" },
+        { "key": "indicationOfLoad", "label": "Indication of load, IL", "unit": "mass", "kind": "input" },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input" },
+        { "key": "errorL", "label": "EL", "unit": "mass", "kind": "computed" },
+        { "key": "elMinusE0", "label": "EL – E0", "unit": "mass", "kind": "computed" },
+        { "key": "correctedValue", "label": "Corrected value*", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E0 = I0 + ½ e – ΔL0 – L0", "EL = IL + ½ e – ΔL – L"],
+      "acceptance": "No explicit 'Check if |Ec| ≤ mpe' line is printed on this form. Instead: (i) per measurement, 'If |(EL – E0)max – (EL – E0)min| ≤ 0.1 e, the loading and reading will be sufficient for each of the subsequent measurements; if not, five loadings and readings shall be performed at each measurement'; (ii) overall pass/fail is read from a plot of average error per measurement against 'Maximum allowable variation' bands of +1.5e, +1e, +0.5e, 0, –0.5e, –1e, –1.5e.",
+      "notes": [
+        "Zero load and Test load recorded once at the top of the form.",
+        "Automatic span adjustment device: Existent / Non-existent; each measurement records whether it was activated.",
+        "Measurement no. 1 is the 'Initial measurement'; subsequent measurements (no. 2, 3, ... up to 8 shown, extensible) each record which condition triggered the re-measurement: after temperature test / after damp heat test / after disconnection from mains / after change in test location / other condition (free text).",
+        "'* When applicable, necessary corrections resulting from variations of temperature, pressure, etc. See remarks.'",
+        "Average error = average (EL – E0) computed for measurement 1 always; for subsequent measurements only if five loadings/readings were performed.",
+        "Final page: a graph plots the average error (y-axis, in bands of ±0.5e/±1e/±1.5e labelled 'Maximum allowable variation') against Measurement no. (x-axis, 1–8), with points marked T (temperature test), D (damp heat test), P (disconnection from mains). This page's text extraction is visually jumbled (Passed/Failed boxes and axis labels interleaved) — treated as _uncertain; the layout was inferred from context, not confirmed against the rendered PDF page for this specific page (45)."
+      ]
+    },
+    {
+      "formId": "15a",
+      "title": "Endurance — a) Initial test",
+      "clause": "(A.6)",
+      "clauses": ["A.6"],
+      "page": 46,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "correctedError", "label": "Corrected error, Ec", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "mpe", "label": "mpe", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": ["E = I + ½ e – ΔL – L", "Ec = E – E0 with E0 = error calculated at or near zero*"],
+      "acceptance": null,
+      "notes": [
+        "This page records baseline data only — no 'Check if...' acceptance line or Passed/Failed boxes are printed on the Initial test page itself; the acceptance check appears only on the Final test page (15c), which compares initial and final corrected errors.",
+        "Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range / In operation."
+      ]
+    },
+    {
+      "formId": "15b",
+      "title": "Endurance — b) Performance of the test",
+      "clause": "(A.6)",
+      "clauses": ["A.6"],
+      "page": 47,
+      "kernel": null,
+      "environmental": { "capturesTemperature": false, "capturesHumidity": false, "capturesPressure": false, "checkpoints": [] },
+      "columns": [
+        { "key": "numberOfLoadings", "label": "Number of loadings", "unit": "count", "kind": "input" },
+        { "key": "loadApplied", "label": "Load applied", "unit": "mass", "kind": "input" }
+      ],
+      "formulas": [],
+      "acceptance": null,
+      "notes": ["Purely procedural — two free-entry fields, no observation table, no pass/fail."]
+    },
+    {
+      "formId": "15c",
+      "title": "Endurance — c) Final test",
+      "clause": "(A.6)",
+      "clauses": ["A.6"],
+      "page": 47,
+      "kernel": "K1",
+      "environmental": {
+        "capturesTemperature": true,
+        "capturesHumidity": true,
+        "capturesPressure": true,
+        "checkpoints": ["At start", "At max", "At end"]
+      },
+      "columns": [
+        { "key": "load", "label": "Load, L", "unit": "mass", "kind": "input" },
+        { "key": "indication", "label": "Indication, I", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "additionalLoad", "label": "Add. load, ΔL", "unit": "mass", "kind": "input", "subcolumns": ["↓", "↑"] },
+        { "key": "error", "label": "Error, E", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "correctedError", "label": "Corrected error, Ec", "unit": "mass", "kind": "computed", "subcolumns": ["↓", "↑"] },
+        { "key": "mpe", "label": "mpe", "unit": "mass", "kind": "computed" },
+        { "key": "durabilityError", "label": "Durability error due to wear and tear**", "unit": "mass", "kind": "computed" }
+      ],
+      "formulas": [
+        "E = I + ½ e – ΔL – L",
+        "Ec = E – E0 with E0 = error calculated at or near zero*",
+        "Durability error due to wear and tear = |Ec initial – Ec final|**"
+      ],
+      "acceptance": "Check if the durability error due to wear and tear is ≤ mpe",
+      "notes": ["Automatic zero-setting and zero-tracking device is: Non-existent / Not in operation / Out of working range / In operation."]
+    },
+    {
+      "formId": "16",
+      "title": "Examination of the construction of the instrument",
+      "clause": null,
+      "clauses": [],
+      "page": 48,
+      "kernel": null,
+      "environmental": { "capturesTemperature": false, "capturesHumidity": false, "capturesPressure": false, "checkpoints": [] },
+      "columns": [],
+      "formulas": [],
+      "acceptance": null,
+      "notes": [
+        "Free-text page: 'Use this page to indicate any description or information pertaining to the instrument, additional to that already contained in this report and in the accompanying national type approval or OIML Certificate. This may include a picture of the complete instrument, a description of its main components, and any remark which could be useful for authorities responsible for the initial or subsequent verification of individual instruments built according to the type. It may also include references to the manufacturer.'",
+        "No computed fields, no pass/fail."
+      ]
+    },
+    {
+      "formId": "17",
+      "title": "Checklist",
+      "clause": null,
+      "clauses": [],
+      "page": 49,
+      "kernel": null,
+      "environmental": { "capturesTemperature": false, "capturesHumidity": false, "capturesPressure": false, "checkpoints": [] },
+      "columns": [],
+      "formulas": [],
+      "acceptance": null,
+      "notes": [
+        "Full item-by-item content is in packages/rulepacks/checklists/R76-2_2007_checklist.json (deliverable 2), not repeated here.",
+        "Four sub-checklists: 17.1 (p.50), 17.2 (p.57), 17.3 (p.60), 17.4 (p.61)."
+      ]
+    }
+  ]
+}
