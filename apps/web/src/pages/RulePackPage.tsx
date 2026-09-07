@@ -16,6 +16,7 @@ import {
   Card,
   CardHeader,
   Clause,
+  Disclosure,
   ErrorState,
   Icon,
   LoadingState,
@@ -160,9 +161,10 @@ export function RulePackPage() {
           </TableWrap>
         </Card>
 
-        {/* Tests */}
-        <Card padded={false}>
-          <div className="p-5 pb-0">
+        {/* Tests — reference material, so behind a disclosure rather than three screens of table. */}
+        <Disclosure summary={`All ${p.tests?.length ?? 0} tests, their kernels and applicability predicates`}>
+        <Card padded={false} elevation="none">
+          <div className="p-1 pb-0">
             <CardHeader
               icon="fact_check"
               title="Tests and their applicability"
@@ -205,10 +207,12 @@ export function RulePackPage() {
             </tbody>
           </TableWrap>
         </Card>
+        </Disclosure>
 
         {/* Kernel params */}
         {Object.keys(kernelParams).length > 0 && (
-          <Card>
+          <Disclosure summary={`Kernel parameters — the ${Object.keys(kernelParams).length} threshold groups the kernels read`}>
+          <Card elevation="none">
             <CardHeader
               icon="tune"
               title="Kernel parameters"
@@ -238,6 +242,7 @@ export function RulePackPage() {
               ))}
             </div>
           </Card>
+          </Disclosure>
         )}
       </div>
     </>

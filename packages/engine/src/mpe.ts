@@ -155,3 +155,88 @@ export function resolveMpe(
     clause: (pack["mpe_clause"] as string | undefined) ?? "R 76-1:2006 §3.3 & §3.5.1 (Table 6)",
   };
 }
+
+// ---------------------------------------------------------------------------
+// The whole band table for an instrument
+// ---------------------------------------------------------------------------
+
+/** One contiguous stretch of load over which a single permissible error applies. */
+export interface MpeBandInterval {
+  /** Exclusive at the low end except for the first band, which starts at zero. */
+  fromLoad: number;
+  /** Inclusive. */
+  toLoad: number;
+  /** The permissible error over that stretch, unsigned, in the profile's unit. */
+  mpe: number;
+  factor: 0.5 | 1.0 | 1.5;
+  /** The verification scale interval in force — e_i of the partial range. */
+  e: number;
+  rangeIndex: number;
+  /** True where this band begins because the partial range changed, not the load. */
+  startsNewRange: boolean;
+}
+
+/**
+ * Every permissible-error band an instrument has, end to end.
+ *
+ * `resolveMpe` answers "what is the limit at this load". This answers "what are all the
+ * limits, and where does each one start and stop" — which is what a staircase needs, and what
+ * an officer needs before recording anything, so they can see the shoulders coming.
+ *
+ * On R 76-1 §3.3's worked example (Max 2 / 5 / 15 kg, e = 1 / 2 / 10 g, class III) this
+ * returns exactly the five rows the standard prints:
+ *
+ *     0 – 500 g      ± 0.5 g   (0.5 e₁)
+ *     500 – 2 000 g  ± 1 g     (1 e₁)
+ *     2 – 4 kg       ± 2 g     (1 e₂)
+ *     4 – 5 kg       ± 3 g     (1.5 e₂)
+ *     5 – 15 kg      ± 10 g    (1 e₃)
+ *
+ * Boundaries come from the pack's Table 6 bounds expressed in e — `m ≤ max_m_in_e` — converted
+ * back into a load by multiplying by the e in force. A band is emitted only where it actually
+ * intersects the range, so an instrument whose Max falls inside the first band gets one row
+ * rather than three empty ones.
+ */
+export function mpeBandTable(
+  profile: InstrumentProfile,
+  pack: RulePack,
+  stage: VerificationStage = "initial",
+): MpeBandInterval[] {
+  const cls = profile.accuracyClass;
+  const inServiceFactor = stage === "in-service" ? (pack.mpe_in_service_factor ?? 2) : 1;
+  const out: MpeBandInterval[] = [];
+
+  profile.ranges.forEach((range, i) => {
+    // Range i covers Min_i < L ≤ Max_i; the first starts at zero so the no-load row has a band.
+    const rangeFrom = i === 0 ? 0 : range.min;
+    const rangeTo = range.max;
+    let cursor = rangeFrom;
+    let firstOfRange = true;
+
+    for (const band of pack.mpe_bands_initial) {
+      const bound = band.max_m_in_e?.[cls];
+      if (bound === undefined) continue;
+
+      const factor = parseBandFactor(band.limit);
+      // `null` means the band is unbounded above for this class (class I's ±1.5e).
+      const bandTo = bound === null ? rangeTo : Math.min(bound * range.e, rangeTo);
+      if (bandTo <= cursor + range.e * 1e-9) continue; // this band does not reach into the range
+
+      out.push({
+        fromLoad: cursor,
+        toLoad: bandTo,
+        mpe: factor * range.e * inServiceFactor,
+        factor,
+        e: range.e,
+        rangeIndex: i + 1,
+        startsNewRange: firstOfRange,
+      });
+
+      cursor = bandTo;
+      firstOfRange = false;
+      if (cursor >= rangeTo - range.e * 1e-9) break;
+    }
+  });
+
+  return out;
+}

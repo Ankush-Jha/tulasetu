@@ -13,6 +13,7 @@ import {
   Badge,
   Card,
   CardHeader,
+  Disclosure,
   ErrorState,
   Icon,
   KeyValue,
@@ -96,6 +97,12 @@ export function SettingsPage() {
             title="Capabilities"
             description="Held in green, withheld in grey. The server enforces the same list."
           />
+          <p className="mb-3 text-body-md text-on-surface">
+            This role holds <strong>{held.size}</strong> of {ALL_CAPABILITIES.length} capabilities.
+            The ones that matter most for daily work:{" "}
+            {ALL_CAPABILITIES.filter((c) => held.has(c.id)).slice(0, 3).map((c) => c.label.toLowerCase()).join(", ")}.
+          </p>
+          <Disclosure summary="Every capability, held and withheld">
           <ul className="grid gap-1.5 sm:grid-cols-2">
             {ALL_CAPABILITIES.map((c) => {
               const has = held.has(c.id);
@@ -119,6 +126,7 @@ export function SettingsPage() {
               );
             })}
           </ul>
+          </Disclosure>
           <p className="mt-3 text-body-sm text-on-surface-variant">
             The system administrator deliberately holds no statutory power — it can manage the
             installation but cannot issue, publish or revoke an approval. Separating the person
@@ -136,6 +144,8 @@ export function SettingsPage() {
             description="Every transition, who may take it, and the provision it implements"
           />
         </div>
+        <div className="px-6 pb-2">
+          <Disclosure summary={`All ${lifecycle.data?.transitions.length ?? ""} transitions, who may take each, and its legal basis`}>
         {lifecycle.error ? (
           <div className="p-5"><ErrorState error={lifecycle.error} onRetry={lifecycle.reload} /></div>
         ) : lifecycle.loading ? (
@@ -182,7 +192,9 @@ export function SettingsPage() {
             </tbody>
           </TableWrap>
         )}
-        <p className="p-5 pt-3 text-body-sm text-on-surface-variant">
+          </Disclosure>
+        </div>
+        <p className="p-6 pt-3 text-body-sm text-on-surface-variant">
           Rows your role can take are highlighted. Note that{" "}
           <span className="text-on-surface">Recommended → Remitted</span> exists because AoM
           Rule 8 lets the Director send a report back for further tests — a one-way pipeline

@@ -19,6 +19,7 @@ import {
   Card,
   CardHeader,
   Clause,
+  Disclosure,
   Icon,
   PageHeader,
   Stat,
@@ -118,13 +119,19 @@ function ProblemTab() {
         </p>
       </Card>
 
-      {/* Where the time goes */}
+      {/* The process split — the argument in one line, the seven steps behind a disclosure. */}
       <Card>
         <CardHeader
           icon="conversion_path"
           title="Half the process is already digital"
           description="The application side went online. Everything from “model received” to “certificate” did not."
         />
+        <p className="text-body-md text-on-surface mb-3">
+          {HOW_IT_WORKS_TODAY.filter((s) => s.state === "manual").length} of the{" "}
+          {HOW_IT_WORKS_TODAY.length} steps between an application and a certificate are still
+          done by hand — and they are the ones in the middle, where the arithmetic is.
+        </p>
+        <Disclosure summary="The seven steps, and which are which">
         <ol className="flex flex-col">
           {HOW_IT_WORKS_TODAY.map((s, i) => (
             <li key={s.step} className="flex gap-3">
@@ -155,6 +162,7 @@ function ProblemTab() {
             </li>
           ))}
         </ol>
+        </Disclosure>
       </Card>
 
       {/* The number */}
@@ -186,7 +194,8 @@ function ProblemTab() {
       </Card>
 
       <Card>
-        <CardHeader icon="schedule" title="Why now" />
+        <CardHeader icon="schedule" title="Why now" description="Four things that make this the moment" />
+        <Disclosure summary="India is the 13th OIML issuing country · e-Maap launched · CIML meets in Delhi · R 76 is being rewritten">
         <ul className="flex flex-col gap-3">
           {WHY_NOW.map((w) => (
             <li key={w.claim} className="flex gap-3">
@@ -199,6 +208,7 @@ function ProblemTab() {
             </li>
           ))}
         </ul>
+        </Disclosure>
       </Card>
     </div>
   );
@@ -253,6 +263,7 @@ function SolutionTab() {
           title="What reading the standard actually turned up"
           description="Places where the primary source differs from a summary written from memory. The code follows the standard, and each is covered by a test."
         />
+        <Disclosure summary={`All ${CORRECTIONS.length}, with the clause each was found in`} defaultOpen>
         <ul className="flex flex-col gap-3">
           {CORRECTIONS.map((c) => (
             <li key={c.claim} className="rounded-2xl border border-outline-variant/50 p-4">
@@ -262,6 +273,7 @@ function SolutionTab() {
             </li>
           ))}
         </ul>
+        </Disclosure>
       </Card>
 
       <div className="grid gap-4 lg:grid-cols-2">

@@ -22,6 +22,7 @@ import {
   Card,
   CardHeader,
   Clause,
+  Disclosure,
   Icon,
   KeyValue,
   Stat,
@@ -145,39 +146,65 @@ export function OutputStep() {
         </Alert>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-3">
-        {OUTPUTS.map((o) => (
-          <Card key={o.id} className="flex flex-col">
-            <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary-fixed text-on-primary-fixed">
-              <Icon name={o.icon} size={20} />
-            </span>
-            <h3 className="text-headline-sm text-on-surface">{o.title}</h3>
-            <p className="text-body-md text-on-surface-variant mt-1.5 flex-1">{o.blurb}</p>
-            <p className="text-body-sm text-on-surface-variant mt-2.5 italic">{o.note}</p>
-            <div className="mt-4 flex gap-2">
-              <Button
-                variant={o.id === "pdf" ? "primary" : "secondary"}
-                icon="download"
-                loading={download.pending}
-                onClick={() => get(o.id)}
-                className="flex-1"
-              >
-                Download
-              </Button>
-              {o.id === "pdf" && (
+      {/*
+        One card, three actions.
+        
+        These were three equal-weight cards, each with an icon, a paragraph and a note — which
+        made choosing a file format look like the most consequential decision on the page. It is
+        not; locking the record copy is. The formats differ in one sentence each, so one
+        sentence each is what they get.
+      */}
+      <Card>
+        <CardHeader
+          icon="download"
+          title="Download"
+          description="One computed document, three renderings — they cannot disagree"
+        />
+        <div className="flex flex-col gap-2">
+          {OUTPUTS.map((o) => (
+            <div
+              key={o.id}
+              className="flex flex-wrap items-center gap-3 rounded-xl border border-outline-variant/50 p-3"
+            >
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-fixed text-on-primary-fixed">
+                <Icon name={o.icon} size={18} />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-label-lg text-on-surface">{o.title}</span>
+                <span className="block text-body-sm text-on-surface-variant">{o.note}</span>
+              </span>
+              <span className="flex shrink-0 gap-2">
+                {o.id === "pdf" && (
+                  <Button
+                    size="sm" variant="ghost" icon="visibility"
+                    onClick={() => window.open(api.renderUrl(reportId, "html", true), "_blank")}
+                  >
+                    Preview
+                  </Button>
+                )}
                 <Button
-                  variant="secondary"
-                  icon="open_in_new"
-                  title="Preview the layout in a new tab"
-                  onClick={() => window.open(api.renderUrl(reportId, "html", true), "_blank")}
+                  size="sm"
+                  variant={o.id === "pdf" ? "primary" : "secondary"}
+                  icon="download"
+                  loading={download.pending}
+                  onClick={() => get(o.id)}
                 >
-                  Preview
+                  Download
                 </Button>
-              )}
+              </span>
             </div>
-          </Card>
-        ))}
-      </div>
+          ))}
+        </div>
+        <Disclosure summary="What each format is for" className="mt-3">
+          <ul className="flex flex-col gap-2">
+            {OUTPUTS.map((o) => (
+              <li key={o.id} className="text-body-sm text-on-surface-variant">
+                <span className="font-semibold text-on-surface">{o.title}.</span> {o.blurb}
+              </li>
+            ))}
+          </ul>
+        </Disclosure>
+      </Card>
 
       {/* Locking */}
       <Card elevation="raised">
@@ -239,6 +266,7 @@ export function OutputStep() {
 
         <Card>
           <CardHeader icon="fingerprint" title="Report identity" />
+          <Disclosure summary="Report number, application, rule pack, instrument, record hash" defaultOpen={false}>
           <dl>
             <KeyValue label="Report number"><span className="font-mono">{report.id}</span></KeyValue>
             <KeyValue label="Application">{report.application_no ?? "—"}</KeyValue>
@@ -270,6 +298,7 @@ export function OutputStep() {
             </KeyValue>
             <KeyValue label="Last updated">{formatDateTime(report.updated_at)}</KeyValue>
           </dl>
+          </Disclosure>
           <div className="mt-3">
             <Badge tone="info" icon="gavel">
               IT Act 2000 §§4 and 5 — electronic records and digital signatures

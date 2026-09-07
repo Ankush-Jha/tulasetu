@@ -162,6 +162,23 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
     }),
   );
 
+  /**
+   * Preview a profile without saving it.
+   *
+   * What the registration wizard's live panel reads on every keystroke: the validation
+   * findings, the permissible-error bands, and the tests the instrument attracts. Pure — it
+   * records nothing — but it is a real engine call, so what the officer sees while typing is
+   * what the report will carry.
+   */
+  app.post(
+    "/tools/profile-preview",
+    guard((_p, req) => {
+      const { profile } = req.body as { profile?: Parameters<typeof svc.previewProfile>[1] };
+      if (!profile) throw new ServiceError(400, "NO_PROFILE", "Send the profile to preview.");
+      return svc.previewProfile(ctx(), profile);
+    }),
+  );
+
   /** Annex F module compatibility, likewise pure and not tied to a report. */
   app.post(
     "/tools/modules",

@@ -1,24 +1,30 @@
 /**
- * Instrument profile.
+ * Instrument registration — four steps.
  *
- * The most consequential screen in the application: the accuracy class and the weighing
- * ranges decide every permissible error the report will contain, and which of R 76-2's forms
- * apply at all.
+ * This was one long form. It collected the accuracy class, three range rows and ten feature
+ * checkboxes on a single screen, and said nothing about what any of it did. That is the wrong
+ * shape for this task for three reasons.
  *
- * Two things are deliberate.
+ * **The answers are not independent.** The class constrains which scale intervals are legal;
+ * the range structure decides whether there is one set of forms or one per range; the features
+ * decide which of seventeen forms apply at all. Presenting them as a flat list hides a
+ * dependency chain that the officer has to hold in their head instead.
  *
- * **Range structure is a first-class choice, not a checkbox.** A multi-interval instrument has
- * one Max and one weighing range, split into partial ranges whose `e` changes with the load
- * (R 76-1 §3.3). A multiple-range instrument is several independent instruments in one case
- * (§3.2), and gets a full set of forms *per range*. Conflating them is the classic error, so
- * the form names the difference where the choice is made.
+ * **The consequences are invisible.** Ticking "software-controlled" adds a 54-item checklist.
+ * Choosing class II over class III moves the permissible error by a factor of ten. A form that
+ * takes those answers without showing what they do is asking someone to sign for something they
+ * cannot see.
  *
- * **Validation findings are shown, never enforced by refusing the write.** An officer must be
- * able to see why a profile is wrong while they are typing it; refusing to save would lose
- * what they entered. The lifecycle guard is what stops an invalid report progressing.
+ * **Nobody filling this in is the author of R 76.** They know the instrument in front of them.
+ * So each choice carries what it is, what it means in ordinary terms, and what it changes — and
+ * the panel beside the form shows the engine's actual answer as they type.
+ *
+ * The live panel is a real engine call (`POST /tools/profile-preview`) on the unsaved profile,
+ * not a calculation in the browser. That matters: the bands shown while typing are the bands
+ * the report will carry, because the same function produced both.
  */
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Alert,
@@ -30,25 +36,30 @@ import {
   Field,
   Icon,
   Input,
+  Disclosure,
+  Explain,
   Select,
+  Spinner,
 } from "../../components/ui";
+import { MpeStaircase } from "../../components/charts/MpeStaircase";
 import { cn } from "../../lib/cn";
-import { api, type Issue } from "../../lib/api";
-import { useMutation } from "../../lib/useApi";
+import { api, type ApplicableTest, type Issue } from "../../lib/api";
+import { useDebounced, useMutation } from "../../lib/useApi";
 import { reportPath } from "../../lib/nav";
 import { fmtNumber } from "../../lib/format";
+import {
+  ACCURACY_CLASSES,
+  FEATURES,
+  FEATURE_GROUPS,
+  RANGE_KINDS,
+  WIZARD_STEPS,
+} from "../../content/registration";
 import { useReport, type InstrumentProfileShape } from "./ReportLayout";
 
 type RangeRow = { e: string; d: string; min: string; max: string };
-
 const BLANK_RANGE: RangeRow = { e: "", d: "", min: "", max: "" };
 
-/**
- * R 76-1 §3.3's worked example — Max 2 / 5 / 15 kg, e = 1 / 2 / 10 g, class III.
- *
- * The instrument the engine's golden tests are built on, so loading it here and walking the
- * loads gives a result that can be checked against the standard by eye.
- */
+/** R 76-1 §3.3's worked example — the instrument the engine's golden tests are built on. */
 const SAMPLE = {
   manufacturer: "Example Instruments Pvt Ltd",
   model: "EX-15 MI",
@@ -66,6 +77,8 @@ export function ProfileStep() {
   const { reportId, instrument, detail, reload } = useReport();
   const navigate = useNavigate();
 
+  const [stepIndex, setStepIndex] = useState(0);
+
   const [unit, setUnit] = useState<InstrumentProfileShape["unit"]>("g");
   const [accuracyClass, setAccuracyClass] = useState<InstrumentProfileShape["accuracyClass"]>("III");
   const [indicatingType, setIndicatingType] = useState<InstrumentProfileShape["indicatingType"]>("self");
@@ -78,7 +91,7 @@ export function ProfileStep() {
   const [softwareVersion, setSoftwareVersion] = useState("");
   const [softwareChecksum, setSoftwareChecksum] = useState("");
 
-  const [flags, setFlags] = useState({
+  const [flags, setFlags] = useState<Record<string, boolean>>({
     electronic: true,
     softwareControlled: false,
     hasTareDevice: false,
@@ -91,63 +104,37 @@ export function ProfileStep() {
     modular: false,
   });
 
-  const [issues, setIssues] = useState<Issue[]>([]);
   const save = useMutation(api.setProfile);
+  const [savedIssues, setSavedIssues] = useState<Issue[] | null>(null);
 
-  // Load whatever is already recorded, so returning to this step shows the report's state
-  // rather than an empty form.
+  // Load whatever is already recorded, so returning shows the report's state, not a blank form.
   useEffect(() => {
     if (!instrument) return;
     setUnit(instrument.unit);
     setAccuracyClass(instrument.accuracyClass);
     setIndicatingType(instrument.indicatingType);
     setRangeKind(instrument.rangeKind);
-    setRanges(
-      instrument.ranges.map((r) => ({
-        e: String(r.e), d: String(r.d), min: String(r.min), max: String(r.max),
-      })),
-    );
+    setRanges(instrument.ranges.map((r) => ({
+      e: String(r.e), d: String(r.d), min: String(r.min), max: String(r.max),
+    })));
     setManufacturer(instrument.manufacturer ?? "");
     setModel(instrument.model ?? "");
     setSerialNumber(instrument.serialNumber ?? "");
     setSoftwareVersion(instrument.softwareVersion ?? "");
     setSoftwareChecksum(instrument.softwareChecksum ?? "");
-    setFlags((f) => ({
-      ...f,
-      electronic: instrument.electronic,
-      softwareControlled: instrument.softwareControlled ?? false,
-      hasTareDevice: instrument.hasTareDevice ?? false,
-      hasPrintOrStorage: instrument.hasPrintOrStorage ?? false,
-      tiltable: instrument.tiltable ?? false,
-      rollingLoad: instrument.rollingLoad ?? false,
-      vehiclePowered: instrument.vehiclePowered ?? false,
-      directSalesToPublic: instrument.directSalesToPublic ?? false,
-      priceComputing: instrument.priceComputing ?? false,
-      modular: instrument.modular ?? false,
-    }));
+    setFlags((f) => {
+      const next = { ...f };
+      for (const feat of FEATURES) {
+        next[feat.key as string] = Boolean((instrument as unknown as Record<string, unknown>)[feat.key as string]);
+      }
+      next["electronic"] = instrument.electronic;
+      return next;
+    });
   }, [instrument]);
 
-  function loadSample() {
-    setUnit("g");
-    setAccuracyClass("III");
-    setIndicatingType("self");
-    setRangeKind("multi-interval");
-    setRanges(SAMPLE.ranges.map((r) => ({ ...r })));
-    setManufacturer(SAMPLE.manufacturer ?? "");
-    setModel(SAMPLE.model ?? "");
-    setSerialNumber(SAMPLE.serialNumber ?? "");
-    setSoftwareVersion(SAMPLE.softwareVersion ?? "");
-    setSoftwareChecksum(SAMPLE.softwareChecksum ?? "");
-    setFlags((f) => ({ ...f, electronic: true, hasTareDevice: true }));
-  }
-
-  function setRange(i: number, patch: Partial<RangeRow>) {
-    setRanges((rs) => rs.map((r, j) => (j === i ? { ...r, ...patch } : r)));
-  }
-
-  async function submit(e: FormEvent) {
-    e.preventDefault();
-    const payload: InstrumentProfileShape = {
+  /** The profile as it currently stands, ready for the engine. */
+  const profile: InstrumentProfileShape = useMemo(
+    () => ({
       unit,
       accuracyClass,
       indicatingType,
@@ -155,342 +142,806 @@ export function ProfileStep() {
       ranges: ranges.map((r) => ({
         e: Number(r.e), d: Number(r.d), min: Number(r.min), max: Number(r.max),
       })),
-      ...flags,
+      ...(flags as Partial<InstrumentProfileShape>),
+      electronic: Boolean(flags["electronic"]),
       ...(manufacturer ? { manufacturer } : {}),
       ...(model ? { model } : {}),
       ...(serialNumber ? { serialNumber } : {}),
       ...(softwareVersion ? { softwareVersion } : {}),
       ...(softwareChecksum ? { softwareChecksum } : {}),
-    };
+    }),
+    [unit, accuracyClass, indicatingType, rangeKind, ranges, flags, manufacturer, model,
+     serialNumber, softwareVersion, softwareChecksum],
+  );
 
-    const result = await save.run(reportId, payload, detail.report.version);
+  // Preview on a debounce: an officer typing "15000" passes through 1, 15, 150 and 1500, and
+  // each of those is a different instrument as far as the engine is concerned.
+  const debounced = useDebounced(profile, 350);
+  const preview = useProfilePreview(debounced);
+
+  const step = WIZARD_STEPS[stepIndex]!;
+  const isLast = stepIndex === WIZARD_STEPS.length - 1;
+
+  /** A step is complete when the things it collects are present and legal. */
+  const completion = useMemo(() => {
+    const rangesFilled = ranges.every((r) => r.e && r.d && r.min && r.max);
+    const rangeErrors = (preview.data?.issues ?? []).some(
+      (i) => i.severity === "error" && (i.path ?? "").startsWith("ranges"),
+    );
+    return {
+      identity: Boolean(manufacturer && model),
+      metrology: rangesFilled && !rangeErrors,
+      construction: true, // every feature has a defensible default of "no"
+      review: !preview.data?.blocking,
+    } as Record<string, boolean>;
+  }, [manufacturer, model, ranges, preview.data]);
+
+  function setRange(i: number, patch: Partial<RangeRow>) {
+    setRanges((rs) => rs.map((r, j) => (j === i ? { ...r, ...patch } : r)));
+  }
+
+  function loadSample() {
+    setUnit("g");
+    setAccuracyClass("III");
+    setIndicatingType("self");
+    setRangeKind("multi-interval");
+    setRanges(SAMPLE.ranges.map((r) => ({ ...r })));
+    setManufacturer(SAMPLE.manufacturer);
+    setModel(SAMPLE.model);
+    setSerialNumber(SAMPLE.serialNumber);
+    setSoftwareVersion(SAMPLE.softwareVersion);
+    setSoftwareChecksum(SAMPLE.softwareChecksum);
+    setFlags((f) => ({ ...f, electronic: true, hasTareDevice: true, softwareControlled: true }));
+  }
+
+  async function submit() {
+    const result = await save.run(reportId, profile, detail.report.version);
     if (result) {
-      setIssues(result.issues);
+      setSavedIssues(result.issues);
       reload();
-      // Only move on when nothing blocking came back — otherwise the officer would land on
-      // the test list without having seen why the profile is wrong.
       if (!result.issues.some((i) => i.severity === "error")) {
         navigate(reportPath(reportId, "tests"));
       }
     }
   }
 
-  const errors = issues.filter((i) => i.severity === "error");
-  const warnings = issues.filter((i) => i.severity === "warning");
-  const infos = issues.filter((i) => i.severity === "info");
+  return (
+    <div className="flex flex-col gap-5">
+      <Stepper
+        current={stepIndex}
+        completion={completion}
+        onSelect={setStepIndex}
+      />
 
-  const isMultiRange = rangeKind !== "single";
+      <div className="grid items-start gap-5 xl:grid-cols-5">
+        <div className="flex flex-col gap-5 xl:col-span-3">
+          <Card elevation="raised">
+            <div className="mb-4 flex items-start justify-between gap-4">
+              <div className="min-w-0">
+                <p className="text-label-sm uppercase tracking-wider text-on-surface-variant">
+                  Step {step.number} of {WIZARD_STEPS.length}
+                </p>
+                <h2 className="text-headline-md text-on-surface mt-0.5">{step.title}</h2>
+                <p className="text-body-md text-on-surface-variant mt-1.5 max-w-xl">{step.purpose}</p>
+              </div>
+              {stepIndex === 0 && (
+                <Button size="sm" variant="ghost" icon="science" onClick={loadSample}>
+                  Load worked example
+                </Button>
+              )}
+            </div>
+
+            {step.id === "identity" && (
+              <IdentityStep
+                {...{ manufacturer, setManufacturer, model, setModel, serialNumber, setSerialNumber,
+                      indicatingType, setIndicatingType }}
+              />
+            )}
+            {step.id === "metrology" && (
+              <MetrologyStep
+                {...{ accuracyClass, setAccuracyClass, unit, setUnit, rangeKind, setRangeKind,
+                      ranges, setRanges, setRange }}
+              />
+            )}
+            {step.id === "construction" && (
+              <ConstructionStep
+                {...{ flags, setFlags, softwareVersion, setSoftwareVersion,
+                      softwareChecksum, setSoftwareChecksum }}
+              />
+            )}
+            {step.id === "review" && (
+              <ReviewStep profile={profile} preview={preview.data} unit={unit} />
+            )}
+          </Card>
+
+          {/* Actions live at the foot of the form, where the eye ends up. */}
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-outline-variant/50 bg-surface-container-lowest px-4 py-3">
+            <Button
+              variant="ghost"
+              icon="arrow_back"
+              disabled={stepIndex === 0}
+              onClick={() => setStepIndex((i) => i - 1)}
+            >
+              {stepIndex === 0 ? "Back" : `Back: ${WIZARD_STEPS[stepIndex - 1]!.title}`}
+            </Button>
+
+            <span className="text-body-sm text-on-surface-variant">
+              {step.number} of {WIZARD_STEPS.length} · {model || "unnamed instrument"}
+            </span>
+
+            <div className="flex items-center gap-2">
+              {isLast ? (
+                <Button variant="primary" icon="check" loading={save.pending} onClick={submit}>
+                  Save and resolve tests
+                </Button>
+              ) : (
+                <Button
+                  variant="primary"
+                  icon="arrow_forward"
+                  onClick={() => setStepIndex((i) => i + 1)}
+                >
+                  Continue to {WIZARD_STEPS[stepIndex + 1]!.title}
+                </Button>
+              )}
+            </div>
+          </div>
+
+          {save.error && <Alert tone="fail" title="Could not save">{save.error}</Alert>}
+          {savedIssues?.some((i) => i.severity === "error") && (
+            <Alert tone="fail" title="Saved, but the profile has blocking findings">
+              The profile is recorded — nothing you typed was lost — but the report cannot be
+              validated until these are resolved. They are listed in the panel beside this form.
+            </Alert>
+          )}
+        </div>
+
+        {/* The live consequence panel. */}
+        <div className="flex flex-col gap-5 xl:col-span-2">
+          <LivePanel preview={preview} unit={unit} profile={profile} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// The stepper
+// ---------------------------------------------------------------------------
+
+/**
+ * The sub-steps, kept visually subordinate to the report rail above them.
+ *
+ * These were four large cards, which put a second full-weight stepper directly beneath the
+ * report's own progress rail — two things of equal prominence claiming to be *the* indicator of
+ * where you are. A reader cannot follow two. So the report rail stays the primary progress
+ * indicator and this is a tab strip: same information, visibly a level down.
+ */
+function Stepper({
+  current,
+  completion,
+  onSelect,
+}: {
+  current: number;
+  completion: Record<string, boolean>;
+  onSelect: (i: number) => void;
+}) {
+  return (
+    <nav aria-label="Registration steps" className="flex gap-1 rounded-xl bg-surface-container-low p-1">
+      {WIZARD_STEPS.map((s, i) => {
+        const done = completion[s.id] && i < current;
+        const isCurrent = i === current;
+        return (
+          <button
+            key={s.id}
+            onClick={() => onSelect(i)}
+            aria-current={isCurrent ? "step" : undefined}
+            className={cn(
+              "flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 transition-colors",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+              isCurrent
+                ? "bg-surface-container-lowest card-shadow"
+                : "hover:bg-surface-container-lowest/60",
+            )}
+          >
+            <span
+              className={cn(
+                "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-label-sm font-bold",
+                done
+                  ? "bg-success-container text-on-success"
+                  : isCurrent
+                    ? "bg-primary text-on-primary"
+                    : "bg-surface-container-high text-on-surface-variant",
+              )}
+            >
+              {done ? <Icon name="check" size={12} /> : s.number}
+            </span>
+            <span
+              className={cn(
+                "truncate text-label-md",
+                isCurrent ? "font-semibold text-on-surface" : "text-on-surface-variant",
+              )}
+            >
+              {s.title}
+            </span>
+          </button>
+        );
+      })}
+    </nav>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Step 1 — identity
+// ---------------------------------------------------------------------------
+
+function IdentityStep(p: {
+  manufacturer: string; setManufacturer: (v: string) => void;
+  model: string; setModel: (v: string) => void;
+  serialNumber: string; setSerialNumber: (v: string) => void;
+  indicatingType: InstrumentProfileShape["indicatingType"];
+  setIndicatingType: (v: InstrumentProfileShape["indicatingType"]) => void;
+}) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2">
+      <Field label="Manufacturer" required>
+        <Input value={p.manufacturer} onChange={(e) => p.setManufacturer(e.target.value)} />
+      </Field>
+      <Field label="Model" required hint="As it will appear on the certificate.">
+        <Input value={p.model} onChange={(e) => p.setModel(e.target.value)} />
+      </Field>
+      <Field label="Serial number" hint="Of the sample submitted for testing.">
+        <Input value={p.serialNumber} onChange={(e) => p.setSerialNumber(e.target.value)} />
+      </Field>
+      <Field
+        label="How equilibrium is reached"
+        required
+        hint="Non-self-indicating instruments attract the sensitivity test and are excluded from checklist 17.1."
+      >
+        <Select value={p.indicatingType} onChange={(e) => p.setIndicatingType(e.target.value as never)}>
+          <option value="self">Self-indicating — settles on its own</option>
+          <option value="semi-self">Semi-self-indicating</option>
+          <option value="non-self">Non-self-indicating — the operator balances it</option>
+        </Select>
+      </Field>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Step 2 — metrology
+// ---------------------------------------------------------------------------
+
+function MetrologyStep(p: {
+  accuracyClass: InstrumentProfileShape["accuracyClass"];
+  setAccuracyClass: (v: InstrumentProfileShape["accuracyClass"]) => void;
+  unit: InstrumentProfileShape["unit"];
+  setUnit: (v: InstrumentProfileShape["unit"]) => void;
+  rangeKind: InstrumentProfileShape["rangeKind"];
+  setRangeKind: (v: InstrumentProfileShape["rangeKind"]) => void;
+  ranges: RangeRow[];
+  setRanges: (fn: (rs: RangeRow[]) => RangeRow[]) => void;
+  setRange: (i: number, patch: Partial<RangeRow>) => void;
+}) {
+  const kind = RANGE_KINDS.find((k) => k.id === p.rangeKind)!;
+  const selectedClass = ACCURACY_CLASSES.find((c) => c.id === p.accuracyClass)!;
 
   return (
-    <form onSubmit={submit} className="grid items-start gap-5 xl:grid-cols-3">
-      <div className="flex flex-col gap-5 xl:col-span-2">
-        {/* Identity */}
-        <Card>
-          <CardHeader
-            icon="badge"
-            title="Identity"
-            description="Carried onto the report header and the certificate"
-            action={
-              <Button type="button" size="sm" variant="ghost" icon="science" onClick={loadSample}>
-                Load worked example
-              </Button>
-            }
-          />
+    <div className="flex flex-col gap-6">
+      {/* Accuracy class. Four compact choices; the detail that matters once is one click away. */}
+      <section>
+        <div className="mb-2 flex items-baseline justify-between gap-3">
+          <h3 className="text-label-lg text-on-surface">Accuracy class</h3>
+          <Clause>R 76-1 Table 3</Clause>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {ACCURACY_CLASSES.map((c) => {
+            const selected = p.accuracyClass === c.id;
+            return (
+              <button
+                key={c.id}
+                onClick={() => p.setAccuracyClass(c.id)}
+                aria-pressed={selected}
+                className={cn(
+                  "rounded-xl border px-3 py-2.5 text-left transition-colors",
+                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+                  selected
+                    ? "border-primary bg-primary-fixed"
+                    : "border-outline-variant/60 hover:bg-surface-container-low",
+                )}
+              >
+                <span className="flex items-baseline gap-1.5">
+                  <span className={cn("text-label-lg font-bold", selected ? "text-on-primary-fixed" : "text-on-surface")}>
+                    {c.symbol}
+                  </span>
+                  <span className="text-label-md text-on-surface-variant">{c.name}</span>
+                </span>
+                <span className="mt-0.5 block text-body-sm text-on-surface-variant leading-snug">
+                  {c.examples}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <Disclosure summary={`What class ${selectedClass.symbol} means, and its Table 3 limits`} className="mt-2">
+          <p className="text-body-sm text-on-surface-variant">{selectedClass.meaning}</p>
+          <p className="mt-2 flex flex-wrap gap-1.5">
+            <Badge tone="neutral">{selectedClass.eRange}</Badge>
+            <Badge tone="neutral">n {selectedClass.nRange}</Badge>
+            <Badge tone="neutral">{selectedClass.minCapacity}</Badge>
+          </p>
+        </Disclosure>
+      </section>
+
+      {/* Range structure. The consequence in one line; the reasoning behind a disclosure. */}
+      <section>
+        <div className="mb-2 flex items-baseline justify-between gap-3">
+          <h3 className="text-label-lg text-on-surface">Range structure</h3>
+          <Clause>{kind.clause}</Clause>
+        </div>
+        <div className="flex gap-1 rounded-xl bg-surface-container-low p-1">
+          {RANGE_KINDS.map((k) => (
+            <button
+              key={k.id}
+              onClick={() => {
+                p.setRangeKind(k.id);
+                if (k.id === "single") p.setRanges((rs) => rs.slice(0, 1));
+                else p.setRanges((rs) => (rs.length === 1 ? [...rs, { ...BLANK_RANGE }] : rs));
+              }}
+              aria-pressed={p.rangeKind === k.id}
+              className={cn(
+                "flex-1 rounded-lg px-3 py-1.5 text-label-md font-semibold transition-colors",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+                p.rangeKind === k.id
+                  ? "bg-surface-container-lowest text-on-surface card-shadow"
+                  : "text-on-surface-variant hover:text-on-surface",
+              )}
+            >
+              {k.name}
+            </button>
+          ))}
+        </div>
+        <p className="mt-2 text-body-sm text-on-surface-variant">{kind.meaning}</p>
+        <Disclosure summary="What this changes about the report" className="mt-2">
+          <p className="text-body-sm text-on-surface-variant">{kind.consequence}</p>
+        </Disclosure>
+      </section>
+
+      {/* Ranges. Compact rows: labels once, in the header, rather than under every field. */}
+      <section>
+        <div className="mb-2 flex items-end justify-between gap-3">
+          <div>
+            <h3 className="text-label-lg text-on-surface">
+              {p.rangeKind === "single" ? "Weighing range" : "Ranges"}
+              <Explain term="the scale intervals">
+                <strong>e</strong> is the verification scale interval — the step the instrument is
+                held to legally. <strong>d</strong> is the actual scale interval, the smallest
+                change the display shows. They are often equal. <strong>n = Max / e</strong> is
+                what the class limits are set on.
+              </Explain>
+            </h3>
+            <p className="text-body-sm text-on-surface-variant">n is computed as Max / e.</p>
+          </div>
+          <Field label="Unit" className="w-24">
+            <Select value={p.unit} onChange={(e) => p.setUnit(e.target.value as never)} className="h-9">
+              <option value="mg">mg</option>
+              <option value="g">g</option>
+              <option value="kg">kg</option>
+              <option value="t">t</option>
+            </Select>
+          </Field>
+        </div>
+
+        <div className="overflow-hidden rounded-xl border border-outline-variant/50">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-surface-container-low">
+                <th className="w-24 px-3 py-1.5 text-left text-label-sm uppercase tracking-wider text-on-surface-variant">
+                  {p.rangeKind === "multi-interval" ? "Partial" : "Range"}
+                </th>
+                {["e", "d", "Min", "Max"].map((h) => (
+                  <th key={h} className="px-2 py-1.5 text-left text-label-sm uppercase tracking-wider text-on-surface-variant">{h}</th>
+                ))}
+                <th className="w-24 px-3 py-1.5 text-right text-label-sm uppercase tracking-wider text-on-surface-variant">n</th>
+                <th className="w-10" />
+              </tr>
+            </thead>
+            <tbody>
+              {p.ranges.map((r, i) => {
+                const n = r.e && r.max && Number(r.e) > 0 ? Number(r.max) / Number(r.e) : null;
+                return (
+                  <tr key={i} className="border-t border-outline-variant/30">
+                    <td className="px-3 py-1.5 text-body-sm text-on-surface-variant">{i + 1}</td>
+                    {(["e", "d", "min", "max"] as const).map((k) => (
+                      <td key={k} className="px-2 py-1.5">
+                        <Input
+                          value={r[k]}
+                          onChange={(e) => p.setRange(i, { [k]: e.target.value })}
+                          inputMode="decimal"
+                          className="h-9 tabular-nums"
+                          aria-label={`${k} for range ${i + 1}`}
+                        />
+                      </td>
+                    ))}
+                    <td className="px-3 py-1.5 text-right text-body-sm tabular-nums text-on-surface">
+                      {n === null ? "—" : fmtNumber(Math.round(n))}
+                    </td>
+                    <td className="px-1 py-1.5 text-center">
+                      {p.ranges.length > 1 && (
+                        <button
+                          onClick={() => p.setRanges((rs) => rs.filter((_, j) => j !== i))}
+                          aria-label={`Remove range ${i + 1}`}
+                          className="rounded-lg p-1 text-on-surface-variant transition-colors hover:bg-error-container hover:text-on-error-container"
+                        >
+                          <Icon name="close" size={15} />
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        {p.rangeKind !== "single" && (
+          <Button
+            variant="ghost" size="sm" icon="add" className="mt-2"
+            onClick={() => p.setRanges((rs) => [...rs, { ...BLANK_RANGE }])}
+          >
+            Add {p.rangeKind === "multi-interval" ? "partial range" : "range"}
+          </Button>
+        )}
+      </section>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Step 3 — construction
+// ---------------------------------------------------------------------------
+
+function ConstructionStep(p: {
+  flags: Record<string, boolean>;
+  setFlags: (fn: (f: Record<string, boolean>) => Record<string, boolean>) => void;
+  softwareVersion: string; setSoftwareVersion: (v: string) => void;
+  softwareChecksum: string; setSoftwareChecksum: (v: string) => void;
+}) {
+  return (
+    <div className="flex flex-col gap-6">
+      {FEATURE_GROUPS.map((group) => (
+        <section key={group.id}>
+          <h3 className="text-label-lg text-on-surface">{group.title}</h3>
+          <p className="text-body-sm text-on-surface-variant mb-2.5">{group.hint}</p>
+          <div className="flex flex-col gap-2">
+            {FEATURES.filter((f) => f.group === group.id).map((f) => {
+              const on = Boolean(p.flags[f.key as string]);
+              return (
+                <label
+                  key={f.key as string}
+                  className={cn(
+                    "flex cursor-pointer items-start gap-3 rounded-2xl border p-3.5 transition-colors",
+                    on ? "border-primary/40 bg-primary-fixed/40" : "border-outline-variant/50 hover:bg-surface-container-low",
+                  )}
+                >
+                  <input
+                    type="checkbox"
+                    checked={on}
+                    onChange={(e) =>
+                      p.setFlags((prev) => ({ ...prev, [f.key as string]: e.target.checked }))
+                    }
+                    className="mt-1 h-4 w-4 shrink-0 accent-[var(--color-primary)]"
+                  />
+                  <span className="min-w-0">
+                    <span className="block text-label-lg text-on-surface">{f.label}</span>
+                    <span className="block text-body-sm text-on-surface-variant">{f.question}</span>
+                    {on && (
+                      <span className="mt-1.5 flex items-start gap-1.5 text-body-sm text-primary">
+                        <Icon name="add_circle" size={14} className="mt-0.5 shrink-0" />
+                        {f.effect}
+                      </span>
+                    )}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+
+      {p.flags["softwareControlled"] && (
+        <section>
+          <h3 className="text-label-lg text-on-surface mb-2.5">Software identification</h3>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Manufacturer">
-              <Input value={manufacturer} onChange={(e) => setManufacturer(e.target.value)} />
-            </Field>
-            <Field label="Model">
-              <Input value={model} onChange={(e) => setModel(e.target.value)} />
-            </Field>
-            <Field label="Serial number">
-              <Input value={serialNumber} onChange={(e) => setSerialNumber(e.target.value)} />
-            </Field>
             <Field label="Software version">
-              <Input value={softwareVersion} onChange={(e) => setSoftwareVersion(e.target.value)} />
+              <Input value={p.softwareVersion} onChange={(e) => p.setSoftwareVersion(e.target.value)} />
             </Field>
             <Field
-              label="Software checksum"
-              className="sm:col-span-2"
-              hint="R 76-1 Annex G. Checked for format, and against every other report in the repository — the national register contains one value shared by two manufacturers."
+              label="Checksum"
+              hint="Checked for format against Annex G, and against every other report in the repository."
             >
               <Input
-                value={softwareChecksum}
-                onChange={(e) => setSoftwareChecksum(e.target.value)}
+                value={p.softwareChecksum}
+                onChange={(e) => p.setSoftwareChecksum(e.target.value)}
                 className="font-mono"
                 placeholder="34559a18232bc0c6c417"
               />
             </Field>
           </div>
-        </Card>
-
-        {/* Metrology */}
-        <Card>
-          <CardHeader icon="straighten" title="Metrological characteristics" description="R 76-1 Table 3" />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Field label="Accuracy class" required>
-              <Select value={accuracyClass} onChange={(e) => setAccuracyClass(e.target.value as never)}>
-                <option value="I">I — special</option>
-                <option value="II">II — high</option>
-                <option value="III">III — medium</option>
-                <option value="IIII">IIII / IV — ordinary</option>
-              </Select>
-            </Field>
-            <Field label="Unit" required>
-              <Select value={unit} onChange={(e) => setUnit(e.target.value as never)}>
-                <option value="mg">mg</option>
-                <option value="g">g</option>
-                <option value="kg">kg</option>
-                <option value="t">t</option>
-              </Select>
-            </Field>
-            <Field label="Indication" required>
-              <Select value={indicatingType} onChange={(e) => setIndicatingType(e.target.value as never)}>
-                <option value="self">Self-indicating</option>
-                <option value="semi-self">Semi-self-indicating</option>
-                <option value="non-self">Non-self-indicating</option>
-              </Select>
-            </Field>
-            <Field label="Range structure" required>
-              <Select
-                value={rangeKind}
-                onChange={(e) => {
-                  const next = e.target.value as InstrumentProfileShape["rangeKind"];
-                  setRangeKind(next);
-                  if (next === "single") setRanges((rs) => rs.slice(0, 1));
-                  else if (ranges.length === 1) setRanges((rs) => [...rs, { ...BLANK_RANGE }]);
-                }}
-              >
-                <option value="single">Single range</option>
-                <option value="multi-interval">Multi-interval</option>
-                <option value="multiple-range">Multiple range</option>
-              </Select>
-            </Field>
-          </div>
-
-          {isMultiRange && (
-            <div className="mt-4">
-              <Alert
-                tone="info"
-                icon={rangeKind === "multi-interval" ? "linear_scale" : "call_split"}
-                title={rangeKind === "multi-interval" ? "One weighing range, split into partial ranges" : "Several independent weighing ranges"}
-              >
-                {rangeKind === "multi-interval" ? (
-                  <>
-                    One Max and one weighing range; <strong>e changes with the load</strong>, so the
-                    permissible-error band can change part-way up the range without the display
-                    resolution changing. One set of forms. <Clause>R 76-1 §3.3</Clause>
-                  </>
-                ) : (
-                  <>
-                    Each range is treated as if it were an instrument with one range, so the report
-                    carries <strong>a full set of forms per range</strong>. <Clause>R 76-1 §3.2</Clause>
-                  </>
-                )}
-              </Alert>
-            </div>
-          )}
-
-          {/* Ranges */}
-          <div className="mt-4 flex flex-col gap-3">
-            {ranges.map((r, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-outline-variant/50 bg-surface-container-low/40 p-3.5"
-              >
-                <div className="mb-2.5 flex items-center justify-between">
-                  <span className="text-label-md text-on-surface">
-                    {rangeKind === "single"
-                      ? "Weighing range"
-                      : rangeKind === "multi-interval"
-                        ? `Partial range ${i + 1}`
-                        : `Weighing range ${i + 1}`}
-                  </span>
-                  {ranges.length > 1 && (
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="ghost"
-                      icon="delete"
-                      onClick={() => setRanges((rs) => rs.filter((_, j) => j !== i))}
-                    >
-                      Remove
-                    </Button>
-                  )}
-                </div>
-                <div className="grid gap-3 sm:grid-cols-4">
-                  <Field label={`e${ranges.length > 1 ? ` (e${i + 1})` : ""}`} required>
-                    <Input
-                      value={r.e}
-                      onChange={(e) => setRange(i, { e: e.target.value })}
-                      inputMode="decimal"
-                      className="tabular-nums"
-                      required
-                    />
-                  </Field>
-                  <Field label="d" required>
-                    <Input
-                      value={r.d}
-                      onChange={(e) => setRange(i, { d: e.target.value })}
-                      inputMode="decimal"
-                      className="tabular-nums"
-                      required
-                    />
-                  </Field>
-                  <Field label="Min" required>
-                    <Input
-                      value={r.min}
-                      onChange={(e) => setRange(i, { min: e.target.value })}
-                      inputMode="decimal"
-                      className="tabular-nums"
-                      required
-                    />
-                  </Field>
-                  <Field
-                    label="Max"
-                    required
-                    hint={
-                      r.e && r.max && Number(r.e) > 0
-                        ? `n = ${fmtNumber(Number(r.max) / Number(r.e))}`
-                        : undefined
-                    }
-                  >
-                    <Input
-                      value={r.max}
-                      onChange={(e) => setRange(i, { max: e.target.value })}
-                      inputMode="decimal"
-                      className="tabular-nums"
-                      required
-                    />
-                  </Field>
-                </div>
-              </div>
-            ))}
-
-            {rangeKind !== "single" && (
-              <Button
-                type="button"
-                variant="secondary"
-                icon="add"
-                onClick={() => setRanges((rs) => [...rs, { ...BLANK_RANGE }])}
-              >
-                Add {rangeKind === "multi-interval" ? "partial range" : "weighing range"}
-              </Button>
-            )}
-          </div>
-        </Card>
-
-        {/* Features */}
-        <Card>
-          <CardHeader
-            icon="tune"
-            title="Features"
-            description="These decide which forms apply — each one switches a test on or off"
-          />
-          <div className="grid gap-2 sm:grid-cols-2">
-            {(
-              [
-                ["electronic", "Electronic", "Unlocks warm-up, voltage, disturbance, damp heat and span stability"],
-                ["softwareControlled", "Software-controlled", "Adds checklist 17.4"],
-                ["hasTareDevice", "Tare device", "Adds form 9"],
-                ["hasPrintOrStorage", "Printing or storage device", "Adds form 7"],
-                ["tiltable", "Liable to be tilted in use", "Adds form 8"],
-                ["rollingLoad", "Loaded by a rolling load", "Adds form 3.2"],
-                ["vehiclePowered", "Powered from a road vehicle", "Adds form 12.7"],
-                ["directSalesToPublic", "Direct sales to the public", "Class II here becomes II* — an Indian designation with no OIML equivalent"],
-                ["priceComputing", "Price computing or labelling", "Adds checklist 17.2"],
-                ["modular", "Modular construction", "Enables the Annex F compatibility check"],
-              ] as const
-            ).map(([key, label, hint]) => (
-              <label
-                key={key}
-                className={cn(
-                  "flex cursor-pointer items-start gap-2.5 rounded-xl border p-3 transition-colors",
-                  flags[key]
-                    ? "border-primary/40 bg-primary-fixed/40"
-                    : "border-outline-variant/50 hover:bg-surface-container-low",
-                )}
-              >
-                <input
-                  type="checkbox"
-                  checked={flags[key]}
-                  onChange={(e) => setFlags((f) => ({ ...f, [key]: e.target.checked }))}
-                  className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-primary)]"
-                />
-                <span className="min-w-0">
-                  <span className="block text-label-md text-on-surface">{label}</span>
-                  <span className="block text-body-sm text-on-surface-variant">{hint}</span>
-                </span>
-              </label>
-            ))}
-          </div>
-        </Card>
-      </div>
-
-      {/* Right column: validation and save */}
-      <div className="flex flex-col gap-5">
-        <Card elevation="raised">
-          <CardHeader icon="save" title="Save profile" />
-          <p className="text-body-sm text-on-surface-variant mb-3">
-            Saving re-resolves which forms apply. Findings are shown here rather than blocking
-            the write — you can correct them and save again.
+          <p className="mt-2 text-body-sm text-on-surface-variant">
+            The live national register carries a file size, a modulus and template filler in this
+            field on real certificates. An error-severity finding here will stop the report
+            validating — which is the check doing its job.
           </p>
-          <Button type="submit" variant="primary" icon="check" loading={save.pending} className="w-full">
-            Save and resolve tests
-          </Button>
-          {save.error && (
-            <div className="mt-3">
-              <Alert tone="fail" title="Could not save">{save.error}</Alert>
-            </div>
-          )}
-        </Card>
-
-        {issues.length > 0 && (
-          <Card>
-            <CardHeader
-              icon={errors.length ? "error" : warnings.length ? "warning" : "info"}
-              title="Validation"
-              description={`${errors.length} error${errors.length === 1 ? "" : "s"}, ${warnings.length} warning${warnings.length === 1 ? "" : "s"}`}
-            />
-            <ul className="flex flex-col gap-2">
-              {[...errors, ...warnings, ...infos].map((issue, i) => (
-                <li key={`${issue.code}-${i}`} className="flex gap-2.5">
-                  <Icon
-                    name={issue.severity === "error" ? "error" : issue.severity === "warning" ? "warning" : "info"}
-                    size={16}
-                    className={cn(
-                      "mt-0.5 shrink-0",
-                      issue.severity === "error"
-                        ? "text-error"
-                        : issue.severity === "warning"
-                          ? "text-[#B45309]"
-                          : "text-on-surface-variant",
-                    )}
-                  />
-                  <span className="min-w-0">
-                    <span className="block text-body-md text-on-surface">{issue.message}</span>
-                    <span className="flex flex-wrap items-center gap-1.5 mt-0.5">
-                      <Badge tone="neutral" className="font-mono">{issue.code}</Badge>
-                      {issue.clause && <Clause>{issue.clause}</Clause>}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Card>
-        )}
-
-        <Card>
-          <CardHeader icon="lightbulb" title="Why this matters" />
-          <p className="text-body-md text-on-surface-variant">
-            On the worked example — Max 2 / 5 / 15 kg, e = 1 / 2 / 10 g, class III — the
-            permissible error walks ±0.5 g, ±1 g, ±2 g, ±3 g, ±10 g as the load rises. The jump
-            from ±2 g to ±3 g happens at 4 kg, in the middle of a partial range, with no change
-            in what the display shows. A spreadsheet that uses one <em>e</em> for the whole
-            instrument gets every row past the first changeover wrong.
-          </p>
-        </Card>
-      </div>
-    </form>
+        </section>
+      )}
+    </div>
   );
+}
+
+// ---------------------------------------------------------------------------
+// Step 4 — review
+// ---------------------------------------------------------------------------
+
+function ReviewStep({
+  profile,
+  preview,
+  unit,
+}: {
+  profile: InstrumentProfileShape;
+  preview: ProfilePreview | null;
+  unit: string;
+}) {
+  const applicable = preview?.applicable.filter((t) => t.applicable) ?? [];
+  const excluded = preview?.applicable.filter((t) => !t.applicable) ?? [];
+
+  return (
+    <div className="flex flex-col gap-5">
+      <dl className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+        {[
+          ["Manufacturer", profile.manufacturer ?? "—"],
+          ["Model", profile.model ?? "—"],
+          ["Serial number", profile.serialNumber ?? "—"],
+          ["Accuracy class", `Class ${profile.accuracyClass}`],
+          ["Range structure", RANGE_KINDS.find((k) => k.id === profile.rangeKind)?.name ?? profile.rangeKind],
+          ["Indication", profile.indicatingType],
+          ["Maximum capacity", `${profile.ranges.map((r) => fmtNumber(r.max)).join(" / ")} ${unit}`],
+          ["Scale interval", `${profile.ranges.map((r) => fmtNumber(r.e)).join(" / ")} ${unit}`],
+        ].map(([k, v]) => (
+          <div key={k} className="flex justify-between gap-3 border-b border-outline-variant/30 py-1.5">
+            <dt className="text-body-sm text-on-surface-variant">{k}</dt>
+            <dd className="text-body-md text-on-surface text-right">{v}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div>
+        <h3 className="text-label-lg text-on-surface mb-2">
+          {applicable.length} test{applicable.length === 1 ? "" : "s"} will apply
+        </h3>
+        <div className="flex flex-wrap gap-1.5">
+          {applicable.map((t) => (
+            <Badge key={`${t.formId}-${t.rangeIndex ?? 0}`} tone="info">
+              {t.formId} {t.title ?? t.testId.replace(/_/g, " ")}
+            </Badge>
+          ))}
+        </div>
+      </div>
+
+      {excluded.length > 0 && (
+        <div>
+          <h3 className="text-label-lg text-on-surface mb-2">
+            {excluded.length} will not, and the report will say why
+          </h3>
+          <ul className="flex flex-col gap-1.5">
+            {excluded.map((t) => (
+              <li key={`${t.formId}-${t.rangeIndex ?? 0}`} className="flex gap-2 text-body-sm">
+                <Badge tone="neutral" className="shrink-0 font-mono">{t.formId}</Badge>
+                <span className="text-on-surface-variant">{t.reason}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// The live panel
+// ---------------------------------------------------------------------------
+
+/**
+ * One panel, not three.
+ *
+ * This was a status card, a staircase card and a test-list card stacked down the right side —
+ * three headings competing to be the thing the officer reads. It answers one question, so it is
+ * one card: is this a legal instrument, and what will it be held to?
+ *
+ * The band table and the form list are real answers but rarely needed while typing, so they sit
+ * behind disclosures. The staircase stays open because it is the one thing that cannot be said
+ * in a sentence.
+ */
+function LivePanel({
+  preview,
+  unit,
+  profile,
+}: {
+  preview: ReturnType<typeof useProfilePreview>;
+  unit: string;
+  profile: InstrumentProfileShape;
+}) {
+  const data = preview.data;
+  const errors = (data?.issues ?? []).filter((i) => i.severity === "error");
+  const warnings = (data?.issues ?? []).filter((i) => i.severity === "warning");
+  const applicable = (data?.applicable ?? []).filter((t) => t.applicable);
+
+  if (!data && !preview.pending) {
+    return (
+      <Card>
+        <p className="text-body-md text-on-surface-variant">
+          Enter the class and a weighing range, and the engine&rsquo;s reading of the instrument
+          appears here.
+        </p>
+      </Card>
+    );
+  }
+
+  return (
+    <Card elevation="raised" className="xl:sticky xl:top-[92px]">
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <h2 className="text-label-lg text-on-surface">What the engine makes of it</h2>
+        {preview.pending && <Spinner size={14} className="text-on-surface-variant" />}
+      </div>
+
+      {/* The verdict on the combination, in one line. */}
+      {errors.length > 0 ? (
+        <div className="rounded-xl bg-error-container/50 p-3">
+          <p className="flex items-center gap-1.5 text-label-md text-on-error-container">
+            <Icon name="error" size={16} />
+            {errors.length} blocking finding{errors.length === 1 ? "" : "s"}
+          </p>
+          <ul className="mt-1.5 flex flex-col gap-1 text-body-sm text-on-surface">
+            {errors.map((i, k) => <li key={k}>{i.message}</li>)}
+          </ul>
+        </div>
+      ) : data ? (
+        <p className="flex items-center gap-1.5 rounded-xl bg-success-container/50 px-3 py-2 text-label-md text-on-success">
+          <Icon name="check_circle" size={16} />
+          A legal combination under Table 3
+        </p>
+      ) : null}
+
+      {warnings.length > 0 && (
+        <p className="mt-2 text-body-sm text-on-surface-variant">
+          <Icon name="warning" size={13} className="mr-1 inline align-[-2px] text-[#B45309]" />
+          {warnings.map((i) => i.message).join(" ")}
+        </p>
+      )}
+
+      {/* n per range — the number the class limits are actually set on. */}
+      {profile.ranges.some((r) => r.e > 0 && r.max > 0) && (
+        <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-body-sm text-on-surface-variant">
+          {profile.ranges.map((r, i) =>
+            r.e > 0 && r.max > 0 ? (
+              <span key={i}>
+                {profile.ranges.length > 1 ? `n${i + 1}` : "n"}{" "}
+                <span className="font-semibold tabular-nums text-on-surface">
+                  {fmtNumber(Math.round(r.max / r.e))}
+                </span>
+              </span>
+            ) : null,
+          )}
+        </p>
+      )}
+
+      {data && data.bands.length > 0 && (
+        <>
+          <div className="mt-4 border-t border-outline-variant/40 pt-3">
+            <p className="mb-1 text-label-md text-on-surface">
+              Permissible error across the range
+              <span className="ml-1.5 font-normal text-on-surface-variant">
+                {data.bands.length} band{data.bands.length === 1 ? "" : "s"}
+              </span>
+            </p>
+            <MpeStaircase bands={data.bands} unit={unit} />
+          </div>
+
+          <Disclosure summary={`The ${data.bands.length} bands as a table`} className="mt-2">
+            <table className="w-full border-collapse text-body-sm">
+              <tbody>
+                {data.bands.map((b, i) => (
+                  <tr key={i} className="border-b border-outline-variant/30 last:border-0">
+                    <td className="py-1 tabular-nums text-on-surface-variant">
+                      {fmtNumber(b.fromLoad)}–{fmtNumber(b.toLoad)} {unit}
+                    </td>
+                    <td className="py-1 text-right font-semibold tabular-nums text-on-surface">
+                      ± {fmtNumber(b.mpe)} {unit}
+                    </td>
+                    <td className="py-1 pl-3 text-right text-on-surface-variant">
+                      {b.factor} e{data.bands.some((x) => x.e !== b.e) ? b.rangeIndex : ""}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="mt-2 text-body-sm text-on-surface-variant">
+              In service these double. <Clause>R 76-1 §3.5.2</Clause>
+            </p>
+          </Disclosure>
+        </>
+      )}
+
+      {data && data.applicable.length > 0 && (
+        <Disclosure
+          summary={`${applicable.length} of ${data.applicable.length} test forms apply`}
+          className="mt-2"
+        >
+          <div className="flex flex-wrap gap-1">
+            {data.applicable.map((t) => (
+              <Badge
+                key={`${t.formId}-${t.rangeIndex ?? 0}`}
+                tone={t.applicable ? "info" : "neutral"}
+                className={t.applicable ? undefined : "opacity-50"}
+              >
+                {t.formId}
+              </Badge>
+            ))}
+          </div>
+          <p className="mt-2 text-body-sm text-on-surface-variant">
+            Changing a feature on the next step changes this count.
+          </p>
+        </Disclosure>
+      )}
+    </Card>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Preview plumbing
+// ---------------------------------------------------------------------------
+
+export interface ProfilePreview {
+  issues: Issue[];
+  bands: {
+    fromLoad: number; toLoad: number; mpe: number; factor: number;
+    e: number; rangeIndex: number; startsNewRange: boolean;
+  }[];
+  applicable: ApplicableTest[];
+  blocking: boolean;
+}
+
+/**
+ * Ask the engine what it makes of an unsaved profile.
+ *
+ * Deliberately a server call rather than arithmetic in the browser. The whole compliance
+ * argument rests on every number coming from one tested engine; a "preview" computed
+ * client-side would be a second implementation that could disagree with the report, and the
+ * moment it did, the screen would be lying.
+ */
+function useProfilePreview(profile: InstrumentProfileShape) {
+  const [data, setData] = useState<ProfilePreview | null>(null);
+  const [pending, setPending] = useState(false);
+
+  const ready = profile.ranges.every((r) => r.e > 0 && r.max > 0 && Number.isFinite(r.min));
+
+  useEffect(() => {
+    if (!ready) {
+      setData(null);
+      return;
+    }
+    const controller = new AbortController();
+    let live = true;
+    setPending(true);
+
+    api
+      .previewProfile(profile, controller.signal)
+      .then((result) => { if (live) setData(result); })
+      .catch(() => { /* a half-typed profile is not an error worth showing */ })
+      .finally(() => { if (live) setPending(false); });
+
+    return () => { live = false; controller.abort(); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(profile), ready]);
+
+  return { data, pending };
 }

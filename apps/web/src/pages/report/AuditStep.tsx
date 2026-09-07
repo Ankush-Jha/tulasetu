@@ -20,6 +20,7 @@ import {
   Button,
   Card,
   CardHeader,
+  Disclosure,
   ErrorState,
   Icon,
   LoadingState,
@@ -243,8 +244,7 @@ export function AuditStep() {
         </TableWrap>
       </Card>
 
-      <Card>
-        <CardHeader icon="policy" title="Why it is built this way" />
+      <Disclosure summary="Why the record is an append-only log rather than editable rows">
         <p className="text-body-md text-on-surface-variant">
           The log is the record and the report is derived from it, rather than the report being
           the record with an audit table alongside. A parallel audit table can drift from the
@@ -256,7 +256,7 @@ export function AuditStep() {
           <code className="font-mono text-body-sm">DELETE</code> on the log outright. The hash
           chain covers the case that rule cannot: someone with the file itself.
         </p>
-      </Card>
+      </Disclosure>
     </div>
   );
 }

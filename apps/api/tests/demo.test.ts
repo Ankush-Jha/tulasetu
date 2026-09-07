@@ -84,12 +84,22 @@ describe("seeding the demonstration set", () => {
     }
   });
 
-  it("produces one report that passes and one that fails", async () => {
+  it("produces a failing report, and leaves the rest honestly in progress", async () => {
+    // A failing row fails its form, and a failed form fails the report — that verdict is
+    // reachable from the weighing observations alone.
+    //
+    // PASSED is not, and deliberately so. It requires *every* applicable form to have a
+    // verdict, and the demonstration set only records the weighing-shaped forms because those
+    // are the ones with an entry path today (K2–K6 are implemented and tested in the engine
+    // but have no screen yet). A seeder that reported PASSED here would be claiming tests had
+    // been run that had not.
     await call("POST", "/admin/demo-data", "u-ma");
     const reports = (await call("GET", "/reports", "u-ma")).json();
     const verdicts = reports.map((r: any) => r.overall_verdict);
-    expect(verdicts).toContain("PASSED");
+
     expect(verdicts).toContain("FAILED");
+    expect(verdicts.filter((v: string | null) => v === null).length).toBeGreaterThan(0);
+    expect(verdicts).not.toContain("PASSED");
   });
 
   it("leaves the class II* scale unvalidatable, because its checksum is the register's own defect", async () => {

@@ -27,6 +27,7 @@ import {
   EmptyState,
   ErrorState,
   Field,
+  Icon,
   Input,
   LoadingState,
   Stat,
@@ -49,6 +50,23 @@ interface ChecklistBank {
 }
 
 type Answer = "yes" | "no" | "na";
+
+type IndexedItem = { item: ChecklistItem; index: number };
+
+/** The standard's own groupings, in the order it prints them. */
+function groupBySection(entries: IndexedItem[]): { name: string; entries: IndexedItem[] }[] {
+  const order: string[] = [];
+  const byName = new Map<string, IndexedItem[]>();
+  for (const entry of entries) {
+    const name = entry.item.section ?? "Other";
+    if (!byName.has(name)) {
+      byName.set(name, []);
+      order.push(name);
+    }
+    byName.get(name)!.push(entry);
+  }
+  return order.map((name) => ({ name, entries: byName.get(name)! }));
+}
 
 /** Which checklists this instrument attracts. Mirrors the pack's `checklist_rules`. */
 function applicableChecklists(p: InstrumentProfileShape): Record<string, string | null> {
@@ -87,6 +105,8 @@ export function ChecklistStep() {
   const [dirty, setDirty] = useState<Set<string>>(new Set());
   const [filter, setFilter] = useState("");
   const [active, setActive] = useState<string | null>(null);
+  // One section open at a time: the point of grouping is that the rest stay out of the way.
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
   // Seed from what is already recorded, so returning to the step shows the report's state.
   useEffect(() => {
@@ -119,6 +139,10 @@ export function ChecklistStep() {
         item.ref.toLowerCase().includes(filter.toLowerCase())
       : true,
   );
+
+  // A plain computation, not a hook: it sits below the early returns above, and a hook there
+  // would be called conditionally. Grouping a few hundred items costs nothing per render.
+  const sections = groupBySection(items);
 
   const answered = indexed.filter(({ index }) => answers[`${currentId}#${index}`]).length;
   const totalApplicable = lists
@@ -240,58 +264,112 @@ export function ChecklistStep() {
               <EmptyState icon="search_off" title="No items match that filter" />
             </div>
           ) : (
-            <ul className="divide-y divide-outline-variant/30 border-t border-outline-variant/40">
-              {items.map(({ item, index }) => {
-                const key = `${currentId}#${index}`;
-                const answer = answers[key];
-                const unsaved = dirty.has(key);
+            /*
+              Grouped by the section the standard itself prints, and collapsed.
+              
+              Checklist 17.1 alone is 215 items. Rendered flat that was fourteen screens and six
+              hundred controls — a list nobody can hold a position in, let alone finish across
+              several sittings. The standard already groups these ("Descriptive markings",
+              "Indicating device", …), so the sections are the standard's own, not an invention,
+              and each carries its own count so an officer can see where they are.
+            */
+            <div className="flex flex-col gap-1.5 border-t border-outline-variant/40 p-3">
+              {sections.map((section) => {
+                const answeredHere = section.entries.filter(
+                  ({ index }) => answers[`${currentId}#${index}`],
+                ).length;
+                const complete = answeredHere === section.entries.length;
+                const isOpen = openSection === section.name || Boolean(filter);
+
                 return (
-                  <li
-                    key={key}
-                    className={cn(
-                      "flex flex-wrap items-start gap-3 px-5 py-3",
-                      unsaved && "bg-[#FEF3C7]/30",
+                  <div key={section.name} className="rounded-xl border border-outline-variant/50">
+                    <button
+                      onClick={() => setOpenSection(isOpen ? null : section.name)}
+                      aria-expanded={isOpen}
+                      className={cn(
+                        "flex w-full items-center gap-3 px-3.5 py-2.5 text-left transition-colors",
+                        "hover:bg-surface-container-low focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+                        isOpen ? "rounded-t-xl" : "rounded-xl",
+                      )}
+                    >
+                      <Icon
+                        name="expand_more"
+                        size={18}
+                        className={cn("shrink-0 text-on-surface-variant transition-transform", isOpen && "rotate-180")}
+                      />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-label-lg text-on-surface">{section.name}</span>
+                        <span className="mt-1 flex items-center gap-2">
+                          <span className="h-1 w-24 overflow-hidden rounded-full bg-surface-container-high">
+                            <span
+                              className={cn("block h-full rounded-full", complete ? "bg-success" : "bg-primary")}
+                              style={{ width: `${(answeredHere / section.entries.length) * 100}%` }}
+                            />
+                          </span>
+                          <span className="text-body-sm tabular-nums text-on-surface-variant">
+                            {answeredHere} of {section.entries.length}
+                          </span>
+                        </span>
+                      </span>
+                      {complete && <Icon name="check_circle" size={18} className="shrink-0 text-on-success" />}
+                    </button>
+
+                    {isOpen && (
+                      <ul className="divide-y divide-outline-variant/30 border-t border-outline-variant/40">
+                        {section.entries.map(({ item, index }) => {
+                          const key = `${currentId}#${index}`;
+                          const answer = answers[key];
+                          const unsaved = dirty.has(key);
+                          return (
+                            <li
+                              key={key}
+                              className={cn(
+                                "flex flex-wrap items-start gap-3 px-3.5 py-2.5",
+                                unsaved && "bg-[#FEF3C7]/30",
+                              )}
+                            >
+                              <span className="w-16 shrink-0 font-mono text-body-sm text-on-surface-variant">
+                                {item.ref}
+                              </span>
+                              <span className="min-w-0 flex-1 text-body-md text-on-surface">
+                                {item.text}
+                                {item._uncertain && (
+                                  <Badge tone="warn" icon="help" className="ml-1.5">
+                                    verify against the PDF
+                                  </Badge>
+                                )}
+                              </span>
+                              <span className="flex shrink-0 gap-1">
+                                {(["yes", "no", "na"] as const).map((v) => (
+                                  <button
+                                    key={v}
+                                    onClick={() => setAnswer(key, v)}
+                                    aria-pressed={answer === v}
+                                    aria-label={`${item.ref}: ${v === "na" ? "not applicable" : v}`}
+                                    className={cn(
+                                      "h-7 min-w-[40px] rounded-lg border px-2 text-label-md font-semibold transition-colors",
+                                      answer === v
+                                        ? v === "yes"
+                                          ? "border-success/40 bg-success-container text-on-success"
+                                          : v === "no"
+                                            ? "border-error/40 bg-error-container text-on-error-container"
+                                            : "border-outline-variant bg-surface-container-high text-on-surface-variant"
+                                        : "border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-low",
+                                    )}
+                                  >
+                                    {v === "na" ? "– –" : v === "yes" ? "Yes" : "No"}
+                                  </button>
+                                ))}
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ul>
                     )}
-                  >
-                    <span className="w-20 shrink-0 font-mono text-body-sm text-on-surface-variant">
-                      {item.ref}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-body-md text-on-surface">{item.text}</span>
-                      {item.section && (
-                        <span className="block text-label-sm text-on-surface-variant mt-0.5">{item.section}</span>
-                      )}
-                      {item._uncertain && (
-                        <Badge tone="warn" icon="help" className="mt-1">
-                          transcription uncertain — verify against the PDF
-                        </Badge>
-                      )}
-                    </span>
-                    <span className="flex shrink-0 gap-1">
-                      {(["yes", "no", "na"] as const).map((v) => (
-                        <button
-                          key={v}
-                          onClick={() => setAnswer(key, v)}
-                          aria-pressed={answer === v}
-                          className={cn(
-                            "h-8 min-w-[44px] rounded-lg border px-2 text-label-md font-semibold transition-colors",
-                            answer === v
-                              ? v === "yes"
-                                ? "border-success/40 bg-success-container text-on-success"
-                                : v === "no"
-                                  ? "border-error/40 bg-error-container text-on-error-container"
-                                  : "border-outline-variant bg-surface-container-high text-on-surface-variant"
-                              : "border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-low",
-                          )}
-                        >
-                          {v === "na" ? "– –" : v === "yes" ? "Yes" : "No"}
-                        </button>
-                      ))}
-                    </span>
-                  </li>
+                  </div>
                 );
               })}
-            </ul>
+            </div>
           ))}
       </Card>
 

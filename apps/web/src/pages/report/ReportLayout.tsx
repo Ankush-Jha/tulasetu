@@ -11,7 +11,7 @@
  */
 
 import { createContext, useContext } from "react";
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import {
   Alert,
   Badge,
@@ -73,6 +73,7 @@ export function useReport(): ReportContextValue {
 
 export function ReportLayout() {
   const { reportId = "" } = useParams();
+  const { pathname } = useLocation();
   const { data, initialLoading, loading, error, reload } = useApi(
     (s) => api.getReport(reportId, s),
     [reportId],
@@ -100,6 +101,10 @@ export function ReportLayout() {
 
   const applicable = forms.filter((f) => f.applicable === 1);
   const decided = applicable.filter((f) => f.verdict);
+
+  // Which section is open, from the URL — the rail highlights it and names it once.
+  const slug = pathname.split("/").pop() ?? "";
+  const currentStepIndex = Math.max(0, REPORT_STEPS.findIndex((s) => s.slug === slug));
 
   async function move(to: string) {
     const ok = await transition.run(reportId, { to });
@@ -163,72 +168,71 @@ export function ReportLayout() {
           </div>
         )}
 
-        {/* Progress: how much of the applicable work is done */}
-        <div className="mt-4 flex items-center gap-3">
-          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-container-high">
-            <div
-              className="h-full rounded-full bg-primary transition-[width] duration-300"
-              style={{ width: applicable.length ? `${(decided.length / applicable.length) * 100}%` : "0%" }}
-            />
-          </div>
-          <span className="text-body-sm text-on-surface-variant tabular-nums whitespace-nowrap">
-            {decided.length} of {applicable.length} applicable forms recorded
-          </span>
-        </div>
-
         {guards.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {guards.map((g) => (
-              <Badge key={g} tone="pass" icon="check">{describeGuard(g)}</Badge>
-            ))}
-          </div>
+          <p className="mt-3 flex items-center gap-1.5 text-body-sm text-on-surface-variant">
+            <Icon name="check_circle" size={14} className="text-on-success" />
+            {guards.map(describeGuard).join(" · ")}
+          </p>
         )}
       </Card>
 
-      {/* Steps */}
-      <nav className="mb-5 flex gap-1.5 overflow-x-auto pb-1" aria-label="Report steps">
-        {REPORT_STEPS.map((step, i) => (
-          <NavLink
-            key={step.slug}
-            to={reportPath(reportId, step.slug)}
-            className={({ isActive }) =>
-              cn(
-                "flex shrink-0 items-center gap-2.5 rounded-xl border px-3.5 py-2.5 transition-colors",
-                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-                isActive
-                  ? "border-primary/40 bg-primary-fixed text-on-primary-fixed"
-                  : "border-outline-variant/50 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-low",
-              )
-            }
-          >
-            {({ isActive }) => (
-              <>
-                <span
+      {/*
+        One progress rail for the whole report.
+        
+        There were four competing progress indicators stacked here — a bar, seven section cards,
+        an advisory alert and, inside the profile, a second stepper — which between them filled
+        the screen before any content. A reader cannot tell which one to follow when four are
+        offered. This is the single one: seven segments, the current section named, and how much
+        of the applicable work is recorded. A page with its own sub-steps shows those itself.
+      */}
+      <nav aria-label="Report sections" className="mb-5">
+        <div className="flex items-end justify-between gap-4 mb-2">
+          <p className="text-label-md text-on-surface">
+            <span className="text-on-surface-variant">Section {currentStepIndex + 1} of {REPORT_STEPS.length} · </span>
+            {REPORT_STEPS[currentStepIndex]?.label ?? "Report"}
+          </p>
+          <p className="text-body-sm text-on-surface-variant tabular-nums">
+            {applicable.length > 0
+              ? `${decided.length} of ${applicable.length} forms recorded`
+              : "No forms resolved yet"}
+          </p>
+        </div>
+
+        <ol className="flex gap-1">
+          {REPORT_STEPS.map((step, i) => {
+            const active = i === currentStepIndex;
+            const behind = i < currentStepIndex;
+            return (
+              <li key={step.slug} className="flex-1">
+                <NavLink
+                  to={reportPath(reportId, step.slug)}
+                  title={`${step.label} — ${step.hint}`}
                   className={cn(
-                    "flex h-6 w-6 items-center justify-center rounded-full text-label-sm font-bold",
-                    isActive ? "bg-primary text-on-primary" : "bg-surface-container-high text-on-surface-variant",
+                    "group block rounded-full py-1 transition-colors",
+                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
                   )}
                 >
-                  {i + 1}
-                </span>
-                <span className="flex flex-col leading-tight text-left">
-                  <span className="text-label-md font-semibold whitespace-nowrap">{step.label}</span>
-                  <span className="text-label-sm opacity-80 whitespace-nowrap">{step.hint}</span>
-                </span>
-              </>
-            )}
-          </NavLink>
-        ))}
+                  <span
+                    className={cn(
+                      "block h-1.5 rounded-full transition-colors",
+                      active ? "bg-primary" : behind ? "bg-primary/40" : "bg-outline-variant/50",
+                      "group-hover:bg-primary/70",
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "mt-1.5 block truncate text-label-sm transition-colors",
+                      active ? "font-semibold text-on-surface" : "text-on-surface-variant",
+                    )}
+                  >
+                    {step.label}
+                  </span>
+                </NavLink>
+              </li>
+            );
+          })}
+        </ol>
       </nav>
-
-      {!instrument && (
-        <div className="mb-5">
-          <Alert tone="info" icon="precision_manufacturing" title="Start with the instrument profile">
-            Permissible errors cannot be resolved without the accuracy class and the weighing
-            ranges, so every later step depends on this one.
-          </Alert>
-        </div>
-      )}
 
       <Outlet />
     </ReportContext.Provider>

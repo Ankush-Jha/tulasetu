@@ -6,6 +6,7 @@
  * statutory return — because a dashboard with invented numbers is worse than no dashboard.
  */
 
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Alert,
@@ -44,6 +45,27 @@ export function DashboardPage() {
     [year],
     { enabled: can("stats:read_own_lab") },
   );
+
+  const lifecycle = useApi((s) => api.lifecycle(s), []);
+
+  /**
+   * Which reports this officer can actually move forward.
+   *
+   * A dashboard's job is to answer "what needs me", and that depends on the role: a
+   * Metrological Assistant's queue is drafts and returned reports, an Assistant Director's is
+   * submissions awaiting review, the Director's is recommendations awaiting a decision. The
+   * states are read off the lifecycle table the server publishes, so this cannot drift from
+   * what the server will actually permit.
+   */
+  const actionable = useMemo(() => {
+    if (!recent.data || !lifecycle.data || !session) return [];
+    const mine = new Set(
+      lifecycle.data.transitions
+        .filter((t) => t.roles.includes(session.role))
+        .map((t) => t.from),
+    );
+    return recent.data.filter((r) => mine.has(r.status));
+  }, [recent.data, lifecycle.data, session]);
 
   async function loadDemo() {
     const r = await seed.run();
@@ -222,23 +244,37 @@ export function DashboardPage() {
           </Card>
 
           <Card>
-            <CardHeader icon="verified" title="How this differs" />
-            <ul className="flex flex-col gap-2.5">
-              {[
-                ["calculate", "The report is computed, not typed. 17 forms reduce to six calculation kernels plus three special cases."],
-                ["trending_up", "Permissible-error bands follow the load. On a multi-interval instrument the limit can loosen mid-range — the error a spreadsheet makes."],
-                ["policy", "The standard is data. Thresholds and clause references live in versioned rule packs, not in code."],
-                ["lock", "Observations are append-only and hash-chained, per ISO/IEC 17025 §7.8."],
-              ].map(([icon, text]) => (
-                <li key={text} className="flex gap-2.5">
-                  <Icon name={icon!} size={18} className="mt-0.5 shrink-0 text-primary" />
-                  <span className="text-body-md text-on-surface-variant">{text}</span>
-                </li>
-              ))}
-            </ul>
-            <Badge tone="info" icon="psychology_alt" className="mt-4">
-              No machine learning in the calculation path
-            </Badge>
+            <CardHeader
+              icon="pending_actions"
+              title="Waiting on you"
+              description="Reports in a state your role can move"
+            />
+            {actionable.length === 0 ? (
+              <p className="text-body-md text-on-surface-variant">
+                Nothing is waiting on you.
+              </p>
+            ) : (
+              <ul className="flex flex-col gap-1.5">
+                {actionable.slice(0, 6).map((r) => (
+                  <li key={r.id}>
+                    <Link
+                      to={reportPath(r.id)}
+                      className="flex items-center justify-between gap-3 rounded-xl px-2.5 py-2 transition-colors hover:bg-surface-container-low"
+                    >
+                      <span className="min-w-0">
+                        <span className="block truncate text-label-md text-on-surface">
+                          {r.model ?? r.id}
+                        </span>
+                        <span className="block truncate text-body-sm text-on-surface-variant">
+                          {r.manufacturer ?? "—"}
+                        </span>
+                      </span>
+                      <StatusChip status={r.status} />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Card>
         </div>
       </div>

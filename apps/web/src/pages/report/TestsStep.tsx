@@ -16,26 +16,15 @@ import {
   Button,
   Card,
   CardHeader,
-  Clause,
-  Icon,
+  Disclosure,
   Stat,
   TableWrap,
   Td,
   Th,
   Verdict,
 } from "../../components/ui";
-import { cn } from "../../lib/cn";
 import { reportPath } from "../../lib/nav";
 import { NeedsProfile, useReport } from "./ReportLayout";
-
-/** What each kernel does, in one line, for the officer who asks. */
-const KERNEL_NOTE: Record<string, string> = {
-  K1: "Error against the permissible-error band",
-  K2: "Difference threshold (discrimination)",
-  K3: "Displacement in millimetres (sensitivity)",
-  K4: "Time or temperature dependence",
-  K5: "Significant fault during a disturbance",
-};
 
 export function TestsStep() {
   const { reportId, detail, instrument } = useReport();
@@ -119,12 +108,7 @@ export function TestsStep() {
       </Card>
 
       {excluded.length > 0 && (
-        <Card>
-          <CardHeader
-            icon="do_not_disturb_on"
-            title="Not applicable"
-            description="Printed on the report as “– –”, each with the reason below"
-          />
+        <Disclosure summary={`${excluded.length} forms do not apply, and the report says why`}>
           <ul className="flex flex-col gap-2.5">
             {excluded.map((f) => (
               <li
@@ -146,33 +130,9 @@ export function TestsStep() {
               </li>
             ))}
           </ul>
-        </Card>
+        </Disclosure>
       )}
 
-      <Card>
-        <CardHeader icon="functions" title="How 17 forms become five kernels" />
-        <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
-          {Object.entries(KERNEL_NOTE).map(([kernel, note]) => (
-            <div
-              key={kernel}
-              className={cn("flex gap-2.5 rounded-xl border border-outline-variant/50 p-3")}
-            >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary-fixed font-mono text-label-md font-bold text-on-primary-fixed">
-                {kernel}
-              </span>
-              <span className="text-body-sm text-on-surface-variant">{note}</span>
-            </div>
-          ))}
-        </div>
-        <p className="text-body-sm text-on-surface-variant mt-3">
-          <Icon name="info" size={14} className="mr-1 inline align-[-2px]" />
-          Four forms sit outside that reduction and are handled as special cases — repeatability
-          adds a spread check across ten weighings, tilting uses a fixed 2 e when unloaded,
-          stability of equilibrium is not time-based at all, and span stability is checked
-          against fixed bands with no permissible-error column on the printed form.{" "}
-          <Clause>docs/VERIFIED.md §14</Clause>
-        </p>
-      </Card>
     </div>
   );
 }

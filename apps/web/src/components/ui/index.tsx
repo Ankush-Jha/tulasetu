@@ -20,7 +20,7 @@
  *    `text-on-surface-variant` *is* `#434655`. Writing the hex again just hides it.
  */
 
-import type { ReactNode, ButtonHTMLAttributes, InputHTMLAttributes, SelectHTMLAttributes } from "react";
+import { useState, type ReactNode, type ButtonHTMLAttributes, type InputHTMLAttributes, type SelectHTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
 
 // ---------------------------------------------------------------------------
@@ -582,6 +582,82 @@ export function KeyValue({ label, children }: { label: string; children: ReactNo
 /** A clause reference. Monospaced so it reads as a citation, not as prose. */
 export function Clause({ children }: { children: ReactNode }) {
   return <code className="text-body-sm text-on-surface-variant font-mono">{children}</code>;
+}
+
+/**
+ * Detail that is available but not always on screen.
+ *
+ * Nielsen's eighth heuristic: a dialogue should not carry information that is irrelevant or
+ * rarely needed, because every extra unit competes with the units that matter. Most of the
+ * explanatory material in this application is genuinely useful *once* — the first time an
+ * officer meets a choice — and is noise on the hundredth report.
+ *
+ * So it lives here: closed by default, one click away, and the summary line always says what is
+ * inside so the reader can decide without opening it.
+ */
+export function Disclosure({
+  summary,
+  children,
+  defaultOpen = false,
+  className,
+}: {
+  summary: string;
+  children: ReactNode;
+  defaultOpen?: boolean;
+  className?: string;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className={cn("rounded-xl border border-outline-variant/50", className)}>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className={cn(
+          "flex w-full items-center justify-between gap-2 px-3 py-2 text-left transition-colors",
+          "hover:bg-surface-container-low focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+          open ? "rounded-t-xl" : "rounded-xl",
+        )}
+      >
+        <span className="text-label-md text-on-surface-variant">{summary}</span>
+        <Icon
+          name="expand_more"
+          size={18}
+          className={cn("shrink-0 text-on-surface-variant transition-transform", open && "rotate-180")}
+        />
+      </button>
+      {open && <div className="border-t border-outline-variant/40 px-3 py-2.5">{children}</div>}
+    </div>
+  );
+}
+
+/**
+ * A short definition attached to a term, revealed on demand.
+ *
+ * For the single word an officer might not know — "verification scale interval", "changeover
+ * point" — where a sentence of explanation next to every one of them would drown the form.
+ */
+export function Explain({ children, term }: { children: ReactNode; term: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <span className="relative inline-flex items-center">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-label={`What is ${term}?`}
+        aria-expanded={open}
+        className="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant transition-colors hover:bg-primary hover:text-on-primary"
+      >
+        <Icon name="question_mark" size={11} />
+      </button>
+      {open && (
+        <span
+          role="tooltip"
+          className="absolute left-0 top-6 z-20 w-64 rounded-xl border border-outline-variant/50 bg-surface-container-lowest p-3 text-body-sm font-normal text-on-surface-variant card-shadow-lg"
+        >
+          {children}
+        </span>
+      )}
+    </span>
+  );
 }
 
 /** Horizontal rule matching the table borders. */

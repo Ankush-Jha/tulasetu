@@ -22,22 +22,49 @@ export interface NavSection {
   capability?: string;
   /** Match child routes too (e.g. /reports/TS-1 highlights Reports). */
   prefix?: boolean;
+  group: NavGroup;
 }
 
+/**
+ * Grouped, because eight flat items say nothing about which of them an officer uses daily.
+ *
+ * Creating a report and browsing the ones that exist are different tasks — one is an action
+ * taken a few times a week, the other is a place you look things up — and collapsing them into
+ * a single "Reports" entry made the primary action of the whole application something you had
+ * to find inside a list. They are separate entries now.
+ *
+ * The three tools below are genuinely occasional: a family is solved once per submission, a
+ * module combination checked once per design, the rule pack read when someone doubts a number.
+ * Grouping them says so, rather than giving them the same weight as the daily work.
+ */
+export type NavGroup = "work" | "tools" | "about";
+
+export const NAV_GROUPS: { id: NavGroup; label: string }[] = [
+  { id: "work", label: "Work" },
+  { id: "tools", label: "Tools" },
+  { id: "about", label: "About" },
+];
+
 export const NAV_SECTIONS: NavSection[] = [
-  // First, deliberately. Someone opening this cold needs the problem before the workspace.
-  { path: "/brief", label: "Briefing", icon: "menu_book" },
-  { path: "/dashboard", label: "Dashboard", icon: "space_dashboard" },
-  { path: "/reports", label: "Reports", icon: "folder_open", prefix: true },
-  { path: "/tools/family", label: "Family solver", icon: "account_tree" },
-  { path: "/tools/modules", label: "Modules", icon: "memory" },
-  { path: "/statistics", label: "Statistics", icon: "monitoring", capability: "stats:read_own_lab" },
-  { path: "/rulepack", label: "Rule pack", icon: "gavel" },
-  { path: "/settings", label: "Settings", icon: "settings" },
+  { path: "/dashboard", label: "Dashboard", icon: "space_dashboard", group: "work" },
+  // The primary action of the application, given its own entry rather than buried in a list.
+  { path: "/reports/new", label: "New report", icon: "add_circle", group: "work", capability: "report:create" },
+  { path: "/reports", label: "Reports", icon: "folder_open", group: "work", prefix: true },
+
+  { path: "/tools/family", label: "Family solver", icon: "account_tree", group: "tools" },
+  { path: "/tools/modules", label: "Modules", icon: "memory", group: "tools" },
+  { path: "/rulepack", label: "Rule pack", icon: "gavel", group: "tools" },
+  { path: "/statistics", label: "Statistics", icon: "monitoring", group: "tools", capability: "stats:read_own_lab" },
+
+  { path: "/brief", label: "Briefing", icon: "menu_book", group: "about" },
+  { path: "/settings", label: "Settings", icon: "settings", group: "about" },
 ];
 
 /** Is `pathname` inside `section`? */
 export function isSectionActive(section: NavSection, pathname: string): boolean {
+  // An exact match always wins: /reports/new is its own entry, so it must not also light up
+  // the /reports prefix and leave two items looking current.
+  if (NAV_SECTIONS.some((s) => s.path === pathname && s.path !== section.path)) return false;
   if (section.prefix) return pathname === section.path || pathname.startsWith(`${section.path}/`);
   return pathname === section.path;
 }

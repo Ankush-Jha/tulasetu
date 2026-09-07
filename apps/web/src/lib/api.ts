@@ -419,6 +419,22 @@ export const api = {
     return body as Attachment;
   },
 
+  /**
+   * What the engine makes of an unsaved profile: findings, permissible-error bands, and the
+   * tests it attracts. Records nothing — but it is a real engine call, so the bands shown while
+   * typing are the bands the report will carry.
+   */
+  previewProfile: (profile: unknown, signal?: AbortSignal) =>
+    request<{
+      issues: Issue[];
+      bands: {
+        fromLoad: number; toLoad: number; mpe: number; factor: number;
+        e: number; rangeIndex: number; startsNewRange: boolean;
+      }[];
+      applicable: ApplicableTest[];
+      blocking: boolean;
+    }>("POST", "/tools/profile-preview", { profile }, signal),
+
   checklistAnswers: (id: string, signal?: AbortSignal) =>
     request<{ checklist_id: string; item_index: number; item_ref: string; answer: "yes" | "no" | "na"; remark: string | null; updated_at: string }[]>(
       "GET", `/reports/${encodeURIComponent(id)}/checklist`, undefined, signal),

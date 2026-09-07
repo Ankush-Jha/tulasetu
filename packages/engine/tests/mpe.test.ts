@@ -18,7 +18,7 @@
  * itself jumps there (CLAUDE.md §5).
  */
 import { describe, expect, it } from "vitest";
-import { resolveMpe } from "../src/mpe.js";
+import { mpeBandTable, resolveMpe } from "../src/mpe.js";
 import { validateRulePack, type RulePack } from "../src/rulepack.js";
 import type { InstrumentProfile } from "../src/types.js";
 
@@ -270,5 +270,102 @@ describe("resolveMpe — in-service stage (R 76-1 §3.5.2: 2x initial)", () => {
     expect(initial.mpe).toBeCloseTo(1, 9);
     expect(inService.mpe).toBeCloseTo(2, 9);
     expect(inService.stage).toBe("in-service");
+  });
+});
+
+/**
+ * The whole band table.
+ *
+ * `resolveMpe` answers one load at a time. `mpeBandTable` answers "where does every limit
+ * start and stop", which is what an officer needs *before* recording anything — the shoulders
+ * are visible in advance rather than discovered a row at a time.
+ *
+ * The reference is R 76-1 §3.3's own worked example, whose five bands the standard prints in
+ * full, so this is a transcription check rather than a judgement.
+ */
+describe("mpeBandTable — R 76-1 §3.3's worked example", () => {
+  const multiInterval: InstrumentProfile = {
+    unit: "g",
+    accuracyClass: "III",
+    indicatingType: "self",
+    rangeKind: "multi-interval",
+    electronic: true,
+    ranges: [
+      { e: 1, d: 1, max: 2000, min: 20, n: 2000 },
+      { e: 2, d: 2, max: 5000, min: 2000, n: 2500 },
+      { e: 10, d: 10, max: 15000, min: 5000, n: 1500 },
+    ],
+  };
+
+  it("reproduces the five bands the standard prints", () => {
+    const table = mpeBandTable(multiInterval, pack);
+    expect(table).toHaveLength(5);
+
+    expect(table[0]).toMatchObject({ fromLoad: 0, toLoad: 500, factor: 0.5, e: 1, rangeIndex: 1 });
+    expect(table[0]!.mpe).toBeCloseTo(0.5, 9);
+
+    expect(table[1]).toMatchObject({ fromLoad: 500, toLoad: 2000, factor: 1, e: 1, rangeIndex: 1 });
+    expect(table[1]!.mpe).toBeCloseTo(1, 9);
+
+    expect(table[2]).toMatchObject({ fromLoad: 2000, toLoad: 4000, factor: 1, e: 2, rangeIndex: 2 });
+    expect(table[2]!.mpe).toBeCloseTo(2, 9);
+
+    expect(table[3]).toMatchObject({ fromLoad: 4000, toLoad: 5000, factor: 1.5, e: 2, rangeIndex: 2 });
+    expect(table[3]!.mpe).toBeCloseTo(3, 9);
+
+    expect(table[4]).toMatchObject({ fromLoad: 5000, toLoad: 15000, factor: 1, e: 10, rangeIndex: 3 });
+    expect(table[4]!.mpe).toBeCloseTo(10, 9);
+  });
+
+  it("marks the row where a new partial range takes over", () => {
+    const table = mpeBandTable(multiInterval, pack);
+    // The shoulder at 2 kg is a range change; the one at 500 g is only a band change.
+    expect(table.map((b) => b.startsNewRange)).toEqual([true, false, true, false, true]);
+  });
+
+  it("covers the range end to end, with no gaps and no overlaps", () => {
+    const table = mpeBandTable(multiInterval, pack);
+    expect(table[0]!.fromLoad).toBe(0);
+    expect(table[table.length - 1]!.toLoad).toBe(15000);
+    for (let i = 1; i < table.length; i++) {
+      expect(table[i]!.fromLoad).toBeCloseTo(table[i - 1]!.toLoad, 9);
+    }
+  });
+
+  it("agrees with resolveMpe at every point inside every band", () => {
+    // The two must never disagree: one is the table an officer reads, the other is what the
+    // report is computed from.
+    for (const band of mpeBandTable(multiInterval, pack)) {
+      const inside = band.fromLoad + (band.toLoad - band.fromLoad) / 2;
+      expect(resolveMpe(multiInterval, inside, pack).mpe).toBeCloseTo(band.mpe, 9);
+      expect(resolveMpe(multiInterval, band.toLoad, pack).mpe).toBeCloseTo(band.mpe, 9);
+    }
+  });
+
+  it("doubles every band in service", () => {
+    const table = mpeBandTable(multiInterval, pack, "in-service");
+    expect(table.map((b) => b.mpe)).toEqual([1, 2, 4, 6, 20]);
+  });
+
+  it("emits one band for an instrument that never leaves the first one", () => {
+    // Class III, e = 5 g, Max = 1 kg -> m = 200 at Max, inside the ±0.5e band (m ≤ 500).
+    const small: InstrumentProfile = {
+      unit: "g", accuracyClass: "III", indicatingType: "self", rangeKind: "single",
+      electronic: true, ranges: [{ e: 5, d: 5, max: 1000, min: 100, n: 200 }],
+    };
+    const table = mpeBandTable(small, pack);
+    expect(table).toHaveLength(1);
+    expect(table[0]).toMatchObject({ fromLoad: 0, toLoad: 1000, factor: 0.5 });
+  });
+
+  it("handles class I's unbounded top band", () => {
+    // Class I has no ceiling on ±1.5e, so the last band must run to Max rather than vanish.
+    const classI: InstrumentProfile = {
+      unit: "g", accuracyClass: "I", indicatingType: "self", rangeKind: "single",
+      electronic: true, ranges: [{ e: 0.001, d: 0.001, max: 300, min: 0.1, n: 300000 }],
+    };
+    const table = mpeBandTable(classI, pack);
+    expect(table[table.length - 1]!.toLoad).toBe(300);
+    expect(table[table.length - 1]!.factor).toBe(1.5);
   });
 });

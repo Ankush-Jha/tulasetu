@@ -14,6 +14,7 @@
 import {
   checkModuleCompatibility,
   k1ErrorVsMpe,
+  mpeBandTable,
   resolveApplicableTests,
   resolveMpe,
   solveFamily,
@@ -362,6 +363,33 @@ export function runFamilySolver(
  * would be an access check guarding no data, and a laboratory quoting for a family before any
  * report exists is the ordinary case.
  */
+/**
+ * Everything the registration wizard's live panel needs, from one call.
+ *
+ * The browser must never compute a permissible error — that guarantee is the reason a verdict
+ * on screen is the verdict on the report. But an officer entering a profile needs to see the
+ * consequences *before* saving: whether the class and Max are a legal combination, what the
+ * bands will be, and which tests the instrument attracts. So the preview is a real engine call
+ * on an unsaved profile: pure, records nothing, and returns exactly what the report would use.
+ */
+export function previewProfile(ctx: ServiceContext, profile: InstrumentProfile) {
+  const issues = [
+    ...validateProfile(profile, ctx.pack),
+    ...(profile.softwareChecksum ? validateSoftwareIdentification(profile.softwareChecksum) : []),
+  ];
+
+  // A profile with a blocking defect cannot be resolved against — asking for the bands of an
+  // instrument whose class and e are contradictory would return arithmetic, not an answer.
+  const blocking = issues.some((i) => i.severity === "error");
+
+  return {
+    issues,
+    bands: blocking ? [] : mpeBandTable(profile, ctx.pack),
+    applicable: blocking ? [] : resolveApplicableTests(profile, ctx.pack),
+    blocking,
+  };
+}
+
 export function solveFamilyStandalone(ctx: ServiceContext, variants: Variant[]) {
   return solveFamily(variants, ctx.pack);
 }
