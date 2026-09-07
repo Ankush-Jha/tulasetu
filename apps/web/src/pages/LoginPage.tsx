@@ -15,7 +15,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Alert, Card, Icon, Spinner } from "../components/ui";
 import { cn } from "../lib/cn";
 import { DEMO_ACCOUNTS, ROLE_LABEL, initialsOf, useAuth } from "../lib/auth";
-import { AuthorityStrip } from "../components/Authorities";
+import { AuthorityMark, AuthorityStrip } from "../components/Authorities";
 
 export function LoginPage() {
   const { session, loading, signIn, error } = useAuth();
@@ -45,6 +45,16 @@ export function LoginPage() {
     <div className="min-h-screen bg-canvas">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col justify-center gap-8 px-6 py-12">
         <div className="flex flex-col items-center text-center">
+          {/*
+            The two bodies this entry actually answers to, above the fold: the department whose
+            problem statement it addresses, and the programme it was built under.
+          */}
+          <div className="mb-6 flex items-center gap-5">
+            <AuthorityMark initials="DoCA" height={40} />
+            <span className="h-9 w-px bg-outline-variant/60" aria-hidden="true" />
+            <AuthorityMark initials="SIH" height={40} />
+          </div>
+
           <span
             className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-white"
             style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-grad-cyan))" }}

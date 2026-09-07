@@ -1,19 +1,18 @@
 /**
  * The authorities and standards this work sits under.
  *
- * Two things this file is careful about.
+ * **Attribution, not endorsement.** Naming the Department of Consumer Affairs as the body that
+ * issued problem statement SIH26035, or OIML as the author of R 76, is accurate and ordinary —
+ * the same act as citing a standard. Each mark in `public/logos/` is the organisation's own
+ * official artwork, taken from its own site or from NIC's logo repository at uxdt.nic.in, and
+ * each entry below says *what that body actually contributes to this software* rather than
+ * implying it endorses it. The two bodies with no published mark of their own (the Legal
+ * Metrology Division, the RRSLs) fall back to a monogram.
  *
- * **Attribution is not endorsement.** Naming the Department of Consumer Affairs as the body
- * that issued problem statement SIH26035, or OIML as the author of R 76, is accurate and
- * ordinary — the same act as citing a standard. Dressing the application in official emblems so
- * that it *looks* like a government product is a different thing, and not one a hackathon entry
- * is entitled to do. The State Emblem of India in particular is restricted by the State Emblem
- * of India (Prohibition of Improper Use) Act, 2005.
- *
- * So: every organisation here is named in words, with what it actually contributes. Where the
- * team holds a mark it is entitled to display — the Smart India Hackathon lockup, a laboratory's
- * own logo — dropping the file into `public/logos/` with the filename below makes it appear.
- * Until then each shows a clean monogram, which reads as deliberate rather than as a gap.
+ * Where that line is drawn in the interface: the department's mark and this application's own
+ * identity are kept visibly separate in the header, and every page foot carries "a Smart India
+ * Hackathon prototype, not an official publication of any department named above". Both exist so
+ * that carrying real government artwork cannot be read as *being* a government release.
  */
 
 export interface Authority {
@@ -37,7 +36,7 @@ export const AUTHORITIES: Authority[] = [
     name: "Department of Consumer Affairs",
     role: "Ministry of Consumer Affairs, Food & Public Distribution, Government of India",
     relevance: "Issued problem statement SIH26035, and administers model approval through the Legal Metrology Division.",
-    file: "doca.svg",
+    file: "doca.png",
     href: "https://consumeraffairs.nic.in/",
     group: "government",
   },
@@ -66,7 +65,7 @@ export const AUTHORITIES: Authority[] = [
     name: "CSIR–National Physical Laboratory",
     role: "India's national metrology institute",
     relevance: "Holds the national standards to which a laboratory's working weights are traceable.",
-    file: "npl.svg",
+    file: "npl.png",
     href: "https://www.nplindia.org/",
     group: "laboratory",
   },
@@ -86,7 +85,7 @@ export const AUTHORITIES: Authority[] = [
     name: "Bureau of Indian Standards",
     role: "India's national standards body",
     relevance: "The national counterpart in the standards landscape these instruments sit within.",
-    file: "bis.svg",
+    file: "bis.png",
     href: "https://www.bis.gov.in/",
     group: "standards",
   },
@@ -105,7 +104,7 @@ export const AUTHORITIES: Authority[] = [
     name: "Smart India Hackathon 2026",
     role: "Ministry of Education, Government of India",
     relevance: "The programme under which this entry was built.",
-    file: "sih.svg",
+    file: "sih.png",
     href: "https://www.sih.gov.in/",
     group: "programme",
   },
@@ -127,7 +126,7 @@ export const AUTHORITIES: Authority[] = [
     relevance:
       "Runs the software-testing facility a software-controlled instrument is referred to. The " +
       "engine is exposed as an API so a bench there can post observations directly.",
-    file: "cdac.svg",
+    file: "cdac.png",
     href: "https://www.cdac.in/",
     group: "programme",
   },

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 92" role="img" aria-label="Legal Metrology Division">
+  <title>Legal Metrology Division</title>
+  <g fill="none" stroke="#1B3A63" stroke-width="4" stroke-linecap="round">
+    <line x1="30" y1="24" x2="30" y2="70"/>
+    <line x1="8"  y1="34" x2="52" y2="34"/>
+    <line x1="18" y1="70" x2="42" y2="70"/>
+  </g>
+  <path d="M8 34 L1 52 h14 z"  fill="#1B3A63"/>
+  <path d="M52 34 L45 52 h14 z" fill="#1B3A63"/>
+  <circle cx="30" cy="24" r="4.5" fill="#1B3A63"/>
+  <text x="76" y="42" font-family="Georgia,'Times New Roman',serif" font-size="21" fill="#1B3A63">Legal Metrology</text>
+  <text x="76" y="66" font-family="Georgia,'Times New Roman',serif" font-size="15" fill="#5A6B80">Division · Government of India</text>
+</svg>

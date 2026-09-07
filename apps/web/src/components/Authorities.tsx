@@ -6,10 +6,14 @@
  * full account: each body with what it actually is and why it appears, grouped so a reader can
  * tell a ministry from a standards body.
  *
- * On artwork: a mark renders when a file is present at `public/logos/<file>`, and otherwise the
- * body shows a monogram. That fallback is the normal state, not a placeholder waiting to be
- * fixed — see `content/authorities.ts` on why an entry attributes rather than decorates, and
- * `public/logos/README.md` for which files a team is actually entitled to drop in.
+ * On artwork: a mark renders from `public/logos/<file>`, and a body with no file falls back to a
+ * monogram — which two of them (the Legal Metrology Division, the RRSLs) genuinely need, having
+ * no published mark of their own.
+ *
+ * Marks are sized by **height, with width left to the artwork**. Official logos are lockups, not
+ * icons: the Bureau of Indian Standards' is nearly 5:1, the Department of Consumer Affairs' 3.4:1,
+ * CSIR–NPL's square. Forcing them all into one square box letterboxes the wide ones into a sliver
+ * and is the single thing that most makes a logo strip look homemade.
  *
  * The `<img>` carries `onError` because a filename in the manifest is a claim that a file
  * exists, and a broken-image glyph in a row of government names looks like a defect in the
@@ -29,8 +33,13 @@ const GROUP_LABEL: Record<Authority["group"], string> = {
 
 const GROUP_ORDER: Authority["group"][] = ["government", "laboratory", "standards", "programme"];
 
-/** One mark: the artwork if it is there, the monogram if it is not. */
-function Mark({ authority, size = 40 }: { authority: Authority; size?: number }) {
+/**
+ * One mark: the artwork if it is there, the monogram if it is not.
+ *
+ * `height` is the only dimension given. Width follows the artwork's own proportions, capped so a
+ * very wide lockup cannot push the row around.
+ */
+function Mark({ authority, height = 34 }: { authority: Authority; height?: number }) {
   const [failed, setFailed] = useState(false);
   const src = `${import.meta.env.BASE_URL}logos/${authority.file}`;
 
@@ -38,8 +47,8 @@ function Mark({ authority, size = 40 }: { authority: Authority; size?: number })
     return (
       <span
         aria-hidden="true"
-        style={{ width: size, height: size }}
-        className="flex shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-on-primary-fixed"
+        style={{ width: height, height }}
+        className="flex shrink-0 items-center justify-center rounded-lg bg-primary-fixed text-on-primary-fixed"
       >
         <span className="text-label-sm font-semibold tracking-tight">{authority.initials}</span>
       </span>
@@ -50,30 +59,69 @@ function Mark({ authority, size = 40 }: { authority: Authority; size?: number })
     <img
       src={src}
       alt=""
-      width={size}
-      height={size}
       onError={() => setFailed(true)}
-      style={{ width: size, height: size }}
-      className="shrink-0 rounded-xl object-contain"
+      style={{ height, maxWidth: height * 4.5 }}
+      className="w-auto shrink-0 object-contain object-left"
     />
+  );
+}
+
+/**
+ * One named body's mark, for placing individually — the issuing department in the header, the
+ * programme lockup on the sign-in page. Takes the `initials` from `content/authorities.ts` so a
+ * caller names a body rather than a filename, and the manifest stays the single place a mark's
+ * artwork or wording is changed.
+ */
+export function AuthorityMark({
+  initials,
+  height = 30,
+  className,
+}: {
+  initials: string;
+  height?: number;
+  className?: string;
+}) {
+  const authority = AUTHORITIES.find((a) => a.initials === initials);
+  if (!authority) return null;
+  return (
+    <span className={className} title={authority.name}>
+      <Mark authority={authority} height={height} />
+    </span>
   );
 }
 
 /**
  * A quiet row for a page foot.
  *
- * Names beside marks deliberately. A row of bare emblems is a claim of endorsement; a row of
- * marks with the body named under each is a citation.
+ * The marks stand alone here, with one line of text above framing the whole row as attribution.
+ * That line is doing the work the per-mark captions used to: a row of bare emblems on its own
+ * would read as a claim of endorsement, and saying *why* each body is named — this software
+ * implements their standards and answers their problem statement — is what makes it a citation
+ * instead. The captions themselves became redundant the moment real artwork arrived, because an
+ * official lockup already carries the organisation's name inside it.
  */
-export function AuthorityStrip({ className }: { className?: string }) {
+export function AuthorityStrip({
+  className,
+  caption = true,
+}: {
+  className?: string;
+  /** Suppress the framing line where the surrounding page already supplies one. */
+  caption?: boolean;
+}) {
   return (
-    <div className={cn("flex flex-wrap items-center justify-center gap-x-6 gap-y-3", className)}>
-      {AUTHORITIES.map((a) => (
-        <span key={a.name} className="flex items-center gap-2">
-          <Mark authority={a} size={28} />
-          <span className="text-label-sm text-on-surface-variant">{a.name}</span>
-        </span>
-      ))}
+    <div className={cn("flex flex-col items-center gap-3", className)}>
+      {caption && (
+        <p className="text-center text-body-sm text-on-surface-variant">
+          Built for problem statement SIH26035, issued by the Department of Consumer Affairs.
+          Implements OIML R 76 and the Seventh Schedule to the Legal Metrology (General) Rules,
+          2011.
+        </p>
+      )}
+      <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-4">
+        {AUTHORITIES.map((a) => (
+          <Mark key={a.name} authority={a} height={30} />
+        ))}
+      </div>
     </div>
   );
 }

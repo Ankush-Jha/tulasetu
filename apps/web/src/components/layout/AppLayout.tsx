@@ -16,6 +16,7 @@ import { LoadingState } from "../ui";
 import { cn } from "../../lib/cn";
 import { useAuth } from "../../lib/auth";
 import { OnboardingDialog, hasSeenOnboarding } from "../onboarding/Tour";
+import { AuthorityStrip } from "../Authorities";
 
 export function AppLayout() {
   const { session, loading } = useAuth();
@@ -56,6 +57,19 @@ export function AppLayout() {
       >
         <div className="mx-auto w-full max-w-[1400px]">
           <Outlet />
+
+          {/*
+            The attribution row, at the foot of every page rather than only on the sign-in
+            screen — which is the one page a signed-in officer never sees again. It sits below
+            the page's own content and above nothing, so it never competes with the work.
+          */}
+          <footer className="mt-10 border-t border-outline-variant/40 pt-6">
+            <AuthorityStrip />
+            <p className="mt-4 text-center text-label-sm text-on-surface-variant/70">
+              A Smart India Hackathon 2026 prototype. Not an official publication of any
+              department or standards body named above.
+            </p>
+          </footer>
         </div>
       </main>
     </div>

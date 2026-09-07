@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Badge, Icon } from "../ui";
 import { BriefingLink } from "../onboarding/Tour";
+import { AuthorityMark } from "../Authorities";
 import { cn } from "../../lib/cn";
 import { initialsOf, useAuth } from "../../lib/auth";
 import { api } from "../../lib/api";
@@ -47,23 +48,35 @@ export function Header({ onReplayIntro }: { onReplayIntro?: () => void }) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 h-[76px] border-b border-outline-variant/40 bg-canvas/85 backdrop-blur-xl">
       <div className="flex h-full items-center justify-between gap-4 px-4">
-        <Link
-          to="/dashboard"
-          className="flex items-center gap-3 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        >
-          <span
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-white"
-            style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-grad-cyan))" }}
+        <div className="flex min-w-0 items-center gap-3">
+          {/*
+            The issuing department's mark, then a rule, then this application's own identity —
+            the ordinary government-portal lockup, and in that order for a reason. The department
+            is named because it issued the problem statement, not because it published this
+            software; keeping TulaSetu's own name and mark distinct on the other side of the rule
+            is what stops the header reading as an official departmental release.
+          */}
+          <AuthorityMark initials="DoCA" height={30} className="hidden shrink-0 sm:block" />
+          <span className="hidden h-8 w-px shrink-0 bg-outline-variant/60 sm:block" aria-hidden="true" />
+
+          <Link
+            to="/dashboard"
+            className="flex min-w-0 items-center gap-3 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            <Icon name="balance" size={18} />
-          </span>
-          <span className="flex flex-col leading-tight">
-            <span className="text-headline-sm font-bold text-on-surface">TulaSetu</span>
-            <span className="text-label-sm text-on-surface-variant">
-              NAWI type evaluation · OIML R 76
+            <span
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-white"
+              style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-grad-cyan))" }}
+            >
+              <Icon name="balance" size={18} />
             </span>
-          </span>
-        </Link>
+            <span className="flex min-w-0 flex-col leading-tight">
+              <span className="text-headline-sm font-bold text-on-surface">TulaSetu</span>
+              <span className="truncate text-label-sm text-on-surface-variant">
+                NAWI type evaluation · OIML R 76
+              </span>
+            </span>
+          </Link>
+        </div>
 
         <div className="flex items-center gap-2">
           {onReplayIntro && <BriefingLink onReplay={onReplayIntro} />}

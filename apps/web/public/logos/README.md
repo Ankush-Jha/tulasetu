@@ -1,45 +1,42 @@
 # Logos
 
-Drop artwork here and it appears automatically — `AuthorityStrip` at the foot of the sign-in
-page and `AuthorityBoard` on the briefing's "Under whose authority" tab both read this folder. Until a file is present, that organisation
-renders as a clean monogram — which reads as deliberate rather than as a gap.
+The marks rendered by `src/components/Authorities.tsx` — in the application header, at the foot
+of every page, on the sign-in screen, and on the briefing's "Under whose authority" tab. Which
+file belongs to which body is set in `src/content/authorities.ts`, not here.
 
-## Filenames
+## Where each came from
 
-| File | Organisation |
-|---|---|
-| `doca.svg` | Department of Consumer Affairs |
-| `legal-metrology.svg` | Legal Metrology Division |
-| `rrsl.svg` | Regional Reference Standards Laboratories |
-| `npl.svg` | CSIR–National Physical Laboratory |
-| `oiml.svg` | International Organization of Legal Metrology |
-| `bis.svg` | Bureau of Indian Standards |
-| `iso.svg` | ISO/IEC |
-| `sih.svg` | Smart India Hackathon |
-| `digital-india.svg` | Digital India |
-| `cdac.svg` | C-DAC |
-| `emblem.svg` | State Emblem of India |
+Each is the organisation's own official artwork, taken from its own site or from NIC's
+Government of India logo repository at [uxdt.nic.in](https://www.uxdt.nic.in/documents/logos/).
 
-SVG preferred; PNG at 2× also works — change the extension in
-`src/content/authorities.ts` to match.
+| File | Organisation | Source |
+|---|---|---|
+| `doca.png` | Department of Consumer Affairs | consumeraffairs.gov.in |
+| `sih.png` | Smart India Hackathon | uxdt.nic.in (NIC logo repository) |
+| `digital-india.svg` | Digital India | uxdt.nic.in |
+| `cdac.png` | C-DAC | uxdt.nic.in |
+| `bis.png` | Bureau of Indian Standards | bis.gov.in |
+| `npl.png` | CSIR–National Physical Laboratory | nplindia.in |
+| `oiml.svg` | International Organization of Legal Metrology | oiml.org |
+| `legal-metrology.svg` | Legal Metrology Division | drawn here — no published mark of its own |
+| `rrsl.svg` | Regional Reference Standards Laboratories | drawn here — no published mark of its own |
+| `iso.svg` | ISO/IEC 17025 | drawn here — ISO's own mark is trademark-restricted |
 
-## Before you add one
+The raster files were trimmed of their white canvas and had near-white pixels made transparent,
+so a logo supplied on a white JPEG background does not render as a white card in dark mode.
+Nothing else about them was altered.
 
-**Naming an authority is not the same as wearing its emblem.** Citing OIML R 76, or recording
-that the Department of Consumer Affairs issued problem statement SIH26035, is ordinary
-attribution and is what this application does everywhere. Putting official emblems into the
-product chrome is a different act: it makes the software *look* like an official government
-release, which a hackathon entry is not.
+## Using them
 
-Two are worth singling out:
+**Sized by height, width left to the artwork.** These are lockups, not icons — the BIS mark is
+nearly 5:1, the Department's 3.4:1, CSIR–NPL's square. `Mark` in Authorities.tsx sets a height
+and lets width follow; forcing them into one square box letterboxes the wide ones and is the
+single thing that most makes a logo strip look homemade.
 
-- **The State Emblem of India** is restricted by the State Emblem of India (Prohibition of
-  Improper Use) Act, 2005. Use is confined to the authorities the Act names. Do not add
-  `emblem.svg` unless the team has been told, by someone who can say so, that it is permitted.
-- **Digital India, SIH and ministry marks** are generally fine on a submission that *is* an SIH
-  entry — that is what they are for — but check the current SIH branding guidance for the
-  edition you are entering, since it changes year to year.
+**Attribution, not endorsement.** These bodies are named because this software implements their
+standards or answers their problem statement. Two things in the interface keep that line visible
+and should stay: the department's mark and TulaSetu's own identity are separated by a rule in the
+header rather than merged into one lockup, and every page foot reads "a Smart India Hackathon
+2026 prototype, not an official publication of any department or standards body named above".
 
-Everything renders correctly with none of these files present. That is the intended default:
-the application states which authorities and standards it works under, in words, and does not
-imply endorsement by anyone.
+Everything still renders if a file is missing — the organisation falls back to its monogram.
