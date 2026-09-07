@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+/* ============================================================
+   TULASETU — LUMINOUS SOFT DESIGN SYSTEM
+   Based on stitch_tulasetu_metrology_ui_suite 2 / Luminous Fintech
+   ============================================================ */
+
+@theme {
+  /* ── Fonts ── */
+  --font-family-sans: "Plus Jakarta Sans", sans-serif;
+
+  /* ── Brand Color Palette (Luminous Fintech) ── */
+  --color-surface: #f8f9ff;
+  --color-surface-dim: #cbdbf5;
+  --color-surface-bright: #f8f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eff4ff;
+  --color-surface-container: #e5eeff;
+  --color-surface-container-high: #dce9ff;
+  --color-surface-container-highest: #d3e4fe;
+  --color-on-surface: #0b1c30;
+  --color-on-surface-variant: #434655;
+  --color-inverse-surface: #213145;
+  --color-inverse-on-surface: #eaf1ff;
+  --color-outline: #737686;
+  --color-outline-variant: #c3c6d7;
+  --color-surface-tint: #0053db;
+  --color-surface-variant: #d3e4fe;
+
+  --color-primary: #004ac6;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #2563eb;
+  --color-on-primary-container: #eeefff;
+  --color-inverse-primary: #b4c5ff;
+  --color-primary-fixed: #dbe1ff;
+  --color-primary-fixed-dim: #b4c5ff;
+  --color-on-primary-fixed: #00174b;
+  --color-on-primary-fixed-variant: #003ea8;
+
+  --color-secondary: #5f5e5e;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #e5e2e1;
+  --color-on-secondary-container: #656464;
+  --color-secondary-fixed: #e5e2e1;
+  --color-secondary-fixed-dim: #c9c6c5;
+  --color-on-secondary-fixed: #1c1b1b;
+  --color-on-secondary-fixed-variant: #474646;
+
+  --color-tertiary: #005e6e;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #00788c;
+  --color-on-tertiary-container: #d7f6ff;
+  --color-tertiary-fixed: #acedff;
+  --color-tertiary-fixed-dim: #4cd7f6;
+  --color-on-tertiary-fixed: #001f26;
+  --color-on-tertiary-fixed-variant: #004e5c;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  --color-background: #f8f9ff;
+  --color-on-background: #0b1c30;
+
+  /* ── Canvas (app background) ── */
+  --color-canvas: #EBF0FA;
+
+  /* ── Gradient Accent Colors ── */
+  --color-grad-cyan: #2DD4BF;
+  --color-grad-teal: #06B6D4;
+  --color-grad-blue: #3B82F6;
+  --color-grad-violet: #6366F1;
+  --color-grad-indigo: #4F46E5;
+  --color-success: #10B981;
+  --color-success-container: #DCFCE7;
+  --color-on-success: #15803D;
+
+  /* ── Typography Scale (Plus Jakarta Sans) ── */
+  --font-size-display-xl: 56px;
+  --line-height-display-xl: 64px;
+  --letter-spacing-display-xl: -0.03em;
+
+  --font-size-display-lg: 40px;
+  --line-height-display-lg: 48px;
+  --letter-spacing-display-lg: -0.025em;
+
+  --font-size-headline-lg: 28px;
+  --line-height-headline-lg: 36px;
+  --letter-spacing-headline-lg: -0.02em;
+
+  --font-size-headline-md: 22px;
+  --line-height-headline-md: 30px;
+  --letter-spacing-headline-md: -0.015em;
+
+  --font-size-headline-sm: 18px;
+  --line-height-headline-sm: 26px;
+  --letter-spacing-headline-sm: -0.01em;
+
+  --font-size-metric-display: 32px;
+  --line-height-metric-display: 40px;
+  --letter-spacing-metric-display: -0.02em;
+
+  --font-size-body-lg: 16px;
+  --line-height-body-lg: 24px;
+  --letter-spacing-body-lg: -0.005em;
+
+  --font-size-body-md: 14px;
+  --line-height-body-md: 20px;
+
+  --font-size-body-sm: 12px;
+  --line-height-body-sm: 16px;
+
+  --font-size-label-lg: 14px;
+  --line-height-label-lg: 20px;
+
+  --font-size-label-md: 13px;
+  --line-height-label-md: 18px;
+  --letter-spacing-label-md: 0.01em;
+
+  --font-size-label-sm: 11px;
+  --line-height-label-sm: 14px;
+  --letter-spacing-label-sm: 0.02em;
+
+  /* ── Spacing ── */
+  --spacing-space-2xs: 0.25rem;
+  --spacing-space-xs: 0.5rem;
+  --spacing-space-sm: 0.75rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.25rem;
+  --spacing-space-xl: 1.5rem;
+  --spacing-space-2xl: 2rem;
+  --spacing-space-3xl: 2.5rem;
+  --spacing-card-padding: 1.5rem;
+  --spacing-outer-margin: 2rem;
+  --spacing-gutter: 1.25rem;
+}
+
+/* ── Base Layer ── */
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background-color: #EBF0FA;
+    color: #0b1c30;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  * {
+    scrollbar-width: none;
+  }
+}
+
+/* ── Typography utility classes ── */
+@layer utilities {
+  .text-display-xl {
+    font-size: 56px;
+    line-height: 64px;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+  }
+  .text-display-lg {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+  }
+  .text-headline-lg {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+  .text-headline-md {
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+  }
+  .text-headline-sm {
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+  .text-metric-display {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+  .text-body-lg {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.005em;
+    font-weight: 400;
+  }
+  .text-body-md {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+  .text-body-sm {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+  }
+  .text-label-lg {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+  }
+  .text-label-md {
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.01em;
+    font-weight: 500;
+  }
+  .text-label-sm {
+    font-size: 11px;
+    line-height: 14px;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+  }
+
+  /* Gradient accent strip */
+  .gradient-spectrum {
+    background: linear-gradient(90deg, #2DD4BF 0%, #06B6D4 25%, #3B82F6 50%, #6366F1 75%, #4F46E5 100%);
+  }
+
+  /* Card elevation levels */
+  .card-shadow {
+    box-shadow: 0 8px 24px -4px rgba(79,70,229,0.04), 0 2px 6px -1px rgba(15,23,42,0.02);
+  }
+  .card-shadow-lg {
+    box-shadow: 0 20px 40px -15px rgba(100,116,139,0.08);
+  }
+  .glass-shadow {
+    box-shadow: 0 12px 28px -6px rgba(37,99,235,0.12);
+  }
+
+  /* Frosted glass overlay */
+  .glass-overlay {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+  }
+
+  /* Nav pill states */
+  .nav-pill-active {
+    background-color: white;
+    color: #0b1c30;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    font-weight: 600;
+  }
+  .nav-pill-inactive {
+    color: #434655;
+  }
+}

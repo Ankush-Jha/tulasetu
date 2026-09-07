@@ -43,9 +43,20 @@ export function buildServer(opts: { dbPath?: string; rulepackPath?: string } = {
     );
   }
 
+  // The checklist bank is optional: a rule pack without one still serves reports, and the
+  // /checklists route says so rather than the server failing to start.
+  let checklists: unknown;
+  try {
+    checklists = JSON.parse(
+      readFileSync(join(ROOT, "packages/rulepacks/checklists/R76-2_2007_checklist.json"), "utf8"),
+    );
+  } catch {
+    checklists = undefined;
+  }
+
   const db = openDb(opts.dbPath ?? process.env["TULASETU_DB"] ?? join(ROOT, "tulasetu.db"));
   const app = Fastify({ logger: { level: process.env["LOG_LEVEL"] ?? "info" } });
-  registerRoutes(app, { db, pack });
+  registerRoutes(app, { db, pack, ...(checklists ? { checklists } : {}) });
   return { app, db, pack };
 }
 

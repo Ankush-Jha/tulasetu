@@ -1,0 +1,578 @@
+/**
+ * The primitive layer.
+ *
+ * Every page was carrying its own appearance: 376 inline `style={{…}}` blocks repeating the
+ * same twenty hex values that `index.css` already defines as design tokens. Borders were the
+ * worst of it — some cards had a hairline, some a 2px dashed rule, some only a shadow, some
+ * both — so nothing on screen agreed with anything else.
+ *
+ * These components are the fix. A page composes them and never states a colour, a radius, a
+ * border or a shadow of its own. That is what makes the surface consistent, and it is also
+ * what makes it *changeable*: the palette lives in `index.css`, the shapes live here, and a
+ * page that wants a different look is a page with a bug.
+ *
+ * Two rules the whole system rests on:
+ *
+ *  - **One elevation scale.** `flat` (hairline border, no shadow) for anything sitting inside
+ *    another surface; `raised` (shadow, no border) for anything floating above the canvas.
+ *    Never both — a border plus a shadow reads as two competing edges.
+ *  - **Tokens, not hex.** Tailwind 4 generates utilities from the `@theme` block, so
+ *    `text-on-surface-variant` *is* `#434655`. Writing the hex again just hides it.
+ */
+
+import type { ReactNode, ButtonHTMLAttributes, InputHTMLAttributes, SelectHTMLAttributes } from "react";
+import { cn } from "../../lib/cn";
+
+// ---------------------------------------------------------------------------
+// Icon
+// ---------------------------------------------------------------------------
+
+/** Material Symbols glyph. Sized in px because the icon font is optically sized. */
+export function Icon({
+  name,
+  size = 20,
+  className,
+  filled,
+}: {
+  name: string;
+  size?: number;
+  className?: string;
+  filled?: boolean;
+}) {
+  return (
+    <span
+      className={cn("material-symbols-outlined leading-none select-none", className)}
+      style={{
+        fontSize: size,
+        ...(filled ? { fontVariationSettings: "'FILL' 1" } : null),
+      }}
+      aria-hidden="true"
+    >
+      {name}
+    </span>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Surfaces
+// ---------------------------------------------------------------------------
+
+export type Elevation = "flat" | "raised" | "none";
+
+const ELEVATION: Record<Elevation, string> = {
+  // Sits inside another surface: a hairline defines it, nothing more.
+  flat: "border border-outline-variant/50 bg-surface-container-lowest",
+  // Floats above the canvas: a soft shadow defines it, and it takes no border.
+  raised: "bg-surface-container-lowest card-shadow",
+  none: "",
+};
+
+export function Card({
+  children,
+  className,
+  elevation = "flat",
+  padded = true,
+}: {
+  children: ReactNode;
+  className?: string;
+  elevation?: Elevation;
+  padded?: boolean;
+}) {
+  return (
+    <section className={cn("rounded-2xl", ELEVATION[elevation], padded && "p-5", className)}>
+      {children}
+    </section>
+  );
+}
+
+/** Card header. Keeps the title/description/action rhythm identical everywhere. */
+export function CardHeader({
+  title,
+  description,
+  action,
+  icon,
+}: {
+  title: string;
+  description?: string;
+  action?: ReactNode;
+  icon?: string;
+}) {
+  return (
+    <div className="flex items-start justify-between gap-4 mb-4">
+      <div className="flex items-start gap-3 min-w-0">
+        {icon && (
+          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-surface-container-low text-primary">
+            <Icon name={icon} size={18} />
+          </span>
+        )}
+        <div className="min-w-0">
+          <h2 className="text-headline-sm text-on-surface truncate">{title}</h2>
+          {description && <p className="text-body-sm text-on-surface-variant mt-0.5">{description}</p>}
+        </div>
+      </div>
+      {action && <div className="shrink-0">{action}</div>}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Page furniture
+// ---------------------------------------------------------------------------
+
+/**
+ * The top of every page.
+ *
+ * Every page previously rewrote this block — eyebrow, title, description — with its own
+ * spacing and its own colours. One component means the pages line up.
+ */
+export function PageHeader({
+  eyebrow,
+  title,
+  description,
+  actions,
+}: {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  actions?: ReactNode;
+}) {
+  return (
+    <header className="flex flex-wrap items-end justify-between gap-4 mb-6">
+      <div className="min-w-0">
+        {eyebrow && (
+          <p className="text-label-sm uppercase tracking-wider text-on-surface-variant mb-1">{eyebrow}</p>
+        )}
+        <h1 className="text-headline-lg text-on-surface">{title}</h1>
+        {description && <p className="text-body-md text-on-surface-variant mt-1 max-w-3xl">{description}</p>}
+      </div>
+      {actions && <div className="flex items-center gap-2 shrink-0">{actions}</div>}
+    </header>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Button
+// ---------------------------------------------------------------------------
+
+type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
+type ButtonSize = "sm" | "md";
+
+const BUTTON_VARIANT: Record<ButtonVariant, string> = {
+  primary: "bg-primary text-on-primary hover:bg-primary/90 disabled:bg-primary/40",
+  secondary:
+    "bg-surface-container-lowest text-on-surface border border-outline-variant/60 hover:bg-surface-container-low",
+  ghost: "text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface",
+  danger: "bg-error text-on-error hover:bg-error/90",
+};
+
+const BUTTON_SIZE: Record<ButtonSize, string> = {
+  sm: "h-8 px-3 text-label-md gap-1.5",
+  md: "h-10 px-4 text-label-lg gap-2",
+};
+
+export function Button({
+  children,
+  variant = "secondary",
+  size = "md",
+  icon,
+  loading,
+  className,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  icon?: string;
+  loading?: boolean;
+}) {
+  return (
+    <button
+      {...props}
+      disabled={props.disabled || loading}
+      className={cn(
+        "inline-flex items-center justify-center rounded-xl font-semibold transition-colors",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+        "disabled:cursor-not-allowed disabled:opacity-60",
+        BUTTON_VARIANT[variant],
+        BUTTON_SIZE[size],
+        className,
+      )}
+    >
+      {loading ? <Spinner size={size === "sm" ? 14 : 16} /> : icon && <Icon name={icon} size={size === "sm" ? 16 : 18} />}
+      {children}
+    </button>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Verdict and status
+// ---------------------------------------------------------------------------
+
+export type Tone = "neutral" | "pass" | "fail" | "warn" | "info";
+
+const TONE: Record<Tone, string> = {
+  neutral: "bg-surface-container-low text-on-surface-variant",
+  pass: "bg-success-container text-on-success",
+  fail: "bg-error-container text-on-error-container",
+  warn: "bg-[#FEF3C7] text-[#92400E]",
+  info: "bg-primary-fixed text-on-primary-fixed",
+};
+
+export function Badge({
+  children,
+  tone = "neutral",
+  icon,
+  className,
+}: {
+  children: ReactNode;
+  tone?: Tone;
+  icon?: string;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-label-sm font-semibold whitespace-nowrap",
+        TONE[tone],
+        className,
+      )}
+    >
+      {icon && <Icon name={icon} size={13} />}
+      {children}
+    </span>
+  );
+}
+
+/**
+ * A verdict, rendered the way R 76-2 renders it.
+ *
+ * Not applicable prints as "– –", not as blank and not as "N/A". The convention is the
+ * standard's, and a lab officer reads the report expecting it.
+ */
+export function Verdict({ value }: { value: string | null | undefined }) {
+  if (value === "PASSED") return <Badge tone="pass" icon="check_circle">PASSED</Badge>;
+  if (value === "FAILED") return <Badge tone="fail" icon="cancel">FAILED</Badge>;
+  if (value === "NA") return <Badge tone="neutral">– –</Badge>;
+  return <Badge tone="neutral">In progress</Badge>;
+}
+
+/** Report lifecycle state, coloured by how far along it is. */
+export function StatusChip({ status }: { status: string }) {
+  const tone: Tone =
+    status === "PUBLISHED" || status === "CERTIFICATE_ISSUED" || status === "LOCKED"
+      ? "pass"
+      : status === "DEFICIENCY" || status === "WITHDRAWN" || status === "REMITTED"
+        ? "fail"
+        : status === "SUBMITTED" || status === "RECOMMENDED" || status === "PROVISIONAL"
+          ? "info"
+          : "neutral";
+  return <Badge tone={tone}>{humanizeStatus(status)}</Badge>;
+}
+
+export function humanizeStatus(status: string): string {
+  return status
+    .toLowerCase()
+    .split("_")
+    .map((w, i) => (i === 0 ? w.charAt(0).toUpperCase() + w.slice(1) : w))
+    .join(" ");
+}
+
+// ---------------------------------------------------------------------------
+// Metrics
+// ---------------------------------------------------------------------------
+
+export function Stat({
+  label,
+  value,
+  hint,
+  icon,
+  tone = "neutral",
+}: {
+  label: string;
+  value: ReactNode;
+  hint?: string;
+  icon?: string;
+  tone?: Tone;
+}) {
+  return (
+    <Card elevation="flat" className="flex items-start gap-3">
+      {icon && (
+        <span className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl", TONE[tone])}>
+          <Icon name={icon} size={20} />
+        </span>
+      )}
+      <div className="min-w-0">
+        <p className="text-label-sm uppercase tracking-wider text-on-surface-variant">{label}</p>
+        <p className="text-metric-display text-on-surface tabular-nums">{value}</p>
+        {hint && <p className="text-body-sm text-on-surface-variant mt-0.5">{hint}</p>}
+      </div>
+    </Card>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Form fields
+// ---------------------------------------------------------------------------
+
+export function Field({
+  label,
+  hint,
+  error,
+  required,
+  children,
+  className,
+}: {
+  label: string;
+  hint?: string;
+  error?: string;
+  required?: boolean;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <label className={cn("flex flex-col gap-1.5", className)}>
+      <span className="text-label-md text-on-surface">
+        {label}
+        {required && <span className="text-error ml-0.5">*</span>}
+      </span>
+      {children}
+      {error ? (
+        <span className="text-body-sm text-error">{error}</span>
+      ) : (
+        hint && <span className="text-body-sm text-on-surface-variant">{hint}</span>
+      )}
+    </label>
+  );
+}
+
+const CONTROL =
+  "h-10 w-full rounded-xl border border-outline-variant/60 bg-surface-container-lowest px-3 " +
+  "text-body-md text-on-surface placeholder:text-on-surface-variant/60 " +
+  "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 " +
+  "disabled:bg-surface-container-low disabled:text-on-surface-variant transition-colors";
+
+export function Input({ className, invalid, ...props }: InputHTMLAttributes<HTMLInputElement> & { invalid?: boolean }) {
+  return <input {...props} className={cn(CONTROL, invalid && "border-error focus:border-error focus:ring-error/20", className)} />;
+}
+
+export function Select({
+  className,
+  children,
+  ...props
+}: SelectHTMLAttributes<HTMLSelectElement>) {
+  return (
+    <select {...props} className={cn(CONTROL, "pr-8 appearance-none cursor-pointer", className)}>
+      {children}
+    </select>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Table
+// ---------------------------------------------------------------------------
+
+/**
+ * Table shell.
+ *
+ * Wide tables scroll inside their own container rather than pushing the page sideways —
+ * the observation forms are genuinely wide (R 76-2's form 1 has ten columns) and the page
+ * body must never scroll horizontally.
+ */
+export function TableWrap({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <div className={cn("overflow-x-auto rounded-xl border border-outline-variant/50", className)}>
+      <table className="w-full border-collapse text-body-md">{children}</table>
+    </div>
+  );
+}
+
+export function Th({
+  children,
+  align = "left",
+  className,
+  colSpan,
+}: {
+  children?: ReactNode;
+  align?: "left" | "right" | "center";
+  className?: string;
+  colSpan?: number;
+}) {
+  return (
+    <th
+      colSpan={colSpan}
+      className={cn(
+        "bg-surface-container-low px-3 py-2.5 text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold",
+        "border-b border-outline-variant/50 whitespace-nowrap",
+        align === "right" && "text-right",
+        align === "center" && "text-center",
+        align === "left" && "text-left",
+        className,
+      )}
+    >
+      {children}
+    </th>
+  );
+}
+
+export function Td({
+  children,
+  align = "left",
+  className,
+  colSpan,
+  numeric,
+}: {
+  children?: ReactNode;
+  align?: "left" | "right" | "center";
+  className?: string;
+  colSpan?: number;
+  numeric?: boolean;
+}) {
+  return (
+    <td
+      colSpan={colSpan}
+      className={cn(
+        "px-3 py-2.5 border-b border-outline-variant/30 text-on-surface align-middle",
+        align === "right" && "text-right",
+        align === "center" && "text-center",
+        numeric && "tabular-nums",
+        className,
+      )}
+    >
+      {children}
+    </td>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// States
+// ---------------------------------------------------------------------------
+
+export function Spinner({ size = 16, className }: { size?: number; className?: string }) {
+  return (
+    <span
+      className={cn("inline-block animate-spin rounded-full border-2 border-current border-t-transparent", className)}
+      style={{ width: size, height: size }}
+      role="status"
+      aria-label="Loading"
+    />
+  );
+}
+
+export function Skeleton({ className }: { className?: string }) {
+  return <div className={cn("animate-pulse rounded-lg bg-surface-container-low", className)} />;
+}
+
+export function LoadingState({ label = "Loading…" }: { label?: string }) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-3 py-16 text-on-surface-variant">
+      <Spinner size={24} />
+      <p className="text-body-md">{label}</p>
+    </div>
+  );
+}
+
+/**
+ * Empty state.
+ *
+ * Uses the same hairline border as every other surface. The old pages drew a 2px dashed rule
+ * here, which made "nothing to show" the loudest thing on the screen.
+ */
+export function EmptyState({
+  icon = "inbox",
+  title,
+  description,
+  action,
+}: {
+  icon?: string;
+  title: string;
+  description?: string;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-outline-variant/50 bg-surface-container-low/40 px-6 py-14 text-center">
+      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-surface-container-lowest text-on-surface-variant">
+        <Icon name={icon} size={24} />
+      </span>
+      <div>
+        <p className="text-headline-sm text-on-surface">{title}</p>
+        {description && <p className="text-body-md text-on-surface-variant mt-1 max-w-md">{description}</p>}
+      </div>
+      {action}
+    </div>
+  );
+}
+
+export function ErrorState({ error, onRetry }: { error: string; onRetry?: () => void }) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-error/30 bg-error-container/40 px-6 py-12 text-center">
+      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-error-container text-on-error-container">
+        <Icon name="error" size={24} />
+      </span>
+      <div>
+        <p className="text-headline-sm text-on-surface">Could not load this</p>
+        <p className="text-body-md text-on-surface-variant mt-1 max-w-md">{error}</p>
+      </div>
+      {onRetry && <Button variant="secondary" icon="refresh" onClick={onRetry}>Try again</Button>}
+    </div>
+  );
+}
+
+/** Inline notice. `tone` carries the meaning; the icon just reinforces it. */
+export function Alert({
+  tone = "info",
+  title,
+  children,
+  icon,
+}: {
+  tone?: Tone;
+  title?: string;
+  children?: ReactNode;
+  icon?: string;
+}) {
+  const ring: Record<Tone, string> = {
+    neutral: "border-outline-variant/60 bg-surface-container-low",
+    pass: "border-success/30 bg-success-container/50",
+    fail: "border-error/30 bg-error-container/50",
+    warn: "border-[#F59E0B]/30 bg-[#FEF3C7]/60",
+    info: "border-primary/25 bg-primary-fixed/50",
+  };
+  const defaultIcon: Record<Tone, string> = {
+    neutral: "info",
+    pass: "check_circle",
+    fail: "error",
+    warn: "warning",
+    info: "info",
+  };
+  return (
+    <div className={cn("flex gap-3 rounded-xl border p-3.5", ring[tone])}>
+      <Icon name={icon ?? defaultIcon[tone]} size={18} className="mt-0.5 shrink-0 text-on-surface-variant" />
+      <div className="min-w-0 text-body-md text-on-surface">
+        {title && <p className="text-label-lg mb-0.5">{title}</p>}
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Misc
+// ---------------------------------------------------------------------------
+
+/** Key/value row, for the identity blocks that appear on almost every page. */
+export function KeyValue({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="flex flex-col gap-0.5 py-2 border-b border-outline-variant/30 last:border-0">
+      <dt className="text-label-sm uppercase tracking-wider text-on-surface-variant">{label}</dt>
+      <dd className="text-body-md text-on-surface">{children}</dd>
+    </div>
+  );
+}
+
+/** A clause reference. Monospaced so it reads as a citation, not as prose. */
+export function Clause({ children }: { children: ReactNode }) {
+  return <code className="text-body-sm text-on-surface-variant font-mono">{children}</code>;
+}
+
+/** Horizontal rule matching the table borders. */
+export function Divider({ className }: { className?: string }) {
+  return <hr className={cn("border-0 border-t border-outline-variant/40", className)} />;
+}

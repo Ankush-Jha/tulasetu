@@ -1,0 +1,1461 @@
+Schedule - Heading - A[See Rule 13]Specification for Non-Automatic Weighing Instruments
+
+
+Part I – Terminology
+
+1. General definitions
+
+(1)Weighing instrumentMeasuring instrument that serves to determine the mass of a body by using
+the action of gravity on this body.The instrument may also be used to determine other quantities,
+magnitudes, parameters or characteristics related to mass.According to its method of operation, a
+weighing instrument is classified as an automatic or nonautomatic instrument.(2)Non-automatic
+weighing instrumentInstrument that requires the intervention of an operator during the weighing
+process, for example to deposit on or remove from the receptor, the load to be measured and also to
+obtain the result.The instrument permits direct observation of the weighing results, either displayed
+or printed; both possibilities are covered by the word "indication".Note : Terms such as "indicate",
+"indicating component" and their derivatives do not include printing.A non-automatic weighing
+instrument may be- graduated or non-graduated,- self-indicating, semi-self-indicating or non-self
+indicating.Note : In this specification, a non-automatic weighing instrument is called an
+"instrument".(i)Graduated instrumentInstrument allowing the direct reading of the complete or
+partial weighing result.(ii)Self-indicating instrumentInstrument in which the position of
+equilibrium is obtained without the intervention of an operator.(iii)Semi-self indicating
+instrumentInstrument with a self-indication weighing range, in which the operator intervenes to
+alter the limits of this range.(iv)Electronic instrumentInstrument equipped with electronic
+devices.(v)Instrument with price scalesInstrument that indicates the price to pay by means of price
+charts or scales related to a range of unit prices.(vi)Price computing instrumentInstrument that
+calculates the price to pay on the basis of the indicated mass and the unit price.(vii)Price-labelling
+instrumentPrice computing instrument that prints the weight value, unit price and price to pay for
+pre-packages.(viii)Self-service instrumentInstrument that is intended to be operated by the
+customer.(3)Indication provided by an instrument(i)Printing indicationIndication, signals and
+symbols that are subject to requirements of this specification.(ii)Indication, signals and symbols
+that are not primary indications.
+
+
+
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                              70
+                                             The Legal Metrology (General) Rules, 2011
+
+2. Construction of an instrument
+
+In this specification the term "device" is used for any means by which a specific function is
+performed, irrespective of the physical realization, e.g. by a mechanism or a key initiating an
+operation; the device may be a small part or a major portion of an instrument.(1)Main device(i)Load
+receptor or pan
+
+
+Part of – the instrument intended to receive the load.
+
+(ii)Load transmitting device
+
+
+Part of – the instrument for transmitting the force produced by
+the load acting on the load receptor, to the load-measuring
+device.
+
+(iii)Load-measuring device
+
+
+Part of – the instrument for measuring the mass of the load by
+means of an equilibrium device for balancing the force coming
+from the load transmitting device, and an indicating or printing
+device.
+
+(2)Module
+
+
+Part of – an instrument which performs a specific function, can
+be examined separately and is subject to specified partial error
+limits.
+
+(3)Electronic parts(i)Electronic deviceA device employing electronic subassembly and performing a
+specific function. An electronic device is usually manufactured as a separate unit and can be
+independently tested.Note : An electronic device, as defined above, may be a complete instrument
+(e.g. instrument for direct sales to the public) or parts of an Instrument (e.g. indicator).(ii)Electronic
+sub-assemblyA part of an electronic device, employing electronic components and having a
+recognizable function of its own. (e.g. A/D converter, display matrix).(iii)Electronic componentThe
+smallest physical entity that uses electron or hole conduction in semi-conductors, gases or in a
+vacuum.(4)Indication device (of a weighing instrument)
+
+
+
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                  71
+                                             The Legal Metrology (General) Rules, 2011
+
+Part of – the load measuring device on which the direct reading
+of the result is obtained.
+
+(i)Indicating componentComponent indicating the equilibrium and/or the result on an instrument
+with one position of equilibrium it indicate only the equilibrium (so-called zero).On an instrument
+with several positions of equilibrium it indicates both the equilibrium and the result. On an
+electronic instrument, this is the display.(ii)Scale markA line or other mark on an indicating
+component corresponding to a specified value of mass.(iii)Scale baseAn imaginary line though the
+centres of all the shortest scale marks.(5)Auxiliary indicating devices(i)Device for interpolation of
+reading (Vernier)Device connected to the indicating element and sub-dividing the scale of an
+instrument, without special adjustment.(ii)Complementary indicating deviceAdjustable device by
+means of which it is possible to estimate, in units of mass, the value corresponding to the distance
+between a scale mark and the indicating component.(iii)Indicating device with a differentiated scale
+divisionDigital indicating device of which the last figure after the decimal sign is clearly
+differentiated from other figures.(6)Extended indicating deviceA device temporarily changing the
+actual scale interval (d) to a value less than the verification scale interval (e) following a manual
+command.(7)Supplementary devices(i)Levelling deviceDevice for setting an instrument to its
+reference position.(ii)Zero setting deviceDevice for setting the indication to zero when there is no
+load on the load receptor.(a)Non automatic zero setting deviceDevice for setting the indication to
+zero by an operator.(b)Semi automatic zero setting deviceDevice for setting the indication to zero
+automatically following a manual control.(c)Automatic zero-setting deviceDevice for setting the
+indication to zero automatically without the intervention of an operator.(d)Initial zero-setting
+deviceDevice for setting the indication to zero automatically at the time the instrument is switched
+on and before it is ready for use.(iii)Zero tracking deviceDevice for maintaining the zero indication
+within certain limits automatically.(iv)Tare deviceDevice for setting the indication to zero when a
+load is on the load receptor;without altering the weighing range for net loads (additive tare device);
+orreducing the weighing range for net loads (subtractive tare device),It may function as:a
+non-automatic devices (load balanced by an operator);a semi-automatic device (load balanced
+automatically following a single manual command);an automatic device (load balanced
+automatically without the intervention of an operator).(a)Tare balancing device : Tare device
+without indication of the tare value when the instrument is loaded.(b)Tare weighing device : Tare
+device that stores the tare value and is capable of indicating or printing it whether or not the
+instrument is loaded,(v)Preset tare deviceDevice for subtracting a preset tare value from a gross or
+net weight value and indicating the result of the calculation. The weighing range for net loads is
+reduced accordingly.(vi)Locking deviceDevice for immobilising all or part of the mechanism of an
+instrument.(vii)Auxiliary verification deviceDevice permitting separate verification of one or more
+main devices of an instrument.(viii)Selection device for load receptors and load measuring
+devicesDevices for attaching one or more load receptors to one or more load measuring devices,
+whatever intermediate load transmitting device are used.(ix)Indication stabilizing deviceDevice for
+maintaining a stable indication under given conditions.
+
+
+
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                              72
+                                             The Legal Metrology (General) Rules, 2011
+
+3. Metrological characteristics of an instrument
+
+(1)Weighing capacity (Max)(i)Maximum weighing capacity, not taking into account the additive tare
+capacity.(ii)Minimum capacity (Min)Value of the load below which the weighing results may be
+subject to an excessive relative error.(iii)Self-indication capacityWeighing capacity within which
+equilibrium is obtained without the intervention of an operator.(iv)Weighing rangeRange between
+the minimum and maximum capacities.(v)Extension Interval of self-indicationValue by which it is
+possible to extend the range of self-indication within the weighing range.(vi)Maximum tare effect
+(T= + ..., T = -...)Maximum capacity of the additive tare device or the subtractive tare
+device.(vii)Maximum safe load (Lim)Maximum static load that can be carried by the instrument
+without permanently altering its metrological qualities.(2)Scale divisions(i)Scale spacing
+(instrument with analogue indication)Distance between any two consecutive scale marks, measured
+along the scale base.(ii)Actual scale interval (d)Value expressed in units of mass of, -the difference
+between the values corresponding to two consecutive scale marks, for analogue indication, orthe
+difference between two consecutive indicated values, for digital indication.(iii)Verification scale
+interval (e)Value expressed in units of mass, used for the classifications and verification of an
+instrument.(iv)Scale interval of numberingValue of the difference between two consecutive
+numbered scale marks.(v)Number of verification scale intervals (single interval
+instrument)Quotient of the maximum capacity and the verification scale interval:n=
+Max/e(vi)Multi-interval instrumentInstrument having one weighing range which is divided into
+partial weighing ranges each with different scale intervals, with the weighing range determined
+automatically according to the load applied, both on increasing and decreasing loads.(vii)Multiple
+range instrumentInstrument having two or more weighing ranges with different maximum
+capacities and different scale intervals for the same load receptor, each range extending from zero to
+its maximum capacity.
+
+
+4. Metrological properties of an instrument
+
+(1)DiscriminationAbility of an instrument to react to small variation of load.The discrimination
+threshold, for a given load, is the value of the smallest additional load that, when gently deposited
+on or removed from the load receptor causes a perceptible change in the
+indication.(2)RepeatabilityAbility of an instrument to provide results that agree one with the other
+when the same load is deposited several times and in a practically identical way the load receptor
+under reasonably constant test conditions.(3)DurabilityAbility of an instrument to maintain its
+performance characteristics over a period of use.(4)Warm-up timeThe time between the moment
+power is applied to an instrument and the moment at which the instrument is capable of complying
+with requirements.
+
+
+5. Indications and errors
+
+(1)Methods of indication(i)Balancing by weights :Value of metrological controlled weights that
+balance the load (taking into account the reduction ratio of the load).(ii)Analogue
+indication:Indication enabling the evaluation of the equilibrium position to a fraction of the scale
+interval.(iii)Digital indication:Indication in which the scale marks are composed of a sequence of
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                 73
+                                             The Legal Metrology (General) Rules, 2011
+
+aligned figures that do not permit interpolation to fractions of the scale interval.(2)Weighing
+resultsNote : The following definitions apply only when the indication has been zero before the load
+has been applied to the instrument.(i)Gross value (G) :Indication of the weight of a load on an
+instrument, with no tare or preset tare device in operation.(ii)Net value (N):Indication of the weight
+of a load on an instrument after operation of a tare device.(iii)Tare value (T) :The weight value of a
+load, determined by a tare weighing device.(3)Other weight values(i)Preset tare value (PT)
+:Numerical value, representing a weight that is introduced into the instrument."Introduced"
+includes such as keying in, recalling from a data storage, or Inserting via an interface,(ii)Calculated
+net value:Value of the difference between a gross or net weight value and a preset tare
+value.(iii)Calculated total weight value:Calculated sum of more than one weight value and/or
+calculated net value.(4)Reading(i)Reading by simple juxtapositionReading of the weighing result by
+simple juxtaposition of consecutive figures giving the weighing result, without the need of
+calculation.(ii)Overall inaccuracy of readingThe overall Inaccuracy of reading of an instrument with
+analog indication is equal to the standard deviation of the same indication, the reading of which is
+carried out normal conditions of use by several observers.It is customary to make at least ten
+readings of the results.(iii)Rounding error of digital indicationDifference between the indication and
+the result the instrument would give with analog indication.(iv)Minimum reading distanceThe
+shortest distance that an observer is able to freely approach the indicting device to take a reading
+under normal conditions of use.This approach is considered to be free for the observer if there is a
+clear space of at least 0.8 m in front of the indicting device. (See figure 32 A)(5)Errors(See Figure
+32B for illustration of certain terms used)Illustration of certain terms usedM = Mass to be
+measuredE = error of indicationMPE1 = maximum permissible error on verificationMPE2 =
+maximum permissible error in service (inspection)C = characteristic under reference conditionsC1 =
+characteristic due to influence factor or disturbanceC2 = characteristic after durability testsI1 =
+intrinsicDE = durability errorSituation 1 : Shows the error E1 of an Instrument due to an influence
+factor or a disturbance, I1 is the Intrinsic error. The fault due to the influence factor or disturbance
+applied equals E1 minus I1.Situation 2 : Shows the error E2 of an instrument after the durability
+test. I2 is the initial intrinsic error. The durability error equals E2 minus I2.(i)Error (of
+indication)The indication of an instrument minus the (conventional) true value of the
+mass.(ii)Intrinsic errorThe error of an instrument under reference conditions.(iii)Initial intrinsic
+errorThe intrinsic error of an instrument as determined prior to the performance and span stability
+tests.(iv)Maximum permissible errorMaximum difference, positive or negative, allowed by
+regulation between the Indication of an Instrument and the corresponding true value, as
+determined by reference standard masses, with the instrument being at zero at no-load, in the
+reference position.(v)FaultThe difference between the error or indication and the intrinsic error of
+an instrument.Note : Principally, a fault is the result of an undesired change of data contained in or
+flowing through an electronic instrument.(vi)Significant faultA fault greater than e.Note : For a
+multi-interval instrument, the value of is that appropriate to the partial weighing range.The
+following are not considered to be significant faults, even when they exceed e:• Faults arising from
+simultaneous and mutually independent causes in the instrument.• Faults implying the
+impossibility to perform any measurement.• Faults being so serious that they are bound to be
+noticed by all those interested in the result of measurement.• Transitory faults being momentary
+variations in the indication which cannot be Interpreted, memorized or transmitted as a measuring
+result.(vii)Durability errorThe difference between the intrinsic error over a period of use and the
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                74
+                                             The Legal Metrology (General) Rules, 2011
+
+initial intrinsic error of an instrument.(viii)Significant durability errorA durability error greater
+than e.Note 1 : A durability error can be due to mechanical wear and tear or due to drift and acing of
+electronic parts. The concept of significant durability error applies only to electronic parts.Note 2 :
+For a multi-interval instrument, the value of e is that appropriate to the partial weighing range.The
+following are not considered to be significant durability error, even when they exceed e:Errors
+occurring after a period of instrument use that are clearly the result of a failure of a
+device/component, or of a disturbance and for which the indication:• cannot be interpreted,
+memorized, or transmitted as a measurement result/or• implies the impossibility to perform any
+measurement, or• is so obviously wrong that it Is bound to be noticed by all those interested in the
+results of measurement.(ix)Span stabilityThe capacity of an instrument to maintain the difference
+between the Indication of weight at maximum capacity and the indication at zero over period of use
+within specified limits.
+
+
+6. Influence and reference conditions
+
+(1)Influence quantityA quantity that is not the subject of the measurement but which influences the
+values of the measure and or the indication of the instrument.(i)Influence factorAn influence
+quantity having a value within the speCified rated operating conditions of the
+Instrument.(ii)DisturbanceAn influence quantity having a value within the limits specified in this
+specification but outside the specified rated operating conditions of the instrument.(2)Rated
+operating conditionsConditions of use, giving the range of values of influence quantities for which
+the metrological characteristics are intended to lie within the specified maximum permissible
+errors.(3)Reference conditionsA set of specified values of influence factors fixed to ensure valid
+inter-comparison of the results of measurements.(4)Reference positionPosition of the instrument at
+which its operation is adjusted.
+
+
+7. Performance test
+
+A test to verify whether the equipment under test (EUT) Is capable of performing its intended
+functions.
+
+
+Part II – Non-Automatic Weighing Instruments
+
+1. Scope
+
+This specification specifies the metrological and technical requirements for non-automatic weighing
+instruments and will not be applicable to the following non-graduated instruments :(1)Beam
+scale(2)Counter machine
+
+
+2. Principles involved
+
+(1)Units of measurement(i)The units of mass to be used on an instrument shall be the kilogram (kg)
+the milligram (mg), the gram (g) and tonne (t).(ii)For special application e.g. trade with precious
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                               75
+                                             The Legal Metrology (General) Rules, 2011
+
+stones, the metric carat (1 carat = 0.2 g) may be used as unit of measurement. A symbol for the carat
+shall be "c".(2)Metrological requirementsThe requirements apply to all instruments irrespective of
+their principles of measurement.Instruments are classified according to :the verification scale
+interval.the number of verification scale intervals.The maximum permissible errors are in the order
+of magnitude of the verification scale interval.A minimum capacity (Min) is specified to indicate that
+the instrument should not be used for measuring loads below that limit.
+
+
+3. Metrological requirements
+
+(1)Principles of classification(i)Accuracy classesThe accuracy classes for instrument and their
+symbols shall be as given in Table 15.Table 15
+
+Class                    Symbol
+Special accuracy         I
+High accuracy            II
+Medium accuracy III
+Ordinary accuracy IV
+(2)Verification scale Interval(i)Verification scale interval shall be in the form
+
+
+1. x 10k, 2 x 10k, 5 x 10k
+
+k being a positive or negative whole number or equal to zero.(ii)The verification scale interval for
+different types of instruments shall be as given in Table 16.Table 16
+
+Type of instrument                     Verification scale interval
+Graduated, without auxiliary
+                             e=d
+indicating device
+                                       e is chosen by the manufacturer according to requirement
+Graduated, with auxiliary
+                                       insub-paragraph (3) and clause (iii) of sub-paragraph (5) of
+indicating device
+                                       thisparagraph.
+                                       e is chosen by the manufacture according to sub-paragraph (3)of this
+Non-graduated
+                                       paragraph.
+(3)Classification of instruments(i)The verification scale interval, number of verification scale
+interval and the minimum capacity in relation to the accuracy class of an instrument, shall be as
+given in Table 17.Table 17
+Accuracy       Verification          Number of verification scale intervals n              Minimum
+class          scale interval        =Max/e______________________                          capacity
+                                     minimum                                               maximum
+                                                                                                       100
+Special I      0.001 g ≤ e           50000*                                                -
+                                                                                                       e
+High II        0.001 g ≤ e ≤         100                                                   100000      20 e
+
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                    76
+                                             The Legal Metrology (General) Rules, 2011
+
+               0.05 g
+               0.1 g ≤ e             5000                                                100000      50 e
+Medium
+               0.1 g ≤ e ≤ 2g        100                                                 10000       20 e
+III
+               5g≤e                  500                                                 10000       20 e
+Ordinary
+               5g≤e                  100                                                 1000        10 e
+IV
+Note : For values of 'e' less than 1 mg in respect of class I accuracy instruments, e shall be taken to be
+equal to 1 mg for the purpose of verification/inspection.See for exception in clause (v) of
+sub-paragraph (5) of this paragraph.(ii)On multiple range instruments, if the verification scale
+intervals are e1, e2 .... er with e1 e2 ... er, Min, n and Max shall be indexed accordingly.(iii)On
+multiple range instruments each range shall be treated as an instrument with one range.(iv)For
+special application that are clearly marked on the instrument, an instrument may have weighing
+ranges in classes I and II or in classes II and III. The instruments as a whole shall then comply with
+the more severe requirements of sub-paragraph (9) of this paragraph applicable to either of the two
+classes.(4)Additional requirements for a multi-interval instrument(i)Partial weighing rangeEach
+partial range (index i = 1, 2 ...) shall be defined by:- its verification scale intervals ei, ei+1 > eiits
+maximum capacity Maxiits minimum capacity Mini = Max(i-1) (for i=1 the minimum capacity is
+Min1 = Min)The number of verification scale intervals n for each partial range is equal ton1 =
+Maxi/ei(ii)Accuracy classei and ni in each partial weighing range, and mini shall comply with the
+requirements given in Table 40 according to the accuracy class of the instrument.(iii)Maximum
+capacity of partial weighing rangesWith the exception of the last partial weighing range, the
+requirements in Table 18 shall be complied with, according to the accuracy class of the
+instrument.Table 18
+Class         I            II         III      IV
+Maxi/ei+1 ≥ 50000 ≥ 5000 ≥ 500 ≥ 50
+(iv)Instrument with a tare deviceRequirements concerning the ranges of a multi-interval instrument
+apply to the net load, for every possible value of the tare.(5)Auxiliary indicating devices(i)Type and
+applicationOnly instruments of classes I and II may be fitted with an auxiliary indicating device,
+which shall be, -- a device with a rider, or- a device for interpolation of reading, or- a complementary
+indicating device (*) or- an indicating device with a differentiated scale division (**),These devices
+shall be permitted only to the right of the decimal sign.(ii)A multi-interval instrument shall not be
+fitted with an auxiliary indicating device.(iii)Verification scale intervalThe verification scale interval
+e shall be determined by the expressiond < e ≤ l0 d***such that e = 1 x 10k kg, 2 x 10k kg, 5 x 10k
+kgk being a positive or negative whole number, or zero. This condition shall not apply to an
+instrument of class I with d < 1 mg. In that case e shall uniformly be 1 mg.*** The value of e,
+calculated following this rule, are for example,Table 19
+d = 0.1 g 0.2 g 0.5 g
+e= 1g        1g      1g
+(i)Example of a complementary indicating device (*)(ii)examples of indicating devices each with a
+differentiated scale division (**)(iv)Minimum capacityThe minimum capacity of the instrument is
+determined in conformity with the requirements in Table 17.(v)Minimum number of verification
+scale intervalsfor an instrument of class I with d < 0.1 mg, n may be less than 50000.(6)Maximum
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                  77
+                                             The Legal Metrology (General) Rules, 2011
+
+permissible errors(i)Values of maximum permissible errors on verification/reverificationThe
+maximum permissible errors allowed for increasing or decreasing loads shall be as given Table
+20.Table 20
+                                                  For loads m expressed in
+Maximum permissible errors on
+                                                  verification scaleintervals
+verification/re-verification
+                                                  e
+                                                  Class I                           Class II    Class III   Class IV
+                                                                                    Min ≤ m ≤ £ Min ≤ m ≤ Min ≤ m
+±0.5e                                             Min ≤ m ≤ 50000
+                                                                                    5000        500       ≤ 50
+                                                                                    5000 ≤ m ≤ 500 ≤ m ≤ 50 < m ≤
+±1e                                               50000 < m ≤ 200000
+                                                                                    20000      2000      200
+                                                                                    20000 < m   2000 < m 200 < m
+±1.5e                                             200000 < m
+                                                                                    ≤ 100000    ≤ 10000  ≤ 1000
+(ii)Values of maximum permissible errors in inspectionThe maximum permissible errors during
+inspection shall be twice the maximum permissible errors allowed on verification.(iii)Basic rules
+concerning the determination of errors(a)Influence factorsErrors shall be determined under normal
+test condition. When the effect of one factor is being evaluated, all other factors are to be kept
+relatively constant, at a value close to normal.(b)Maximum permissible errors for net valuesThe
+maximum permissible errors apply to the net value of the load for every possible tare load, except
+preset tare values(c)Tare weighing deviceThe maximum permissible error for a tare weighing device
+is the same, for any tare value as those of the instrument, for the same value of load.(7)Permissible
+difference between resultsRegardless of what variation of results is permitted, the error of any single
+weighing result shall by itself not exceed the maximum permissible error for the given
+load.(i)RepeatabilityThe difference between the maximum and minimum results of several
+weighings of the same load shall not be greater than the absolute value of the maximum permissible
+error for the given load.(ii)Eccentric loadingThe indications for different positions of a load shall
+meet the maximum permissible errors, when the instrument is tested according to sub-paragraphs
+(a) to (d) of this paragraph.(a)Unless otherwise specified hereafter, a load corresponding to 1/3 of
+the sum of the maximum capacity and the corresponding maximum additive tare effect shall be
+applied.(b)On an instrument with a load receptor having n points of support, with n > 4, the fraction
+1/(n-1) of the sum of the maximum capacity and the maximum additive tare effect shall be applied
+to each point of support.(c)On an instrument with a load receptor subject to minimal off-centre
+loading (e.g. tank, hopper) a test load corresponding to one-tenth of the sum of the maximum
+capacity and the maximum additive tare effect shall be applied to each point or support.(d)On an
+instrument used for weighing rolling loads (e.g. vehicle scale, rail suspension instrument) a rolling
+test load corresponding to the usual rolling load, the heaviest and the most concentrated one which
+may be weighted, but not exceeding 0.8 times the sum of the maximum capacity and the maximum
+additive tare effect, shall be applied at different points on the load receptor.(iii)Multiple indicating
+devicesFor a given load the difference between the indications of multiple indicating devices
+including tare weighing device, shall be not greater than the absolute value of the maximum
+permissible error, but shall be zero between digital indicating or printing devices.(iv)Different
+positions of equilibriumThe difference between two results obtained for the same load when the
+method of balancing the load is changed (in the case of an instrument fitted with a device for
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                             78
+                                             The Legal Metrology (General) Rules, 2011
+
+extending the self-indication capacity) in two consecutive tests, shall not exceed the absolute value
+of the maximum permissible error for the applied load.(8)Discrimination(i)Non-self indicating
+instrumentAn extra load equivalent to the value of the maximum permissible error for the applied
+load when gently placed or withdrawn from the instrument at equilibrium shall produce movement
+as required under sub-paragraph (1) of paragraph 6.(ii)Self or semi-self indicating
+instrument(a)Analogue indicationAn extra load equivalent to the maximum permissible error for
+applied load when placed gently on or withdrawn from the Instrument at equilibrium shall cause a
+permanent displacement of the indicating element corresponding to not less than 0.7 times the
+extra load.(b)Digital indicationAn additional load equal to 1.4 times the actual, scale interval, when
+gently placed on or withdrawn from the instrument at equilibrium shall change the initial
+indication.(9)Variation due to influence quantities and timeAn instrument shall comply, unless
+otherwise specified, with sub-paragraphs (6), (7) and (8) of this paragraph under the conditions of
+(ii) and (iii) of sub-paragraph (9) of this paragraph and additionally it shall comply with clauses (i)
+and (iv) of sub-paragraph (9) of this paragraph.(i)Tilting(a)For instrument of class II, III or IV liable
+to be tilted, the influence of tilting shall be determined under the effect of a lengthwise or transverse
+tilting equal to 2/1000 or corresponding to the limiting value of till ting marked on, or indicated by
+a level indicator, whichever is the greater tilt.The absolute value of the difference between the
+indication of the instrument in its reference position (not tilted) and the indication in the tilted
+position shall not exceed:- at no load, two verification scale intervals, (the instrument having first
+been adjusted to zero at no load in its reference position) except instruments of class II.- at self
+indication capacity and at maximum capacity; the maximum permissible error (the instrument
+having been adjusted to zero at no load both in the reference and in the tilted position).An
+instrument shall be fitted with a levelling device and a level indicator fixed firmly on the instrument
+in a place clearly visible to the user, unless the instrument is:freely suspended, orinstalled in a fixed
+position, orcomplying with the requirements on tilting when tilted to 5% in any direction.The
+limiting value of the level indicator shall be obvious, so that tilting is easily noticed.Note : Limiting
+value of tilting: Displacement of 2 mm from a central position.(b)On a class I instrument, the
+limiting value of tilting shall correspond to a tilt of no more than 2/1000 otherwise the instrument
+shall meet the requirement for instruments of class II.(ii)Temperature(a)Prescribed temperature
+limitsIf no particular working temperature is stated in the descriptive markings of an instrument,
+this instrument shall maintain its metrological properties within the following temperature
+limits:-10°C + 40°(b)Special temperature limitsAn instrument for which particular limits of working
+temperature are stated in the descriptive markings shall comply with the metrological requirements
+within those limits.The limits may be chosen according to the application of the instrument.The
+ranges within those limits shall be at least equal to:
+
+
+5.
+
+°C for instruments of class (I)
+
+
+15.
+
+°C for instruments of class (II)
+
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                 79
+                                             The Legal Metrology (General) Rules, 2011
+
+30.
+
+°C for instruments of class (III) and (IV)(c)Temperature effect on no-load indicationThe indication
+at zero or near zero shall not vary by more than one verification scale interval for a difference in
+ambient temperature of 1°C for instruments of class (I) and 5°C for other classes.For multi-interval
+instruments and for multiple range instruments this applies to the smallest verification scale
+interval of the instrument.(iii)Mains power supplyAn instrument operated from a mains power
+supply shall comply with the metrological requirements if the power supply varies;in voltage from :-
+15% to + 10% of the value marked on the instrument.in frequency from :- 2% to + 2% of the value
+marked on the instrument, if alternate current is used.(iv)TimeUnder reasonably constant
+environmental conditions, an instrument of class I, II or III shall meet the following
+requirements.(a)When any load is kept on the instrument, the difference between the indication
+obtained immediately after placing a load and the indication observed during the following 30
+minutes, shall not exceed 0.5 e. However, the difference between the indication obtained at 15
+minutes and after that at 30 minutes shall not exceed 0.2 e.If these conditions are not met, the
+difference between the indication obtained immediately after placing a load on the instrument and
+the indication observed during the following four hours shall not exceed the absolute value of the
+maximum permissible error at the load applied.(b)The deviation on returning to zero as soon as the
+indication has stabilized, after the removal of any load which has remained on the instrument for
+one half hour, shall not exceed 0.5 e.For a multi-interval instrument, the deviation shall not exceed
+0.5 e1.On a multiple range instrument, the deviation on returning to zero from Max1 shall not
+exceed 0.5 e1. Furthermore, after returning to zero from any load greater than Max1 and
+immediately after switching to the lowest weighing range, the indication near zero shall not vary by
+more than e1 during the following 5 minutes.(c)The durability error due to wear and tear shall not
+be greater than the value of the maximum permissible error.Adherence to this requirement is
+assumed if the instrument has passed the endurance test specified in paragraph 9, which shall be
+performed only for instrument with Max ≤ 100 kg.(10)Pattern evaluation testsUpon pattern
+evaluation, the tests given in paragraph 9 and Annexure A shall be performed, to verify adherence to
+the requirement in sub-paragraphs (6), (7), (8) and clauses (i) to (iv) of sub-paragraph (9) of this
+paragraph, sub-paragraph (5) and (6) of paragraph 4, sub-paragraph (3)of paragraph 5 and
+sub-paragraph (1) of paragraph 6. The endurance test shall be performed after all other tests in
+paragraph 9 and Annexure A.
+
+
+4. Technical requirements for a self or semi self indicating instruments
+
+(1)General requirements of construction(i)Suitability(a)Suitability for applicationAn instrument
+shall be designed to suit its intended purpose of use.(b)Suitability for useAn instrument shall be
+solidly and carefully constructed in order to ensure that it maintains its metrological qualities
+during a period of use.(c)Suitability for verificationAn instrument shall permit the tests set out in
+this specification to be performed.In particular, load receptors shall be such that the standard
+masses can be deposited on them easily and in total safety. If weights cannot be placed, an
+additional support may be required.It must be possible to identify devices that have been subject to
+a separate type examination procedure (e.g. load cells, printers).(ii)Security(a)Fraudulent useAn
+instrument shall have no characteristics likely to facilitate its fraudulent use.(b)Accidental
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                              80
+                                             The Legal Metrology (General) Rules, 2011
+
+breakdown and mal-adjustmentAn instrument shall be so constructed that an accidental breakdown
+or a mal-adjustment of control elements likely to disturb its correct functioning cannot take place
+without its effect being evident.(c)ControlsControls shall be so designed that they cannot normally
+come to rest in positions other than those intended by design, unless during the manoeuvre all
+indication is made possible, keys shall be marked unambiguously.(d)Securing (Sealing) of
+components and pre-set controlsAn Instrument shall have provisions as required by the director
+legal metrology, for securing components and preset controls to which access or adjustment likely to
+affect the metrological characteristics of the instrument, is possible.On a class I instrument devices
+to adjust sensitivity may remain unsecured.(e)AdjustmentIf an instrument is fitted with an
+automatic or a semi-automatic span adjustment device, this device shall be incorporated inside the
+instrument. External influence upon this device shall be practically impossible after
+sealing.(f)Gravity compensationA gravity sensitive instrument may be equipped with a device for
+compensating the effects of gravity variation. After securing, external influence on or access to this
+device shall be practically impossible.(2)Indication of weighing results(i)Quality of readingReading
+of the results shall be reliable, easy and unambiguous under conditions of normal use:the overall
+inaccuracy of reading of an analogue indicating device shall not exceed 0.2 e.the figures forming the
+results shall be of a size, shape and clarity for reading to be easy.The scale, numbering and printing
+shall permit the figures which form the results to be read by simple juxtaposition:Provided that this
+requirement shall not be applicable in the case of steel yard type weighing instruments.(ii)Form of
+the indication(a)Weighing results shall contain the names or symbols of the units of mass in which
+they are expressed.For any one indication of weight, only one unit of mass shall be used.The scale
+interval shall be in the form 1 x 10k, 2 x 10k or 5 x 10k, in which the result is expressed, the index k
+being a positive or negative whole number or equal to zero.All indicating, printing and tare weighing
+devices of an instrument shall, within anyone weighing range, have the same scale interval for any
+given load.(b)A digital indication shall display at least one figure beginning at the extreme
+right.Where the scale interval is changed automatically the decimal sign shall maintain its position
+in the display.A decimal fraction shall be separated from its integer by a decimal sign (comma or
+dot), with the indication showing at least one figure to the left of the sign and all figures to the
+right.Zero may be indicated by one zero to the extreme right, without a decimal sign.The unit of
+mass shall be chosen so that weight values have not more than one non-significant zero to the right.
+For values with decimal sign, the non-significant zero is allowed only in the third position after the
+decimal sign.(iii)Limits of indicationThere shall be no indication above Max + 9 e(iv)Approximate
+indication deviceThe scale interval of an approximate indicating device shall be greater than
+Max/100 without being smaller than 20e. This approximate device is considered as giving secondary
+indications.(v)Extending the range of self-indication on a semi-self-indicating instrumentThe
+extension interval of the range of self indication shall not be greater than the value of the
+self-indication capacity.(a)The scale interval of extension of the range of the self-indication should
+be equal to the capacity of self, indication (comparator instruments are excluded from this
+provision).(b)An extension device with accessible sliding poises is subject to the requirements of
+clause (ii) of sub-paragraph (2) of paragraph 6.(c)On an extension device with enclosed sliding
+poises or mass switching mechanisms each extension should involve an adequate change in the
+numbering. It should be possible to seal the housing and the adjusting activities of the weights or
+masses.(3)Analogue indicating deviceThe following requirements apply in addition to those in
+clause (i) to (iv) of sub-paragraph (2) of this paragraph.(i)Scale marks: Length and widthScale shall
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                81
+                                             The Legal Metrology (General) Rules, 2011
+
+be designed and numbered so that reading the weighing results is easy and unambiguous.(a)Forms
+of scale marks.Scale marks shall consist of lines of equal thickness; this thickness should be constant
+and between 1/10 and 1/4 of the scale spacing, without being less than 0.2mm. The length of the
+shortest scale mark should be at least equal to the scale spacing.(b)Arrangements of scale
+marksScale marks should be arranged in accordance with one of the sketches in Figure 32-D (the
+line joining the end of the scale marks optional).(c)NumberingOn one scale, the scale interval of
+numbering should be:- constant,- in the form 1 x 10k, 2 x 10k, 5 x 10k units (k being a positive or a
+negative whole number or equal to zero),- not greater than 25 times as the scale interval of the
+instrument.If the scale is projected on a screen, at least two numbered scale marks should appear
+wholly in the projected zone.The height of the number (real or apparent) expressed in millimeters
+should be not less than 3 time the minimum reading distance expressed in metre, without being less
+than 2 mm.This height should be proportional to the length of the scale mark to which it relates.The
+width of a number, measured parallel to the base of the scale should be less than the distance
+between two consecutive numbered scale marks.(d)Indicating componentThe width of the pointer
+of the indicating components should be approximately equal to that of the scale marks and of the
+length such that the tip is at least level with the shortest mark.The distance between the scale and
+the inter should be at the most equal to the scale spacing, without being greater than 2 mm.(ii)Scale
+spacingon an instrument of class (I) or (II);
+
+
+1. mm for indicating devices;
+
+0.25mm for complementary indicating devices;on an instrument of class III and IIII.1.25mm for
+dial indicating devices.1.75mm for optical projection indicating devices(iii)Limits of indicationStops
+shall be provided to limit the movement of the indicating component whilst allowing it to travel
+below zero and above the capacity of self-indication. This re-requirements does not apply to
+multi-revolution dial instruments.The stops limiting the movement of the indicating components
+should permit it to travel across zones of at least 4 scale spacings below zero and above the capacity
+of self-indication (three zones are not provided with a scale on fan charts and on dials with a single
+revolution pointer they are called "blank zone").(iv)DampingDamping should achieve a stable
+indication within 5 simple half periods of oscillation.Hydraulic damping elements sensitive to
+variations in temperature should be provided with an automotive regulating device or an easily
+accessible manual regulating device.It should be impossible for the fluid of hydraulic damping
+elements on portable instruments to spill when the instrument is inclined at 45°.(4)Digital
+indicating and printing devicesThe following requirements apply in addition to those in clauses (i)
+to (v) of sub-paragraph (2) of this paragraph.(i)Change of indicationAfter a change in load, the
+previous indication shall not persist for longer than 1 second.(ii)Stable equilibriumEquilibrium is
+deemed to be stable when,-In case of printing and/or data storage, the requirement in clause (v) of
+sub-paragraph (4) of this paragraph are met, in case of zero or tare operations clauses (iv), (vi), (vii)
+of sub-paragraph (5) and (viii) of sub-paragraph (6) of this paragraph, it is sufficiently close to the
+final equilibrium to allow a correct operation of the device within relevant accuracy
+requirements.(iii)Extended indicating deviceAn extended indicating device shall not be used on an
+instrument with a differentiated scale division.When an instrument is fitted with an extended
+indicating device, displaying the indication with a scale interval smaller than 'e' shall be possible
+only.during pressing a key, orfor a period not exceeding 5 seconds after a manual command.In any
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                 82
+                                             The Legal Metrology (General) Rules, 2011
+
+case printing shall not be possible.(iv)Multiple use of indicating deviceIndications other than
+primary indication may be displayed in the same indicting device, provided that,-Quantities other
+than weight values are identified by the appropriate unit of measurement, or symbol thereof, or a
+special sign.Weight values that are not weighing results (sub-clause (i) through clause (iii) of
+sub-paragraph (2) of paragraph 5 Part I) shall be clearly identified, or they may be displayed only
+temporarily on manual command and shall not be printed.No restrictions apply if the weighing
+mode is made inoperative by a special command.(v)Printing devicePrinting shall be clear and
+permanent for the intended use, printed figures shall be at least 2 mm high.If printing takes place,
+the name or the symbol of the unit of measurement shall be either to the right of the value or above
+a column of values.Printing shall be impossible when the equilibrium is not stable.Stable
+equilibrium is considered to be achieved when over a period of 5 seconds following printout, no
+more than two adjacent values are indicated, one of which being the printed value.(vi)Memory
+storage deviceThe storage of primary indications for subsequent indication, date transfer, totalizing,
+etc, shall be impossible when the equilibrium is not stable. The criterion of stable equilibrium is the
+same as in clause (v) of sub-paragraph (4) of paragraph 4.(5)Zero setting and zero-tracking
+devicesAn instrument may have one or more zero setting devices and shall have not more than one
+zero-tracking device.(i)Maximum effectThe effect of any zero setting device shall not alter the
+maximum weighing capacity of the instrument.The overall effect of zero setting and zero tracking
+device shall be not more than 4% and of the initial zero setting device not more than 20% of the
+maximum capacity.(ii)AccuracyAfter zero setting, the effect of zero deviation on the result of the
+weighing shall be not more than 0.25 e; however, on an instrument with auxiliary indicating device
+this effect shall be not more than 0.5 d.(iii)Multiple range instrumentZero setting in any weighing
+range shall be effective also in the greater weighing ranges if switching to a greater weighing range is
+possible while the instrument is loaded.(iv)Control of the zero setting deviceAn instrument except
+an instrument according to sub-paras (13) and (14) of this paragraph.whether or not equipped with
+an initial zero-setting device, may have a combined semi-automatic zero-setting device and a
+semi-automatic tare-balancing device operated by the same key.If an instrument has a zero device
+and a tare-weighing device, the control of the zero-setting device shall be separated from that of the
+tare-weighing device.A semi-automatic zero setting device shall function only and when the
+instrument is in stable equilibrium, it cancels any previous tare operation.(v)Zero indicating device
+on an instrument with digital indicationAn instrument with digital indication shall have device that
+displays a special signal when the deviation from zero is not more than 0.25 e. This device may also
+work when zero is indicated after a tare operation.This device is not mandatory on an instrument
+that has an auxiliary indicating or a zero-tracking device provided that the rate of zero tracking is
+not less than 0.25 d/second.(vi)Automatic zero setting deviceAn automatic zero-setting device shall
+operate only when,-the equilibrium is stable, andthe indication has remained stable below zero at
+least 5 seconds.(vii)Zero tracking deviceA zero tracking device shall operate only when, -the
+indication is at zero, or at a negative net value equivalent to gross zero,and the equilibrium is stable,
+andthe corrections are not more than 0.5 d/second.When zero is indicated after a tare operation, the
+zero tracking device may operate within a range of 4% of max around the actual zero value.(6)Tare
+device(i)General requirements :A tare device shall comply with the relevant provisions of
+sub-paragraph (1) through (4) of this paragraph.(ii)Scale interval :The scale interval of a tare
+weighing device shall be equal to the scale interval of the instrument for any given load.(iii)Accuracy
+:A tare device shall permit setting the indication to zero with an accuracy better than:± 0.25e for
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                 83
+                                             The Legal Metrology (General) Rules, 2011
+
+electronic instruments and any instrument with analogue indication.± 0.25e for mechanical
+instruments with digital indication and instruments with auxiliary indication device.± 0.5e for
+mechanical instruments with digital indication and instruments with auxiliary indication device.On
+a multi-interval instrument e shall be replaced by e1.(iv)Operating rangeThe tare device shall be
+such that it cannot be used at or below its zero effect or above its maximum indicated
+effect.(v)Visibility of operationOperation of the tare device shall be visibly indicated on the
+instrument. In the case of instruments with digital indication this shall be done by marking the
+indicated net value with the sign "NET" or "Net" or "net".Note : If an instrument is equipped with a
+device that allows the gross values to be displayed temporarily while a tare device is in operation,
+the "NET" symbol disappears while the gross value is displayed.This is not required for an
+instrument with a combined semiautomatic zero-setting device and a semi-automatic tare balancing
+device operated by the same key.(vi)Subtractive tare device :When the use of subtractive tare device
+does not allow the value of the reSidual weighing range to be known, a device shall prevent the use
+of the instrument above its maximum capacity or indicate that this capacity has been
+reached.(vii)Multiple range instrument;On a multiple range instrument the tare operation shall be
+effective also in the greater weighing ranges, of switching to a greater weighing range is possible
+while the instrument is loaded.(viii)Semi-automatic or automatic tare devicesThese devices shall
+operate only when the instrument is in stable equilibrium.(ix)Combined zero setting and tare
+balancing deviceIf the semi automatic zero setting device and semi automatic tare balancing device
+are operated by the same key; sub clause (ii) and (v) of sub-paragraph (5) of this paragraph and if
+appropriate sub-clause (vii) of sub-paragraph (5) of this paragraph apply at any load.(x)Consecutive
+tare operationsRepeat operation of a tare device is permitted.If more than one tare device is
+operative at the same time, tare weight values shall be clearly designated when indicated or
+printed.(xi)Printing of weighing resultsGross weight values may be printed without any designation.
+For a designation by a symbol, only "G" is permitted.If only net weight values are printed without
+corresponding gross or tare values, they may be printed without any designation. A symbol for
+designation shall be "N". This applies also where semi-automatic zero setting and semi-automatic
+tare balancing are initiated by the same key.Gross, net or tare values determined by a multiple range
+instrument or by a multi-interval instrument need not be marked by a special designation referring
+to the (partial) weighing range.If net weight values are printed together with the corresponding
+gross and/or tare values, the net and tare values shall at least be identified by the corresponding
+symbol "N" and "T".However, it is permitted to replace the symbols G, N, T by complete words.If net
+weight values and tare values determined by different tare devices are printed separately, they shall
+be suitably identified.(7)Present tare device(i)Scale intervalRegardless of how a preset tare value is
+introduced into the device, its scale interval shall be equal or automatically rounded to the scale
+interval of the instrument. On a multiple range instrument, a preset tare value may only be
+transferred from one weighing range to another one with a larger verification scale interval but shall
+then be rounded to the latter. For a multiple interval instrument, the maximum preset tare value
+shall not be greater than Max1 and the indicated or printed, calculated net value shall be rounded to
+the scale interval of the instrument for the same net weight value.(ii)Modes of operationA preset
+tare device may be operated together with one or more tare devices provided that:Clause (x) of
+sub-paragraph (6) of this paragraph is complied, anda preset tare operation cannot be modified or
+cancelled as long as any tare device operated after the preset tare operation is still in use.preset tare
+devices may operate automatically only if the preset tare value is clearly identified with the load to
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                 84
+                                             The Legal Metrology (General) Rules, 2011
+
+be measured.(iii)Indication of operationFor the indicating device clause (v) of sub-paragraph (6) of
+this paragraph applies. It shall be possible to indicate the preset tare value at least
+temporarily.Provisions of clause (xi) of sub-paragraph (6) of paragraph 4 applies accordingly
+provided thatif the calculated net value is printed, at least the preset tare value is printed as well,
+with the exception of an instrument covered by sub-paragraphs (13), (14) or (16) of this
+paragraph.Preset tare values are designated by the symbol "PT"; however, it is permitted to replace
+the symbol "PT" by complete words.(8)Locking positions(i)Prevention of weighing outside the
+"weight" positionIf an instrument has one or more locking device, these devices shall only have two
+stable positions corresponding to "locked" and "weigh"; and weighing shall only be possible in the
+"weigh" position.A "pre-weigh" position may exist on any instrument of class I or II, except under
+sub-paragraphs (13), (15) or (16) of this paragraph.(ii)Indication of positionThe "locked" and
+"weigh" positions shall be clearly shown.(9)Auxiliary calibration devices (removable or
+fixed)(i)Devices with one or more platformThe nominal value of the ratio between the weights to be
+placed on the platform to balance a certain load and this load shall not be less than 1/5000 (it shall
+be visibly indicated just above the platform).The value of the weights needed to balance a load equal
+to the verification scale interval shall be an integer multiple of 0.1g(ii)Numbered scale devicesThe
+scale interval of the auxiliary verification devices shall be equal to or smaller than 1/5 of the
+verification scale interval for which it is intended.(10)selection of weighing ranges on a weighing
+scale on a multiple range instrumentThe range which is actually in operation shall be clearly
+indicated.(a)Manual selection of the weighing range is allowed- from a smaller to a greater weighing
+range at any load;- from a greater to a smaller weighing range when there is no load on the load
+receptor and the indication is zero at a negative net value. The tare operation receptor shall be
+cancelled and the zero shall be set to ± 0.25e both automatically.(11)Device for selection (or
+switching) between various load receptors - Load transmitting devices and various load measuring
+devices(i)Compensation of no load effectThe selection device shall ensure compensation for the
+unequal no load effect of the various load receptors-load transmitting devices, in use.(ii)Zero
+settingZero setting of an instrument with any multiple combination of various load measuring
+devices and various load receptors shall be possible without any ambiguity and in accordance with
+the provisions of sub-paragraph (5) of paragraph 4.(iii)Impossibility of weighingWeighing shall not
+be possible while selection devices are being used.(iv)Identification of the combination
+useCombination of load receptors and load measuring devices used shall be readily
+identifiable.(12)"Plus" and "minus comparative instrumentFor the purpose of verification a "heavy"
+or "plus" and "light" or "minus" comparators instrument is considered to be a semi-self indicating
+instrument.(i)Distinction between "plus" and "minus" zoneOn an analogue indicating device, the
+zones situated on either side of zero shall be distinguished by "+" and "-".On a digital indicating
+device, an inscription nearer the indicating device shall be given,range ± .......... gram (kg, t)range
+........ gram (kg, t)/+ ...... gram (kg, t)/+ ........gram (kg, t)(ii)Form of scaleScale of a comparator
+instrument shall have at least one scale division d equal to e (d = e) on either side of zero. The
+corresponding value shall be shown at either end of the scale.(13)Additional requirement for an
+instrument for direct sales to the publicThe following requirements apply to an instrument of class
+II, III, or IV with a maximum capacity not more than 100 kg capacity designed for direct sale to the
+public.(i)Primary indicationOn an instrument for direct sale to the public, the primary indications
+are the weighing results and the information about the correct zero position, tare, and pre-set tare
+operation.(ii)Zero setting deviceAn instrument for direct sale to the public shall not be fitted with a
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                85
+                                             The Legal Metrology (General) Rules, 2011
+
+non-automatic zero setting device unless operated with a tool.(iii)Tare deviceA mechanical
+instrument with a weight receptor shall not be fitted with a tare device.An instrument shall not be
+fitted with a device which can recall the gross value while a tare or pre-set tare device is in
+operation.(a)Non-automatic tare deviceA displacement of 5 mm of a point of the control shall be at
+the most equal to one verification scale interval.(b)Semi-automatic tare deviceAn instrument may be
+fitted with semi automatic tare device if -the action of the tare device does not permit the reduction
+of the tare;andtheir effect can only be cancelled when there is no load on the load receptor.In
+addition, the instrument shall comply with at least one of the following requirements :the tare value
+is indicated permanently in a separate display the tare value is indicated with a sign "-" (minus),
+when there is no load on the load receptor, orthe effect of the device is cancelled automatically when
+the indication returns to zero when unloading the load receptor after the stable net weighing results
+greater than zero has been indicated.(c)Automatic tare deviceAn instrument shall not be fitted with
+an automatic tare devices.(iv)Preset tare deviceA preset tare device may be provided if the preset
+tare value is indicated as a primary indication on a separate display which is clearly differentiated
+from the weight display sub-clause (b) of clause (iii) of sub-paragraph (13) of this paragraph,
+applies.It shall not be possible to operate a preset tare device, if a tare device is in use.Where a
+preset tare is associated with a price look up (PLU), the preset tare value may be cancelled at the
+same time, as the PLU is cancelled.(v)Impossibility of weighingIt shall be impossible to weigh or to
+guide the indicating element during the normal locking operation or during the normal operation of
+adding or subtracting weights.(vi)VisibilityAll primary indications shall be displayed clearly and
+simultaneously to both the vendor and the customer.On digital devices that display primary
+indications, the numerical figures on either set shall be of the same dimension and at least 10 mm
+high, with a tolerance of 0.5 mmOn an instrument to be used with weights, it shall be, possible to
+distinguish the value of the weights.(vii)No auxiliary and extended indicating deviceAn instrument
+shall not be fitted with any auxiliary indicating device nor an extended indicating
+device.(viii)Instrument of class IIAn Instrument of class II shall comply with the requirements given
+in sub-paragraph (9) of paragraph 3 for an instrument of class III.(ix)Significant faultWhen a
+significant fault has been detected, a visible or audible alarm shall be provided for the customer, and
+data transmission to any peripheral equipment shall be prevented. This alarm shall continue until
+such time as the user takes action or the cause disappears.(x)Counting ratioThe counting ratio on a
+mechanical counting instrument shall be 1/10 or 1/100.(14)Additional requirements for an
+instrument for direct sale to the public with price indicationThe following requirements are to be
+applied in addition to sub-para (13) of this rule:(i)Primary indicationsOn a price indicating
+instrument, the supplementary primary indication are unit price and price to pay and if applicable,
+number, unit price and price to pay for non-weighed articles and price totals.Price charts, such as
+fan charts, are not subject to the requirements of this specification.(ii)Instrument with price
+scalesFor unit price and price-to-pay scales, sub-paragraph (2) of this paragraph and clauses (i) to
+(iii) of sub-paragraph (3) of this paragraph apply accordingly. The decimal shall be indicated to two
+places.Reading from price scales shall be so possible that the absolute value of the difference
+between the product of the indicated weight W and unit price U and the indicated price to pay P is
+not greater than the product of e and the unit price of that scale.IW.U - PI ≤ e.U(iii)Price computing
+instrument(a)The price to pay shall be calculated and rounded to the nearest interval of price to pay,
+by multiplication of weight and unit price, both as indicated by the instrument. The device which
+performs the calculations in any case considered a part of the instrument.(b)The unit price is
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                               86
+                                             The Legal Metrology (General) Rules, 2011
+
+restricted to price/100g or price/kg.(c)Notwithstanding the provisions in clause (i) of sub-paragraph
+(4) of this paragraph, the indication of weight unit price and price to pay, shall remain visible after
+the weight indication is stable and after any introduction of the unit price, for at least one second
+and while the load is on the load receptor.(d)Notwithstanding the provisions in clause (i) of
+sub-paragraph (4) of this paragraph, these indications may remain visible for not more than 1
+seconds after removing the load, provided that the weight indication has been stable before and the
+indication would otherwise be zero. As long as there is a weight indication after removing the load, it
+shall not be possible to introduce or change a unit price.(e)If transaction performed by the
+instrument is printed, weIght, unit price and price-to-pay shall all be printed.(f)The data may be
+stored in a memory of the instrument before printing. The same data shall not be printed twice on
+the ticket for the customer.Instrument that can be used for price labelling purpose, must comply
+with sub-paragraph (16) of this paragraph as well.(iv)Special applications of a price computing
+instrumentOnly if all transaction performed by the instrument or by connected peripheral are
+printed on a ticket or label intended for the customer, a price computing instrument may perform
+additional functions which facilitate trade and management. These functions shall not lead to
+confusion about the results of weighing and price computing.Other operations or indications not
+covered by the following provisions may be performed, provided that no indication which could
+possibly be misunderstood as a primary indication, is presented to the customer.(a)Non-weighed
+articlesAn instrument may accept and record positive or negative prices to pay one of several
+non-weighed articles, provided the weight indication is zero or the weighing mode is made
+inoperative. The price-to-pay for one or more of such articles, shall be shown in the price to-pay
+display.If the price to pay is calculated for more than one equal article, the number of such articles
+shall be shown on the weight display, without being possibly taken for a weight and the price for one
+article on the unit price display, unless supplementary display are used to show the number of
+articles and articles price.(b)TotalizationAn instrument may totalize transaction on one or several
+tickets; the price total shall be indicated on the price-to-pay display and printed, accompanied by a
+special word or symbol, either at the end of the price-to-pay column or on a separate label ticket
+with appropriate reference to the commodities whose prices to pay have been totalized; all prices to
+pay that are totalized shall be printed and the price total shall be the algebraic sum of all these prices
+as printed.An instrument may totalize transaction performed on other instruments linked to it,
+directly or over metrologically controlled peripherals, and if the price-to-pay scale intervals of all
+connected instruments are identical.(c)Multi-vendor operationAn instrument may be designed to be
+used by more than one vendor or to serve more than one customer at the same time provided that
+the connection between the transactions and the relevant vendor or customer is appropriately
+identified.(d)CancellationAn instrument may cancel previous transaction, where the transaction has
+already been printed, the relevant price-to-pay cancelled shall be printed with an appropriate
+comment. If the transaction to the cancelled is displayed to the customer, it shall be clearly
+differentiated from normal transaction.(e)Additional informationAn instrument may print
+additional information if this is clearly correlated to the transaction and does not interfere with the
+assignment of the weight value to the unit symbol.(v)Self service instrumentA self service
+instrument need not have two sets of scales displayed.If a ticket or label is printed, the primary
+indications shall include a designation of the product when the instrument used to sell different
+products.(15)Instruments similar to one normally used for direct sale to the publicAn instrument
+similar to one normally used for direct sale to the public which does not comply with the provisions
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                  87
+                                             The Legal Metrology (General) Rules, 2011
+
+of sub-paragraphs (13) and (14) of this paragraph shall carry near the display, the indelible
+marking;"Not To Be Used For Direct Sale To The Public"(16)Price labelling instrumentClause (viii)
+of sub-paragraph (13), sub-clauses (a) and (e) of clause (iii) of sub-paragraph (14), sub-clause (a) of
+clause (iv) of sub-paragraph (14) and sub-clause (e) of clause (iv) of sub-paragraph (14) of this
+paragraph respectively apply.A price labelling instrument shall have at least one display for the
+weight. It may be used temporarily for set up purpose such as supervision of setting weight limits,
+unit price, preset tare values, commodity names.It shall be possible to verify, during use of the
+instruments, the actual values of unit price and preset tare value.Printing below minimum capacity
+shall not be possible.Printing of labels with fixed values of weight, unit price and price to pay is
+allowed provided that the weighing mode is made in operative.(17)Mechanical counting instrument
+with unit weight receptorFor the purpose of verification, a counting instrument is considered to be a
+semi self indicating instrument.(i)Indicating deviceTo permit verification, a counting instrument
+shall have a scale with at least one scale division d = e on either side of zero, the corresponding value
+shall be shown on the scale.(ii)Counting ratioThe counting ratio shall be shown clearly just above
+each counting platform or each counting scale mark.
+
+
+5. Requirements for electronic instruments
+
+In addition to paragraphs 3 and 4, an electronic instrument shall comply with the following
+requirements.(1)General requirements(i)An electronic instrument shall be designed and
+manufactured such that when it is exposed to disturbances:either;(a)significant faults do not occur,
+or(b)significant faults are detected and acted upon.Note: A fault equal to or smaller than e is allowed
+irrespective of the value of the error of indication.(ii)The requirements in sub-paragraphs (6), (7),
+(8) and (9) of paragraph 3 and clause (i) of sub-paragraph (1) of this paragraph shall be met durably
+in accordance with the intended use of the instrument.(iii)A pattern of an electronic instrument is
+presumed to comply with the requirements in clause (i) and (ii) of sub-paragraph (1) and clause (ii)
+of sub-paragraph (3) of this paragraph, if it passes the examinations and tests specified in
+sub-paragraph (4) of this paragraph.(iv)The requirements in (1) of sub-paragraph (1) of this
+paragraph may be applied separately to-(a)each individual clause of significant fault, and/or;(b)each
+part of the electronic instrumentThe choice, where sub-clause (a) or (b) of clause (i) of
+sub-paragraph (1) of paragraph 5 is applied, is left to the manufacturer.(2)Acting upon significant
+faultsWhen a significant fault has been detected, the instrument shall either be made inoperative
+automatically or a visual or audible indication shall be provided automatically and shall continue
+until such time as the user takes action or the fault disappears.(3)Functional requirements(i)Upon
+switch on (switch-on of indication), a special procedure shall be performed that shows all relevant
+signs of the indicator in the active and non-active state sufficiently long to be checked by the
+operator.(ii)In addition to the sub-paragraph (9) of paragraph 3 an electronic instrument shall
+comply with the requirements under relative humidity of 85% at the upper limit of the temperature
+range. This is not applicable to an electronic instrument of class I and of class II, if e is less than 1
+g.(iii)Electronic Instruments, class I instruments exempted, shall be subjected to the span stability
+test specified in clause (iv) of sub-paragraph (4) of this paragraph. The error near maximum
+capability shall not exceed the maximum permissible error and the absolute value of the difference
+between the errors obtained for any two measurements shall not exceed half the verification scale
+interval or half the value of the maximum permissible error, whichever is greater.(iv)When an
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                 88
+                                             The Legal Metrology (General) Rules, 2011
+
+electronic instrument is subjected to the disturbances specified in clause (iii) of sub-paragraph (4) of
+this paragraph, the difference between the weight indication without the disturbance (intrinsic
+error), shall not exceed e or the instruments shall detect and react to a significant fault.(v)During the
+warm-up time of an electronic instrument there shall be no indication or transmission of the
+weighing result.(vi)An electronic instrument may be equipped with interfaces permitting the
+coupling of the instrument to any peripheral devices or other instruments.An interface shall not
+allow the metrological functions of the instruments measurement data to be inadmissibly influenced
+by the peripheral devices (for example computers), by other interconnected instruments, or by
+disturbances acting on the interface.Functions that are performed or initiated via an interface shall
+meet the relevant requirements and conditions of clause (iv) of this sub-paragraph.Note : An
+"interface" comprises all mechanical, electrical and logic properties at the data interchange point
+between an instrument and peripheral devices or other instruments.(a)It shall not be possible to
+introduce into an instrument, through an interface, instructions or data intended or suitable to:•
+display data that are not clearly defined and could be mistaken for a weighing result,• falsify
+displayed, processed or stored weighing results,• adjust the instrument or change any adjustment
+factor; however instructions may be given through the interface to carryout an adjustment
+procedure using a span adjustment device incorporated inside the instrument or for instruments in
+class I, using an external standard mass,• falsify primary indication displayed in case of direct sales
+to the public.(b)An interface through the functions mentioned in sub-clause (a) of clause (vi) of
+sub-paragraph (3) of this paragraph cannot be performed or initiated, need not be secured. Other
+interface shall be secured as per sub-clause (d) of clause (ii) of the sub-paragraph (1) of paragraph
+4.(c)An interface intended to be connected to a peripheral device to which the requirements of this
+(Schedule) apply, shall transmit data relating to primary indication in such a manner that the
+peripheral device can meet the requirements.(vii)A battery operated electronic instrument shall
+either continue to function correctly or not indicate any weight values, whenever the voltage is below
+the manufacturer's specified value.(4)Performance and span stability tests(i)Test considerations:All
+electronic instruments of the same category, whether or not equipped with checking facilities, shall
+be subjected to the same performance test programme.(ii)State of instrument under
+test:Performance tests shall be carried out on fully operational equipment in its normal operational
+state or in a status, as similar as possible thereto.If an electronic instrument is equipped with an
+interface permitting the coupling of the instrument to external equipment, the instrument shall,
+during the tests mentioned in sub-paragraphs (2), (3) and (4) of paragraph 3 of Annexure A be
+coupled to external equipment, as specified by the test procedure.(iii)Performance testPerformance
+tests shall be performed according to paragraphs 2 and 3 of Annexure A.Table 43-A
+
+Tests                                    Characteristic under test
+Static temperature                       Influence factor
+Damp heat, steady state                  Influence factor
+Power voltage variations                 Influence factor
+Short time power reductions              Disturbance
+Bursts(transients)                       Disturbance
+Electrostatic discharge                  Disturbance
+Electromagnetic susceptibility Disturbance
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                 89
+                                             The Legal Metrology (General) Rules, 2011
+
+(iv)Span stability testSpan stability test shall be performed according to paragraph 4 of Annexure A.
+
+
+6. Technical requirements for 8 non-self indicating instrument
+
+A non-self-indicating instrument shall comply, as far as applicable, with paragraphs 3 and
+4.(1)Minimum sensitivityAn extra load equivalent to the absolute value of the maximum permissible
+error for the applied load, shall be placed on the instrument at equilibrium and shall cause a
+permanent displacement of the indicating element of at least
+
+
+1. mm for an instrument of class I or II
+
+2. mm for an instrument of class III or IV with Max. 30kg
+
+5. mm for an instrument of class III or IV with Max. 30 kg
+
+The sensitivity tests shall be carried out by placing extra loads with a slight impact in order to
+eliminate the effects of discrimination threshold.(2)Indicating device(i)General
+provisions(a)Equilibrium indicating component if two indices are provided, with one fixed and
+another movable then the thickness of the two indicating components shall be equal and the
+distance between them shall not exceed their thickness.However, this distance may be equal to 1
+mm, if the thickness of the indices is less than this value.(b)SecuringIt shall be possible to secure the
+sliding poises, the removable masses and the adjusting cavities or the housings of such devices as
+prescribed by Director.(c)PrintingIf the device permits printing, this should be possible only if
+sliding bars or poises or a mass switching mechanism are each in a position corresponding to a
+whole number of scale divisions. Except for accessible sliding poises or bars, printing should be
+possible only if the equilibrium indicating component is in the reference position to within the
+nearest half scale interval.(ii)Sliding poise device(a)Form of scale marksOn bars on which the scale
+interval is the verification scale interval of the instrument, the scale marks shall consists of lines of
+constant thickness. On other major (or minor) bars, the scale marks shall consist of notches.(b)Scale
+spacingThe distance between scale marks shall not be less than 2 mm and be of sufficient length so
+that the normal machining tolerance for notches or scale marks does not cause an error in the
+weighing result exceeding 0.2 of the verification scale interval.(c)StopsThe displacement of sliding
+poises on major and minor bars shall be limited to the graduated part of major and minor
+bars.(d)Indicating componentEach sliding poise device shall be provided with an indicating
+component.(e)Accessible sliding poise deviceThere shall be no moving parts in sliding poises, except
+sliding minor bars.There shall be no cavity on sliding poises that could ace dentally hold foreign
+bodies.It shall be possible to secure parts that are detachable.The displacement of sliding poises on
+major and minor bars shall require a certain effort.(iii)Indication by use of proportional weightsThe
+reduction ratios shall be in the form 10k, k being an integer or zero.On an instrument intended for
+direct sale to the public, the height of the raised edge of the weights receptor platform should not
+exceed one-tenth of the greatest dimension of the platform, without being more than 25
+mm.(3)Condition of construction(i)Equilibrium Indicating componentAn instrument shall be
+provided with two moving indices or one moving indicating component and a fixed datum mark, the
+
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                 90
+                                             The Legal Metrology (General) Rules, 2011
+
+respective position of which indicates the reference position of equilibrium.On an instrument of
+class III or IV designed to be used for direct sale to the public, the Indices shall allow the
+equilibrium to be seen from the opposite sides of the instrument.(ii)Knives bearings and friction
+plates.(a)Types of connectionLevers shall be fitted with knives only and these shall be pivoted on
+bearings.The line of contact of the knives and bearing shall be a straight line.Counter beams shall be
+pivoted on knife edges.(b)KnivesThe knives shall be fitted to the levers in such a way that the
+invariability of the ratios of the lever arms is assured. They shall not be welded or soldered.The
+edges of the knives of one and the same lever shall be practically parallel and shall be situated in one
+plane.(c)Bearings :The bearings shall not be welded or soldered to their supports or in their
+mountings.It shall be possible for bearings of an instrument with ratio platforms and steelyards to
+oscillate in all directions on their supports or in their mountings. On such instruments anti
+disconnection devices shall prevent the disconnection of articulated parts.(d)Friction plates:The
+longitudinal play of the knives shall be limited by friction plates. There shall be point contact
+between knife and friction plates and it shall be situated on the extension of the line(s) of contact
+between knife and bearing(s).The friction plate shall form a plane through the point of contact with
+the knife and its plane shall be perpendicular to the line of the contact between knife and bearing. It
+shall not be welded or soldered to the bearings or their support.(iii)HardnessContact parts of knives,
+bearings, friction plates, inter levers, inter lever supports and links shall have a hardness of at least
+58 Rockwell C.(iv)Protective coatingA protective coating may be applied to the parts in contact of
+jointed components provided that this does not lead to changes of metrological properties.(v)Tare
+devicesNo instrument shall be fitted with a tare device.(4)Simple sliding poise instrument
+(steelyard)(i)General(a)Scale marks: The scale marks shall be lines or notches, either on the edge, or
+on the flat of the graduated shank.The minimum scale spacing is 2 mm between notches and 4 mm
+between lines.(b)Pivots : The load per unit length on the knives shall be not more than 10
+kg/mm.The bores of bearing in the form of an annulus shall have a diameter at least equal to 1.5
+times the largest dimension of the cross section of the knife.(c)Equilibrium indicating
+componentThe length of the equilibrium indicating component, if provided taken from the edge of
+the fulcrum knife-edge of the instrument, shall be not less than 1/15 of the length of the graduated
+part of the major sliding poise bar.(d)Distinctive markThe head and the sliding poise of an
+instrument with detachable sliding poises shall bear the same distinctive mark.(ii)Instrument with
+Single capacity(a)Minimum distance between knife edgesThe minimum distance between
+knife-edges is, -
+
+
+25. mm for maximum capacities less than or equal to 30 kg.
+
+20. mm for maximum capacities exceeding 30 kg.
+
+(b)GraduationThe graduation shall extend from zero to the maximum capacity.(c)Zero settingIf an
+instrument of class III or IV is provided with a zero-setting device, this shall be a captive screw or
+nut arrangement with a maximum effect of 4 verification scale intervals per
+revolution.(5)Instrument With a load measuring device with accessible sliding poises (of steelyard
+type)(i)GeneralThe provisions of sub-paragraph (2) of paragraph 6 relating to load measuring
+devices with accessible sliding poises shall be observed.(ii)Range of numbered scaleThe numbered
+scale of the instrument shall permit continuous weighing from zero to the maximum
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                   91
+                                             The Legal Metrology (General) Rules, 2011
+
+capacity.(iii)Minimum scale spacingThe scale spacing ix of the different bars (x = 1, 2, 3 ....)ix ≥ dx(e
+x 0.05) mm but ix ≥ 2 mm(iv)Ratio platformIf an instrument is provided with a ratio platform for
+extending the indicating range of the numbered scale, the ratio between the value of the weights
+placed on the platform to balance a load and the load itself shall be 1/10 Or 1/100.This ratio shall be
+indicated legibly and permanently on the beam in a position close to the ratio platform, in the form 1
+: 10, 1 : 100 or 1/10, 1/100.(v)Zero settingAn instrument shall have a zero-setting device
+consisting:either of a cup with greatly convex coveror of a captive screw or nut arrangement with a
+maximum effect of 4 verification scale intervals per revolution.(vi)Locking of the beamAn
+instrument shall have a manual device for locking the beam, the action of which prevents the
+equilibrium indices coinciding when at rest.(vii)Wooden partsIf certain parts of an instrument, such
+as the frame, the platform or the board are of wood, this shall be dry and free from defects. It shall
+be covered with a paint or an effective protective varnish.No nails shall be used for the final
+assembly of wooden parts.
+
+
+7. Marking of an instrument
+
+(1)Descriptive markingsAll instruments shall carry, in order, the following markings:(i)Compulsory
+in all cases- manufacturer's mark, or name written in full,indication of accuracy class in the form
+
+    for special accuracy                             I
+    for high accuracy                                II
+    for medium accuracy                              III
+    for ordinary accuracy                            IV
+- maximum capacity in the form                       Max
+- manimum capacity in the form                       Min
+- verification scale interval in the form e =
+(ii)Compulsory if applicable
+- mark of manufacturer's agent for an imported instrument,
+    identification mark on each unit of an instrument consistingof separate but
+-
+    associated units.
+- pattern approval mark,
+- scale interval if d < e                                                                in the form d =
+- maximum additional tare effect                                                         in the form T = + ...
+- maximum subtractive tare effect ifdifferent from Max                                   in the form T = - ...
+- maximum safe load                                                                      in the form Lim =
+    the special temperature limits within which the instrumentcomplies with the in the form °C/
+-
+    prescribed conditions of correct operation                                  ....°C/
+                                                                                         in the form 1 : ...or
+- counting ratio on a counting instrument
+                                                                                         1/..
+- range of puls/minus indication of a digital comparatorinstrument                       ±......mg/g/kg/t
+
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                           92
+                                             The Legal Metrology (General) Rules, 2011
+
+(iii)Presentation of descriptive markingsThe descriptive marking shall be indelible and of a size
+shape and clarity allowing easy reading.They shall be grouped together in a clearly visible place
+either on a descriptive plate fixed to an instrument, or on a part of the instrument itself.The
+markings : Max .........Min......e............d if d =e andAccuracy class......shall also be shown near the
+display of the result if they are not already located there.It shall be possible to seal the plate bearing
+the descriptive marking.(a)Markings in special cases :In special case, some of the markings shall be
+in the form of a table as illustrated below :-
+
+
+
+For a
+multi-interval For an instrument with more than one weighingrange (W1W2)
+instrument
+
+
+
+                    ________________________________________________________________
+                    W1
+
+
+
+Max 2/5/15 kg Max 20kg
+
+
+Min 20 g            Min 200 g
+
+
+e = 1/2/5 g         e = 10 g
+
+
+
+
+(b)Dimensions:When several plates are placed one above the other (as for example in the case of an
+instrument consisting of several separate devices) they should be of the same width. This common
+width is fixed at 80 mm.(c)Fixing:The plate shall be fixed by rivets or screws with one of the rivets of
+red copper or material having qualities recognised as similar. It should be possible to secure the
+head of one of the screws by means of a lead cap inserted in a device that cannot be dismantled. The
+diameter of the rivet or of the lead cap should be able to accommodate a stamp 4 mm in
+diameter.(d)Dimension of the letters : The height of capital fetters should be at least 2
+mm.(iv)Specific cases(a)Instrument having several load receptors and load measuring devicesEach
+load measuring device which is connected or can be connected to one or more load receptors, shall
+bear the descriptive markings relating to these viz.identification mark,maximum capacity,minimum
+capacity,verification scale interval andif appropriate, maximum safe load and maximum additive
+tare effect.(b)Instruments consisting of separately built main parts if main partsIf cannot be
+exchanged without altering the metrological characteristics of the instrument, each unit shall have
+an identification mark which shall be repeated in the descriptive markings.(2)Verification
+marks(i)PositionAn instrument shall have a place for the application of verification marks.This
+place shall -be such that the part on which it is located cannot be removed from the instrument
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                    93
+                                             The Legal Metrology (General) Rules, 2011
+
+without damaging the marksallow easy application of the marks without changing the metrological
+qualities of the instrument be visible without the instrument having to be moved, when it is in
+service.(ii)MountingAn instrument required to bear verification marks shall have a verification
+mark support, at the place provided for above, which ensures the conservation of the
+marks:(a)When the mark is of the self-adhesive type, a space shall be provided on the instrument for
+the application of the mark.
+
+
+8. Metrological control
+
+(1)Verification(i)Visual inspectionBefore testing, the instrument shall be visually inspected
+formetrological characteristics, i.e., accuracy class, Min, Max e, d.prescribed inscription and
+position for verification and control marks.model approval number wherever
+applicable.(ii)TestsTests shall be carried out to verify compliance with the following requirements :•
+clause (i) of sub-para (6) of paragraph 3 - Value of maximum permissible error,• sub-clauses (b) and
+(c) of clause (iii) of sub-paragraph (6) of paragraph 3 - Maximum permissible error for net and tare
+values,• clause (ii) of sub-paragraph (6) of paragraph 3 - Scale interval of the tare weighing device,•
+clause (iii) of sub-paragraph (7) of paragraph 4 operation of the tare device shall be visible.• clause
+(i) of sub-paragraph (7) of paragraph 3 repeatability (3 weighing on classes III and IV and 6
+weighing for I and II)• clause (ii) of sub-paragraph (7) of paragraph 3 - Eccentric loading•
+sub-paragraph (8) of paragraph 3-Discrimination(iii)StampingVerification shall be testified by
+verification marks. All components whose dismantling or mal-adjustment might alter the
+metrological characteristics of the instrument should be secured by a seal.(2)InspectionDuring
+inspection the following tests shall be carried:- maximum permissible error; clause (i) of
+sub-paragraph (6) of paragraph 3,- Eccentric loading; clause (ii) of sub-paragraph (7) of paragraph
+3,- the seal applied during verification shall remain intact.
+
+
+9. Test procedure during verification and inspection
+
+(1)Evaluation of errorAt a certain load L, the indicated value, I is noted. Additional weights of say
+1/10 e are successively added until the indication of the instrument is increased unambiguously by
+one scale interval (I + e). The additional load added to the load receptor gives the indication P, by
+using the formulaP = I + (1/2)e - ∆ LThe error is E = P - L= I + (1/2)e - L - ∆ ≤ mpe(2)Weights(i)The
+standard weights used for verification of an instrument shall not have an error greater than 1/3 of
+the maximum permissible error of the instrument for the applied load.(ii)Substitution of standard
+weights : While verifying instrument with maximum of 1 tonne and more, instead of standard
+weights, any other constant load may be used, provided that standard weights of at least 1 tonne or
+50% of maximum, whichever is greater, is used.(3)Weighing testsApply test loads from zero up to
+and including Max. and similarly remove the test loads back to zero. During verification 5 test loads
+shall be selected and during inspection 3 test loads.The test loads selected shall include Max., Min
+and values at or near those at which the maximum permissible error changes. When loading or
+unloading, the weights shall be progressively increased or decreased. If the instrument is provided
+with an automatic zero setting device, it shall remain in operation during test. Error is calculated as
+given in sub-para (1) above.(4)Weighing test using substitution methodApply the test loads from
+zero up to and including maximum portion of the standard weights. Determine the error and then
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                               94
+                                             The Legal Metrology (General) Rules, 2011
+
+remove the weights so that the no load indication, or in the case of an instrument with a zero
+tracking device, the indication of say 10e, is reached.Substitute the previous weights with
+substitution material until the same changeover point, as used for the determining of the error is
+reached. Repeat the above procedure until Max. of the instrument is reached.Unload in reverse
+order to zero, i.e. unload the weights and determine the change over point. Place the weights back
+and remove the substitution material until the same changeover point is reached. Repeat this
+procedure until no-load is reached.(5)Tare(i)Tare weighingWeighing tests shall be performed at
+least at two different tare values. At least 5 steps may be selected including Min. loads close to values
+at which mpe changes and the value dose to the maximum possible load (or maximum additIve tare
+if provided).(6)Eccentricity testLarge weights should be used in preference to several small weights.
+The load shall be applied central in the segment if several weights are used.The location of the load
+shall be marked on a sketch in the report.The automatic zero-setting device shall not remain in
+operation during the sets.(i)Instrument with load receptor having not more than four points of
+supportsThe four quarter segments roughly equal to ¼ of the surface of the load receptor shall be
+loaded in turn.(ii)Instruments with a load receptor having more than four points of supportThe load
+shall be applied over each support on an area of the same order of the magnitude as the fraction of
+1/n of the surface area of the load receptor, where n is the number of points of
+support.(iii)Instrument with special load receptor (tank, hopper)The load shall be applied to each
+point of support.(iv)Instrument used for weighing rolling loadsA rolling load shall be applied at
+different positions on the load receptor. These positions shall be at the beginning, the middle and at
+the end of the load receptor in the normal driving direction. The positions shall then be tested in the
+reverse direction.(7)Discrimination testThe following tests shall be performed with three different
+loads, i.e. Min, ½ load and Max.(i)Non self indication and analogue indicationAn extra load shall be
+placed gently on or removed from the load receptor while the instrument is at equilibrium.(ii)Digital
+indication:A load plus sufficient additional weights (say 10 times 1/10 of e) shall be placed on the
+load receptor. The additional weights shall then be removed until the indication, I is decreased
+unambiguously by one actual scale interval i.e. I-d. One of the additional weights shall be replaced
+and a load equal to 1.4 e shall then be placed gently on the load receptor and give a result, increased
+by one actual scale interval above the initial Indication, i.e. I + d.(8)Repeatability testTwo series of
+weighing shall be performed; one at ½ load and the other at max. Readings shall be taken when the
+instrument is loaded and unloaded.(9)Creep testLoad the instrument close to Max. Take one
+reading as soon as the indication has stabilized and then note the indication while the load remains
+on the instrument for a period of four hours. During this test the temperature should not vary more
+than 2°C.The test may be terminated after 30 minutes if the indication differs less than 0.5e during
+the first 30 minutes and the difference between 15 and 30 minutes is less than 2°C.(10)Zero return
+testThe deviation in the zero indication before and after a period of loading with a load close to Max
+for half an hour, shall be determined. The reading shall be taken as soon as the indication has
+stabilized.For multiple range instruments, continue to read the zero indication during the following
+5 minutes after the indication has stabilized.If the instrument is provided with automatic
+zero-setting or zero-tracking, it shall not be in operation.Test for the stability of equilibrium
+(instruments with printing and/or data storage devices) load the instrument up to 50 per cent of
+Max. Manually disturb the equilibrium and initiate the command for data printing or data storage
+as soon as possible. Read the indicated value 5 seconds after printing. Perform the test 5
+times.(11)Influence factors(i)TiltingThe instrument shall be tilted both forwards and backwards
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                 95
+                                             The Legal Metrology (General) Rules, 2011
+
+longitudinally, and from side to side transversely.In the text that follows, class II instrument
+intended for direct sales to the public are designated class II* and class II Instrument not intended
+for direct sale to the public are designated class II.In practice the tests (no load and loaded) can be
+combined as follows:After zero setting in the reference position, the indication is determined at no
+load and at the two test loads. The instrument is then unloaded and tilted (without a new zero
+setting), after which the indication at no load and at the two test loads are determined. This
+procedure is repeated for each of the titting directions.In order to determine the influence of tilting
+on the loaded instrument, the indication obtained at each tilt shall be corrected for the deviation
+from zero which the instrument had prior to loading.If the instrument is provided with automatic
+zero-setting or zero tracking, it shall not be in operation.Tilting class II, III and IIII
+instruments(a)Titting at no-load (class II*, III and IIII) :The instrument shall be set to zero in its
+reference position (not tilted). The instrument shall then be tilted longitudinally up to 2/1000 or the
+limiting value of the level indicator, whichever is greater. The zero indication is noted. The test shall
+be repeated with transverse tilting.(b)Tilting when loaded (class II, II*, III and IIII) :The Instrument
+shall be set to zero in its reference position and two weighing shall be carried out at a load close to
+the lowest load where the maximum permissible error changes, and at a load close to Max. The
+instrument is then unloaded and tilted longitudinally and set to zero. The tilting shall be 2/1000 or
+the limiting value of the level indicator, whichever is greater. Weighing tests as described above shall
+be performed. The test shall be repeated with transverse tilting.(c)Tilting class I instrument:The
+instrument shall be tilted longitudinally up to the limiting value of the level indicator. Check the tilt.
+Repeat with transverse tilting.If the tilt is not greater than 2/1000, no further testing Is required.
+Otherwise test as per "tilting when loaded (class II, II* III and IIII)" in (b) above.(d)Instrument
+without level indicator :For an instrument liable to be tilted and not fitted with a level indicator the
+test "tilting class II, III and IIII" as given in (a) and (b) shall be performed except that the
+instrument shall be tilted 5% instead of 0.2%.(12)Warm up time testAn instrument using electric
+power shall be disconnected from the supply for a period of at least 8 hours prior to the test. The
+instrument shall then be connected and switched on and as soon as the Indication has stabilized, the
+instrument shall be set to zero and the error at zero shall be determined. Calculation of error shall
+be made. The instrument shall be loaded with a load close to Max. These observations shall be
+repeated after 5, 15 and 30 minutes.For instruments of class I, the provisions of the operating
+manual for the time following connection to the mains shall be observed.(13)Temperature testsSee
+Figure 32 E for practical approach to performing the temperature tests.(i)Static temperature
+tests:The test consists of exposure of the equipments under test (EUT) to constant temperatures
+within the range stated under free air conditions, for a 2 hour period after the EUT has reached
+temperature stability.The weighing tests (loading and unloading) shall be carried out• at a reference
+temperature (normally 20°C but for class I instruments the mean value of the specified temperature
+limits);• at the specified high temperature• at the specified low temperature or at a temperature of
+5°C if the specified low temperature is below 10°C; and• at the reference temperature.The change of
+temperature shall not exceed 1°C/min during heating and cooling down.For class I instruments
+changes in barometric pressure shall be taken into account.The absolute humidity of the test
+atmosphere shall not exceed 20 g/m3,unless the operating manual gives different
+specifications.(ii)Temperature effect on the no-load indication:The instrument shall be set to zero
+and then changed to the prescribed highest and lowest temperature as well as at 5°C if applicable.
+After stabilisation the error of the zero indication shall be determined.The change in zero indication
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                  96
+                                             The Legal Metrology (General) Rules, 2011
+
+per 1°C (class I) instrument or per 5°C (other instruments) shall be calculated. The changes of these
+errors per 10°C (class I instruments) or per 5°C (other instruments) shall be for any two consecutive
+temperature of this test. This test may be performed together with the temperature test. The errors
+at zero shall then be additionally determined immediately before changing to the next temperature
+and after the 2 hour period after the instrument has reached stability at this temperature.Note :
+Pre-loading is not allowed before these measurements.If the instrument is provided with automatic
+zero-setting or zero-tracking, it shall not be in operation.(14)Voltage variationStabilize the EUT
+under constant environmental conditions.The test consists of subjecting the EUT to variations of AC
+mains voltage.The test shall be performed with test loads of 10e and a load between ½ Max and
+Max.
+
+Test severity : Voltage variations : Upper limit V + 10%
+                                               Lower limit V - 15%
+Where V is the value marked on the instrument.Maximum allowable variations : All functions shall
+operate as designed, and all indications shall be within the maximum permissible errors. If the
+instrument is provided with an automatic zero-setting or a zero tracking device, it may be in
+operation during the test.(15)Endurance test:Applicable only to instruments of class II, III and IIII
+with Max ≤ 100kgThe endurance test shall be performed after all other tests.Under normal
+conditions of use, the instrument shall be subjected to the repetitive loading and unloading of a load
+approximately equal to 50% of Max. The load shall be applied 100 000 times. The frequency and
+speed of application shall be such that the instrument attains an equilibrium when loaded and when
+unloaded. The force of the load applied shall not exceed the force attained in a normal loading
+operation.A weighing test in accordance with the procedure shall be performed before the
+endurance test is started to obtain the intrinsic error. A weighing test shall be performed after the
+completion of the loadings to determine the durability error due to wear and tear. If the instrument
+is provided with automatic zero-setting or zero-tracking device it may be in operation during the
+test.Proposed test sequence for tests given in clauses (i) and (ii) of sub-paragraph (13) of Paragraph
+9 of Part-II(temperature test where the temperature limits are + 40°C/ - 10°C)Annex-AAdditional
+Tests for Electronic instruments for Model Approval
+
+
+1. General requirements for electronic instruments under test (EUT)
+
+Energise the EUT for a time period equal to or greater than the warm up time specified by the
+manufacturer and maintain the EUT energised for the duration of the test.Adjust the EUT as closely
+as practicable to zero prior to each test, and do not re-adjust it at any time during the test, except to
+reset it if a significant fault has been indicated. The deviation of the no-load indication due to any
+test condition shall be recorded, and any load indication shall be corrected accordingly to obtain the
+weighing result.The handling of the instrument shall be such that no condensation of water occurs
+on the instrument.
+
+
+2. Performance tests for influence factors
+
+
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                 97
+                                             The Legal Metrology (General) Rules, 2011
+
+2.
+
+(1)Static temperatures.
+
+
+2.
+
+(2)Damp heat, steady state(not applicable to class I instrument or class II instruments where e is
+less than 1 gram).Test procedure in brief : The test consists of exposure of the EUT to a constant
+temperature and a constant relative humidity. The EUT shall be tested with at least five different
+test loads.• at the reference temperature (20°C or the mean value of the temperature range
+whenever 20°C is outside this range) and a relative humidity of 500% following conditioning.• at the
+high temperature of the range specified in clause (ii) of sub-paragraph (9) of paragraph 3 of Part II
+and a relative humidity of 85%, two days following temperature and humidity stabilization, and• at
+the reference temperature and relative humidity of 50%.Maximum allowable variations: All
+functions shall operate as designed.All indications shall be within maximum permissible errors.
+
+
+3. Power voltage variations
+
+Performance tests for disturbances(1)Short time power reductionsTest procure in brief : Stabilize
+the EUT under constant environmental conditions.A test generator capable of reducing the
+amplitude of one or more half cycles (at zero crossings) or the AC mains voltage shall be used. The
+test generator shall be adjusted before connecting the EUT. The mains voltage reduction shall be
+repeated ten times with an interval of at least 10 seconds.The test shall be performed with test loads
+of 10e and a load between ½ Max and Max.
+
+Test severlty                 Reductions 100% 50%
+Number of half cycles 1                       2
+Maximum allowable variations : The difference between the weight indication due to the
+disturbance and the indication without the disturbance shall either not exceeds ear the instrument
+shall detect and react to a significant fault.(2)BurstThe test consists in exposing the EUT to specified
+bursts of voltage spikes.Before any test stabilize the EUT under constant environmental
+conditions.The test shall be applied separately to:power supply lines,I/O circuits and
+communications lines, if any.The test shall be performed with test loads of 10 e and a load between
+½ Max and Max.Test severity : Open circuit output test voltage for:power supply lines 1 kVI/O
+signal 1, data and control lines 0.5 kV.Maximum allowable variations: The difference between the
+weight indication due to the disturbance and the indication without the disturbance shall either not
+exceeds e or the instrument shall detect and react to a significant fault.(3)Electrostatic dischargeThe
+test, consists in exposing the EUT to specified, direct and indirect, electrostatic discharges.This test
+includes the paint penetration method, if appropriate, for direct discharges the air discharge shall be
+used where the contact discharge method cannot be applied.Before any test stabilize the EUT under
+constant environmental conditions.At least 10 direct discharges and 10 indirect discharges shall be
+applied. The time interval between successive discharges shall be at least 10 seconds.The test shall
+be performed with test loads of 10e and a load between ½ Max. and Max.Maximum allowable
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                98
+                                             The Legal Metrology (General) Rules, 2011
+
+variations: The difference between the weight indication due to the disturbance and the indication
+without the disturbance shall either not exceeds e or the instrument shall detect and react to a
+significant fault.(4)Immunity to radiated electromagnetic fieldsThe test consists in exposing the
+EUT to specified electromagnetic fields.Before any test, stabilize the EUT under constant
+environmental conditions.The EUT shall be exposed to electromagnetic fields of the strength and
+character as specified by the severity level.The test shall be performed with one small test load only:
+Frequency range 26-1000 MHz
+Field strength         3            V/m
+Modulation             80% AM 1 kHz sine wave
+Maximum allowable variations: The difference between the weight indication due to the disturbance
+and the indication without the disturbance either shall not exceed e or the instrument shall detect
+and react to a significant fault.
+
+
+4. Span stability test
+
+(Not applicable to class I instruments)Test procedure in brief: The test consists in observing the
+variations of the error of the EUT under sufficiently constant ambient conditions (reasonably
+constant conditions in a normal laboratory environment) at various intervals before, during and
+after the EUT has been subjected to performance tests.The performance test shall include the
+temperature test and if applicable, the damp heat test; they shall not include any endurance test;
+other performance test in this Annexure and in paragraph 9 shall be performed.The EUT shall be
+disconnected from the mains power supply, or battery supply where fitted, two times for at least 8
+hours during the period of the test. The number of disconnections may be increased if the
+manufacturer specified so or at the discretion of the approval authority in the absence of any such
+specification.For the conduct of this test the manufacturer's operating instructions shall be
+considered.The EUT shall be stabilised at sufficiently constant, ambient conditions after switch on
+for at least 5 hours, but at least 16 hours after the temperature and damp heat test have been
+performed.Test duration: 28 days or the period necessary for the performance tests to be carried
+out, whichever is shorter.Time between measurements: Between ½ and 10 days.Test load: Near
+Max: The same test weights shall be used throughout this test.Number of measurement at least
+8.Test sequence: Stabilize all factors at sufficiently constant ambient conditions.Adjust the EUT as
+close to zero as possible.Automatic zero-tracking shall be made inoperative and automatic built in
+span adjustment device shall be made operative.Apply the test weight(s) and determined the
+error.At the first measurement immediately repeat zeroing and loading four times to determine the
+average value of the error. For the next measurements perform only one unless either the result is
+outside the specified tolerance or the range of the five readings of the initial measurements is more
+than 0.1e.Record the following data :-(a)data and time(b)temperature(c)barometric
+pressure(d)relative humidity(e)test load(f)indication(g)errors(h)changes in test locationsand apply
+all necessary corrections resulting from variations of temperature, pressure, etc. between the various
+measurements.Allow full recovery of the EUT before any other test is performed.Maximum
+allowable variationsThe variation in the errors of indication shall not exceed half the verification
+scale interval or half the absolute value of the maximum permissible error on initial verification or
+the test load applied, whichever is greater, on any of the measurements.Where the difference of the
+
+
+Indian Kanoon - http://indiankanoon.org/doc/140790043/                                                99
+                                             The Legal Metrology (General) Rules, 2011
+
+results indicate a trend more than half the allowable variation specified above, the test shall be
+continued until the trend comes to rest or reverses itself, or until the error exceeds the maximum
+allowable variation.Seventh ScheduleHeading-B(See rule 13)General Requirements

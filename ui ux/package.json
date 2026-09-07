@@ -1,0 +1,17 @@
+{
+  "name": "tulasetu",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Deterministic engine for OIML R-76 NAWI type-evaluation test reports (SIH 2026, PS SIH26035)",
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -b",
+    "dev:web": "npm --workspace apps/web run dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
+}

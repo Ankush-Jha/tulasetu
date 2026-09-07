@@ -25,6 +25,8 @@ import { ServiceError } from "./domain/service.js";
 export interface RouteOptions {
   db: Db;
   pack: RulePack;
+  /** R 76-2 §17 checklist bank, if one is loaded alongside the pack. */
+  checklists?: unknown;
   /** Injected so tests can pin time. Defaults to the wall clock. */
   now?: () => string;
 }
@@ -63,7 +65,7 @@ function send(reply: FastifyReply, err: unknown): FastifyReply {
 }
 
 export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
-  const { db, pack } = opts;
+  const { db, pack, checklists } = opts;
   const now = opts.now ?? (() => new Date().toISOString());
   const ctx = () => ({ db, pack, now: now() });
 
@@ -89,6 +91,23 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
   /** The rule pack in force. Published so a report's numbers can be independently rechecked. */
   app.get("/rulepack", async () => pack);
 
+  /**
+   * R 76-2 §17's checklists, as transcribed from the standard.
+   *
+   * Served rather than bundled into the client for the same reason the rule pack is: the
+   * checklist is part of the standard, it changes when the standard does, and a copy compiled
+   * into a browser build is a copy that can silently fall behind the one the engine uses.
+   */
+  app.get("/checklists", async (_req, reply) => {
+    if (!checklists) {
+      return reply.status(404).send({
+        error: "NO_CHECKLISTS",
+        message: "No checklist file is loaded for this rule pack.",
+      });
+    }
+    return checklists;
+  });
+
   app.get("/lifecycle", async () => ({
     transitions: TRANSITIONS.map((t) => ({
       from: t.from, to: t.to, event: t.event, roles: t.roles, label: t.label,
@@ -97,6 +116,30 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
   }));
 
   app.get("/me", guard((p) => ({ ...p, capabilities: capabilitiesOf(p.role) })));
+
+  /**
+   * The family/EUT solver, standing alone.
+   *
+   * It is a pure function of the variants and the rule pack — it reads nothing from a report
+   * and writes nothing — so binding it to a report id would be an access check protecting no
+   * data. A laboratory quoting for a family before any report exists is the normal case.
+   */
+  app.post(
+    "/tools/family",
+    guard((_p, req) => {
+      const { variants } = req.body as { variants?: Parameters<typeof svc.solveFamilyStandalone>[1] };
+      if (!Array.isArray(variants) || variants.length === 0) {
+        throw new ServiceError(400, "NO_VARIANTS", "Provide at least one variant.");
+      }
+      return svc.solveFamilyStandalone(ctx(), variants);
+    }),
+  );
+
+  /** Annex F module compatibility, likewise pure and not tied to a report. */
+  app.post(
+    "/tools/modules",
+    guard((_p, req) => svc.checkModulesStandalone(ctx(), req.body as Parameters<typeof svc.checkModulesStandalone>[1])),
+  );
 
   // --- reports ------------------------------------------------------------
 

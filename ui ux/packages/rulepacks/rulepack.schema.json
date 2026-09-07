@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TulaSetu rule pack",
+  "type": "object",
+  "required": ["ruleset_id", "classification", "mpe_bands_initial", "tests"],
+  "properties": {
+    "ruleset_id": { "type": "string" },
+    "edition": { "type": "string" },
+    "class_aliases": { "type": "object" },
+    "classification": { "type": "array" },
+    "mpe_bands_initial": { "type": "array" },
+    "mpe_in_service_factor": { "type": "number" },
+    "family_solver": { "type": "object" },
+    "tests": { "type": "array" }
+  }
+}

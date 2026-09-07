@@ -1,0 +1,59 @@
+{
+  "$schema": "./rulepack.schema.json",
+  "ruleset_id": "OIML_R76_2006",
+  "edition": "2007-report-format",
+  "description": "OIML R 76-1:2006 requirements + R 76-2:2007 report format. Source of truth: docs/standards/OIML_R76-1_2006_requirements.pdf",
+  "class_aliases": { "IIII": ["IV"] },
+  "accuracy_classes": ["I", "II", "III", "IIII"],
+  "e_form": [1, 2, 5],
+  "classification": [
+    { "class": "I",    "e_min_g": 0.001, "e_max_g": null,  "n_min": 50000, "n_max": null,   "min_capacity": "100e" },
+    { "class": "II",   "e_min_g": 0.001, "e_max_g": 0.05,  "n_min": 100,   "n_max": 100000, "min_capacity": "20e" },
+    { "class": "II",   "e_min_g": 0.1,   "e_max_g": null,  "n_min": 5000,  "n_max": 100000, "min_capacity": "50e" },
+    { "class": "III",  "e_min_g": 0.1,   "e_max_g": 2,     "n_min": 100,   "n_max": 10000,  "min_capacity": "20e" },
+    { "class": "III",  "e_min_g": 5,     "e_max_g": null,  "n_min": 500,   "n_max": 10000,  "min_capacity": "20e" },
+    { "class": "IIII", "e_min_g": 5,     "e_max_g": null,  "n_min": 100,   "n_max": 1000,   "min_capacity": "10e" }
+  ],
+  "mpe_bands_initial": [
+    { "limit": "0.5e", "max_m_in_e": { "I": 50000,  "II": 5000,  "III": 500,  "IIII": 50 } },
+    { "limit": "1.0e", "max_m_in_e": { "I": 200000, "II": 20000, "III": 2000, "IIII": 200 } },
+    { "limit": "1.5e", "max_m_in_e": { "I": null,   "II": 100000,"III": 10000,"IIII": 1000 } }
+  ],
+  "mpe_in_service_factor": 2,
+  "multi_interval_boundary": { "I": 50000, "II": 5000, "III": 500, "IIII": 50 },
+  "rounding_elimination_when": "d > 0.2e",
+  "module_error_fractions": {
+    "rule": "sum(p_i^2) <= 1",
+    "p_max": 0.8,
+    "digital_module_may_be_zero": true,
+    "typical": { "load_cell": 0.7, "indicator": 0.5, "connecting": 0.5 }
+  },
+  "family_solver": {
+    "eut_must_include": ["highest_n", "smallest_e"],
+    "accept_without_test_if": [
+      "Max between two tested capacities AND ratio(tested capacities) <= 10",
+      "n <= n_test AND e >= e_test AND Max <= 5 * Max_test * (n_test / n)"
+    ]
+  },
+  "tests": [
+    { "id": "weighing_performance", "form": "1",  "kernel": "K1", "applies": { "always": true } },
+    { "id": "temp_no_load",        "form": "2",  "kernel": "K4", "applies": { "always": true }, "params": { "drift_per_C": { "I": 1, "default": 5 } } },
+    { "id": "eccentricity_weights","form": "3.1","kernel": "K1", "applies": { "always": true } },
+    { "id": "eccentricity_rolling","form": "3.2","kernel": "K1", "applies": { "rolling_load": true } },
+    { "id": "discrimination",      "form": "4.1","kernel": "K2", "applies": { "not": { "digital_d_lt_5mg": true } } },
+    { "id": "sensitivity",         "form": "4.2","kernel": "K3", "applies": { "indicating_type": "non-self" } },
+    { "id": "repeatability",       "form": "5",  "kernel": "K1", "applies": { "always": true }, "extra": "Emax - Emin <= |mpe|" },
+    { "id": "zero_return",         "form": "6.1","kernel": "K4", "applies": { "always": true } },
+    { "id": "creep",               "form": "6.2","kernel": "K4", "applies": { "always": true } },
+    { "id": "stability",           "form": "7",  "kernel": "K4", "applies": { "has_print_or_storage": true } },
+    { "id": "tilting",             "form": "8",  "kernel": "K1", "applies": { "class_in": ["II","III","IIII"], "tiltable": true } },
+    { "id": "tare",                "form": "9",  "kernel": "K1", "applies": { "has_tare": true } },
+    { "id": "warm_up",             "form": "10", "kernel": "K1", "applies": { "electronic": true } },
+    { "id": "voltage_variation",   "form": "11", "kernel": "K1", "applies": { "electronic": true } },
+    { "id": "disturbances",        "form": "12", "kernel": "K5", "applies": { "electronic": true }, "note": "12.7 only if vehicle-powered" },
+    { "id": "damp_heat",           "form": "13", "kernel": "K1", "applies": { "electronic": true, "not_class": ["I"], "not_class_II_if_e_lt": "1g" } },
+    { "id": "span_stability",      "form": "14", "kernel": "K1", "applies": { "electronic": true, "not_class": ["I"] } },
+    { "id": "endurance",           "form": "15", "kernel": "K1", "applies": { "max_capacity_kg_lte": 100 }, "order": "last" }
+  ],
+  "checklists": ["17.1", "17.2 (direct-sales)", "17.3 (electronic)", "17.4 (software)"]
+}

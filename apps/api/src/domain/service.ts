@@ -12,6 +12,7 @@
  */
 
 import {
+  checkModuleCompatibility,
   k1ErrorVsMpe,
   resolveApplicableTests,
   resolveMpe,
@@ -21,6 +22,7 @@ import {
   validateSoftwareIdentification,
   type InstrumentProfile,
   type Issue,
+  type ModuleCompatibilityInput,
   type RulePack,
   type Variant,
   type Verdict,
@@ -327,6 +329,27 @@ export function runFamilySolver(
 ) {
   getReport(ctx, principal, reportId);
   return solveFamily(variants, ctx.pack);
+}
+
+/**
+ * The family solver with no report attached.
+ *
+ * Pure: it reads only the variants and the rule pack, and records nothing. Requiring a report
+ * would be an access check guarding no data, and a laboratory quoting for a family before any
+ * report exists is the ordinary case.
+ */
+export function solveFamilyStandalone(ctx: ServiceContext, variants: Variant[]) {
+  return solveFamily(variants, ctx.pack);
+}
+
+/**
+ * Annex F module compatibility, standing alone.
+ *
+ * Also pure. A laboratory asked "can this indicator drive that load cell" long before a report
+ * exists — that is the question the modular approach is for.
+ */
+export function checkModulesStandalone(ctx: ServiceContext, input: ModuleCompatibilityInput) {
+  return checkModuleCompatibility(input, ctx.pack);
 }
 
 // ---------------------------------------------------------------------------

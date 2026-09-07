@@ -1,0 +1,463 @@
+@import "tailwindcss";
+@source "./";
+/* ============================================
+   TulaSetu — Luminous Fintech Design System
+   Ported from Stitch DESIGN.md
+   ============================================ */
+
+@theme {
+  /* — Colors — */
+  --color-canvas: #EBF0FA;
+  --color-surface: #f8f9ff;
+  --color-surface-dim: #cbdbf5;
+  --color-surface-bright: #f8f9ff;
+  --color-surface-lowest: #ffffff;
+  --color-surface-low: #eff4ff;
+  --color-surface-container: #e5eeff;
+  --color-surface-high: #dce9ff;
+  --color-surface-highest: #d3e4fe;
+
+  --color-on-surface: #0b1c30;
+  --color-on-surface-variant: #434655;
+  --color-inverse-surface: #213145;
+  --color-inverse-on-surface: #eaf1ff;
+
+  --color-outline: #737686;
+  --color-outline-variant: #c3c6d7;
+  --color-border-subtle: #E2E8F0;
+
+  --color-primary: #004ac6;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #2563eb;
+  --color-on-primary-container: #eeefff;
+  --color-primary-fixed: #dbe1ff;
+  --color-primary-fixed-dim: #b4c5ff;
+
+  --color-secondary: #5f5e5e;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #e5e2e1;
+
+  --color-tertiary: #005e6e;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #00788c;
+  --color-on-tertiary-container: #d7f6ff;
+  --color-tertiary-fixed: #acedff;
+  --color-tertiary-fixed-dim: #4cd7f6;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+
+  --color-anchor: #0A0A0A;
+  --color-anchor-hover: #1E1E1E;
+
+  --color-success: #10B981;
+  --color-success-bg: #DCFCE7;
+  --color-success-text: #15803D;
+
+  --color-warning: #F59E0B;
+  --color-warning-bg: #FEF3C7;
+
+  --color-slate-muted: #64748B;
+  --color-slate-faint: #94A3B8;
+
+  /* Gradient stops */
+  --color-grad-1: #2DD4BF;
+  --color-grad-2: #06B6D4;
+  --color-grad-3: #3B82F6;
+  --color-grad-4: #6366F1;
+  --color-grad-5: #4F46E5;
+
+  /* — Typography — */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* — Spacing — */
+  --spacing-2xs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.25rem;
+  --spacing-xl: 1.5rem;
+  --spacing-2xl: 2rem;
+  --spacing-3xl: 2.5rem;
+  --spacing-card: 1.5rem;
+  --spacing-outer: 2rem;
+  --spacing-gutter: 1.25rem;
+
+  /* — Shadows — */
+  --shadow-stage: 0 20px 40px -15px rgba(100, 116, 139, 0.08);
+  --shadow-card: 0 8px 24px -4px rgba(79, 70, 229, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  --shadow-pill: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-glass: 0 12px 28px -6px rgba(37, 99, 235, 0.12);
+  --shadow-primary-btn: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --shadow-primary-glow: 0 4px 12px rgba(0, 74, 198, 0.25);
+
+  /* — Radii — */
+  --radius-sm: 0.25rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+/* ============================================
+   Base Resets
+   ============================================ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-on-surface);
+  background: var(--color-canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: var(--radius-full);
+}
+
+/* ============================================
+   Typography Utilities
+   ============================================ */
+
+.text-display-xl {
+  font-family: var(--font-sans);
+  font-size: 56px;
+  line-height: 64px;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.text-display-lg {
+  font-family: var(--font-sans);
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+
+.text-headline-lg {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.text-headline-md {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.text-headline-sm {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.text-body-lg {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.005em;
+  font-weight: 400;
+}
+
+.text-body-md {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.text-body-sm {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+.text-label-lg {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.text-label-md {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+}
+
+.text-label-sm {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+.text-metric {
+  font-family: var(--font-sans);
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+.font-mono-data {
+  font-family: var(--font-mono);
+}
+
+/* ============================================
+   Material Symbols
+   ============================================ */
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+.icon-filled {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* ============================================
+   Component Base Styles
+   ============================================ */
+
+.card {
+  background: var(--color-surface-lowest);
+  border-radius: 24px;
+  padding: var(--spacing-card);
+  box-shadow: var(--shadow-card);
+}
+
+.card-stage {
+  background: var(--color-surface-lowest);
+  border-radius: 28px;
+  box-shadow: var(--shadow-stage);
+}
+
+.pill-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  background: color-mix(in srgb, var(--color-surface-low) 70%, transparent);
+  padding: 6px;
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.pill-nav-item {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.pill-nav-item:hover {
+  color: var(--color-on-surface);
+}
+
+.pill-nav-item.active {
+  background: var(--color-surface-lowest);
+  color: var(--color-on-surface);
+  box-shadow: var(--shadow-pill);
+  font-weight: 600;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: 10px 24px;
+  border-radius: var(--radius-full);
+  background: var(--color-anchor);
+  color: var(--color-on-primary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-primary-btn);
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--color-anchor-hover);
+  transform: scale(1.01);
+}
+
+.btn-primary:active {
+  transform: scale(0.99);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-container);
+  color: var(--color-on-surface);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--color-surface-high);
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 16px;
+  background: var(--color-surface-low);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-on-surface);
+  border: none;
+  outline: none;
+  transition: background 0.2s;
+}
+
+.input-field:focus {
+  background: var(--color-surface-container);
+}
+
+.input-field::placeholder {
+  color: var(--color-outline);
+}
+
+/* Badge variants */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+.badge-applicable {
+  background: color-mix(in srgb, var(--color-primary-container) 10%, transparent);
+  color: var(--color-primary);
+}
+
+.badge-not-applicable {
+  background: var(--color-surface-low);
+  color: var(--color-outline);
+}
+
+.badge-passed {
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+.badge-failed {
+  background: var(--color-error-container);
+  color: var(--color-error);
+}
+
+.badge-draft {
+  background: var(--color-surface-container);
+  color: var(--color-on-surface-variant);
+}
+
+.badge-review {
+  background: var(--color-warning-bg);
+  color: #92400E;
+}
+
+.badge-published {
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  color: var(--color-primary);
+}
+
+.badge-scheduled {
+  background: color-mix(in srgb, var(--color-tertiary) 10%, transparent);
+  color: var(--color-tertiary);
+}
+
+/* Rainbow gradient bar */
+.rainbow-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.rainbow-bar > div {
+  height: 100%;
+  flex: 1;
+  border-radius: var(--radius-full);
+}
+
+/* Toggle pill */
+.toggle-pill {
+  padding: 10px 12px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2xs);
+  transition: all 0.2s;
+}
+
+.toggle-pill.active {
+  background: var(--color-surface-low);
+}
+
+.toggle-pill.inactive {
+  background: color-mix(in srgb, var(--color-surface-low) 40%, transparent);
+  opacity: 0.7;
+}
