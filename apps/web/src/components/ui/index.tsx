@@ -231,14 +231,17 @@ export function Badge({
   tone = "neutral",
   icon,
   className,
+  title,
 }: {
   children: ReactNode;
   tone?: Tone;
   icon?: string;
   className?: string;
+  title?: string;
 }) {
   return (
     <span
+      {...(title ? { title } : {})}
       className={cn(
         "inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-label-sm font-semibold whitespace-nowrap",
         TONE[tone],

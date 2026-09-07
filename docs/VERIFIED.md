@@ -357,6 +357,37 @@ acceptance note (which appears to be a copy-paste artefact in the standard itsel
 graph page, and five checklist items whose printed clause reference was separated from its
 text by the extraction. Each is flagged in the file rather than guessed silently.
 
+## 19. The draft five-part edition — what actually changes
+
+✅ Verified against `docs/standards/extracted/R76_Part3_test_report_format_CD.txt` and
+`R76_Part4_type_evaluation_report_CD.txt`, and packaged as
+`packages/rulepacks/OIML_R76_DRAFT_5PART.json`.
+
+**Form 12.3 gains a third sub-item.** The 2007 form carries only *a) AC mains power supply* and
+*b) Any other kind of power supply*. The draft adds *c) Surges on signal, data and control
+lines* (Part 3, line 1748).
+
+**Every cross-reference is renumbered.** The annexes became numbered subclauses, so form 1
+cites `(R 76-2, 5.4.1) (6.3.1)` where the 2007 form cites `(A.4.4) (A.5.3.1)`. Every form in
+the draft pack was re-cited from Part 3's own contents page; no annex reference survives.
+
+**Forms 16 and 17, and the Summary, leave the test report.** Part 3 ends at form 15
+(Endurance). The construction examination, the checklist and the Summary of type evaluation are
+in Part 4, which also carries the language making the format mandatory under OIML-CS.
+
+**Nothing metrological moves.** Table 3, Table 4 and Table 6, the in-service factor of 2, the
+`d > 0.2 e` rounding condition and §3.10.4's family rules are all carried over unchanged.
+
+`packages/engine/tests/edition-toggle.test.ts` asserts both halves of that: the engine resolves
+an *identical* permissible error at every load of the worked example under either pack, and the
+form numbering, sub-items and citations differ exactly as listed above. That pair is the whole
+claim behind CLAUDE.md design rule #2 — an edition change is a different file, not a different
+program — and it is now tested rather than asserted.
+
+Run it: `TULASETU_RULESET=draft npx tsx apps/api/src/server.ts`. The pack declares itself a
+draft, the server logs a warning at boot, and the UI badges it — a report computed against a
+committee draft is otherwise indistinguishable from one computed against the standard in force.
+
 ---
 
 ## Open questions / not yet verified
@@ -370,8 +401,7 @@ text by the extraction. Each is flagged in the file rather than guessed silently
 - ❓ R 76-1 §3.4.4: *"For an instrument of class I with d < 0.1 mg, n may be less than
   50 000."* Recorded in the pack as a `classification_exceptions` entry; the validator does
   not yet apply it.
-- ❓ The draft 5-part edition's differences (new 12.3(c) surge test, renumbered
-  cross-references, checklist moved to Part 4) — needed before the edition-toggle demo.
+- ✅ ~~The draft 5-part edition's differences~~ — **verified and packaged.** See §19.
 - ✅ ~~Form 7 (stability of equilibrium) is not implemented~~ — **done.** Implemented as **K6**,
   a sixth kernel, because the form genuinely does not reduce: the printed value must not deviate
   more than 1 e from the readings over the 5 s after print-out (and §A.4.12 allows no more than

@@ -66,9 +66,18 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           {health && (
-            <Badge tone="neutral" icon="gavel" className="hidden lg:inline-flex">
+            // A draft edition announces itself in the chrome. A report computed against a
+            // committee draft is indistinguishable from one computed against the standard in
+            // force unless the application says so.
+            <Badge
+              tone={health.draftEdition ? "warn" : "neutral"}
+              icon={health.draftEdition ? "science" : "gavel"}
+              className="hidden lg:inline-flex"
+              {...(health.rulesetStatus ? { title: health.rulesetStatus } : {})}
+            >
               {health.rulesetId}
               {health.rulesetVersion ? ` v${health.rulesetVersion}` : ""}
+              {health.draftEdition ? " · DRAFT" : ""}
             </Badge>
           )}
 

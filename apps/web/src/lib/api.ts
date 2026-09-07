@@ -284,8 +284,14 @@ export interface RulePackInfo {
 
 export const api = {
   health: (signal?: AbortSignal) =>
-    request<{ ok: boolean; rulesetId: string; rulesetVersion: string | null; edition: string | null }>(
-      "GET", "/health", undefined, signal),
+    request<{
+      ok: boolean;
+      rulesetId: string;
+      rulesetVersion: string | null;
+      edition: string | null;
+      draftEdition?: boolean;
+      rulesetStatus?: string;
+    }>("GET", "/health", undefined, signal),
 
   me: (signal?: AbortSignal) => request<Me>("GET", "/me", undefined, signal),
 

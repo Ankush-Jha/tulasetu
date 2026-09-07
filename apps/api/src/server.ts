@@ -31,10 +31,35 @@ export interface Server {
   pack: RulePack;
 }
 
+/**
+ * The packs this installation can serve.
+ *
+ * Named rather than path-only so the edition in force is a choice an administrator states,
+ * not a filename they have to know. `TULASETU_RULESET=draft` boots the same engine against the
+ * five-part committee draft — which is the point of the design: an edition change is a
+ * different file, not a different program.
+ */
+const NAMED_PACKS: Record<string, string> = {
+  oiml: "packages/rulepacks/OIML_R76_2006.json",
+  india: "packages/rulepacks/IN_Sch7A_2011.json",
+  draft: "packages/rulepacks/OIML_R76_DRAFT_5PART.json",
+};
+
 export function buildServer(
   opts: { dbPath?: string; rulepackPath?: string; attachmentRoot?: string } = {},
 ): Server {
-  const packPath = opts.rulepackPath ?? join(ROOT, "packages/rulepacks/OIML_R76_2006.json");
+  const named = process.env["TULASETU_RULESET"];
+  const packPath =
+    opts.rulepackPath ??
+    process.env["TULASETU_RULEPACK"] ??
+    join(ROOT, (named && NAMED_PACKS[named]) || NAMED_PACKS["oiml"]!);
+
+  if (named && !NAMED_PACKS[named]) {
+    throw new Error(
+      `TULASETU_RULESET=${named} is not a known rule pack. Use one of: ` +
+        `${Object.keys(NAMED_PACKS).join(", ")}, or set TULASETU_RULEPACK to a file path.`,
+    );
+  }
   const pack = JSON.parse(readFileSync(packPath, "utf8")) as RulePack;
 
   // Refuse to serve from a malformed pack. Every number in every report comes from this file;
@@ -91,6 +116,12 @@ if (isEntry) {
     .listen({ port, host: "127.0.0.1" })
     .then(() => {
       app.log.info(`TulaSetu API on :${port} — rule pack ${pack.ruleset_id} v${pack["version"]}`);
+      if (String(pack["status"] ?? "").toLowerCase().includes("draft")) {
+        app.log.warn(
+          `${pack.ruleset_id} is a DRAFT edition and is not in force. ` +
+            `Reports computed against it must not back a certificate.`,
+        );
+      }
     })
     .catch((err: unknown) => {
       app.log.error(err);

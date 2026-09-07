@@ -108,6 +108,10 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
     rulesetId: pack.ruleset_id,
     rulesetVersion: pack["version"] ?? null,
     edition: pack.edition ?? null,
+    // A draft edition must announce itself everywhere it appears. A report computed against a
+    // committee draft looks exactly like one computed against the standard in force.
+    draftEdition: String(pack["status"] ?? "").toLowerCase().includes("draft"),
+    ...(pack["status"] ? { rulesetStatus: pack["status"] } : {}),
   }));
 
   /** The rule pack in force. Published so a report's numbers can be independently rechecked. */

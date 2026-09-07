@@ -1,0 +1,166 @@
+{
+  "$schema": "./rulepack.schema.json",
+  "ruleset_id": "OIML_R76_DRAFT_5PART",
+  "version": "0.1.0",
+  "edition": "draft-5-part",
+  "description": "OIML R 76 as restructured into five parts (Committee Drafts). This pack exists to demonstrate that an edition change is a data change: the maths is unchanged, the report's shape and every cross-reference are not. Sources: docs/standards/extracted/R76_Part1..5_CD.txt. See docs/VERIFIED.md §19.",
+  "status": "DRAFT — Committee Draft, not in force. Do not issue a certificate against this pack.",
+
+  "class_aliases": { "IIII": ["IV"] },
+  "accuracy_classes": ["I", "II", "III", "IIII"],
+  "e_form": [1, 2, 5],
+  "mpe_clause": "R 76-1 (CD) — Table 6 is carried over unchanged from the 2006 edition",
+
+  "classification": [
+    { "class": "I",    "e_min_g": 0.001, "e_max_g": null,  "n_min": 50000, "n_max": null,   "min_capacity": "100e" },
+    { "class": "II",   "e_min_g": 0.001, "e_max_g": 0.05,  "n_min": 100,   "n_max": 100000, "min_capacity": "20e" },
+    { "class": "II",   "e_min_g": 0.1,   "e_max_g": null,  "n_min": 5000,  "n_max": 100000, "min_capacity": "50e" },
+    { "class": "III",  "e_min_g": 0.1,   "e_max_g": 2,     "n_min": 100,   "n_max": 10000,  "min_capacity": "20e" },
+    { "class": "III",  "e_min_g": 5,     "e_max_g": null,  "n_min": 500,   "n_max": 10000,  "min_capacity": "20e" },
+    { "class": "IIII", "e_min_g": 5,     "e_max_g": null,  "n_min": 100,   "n_max": 1000,   "min_capacity": "10e" }
+  ],
+  "classification_clause": "R 76-1 (CD) Table 3 — unchanged from 2006",
+  "classification_exceptions": [
+    { "class": "I", "condition": "d < 0.1 mg", "effect": "n may be less than 50 000", "clause": "R 76-1 (CD) §3.4.4" }
+  ],
+
+  "mpe_bands_initial": [
+    { "limit": "0.5e", "max_m_in_e": { "I": 50000,  "II": 5000,   "III": 500,   "IIII": 50 } },
+    { "limit": "1.0e", "max_m_in_e": { "I": 200000, "II": 20000,  "III": 2000,  "IIII": 200 } },
+    { "limit": "1.5e", "max_m_in_e": { "I": null,   "II": 100000, "III": 10000, "IIII": 1000 } }
+  ],
+  "mpe_in_service_factor": 2,
+  "mpe_in_service_clause": "R 76-5 (CD) — verification and in-service inspection; the factor of 2 is unchanged",
+
+  "multi_interval_boundary": { "I": 50000, "II": 5000, "III": 500, "IIII": 50 },
+  "multi_interval_boundary_clause": "R 76-1 (CD) Table 4 — unchanged",
+
+  "rounding_elimination_when": "d > 0.2e",
+  "rounding_elimination_clause": "R 76-1 (CD) §3.5.3.2 — unchanged",
+
+  "module_error_fractions": {
+    "rule": "sum(p_i^2) <= 1",
+    "p_max": 0.8,
+    "p_min": 0.3,
+    "digital_module_may_be_zero": true,
+    "weighing_module_may_be_one": true,
+    "clause": "R 76-1 (CD) §3.10.2.1",
+    "typical": { "load_cell": 0.7, "indicator": 0.5, "connecting": 0.5 }
+  },
+
+  "family_solver": {
+    "eut_must_include": ["highest_n", "smallest_e"],
+    "eut_clause": "R 76-1 (CD) §3.10.4.2",
+    "accept_without_test_if": [
+      "Max falls between two tested capacities whose ratio does not exceed max_capacity_ratio",
+      "n <= n_test AND e >= e_test AND Max <= max_multiplier * Max_test * (n_test / n)"
+    ],
+    "accept_clause": "R 76-1 (CD) §3.10.4.3",
+    "max_capacity_ratio": 10,
+    "max_multiplier": 5
+  },
+
+  "kernel_params": {
+    "discrimination": {
+      "extra_load_factor_digital": 1.4,
+      "analog_displacement_fraction": 0.7,
+      "non_self_extra_load_fraction": 0.4,
+      "clause": "R 76-2 (CD) — test procedures"
+    },
+    "sensitivity": {
+      "min_displacement_mm": { "class_I_II": 1, "class_III_IIII_le_30kg": 2, "class_III_IIII_gt_30kg": 5 },
+      "max_boundary_kg": 30,
+      "clause": "R 76-1 (CD) §6.1"
+    },
+    "creep": {
+      "terminate_at_30min_if_below_e": 0.5,
+      "and_between_15_and_30min_below_e": 0.2,
+      "otherwise_4h_limit": "|mpe|",
+      "max_temperature_variation_C": 2,
+      "clause": "R 76-2 (CD) §5.11.1"
+    },
+    "zero_return": {
+      "factor_single": 0.5,
+      "factor_multi_interval": 0.5,
+      "factor_multiple_range": 0.5,
+      "secondary_factor_multiple_range": 1.0,
+      "clause": "R 76-2 (CD) §5.11.2",
+      "note": "The multi-interval rule is unchanged: the limit is 0.5 x e1, the smallest e, not the e at the applied load."
+    },
+    "temperature_no_load": {
+      "drift_per_C": { "I": 1, "default": 5 },
+      "uses_e1_for_multi_range": true,
+      "clause": "R 76-2 (CD) §6.3.2"
+    },
+    "span_stability": {
+      "variation_factor": 0.5,
+      "variation_basis": "max(e, |mpe_initial|)",
+      "clause": "R 76-2 (CD) §8.4"
+    },
+    "stability_of_equilibrium": {
+      "print_deviation_in_e": 1,
+      "max_adjacent_values": 2,
+      "zero_setting_limit_in_e": 0.25,
+      "required_trials": 5,
+      "clause": "R 76-2 (CD) §5.12"
+    },
+    "significant_fault": {
+      "threshold": "e",
+      "comparison": "strictly greater than",
+      "clause": "R 76-1 (CD) §T.5.5.6"
+    }
+  },
+
+  "tests": [
+    { "id": "weighing_performance",       "form": "1",     "kernel": "K1", "title": "Weighing performance", "clause": "R 76-2 (CD) 5.4.1, 6.3.1", "applies": { "always": true } },
+    { "id": "temp_no_load",               "form": "2",     "kernel": "K4", "title": "Temperature effect on no-load indication", "clause": "R 76-2 (CD) 6.3.2", "applies": { "electronic": true } },
+    { "id": "eccentricity_weights",       "form": "3.1",   "kernel": "K1", "title": "Eccentricity using weights", "clause": "R 76-2 (CD) 5.7.1, 5.7.2, 5.7.3", "applies": { "always": true } },
+    { "id": "eccentricity_rolling",       "form": "3.2",   "kernel": "K1", "title": "Eccentricity using a rolling load", "clause": "R 76-2 (CD) 5.7.4", "applies": { "rolling_load": true } },
+    { "id": "discrimination",             "form": "4.1",   "kernel": "K2", "title": "Discrimination", "clause": "R 76-2 (CD) 5.8", "applies": { "not": { "digital_d_lt_5mg": true } } },
+    { "id": "sensitivity",                "form": "4.2",   "kernel": "K3", "title": "Sensitivity", "clause": "R 76-2 (CD) 5.9", "applies": { "indicating_type": "non-self" } },
+    { "id": "repeatability",              "form": "5",     "kernel": "K1", "title": "Repeatability", "clause": "R 76-2 (CD) 5.10", "applies": { "always": true } },
+    { "id": "zero_return",                "form": "6.1",   "kernel": "K4", "title": "Zero return", "clause": "R 76-2 (CD) 5.11.2", "applies": { "always": true } },
+    { "id": "creep",                      "form": "6.2",   "kernel": "K4", "title": "Creep", "clause": "R 76-2 (CD) 5.11.1", "applies": { "always": true } },
+    { "id": "stability_of_equilibrium",   "form": "7",     "kernel": "K6", "title": "Stability of equilibrium", "clause": "R 76-2 (CD) 5.12", "applies": { "has_print_or_storage": true } },
+    { "id": "tilting",                    "form": "8",     "kernel": "K1", "title": "Tilting", "clause": "R 76-2 (CD) 6.1, 6.1.1-6.1.3", "applies": { "class_in": ["II", "III", "IIII"], "tiltable": true } },
+    { "id": "tare",                       "form": "9",     "kernel": "K1", "title": "Tare (weighing test)", "clause": "R 76-2 (CD) 5.6.1", "applies": { "has_tare": true } },
+    { "id": "warm_up",                    "form": "10",    "kernel": "K1", "title": "Warm-up time", "clause": "R 76-2 (CD) 6.2", "applies": { "electronic": true } },
+    { "id": "voltage_variation",          "form": "11",    "kernel": "K1", "title": "Voltage variations", "clause": "R 76-2 (CD) 6.4", "applies": { "electronic": true } },
+    { "id": "disturbance_dips",           "form": "12.1",  "kernel": "K5", "title": "AC mains voltage dips and short interruptions", "clause": "R 76-2 (CD) 8.3.1", "applies": { "electronic": true } },
+    { "id": "disturbance_bursts",         "form": "12.2",  "kernel": "K5", "title": "Electrical bursts", "clause": "R 76-2 (CD) 8.3.2", "applies": { "electronic": true } },
+    { "id": "disturbance_surges",         "form": "12.3",  "kernel": "K5", "title": "Surges", "clause": "R 76-2 (CD) 8.3.3", "applies": { "electronic": true }, "sub_items": ["a) AC mains power supply", "b) Any other kind of power supply", "c) Signal, data and control lines"], "note": "NEW IN THIS EDITION: sub-item (c), surges on signal, data and control lines. The 2007 form has only (a) and (b) — verified in docs/standards/extracted, 2007 form 12.3 against draft Part 3 line 1748." },
+    { "id": "disturbance_esd",            "form": "12.4",  "kernel": "K5", "title": "Electrostatic discharges", "clause": "R 76-2 (CD) 8.3.4", "applies": { "electronic": true } },
+    { "id": "disturbance_radiated_em",    "form": "12.5",  "kernel": "K5", "title": "Immunity to radiated electromagnetic fields", "clause": "R 76-2 (CD) 8.3.5", "applies": { "electronic": true } },
+    { "id": "disturbance_conducted_rf",   "form": "12.6",  "kernel": "K5", "title": "Immunity to conducted radio-frequency fields", "clause": "R 76-2 (CD) 8.3.6", "applies": { "electronic": true } },
+    { "id": "disturbances_road_vehicle",  "form": "12.7",  "kernel": "K5", "title": "Electrical transients on instruments powered from a road vehicle power supply", "clause": "R 76-2 (CD) 8.3.7", "applies": { "electronic": true, "vehicle_powered": true } },
+    { "id": "damp_heat",                  "form": "13",    "kernel": "K1", "title": "Damp heat, steady state", "clause": "R 76-2 (CD) 8.2", "applies": { "electronic": true, "not_class": ["I"], "not_class_II_if_e_lt": "1g" } },
+    { "id": "span_stability",             "form": "14",    "kernel": "K4", "title": "Span stability", "clause": "R 76-2 (CD) 8.4", "applies": { "electronic": true, "not_class": ["I"] } },
+    { "id": "endurance",                  "form": "15",    "kernel": "K1", "title": "Endurance", "clause": "R 76-2 (CD) clause 7", "applies": { "max_capacity_kg_lte": 100, "not_class": ["I"] }, "order": "last" }
+  ],
+
+  "checklists": ["17.1", "17.2 (direct-sales)", "17.3 (electronic)", "17.4 (software)"],
+  "checklist_rules": [
+    { "id": "17.1", "title": "All types of weighing instruments except non-self-indicating instruments", "clause": "R 76-4 (CD) — Checklist", "applies": { "not": { "indicating_type": "non-self" } } },
+    { "id": "17.2", "title": "Instruments for direct sales to the public and price computing and labeling instruments", "clause": "R 76-4 (CD) — Checklist", "applies": { "any": [{ "direct_sales": true }, { "price_computing": true }] } },
+    { "id": "17.3", "title": "Electronic weighing instruments", "clause": "R 76-4 (CD) — Checklist", "applies": { "electronic": true } },
+    { "id": "17.4", "title": "Software-controlled digital devices and instruments", "clause": "R 76-4 (CD) — Checklist", "applies": { "software_controlled": true } }
+  ],
+
+  "edition_notes": {
+    "structure": "Five parts: 1 requirements, 2 test procedures, 3 test report format, 4 type evaluation report format, 5 verification and in-service inspection.",
+    "differences_from_2007": [
+      "Form 12.3 gains sub-item (c), surges on signal, data and control lines. The 2007 form carries only (a) AC mains and (b) any other kind of power supply.",
+      "Every cross-reference is renumbered. Form 1 cites (R 76-2, 5.4.1)(6.3.1) where the 2007 form cites (A.4.4)(A.5.3.1) — the annexes became numbered subclauses.",
+      "Forms 16 (examination of the construction) and 17 (checklist), and the Summary of type evaluation, move out of the test report into Part 4. Part 3 ends at form 15.",
+      "Part 4 carries the language making the format mandatory under OIML-CS."
+    ],
+    "unchanged": [
+      "Table 3 classification, Table 4 multi-interval boundaries and Table 6 maximum permissible errors.",
+      "In-service mpe = 2 x initial.",
+      "The rounding-elimination condition, d > 0.2 e.",
+      "The family/EUT selection rules of §3.10.4.",
+      "Every kernel threshold."
+    ],
+    "why_this_pack_exists": "The maths did not move; the report's shape and its citations did. A tool that hardcoded either would need rewriting for this edition. Swapping this file is the whole change, which is the claim CLAUDE.md design rule #2 makes and this pack tests."
+  }
+}
