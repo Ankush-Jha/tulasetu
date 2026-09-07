@@ -18,3 +18,4 @@ apps/**/tests/**/*.js
 apps/web/dist/
 apps/web/tsconfig.tsbuildinfo
 tulasetu.db*
+attachments/

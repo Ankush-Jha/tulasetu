@@ -11,6 +11,7 @@
  */
 
 import Fastify from "fastify";
+import multipart from "@fastify/multipart";
 import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -18,6 +19,7 @@ import type { RulePack } from "@tulasetu/engine";
 import { validateRulePack } from "@tulasetu/engine";
 
 import { openDb, type Db } from "./db/open.js";
+import { MAX_BYTES } from "./domain/attachments.js";
 import { registerRoutes } from "./routes.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -29,7 +31,9 @@ export interface Server {
   pack: RulePack;
 }
 
-export function buildServer(opts: { dbPath?: string; rulepackPath?: string } = {}): Server {
+export function buildServer(
+  opts: { dbPath?: string; rulepackPath?: string; attachmentRoot?: string } = {},
+): Server {
   const packPath = opts.rulepackPath ?? join(ROOT, "packages/rulepacks/OIML_R76_2006.json");
   const pack = JSON.parse(readFileSync(packPath, "utf8")) as RulePack;
 
@@ -55,8 +59,14 @@ export function buildServer(opts: { dbPath?: string; rulepackPath?: string } = {
   }
 
   const db = openDb(opts.dbPath ?? process.env["TULASETU_DB"] ?? join(ROOT, "tulasetu.db"));
+  const attachmentRoot =
+    opts.attachmentRoot ?? process.env["TULASETU_ATTACHMENTS"] ?? join(ROOT, "attachments");
+
   const app = Fastify({ logger: { level: process.env["LOG_LEVEL"] ?? "info" } });
-  registerRoutes(app, { db, pack, ...(checklists ? { checklists } : {}) });
+  // The limit is enforced again in the attachment store; here it stops a large upload being
+  // buffered at all rather than being read and then rejected.
+  app.register(multipart, { limits: { fileSize: MAX_BYTES, files: 1 } });
+  registerRoutes(app, { db, pack, attachmentRoot, ...(checklists ? { checklists } : {}) });
   return { app, db, pack };
 }
 

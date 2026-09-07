@@ -254,6 +254,19 @@ export interface FamilyResult {
   issues: Issue[];
 }
 
+export interface Attachment {
+  id: string;
+  report_id: string;
+  kind: string;
+  filename: string;
+  mime_type: string;
+  byte_size: number;
+  sha256: string;
+  confidentiality: "public" | "restricted" | "confidential";
+  uploaded_by: string;
+  uploaded_at: string;
+}
+
 export interface RulePackInfo {
   ruleset_id: string;
   version?: string;
@@ -354,6 +367,32 @@ export const api = {
       sha256: res.headers.get("X-TulaSetu-SHA256") ?? "",
       filename: /filename="([^"]+)"/.exec(res.headers.get("Content-Disposition") ?? "")?.[1] ?? `${id}.${format}`,
     };
+  },
+
+  attachments: (id: string, signal?: AbortSignal) =>
+    request<Attachment[]>("GET", `/reports/${encodeURIComponent(id)}/attachments`, undefined, signal),
+
+  attachmentUrl: (reportId: string, attachmentId: string, inline = false) =>
+    `${BASE}/reports/${encodeURIComponent(reportId)}/attachments/${encodeURIComponent(attachmentId)}${inline ? "?inline=1" : ""}`,
+
+  uploadAttachment: async (
+    reportId: string,
+    file: File,
+    kind: string,
+    confidentiality: string,
+  ): Promise<Attachment> => {
+    const form = new FormData();
+    form.append("kind", kind);
+    form.append("confidentiality", confidentiality);
+    form.append("file", file);
+    const res = await fetch(`${BASE}/reports/${encodeURIComponent(reportId)}/attachments`, {
+      method: "POST",
+      headers: { ...(currentUserId ? { "X-User-Id": currentUserId } : {}) },
+      body: form,
+    });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) throw new ApiError(res.status, body?.error ?? "UNKNOWN", body?.message ?? "Upload failed.");
+    return body as Attachment;
   },
 
   checklistAnswers: (id: string, signal?: AbortSignal) =>

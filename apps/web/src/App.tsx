@@ -31,6 +31,7 @@ import { ProfileStep } from "./pages/report/ProfileStep";
 import { TestsStep } from "./pages/report/TestsStep";
 import { ObservationsStep } from "./pages/report/ObservationsStep";
 import { ChecklistStep } from "./pages/report/ChecklistStep";
+import { AttachmentsStep } from "./pages/report/AttachmentsStep";
 import { AuditStep } from "./pages/report/AuditStep";
 import { OutputStep } from "./pages/report/OutputStep";
 
@@ -55,6 +56,7 @@ export default function App() {
               <Route path="tests" element={<TestsStep />} />
               <Route path="observations" element={<ObservationsStep />} />
               <Route path="checklist" element={<ChecklistStep />} />
+              <Route path="attachments" element={<AttachmentsStep />} />
               <Route path="audit" element={<AuditStep />} />
               <Route path="report" element={<OutputStep />} />
             </Route>

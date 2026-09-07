@@ -21,6 +21,13 @@ import { capabilitiesOf, type Principal } from "./domain/rbac.js";
 import { dashboardCounts, rule4_9AnnualReturn, searchReports } from "./domain/stats.js";
 import * as svc from "./domain/service.js";
 import type { RenderFormat } from "./domain/render.js";
+import {
+  ATTACHMENT_KINDS,
+  MAX_BYTES,
+  type AttachmentKind,
+  type AttachmentRow,
+  type Confidentiality,
+} from "./domain/attachments.js";
 import { ServiceError } from "./domain/service.js";
 
 export interface RouteOptions {
@@ -30,6 +37,19 @@ export interface RouteOptions {
   checklists?: unknown;
   /** Injected so tests can pin time. Defaults to the wall clock. */
   now?: () => string;
+  /** Directory for attachment bytes. Defaults to ./attachments beside the database. */
+  attachmentRoot?: string;
+}
+
+/**
+ * What an attachment looks like over the wire.
+ *
+ * `storage_path` is deliberately not included: where a file sits on the server's disk is not
+ * the client's business, and publishing it invites a path-traversal attempt.
+ */
+function publicView(row: AttachmentRow) {
+  const { storage_path: _omit, ...rest } = row;
+  return rest;
 }
 
 /**
@@ -68,7 +88,8 @@ function send(reply: FastifyReply, err: unknown): FastifyReply {
 export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
   const { db, pack, checklists } = opts;
   const now = opts.now ?? (() => new Date().toISOString());
-  const ctx = () => ({ db, pack, now: now() });
+  const attachmentRoot = opts.attachmentRoot ?? "attachments";
+  const ctx = () => ({ db, pack, now: now(), attachmentRoot });
 
   const guard =
     <T>(fn: (principal: Principal, req: FastifyRequest) => T) =>
@@ -249,6 +270,91 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
       return { ok: true };
     }),
   );
+
+  // --- attachments --------------------------------------------------------
+
+  app.get(
+    "/reports/:id/attachments",
+    guard((p, req) =>
+      svc.listReportAttachments(ctx(), p, (req.params as { id: string }).id).map(publicView),
+    ),
+  );
+
+  /**
+   * Attach a file. Multipart, because a scanned drawing is not JSON.
+   *
+   * `kind` names the slot it fills — `model_photo` is R 76-2's Figure 1 and `sealing_diagram`
+   * its Figure 2.
+   */
+  app.post("/reports/:id/attachments", async (req, reply) => {
+    try {
+      const principal = authenticate(db, req);
+      const { id } = req.params as { id: string };
+
+      const anyReq = req as unknown as { isMultipart?: () => boolean; file?: () => Promise<unknown> };
+      if (!anyReq.isMultipart?.()) {
+        throw new ServiceError(
+          400, "NOT_MULTIPART",
+          "Attach the file as multipart/form-data, with the file part named `file`.",
+        );
+      }
+
+      const part = (await anyReq.file!()) as
+        | {
+            filename: string;
+            mimetype: string;
+            toBuffer: () => Promise<Buffer>;
+            fields?: Record<string, { value?: string }>;
+          }
+        | undefined;
+      if (!part) throw new ServiceError(400, "NO_FILE", "No file part was sent.");
+
+      const bytes = await part.toBuffer();
+      const kind = (part.fields?.["kind"]?.value ?? "document") as AttachmentKind;
+      const confidentiality = part.fields?.["confidentiality"]?.value as Confidentiality | undefined;
+
+      if (!ATTACHMENT_KINDS.includes(kind)) {
+        throw new ServiceError(
+          400, "BAD_KIND",
+          `Unknown attachment kind ${kind}. Use one of: ${ATTACHMENT_KINDS.join(", ")}.`,
+        );
+      }
+
+      const row = svc.addAttachment(
+        ctx(), principal, id,
+        {
+          kind,
+          filename: part.filename,
+          mimeType: part.mimetype,
+          bytes: new Uint8Array(bytes),
+          ...(confidentiality ? { confidentiality } : {}),
+        },
+        attachmentRoot,
+      );
+      return publicView(row);
+    } catch (err) {
+      return send(reply, err);
+    }
+  });
+
+  /** Serve the bytes back, hash-verified on the way out. */
+  app.get("/reports/:id/attachments/:attachmentId", async (req, reply) => {
+    try {
+      const principal = authenticate(db, req);
+      const { id, attachmentId } = req.params as { id: string; attachmentId: string };
+      const { row, bytes } = svc.readAttachment(ctx(), principal, id, attachmentId);
+      const inline = (req.query as { inline?: string }).inline === "1";
+      return reply
+        .header("Content-Type", row.mime_type)
+        .header("Content-Disposition", `${inline ? "inline" : "attachment"}; filename="${row.filename}"`)
+        // No sniffing: an attachment is served as exactly the type it was stored as.
+        .header("X-Content-Type-Options", "nosniff")
+        .header("X-TulaSetu-SHA256", row.sha256)
+        .send(Buffer.from(bytes));
+    } catch (err) {
+      return send(reply, err);
+    }
+  });
 
   // --- checklist ----------------------------------------------------------
 

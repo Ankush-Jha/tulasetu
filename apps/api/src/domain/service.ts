@@ -34,6 +34,16 @@ import { appendEvent, verifyChain, readEvents } from "../db/events.js";
 import { rebuildProjection, type ReportProjection } from "./events.js";
 import { canTransition, type Guard, type ReportState, type RoleId } from "./lifecycle.js";
 import { renderReport, type RenderFormat, type RenderedReport } from "./render.js";
+import {
+  AttachmentError,
+  getAttachment,
+  listAttachments,
+  readAttachmentBytes,
+  storeAttachment,
+  type AttachmentKind,
+  type AttachmentRow,
+  type Confidentiality,
+} from "./attachments.js";
 import { can, canReadReport, canWriteReport, type Principal } from "./rbac.js";
 
 export class ServiceError extends Error {
@@ -56,6 +66,8 @@ export interface ServiceContext {
   pack: RulePack;
   /** ISO 8601 timestamp for this operation. */
   now: string;
+  /** Where attachment bytes are written. Content-addressed within it. */
+  attachmentRoot?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -541,6 +553,111 @@ export async function renderAndLock(
     pdfSha256: rendered.sha256,
   });
   return { report, sha256: rendered.sha256 };
+}
+
+/**
+ * Attach a file to a report (FR14).
+ *
+ * The hash goes into the append-only log, so the report's history records not merely that a
+ * drawing was attached but *which* drawing — a filename can be reused, a hash cannot.
+ */
+export function addAttachment(
+  ctx: ServiceContext,
+  principal: Principal,
+  reportId: string,
+  input: {
+    kind: AttachmentKind;
+    filename: string;
+    mimeType: string;
+    bytes: Uint8Array;
+    confidentiality?: Confidentiality;
+  },
+  storageRoot: string,
+): AttachmentRow {
+  const report = getReport(ctx, principal, reportId);
+  const write = canWriteReport(principal, report, "attachment:upload");
+  if (!write.allowed) throw forbidden(write.reason ?? "Cannot attach files to this report.");
+
+  let row: AttachmentRow;
+  try {
+    row = storeAttachment(ctx.db, storageRoot, {
+      reportId,
+      kind: input.kind,
+      filename: input.filename,
+      mimeType: input.mimeType,
+      bytes: input.bytes,
+      ...(input.confidentiality ? { confidentiality: input.confidentiality } : {}),
+      uploadedBy: principal.userId,
+      uploadedAt: ctx.now,
+    });
+  } catch (err) {
+    if (err instanceof AttachmentError) throw new ServiceError(400, err.code, err.message);
+    throw err;
+  }
+
+  appendEvent(ctx.db, {
+    reportId,
+    eventType: "ATTACHMENT_ADDED",
+    actorId: principal.userId,
+    recordedAt: ctx.now,
+    payload: {
+      attachmentId: row.id,
+      kind: row.kind,
+      filename: row.filename,
+      mimeType: row.mime_type,
+      byteSize: row.byte_size,
+      sha256: row.sha256,
+      confidentiality: row.confidentiality,
+    },
+  });
+  rebuildProjection(ctx.db, reportId);
+
+  return row;
+}
+
+export function listReportAttachments(
+  ctx: ServiceContext,
+  principal: Principal,
+  reportId: string,
+): AttachmentRow[] {
+  getReport(ctx, principal, reportId);
+  return listAttachments(ctx.db, reportId);
+}
+
+/**
+ * Read one attachment's bytes.
+ *
+ * A `confidential` file needs the capability as well as access to the report — Rule 16(2)
+ * makes submitted models and drawings closed to public inspection, and "can see the report"
+ * is not the same permission as "can see the manufacturer's circuit diagram".
+ */
+export function readAttachment(
+  ctx: ServiceContext,
+  principal: Principal,
+  reportId: string,
+  attachmentId: string,
+): { row: AttachmentRow; bytes: Uint8Array } {
+  getReport(ctx, principal, reportId);
+
+  const row = getAttachment(ctx.db, reportId, attachmentId);
+  if (!row) throw new ServiceError(404, "NOT_FOUND", `No attachment ${attachmentId} on report ${reportId}.`);
+
+  if (row.confidentiality === "confidential" && !can(principal, "attachment:read_confidential")) {
+    throw forbidden(
+      "This attachment is marked confidential. Submitted models and drawings are not open to " +
+        "inspection (AoM Rule 16(2)); reading them needs a reviewing role.",
+    );
+  }
+
+  try {
+    return { row, bytes: readAttachmentBytes(row) };
+  } catch (err) {
+    if (err instanceof AttachmentError) {
+      // A missing or altered file is a 500-class fact about the store, not a bad request.
+      throw new ServiceError(err.code === "FILE_MISSING" ? 410 : 500, err.code, err.message);
+    }
+    throw err;
+  }
 }
 
 export interface ChecklistAnswerInput {

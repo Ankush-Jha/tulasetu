@@ -61,6 +61,7 @@ export const REPORT_STEPS: ReportStep[] = [
   { slug: "tests", label: "Applicable tests", icon: "checklist", hint: "Resolved from the rule pack" },
   { slug: "observations", label: "Observations", icon: "edit_note", hint: "Bench readings and verdicts" },
   { slug: "checklist", label: "Checklist", icon: "fact_check", hint: "R 76-2 §17" },
+  { slug: "attachments", label: "Attachments", icon: "attachment", hint: "Figures and drawings" },
   { slug: "audit", label: "Audit trail", icon: "verified_user", hint: "Append-only record" },
   { slug: "report", label: "Report", icon: "description", hint: "PDF, DOCX, JSON" },
 ];
