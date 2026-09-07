@@ -27,13 +27,14 @@ import {
   Verdict,
 } from "../components/ui";
 import { api } from "../lib/api";
-import { useApi } from "../lib/useApi";
+import { useApi, useMutation } from "../lib/useApi";
 import { useAuth } from "../lib/auth";
 import { reportPath } from "../lib/nav";
 import { formatDate } from "../lib/format";
 
 export function DashboardPage() {
   const { session, can } = useAuth();
+  const seed = useMutation(api.seedDemoData);
 
   const counts = useApi((s) => api.dashboard(s), []);
   const recent = useApi((s) => api.listReports({ limit: 8 }, s), []);
@@ -43,6 +44,15 @@ export function DashboardPage() {
     [year],
     { enabled: can("stats:read_own_lab") },
   );
+
+  async function loadDemo() {
+    const r = await seed.run();
+    if (r) {
+      counts.reload();
+      recent.reload();
+      stats.reload();
+    }
+  }
 
   return (
     <>
@@ -58,6 +68,12 @@ export function DashboardPage() {
           ) : null
         }
       />
+
+      {seed.error && (
+        <div className="mb-4">
+          <Alert tone="fail" title="Could not load the demonstration data">{seed.error}</Alert>
+        </div>
+      )}
 
       {/* Counts */}
       {counts.error ? (
@@ -102,13 +118,18 @@ export function DashboardPage() {
           ) : !recent.data?.length ? (
             <EmptyState
               icon="folder_off"
-              title="No reports yet"
-              description="A report begins with the instrument profile — the accuracy class and weighing ranges are what let the engine resolve permissible errors."
+              title="Nothing recorded yet"
+              description="Load five demonstration reports to see the repository, the statistics and the approval chain with something in them — or start one from scratch."
               action={
                 can("report:create") ? (
-                  <Link to="/reports/new">
-                    <Button variant="primary" icon="add">Create the first report</Button>
-                  </Link>
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    <Button variant="primary" icon="auto_awesome" loading={seed.pending} onClick={loadDemo}>
+                      Load demonstration data
+                    </Button>
+                    <Link to="/reports/new">
+                      <Button variant="secondary" icon="add">Start one from scratch</Button>
+                    </Link>
+                  </div>
                 ) : undefined
               }
             />
@@ -204,7 +225,7 @@ export function DashboardPage() {
             <CardHeader icon="verified" title="How this differs" />
             <ul className="flex flex-col gap-2.5">
               {[
-                ["calculate", "The report is computed, not typed. 17 forms reduce to five calculation kernels plus four special cases."],
+                ["calculate", "The report is computed, not typed. 17 forms reduce to six calculation kernels plus three special cases."],
                 ["trending_up", "Permissible-error bands follow the load. On a multi-interval instrument the limit can loosen mid-range — the error a spreadsheet makes."],
                 ["policy", "The standard is data. Thresholds and clause references live in versioned rule packs, not in code."],
                 ["lock", "Observations are append-only and hash-chained, per ISO/IEC 17025 §7.8."],

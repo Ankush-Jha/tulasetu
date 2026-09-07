@@ -21,6 +21,7 @@ import { capabilitiesOf, type Principal } from "./domain/rbac.js";
 import { dashboardCounts, rule4_9AnnualReturn, searchReports } from "./domain/stats.js";
 import * as svc from "./domain/service.js";
 import type { RenderFormat } from "./domain/render.js";
+import { seedDemonstrationData } from "./domain/demo.js";
 import {
   ATTACHMENT_KINDS,
   MAX_BYTES,
@@ -500,6 +501,32 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
         generatedAt: now(),
       });
     }),
+  );
+
+  /**
+   * Seed the demonstration set.
+   *
+   * Available to anyone who may create a report, because the point is that a visitor can
+   * populate the prototype themselves rather than needing an administrator. Idempotent, and
+   * everything it creates is visibly labelled as a demonstration.
+   */
+  app.post(
+    "/admin/demo-data",
+    async (req, reply) => {
+      try {
+        const principal = authenticate(db, req);
+        if (!capabilitiesOf(principal.role).includes("report:create")) {
+          throw new ServiceError(
+            403, "FORBIDDEN",
+            "Seeding demonstration data needs a role that can create reports — sign in as the " +
+              "Metrological Assistant.",
+          );
+        }
+        return await seedDemonstrationData(ctx(), principal);
+      } catch (err) {
+        return send(reply, err);
+      }
+    },
   );
 
   // --- maintenance --------------------------------------------------------

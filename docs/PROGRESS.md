@@ -1,9 +1,9 @@
 # PROGRESS
 
-State as of 2026-09-07. **420 tests passing**, `tsc` clean across all packages.
+State as of 2026-09-07. **428 tests passing**, `tsc` clean across all packages.
 
 ```bash
-npm test                        # 420 tests
+npm test                        # 428 tests
 npm run typecheck
 npm run demo                    # engine -> out/report.{html,pdf,docx,json}
 
@@ -54,6 +54,18 @@ The UI needs seeded users to sign in — see "Seeding" at the foot of this file.
       *identical* permissible error at every load under either pack, while the form numbering,
       the new 12.3(c) surge sub-item and every renumbered citation differ. An edition change is
       a different file, not a different program.
+
+## Onboarding — for anyone opening this cold  [ DONE ]
+- [x] `/brief` — the judge's briefing. Five tabs: the problem (with the process split into what
+      is already digital and what is not), what we built, the 18 functional requirements against
+      what actually exists, the integrations, and where every figure came from.
+- [x] A first-run introduction that narrates the *metrology*, not the interface — the problem,
+      the formula, the multi-interval trap, the approval chain, and how to check any of it.
+      Skippable, remembered, and reachable again from "New here?" in the header.
+- [x] `POST /admin/demo-data` and a button on the empty dashboard: five reports across all four
+      accuracy classes, one passing, one failing, one blocked by the checksum audit. Seeded
+      through the real service calls, so nothing on screen reached the repository by a path the
+      application does not support.
 
 ## M3 — Web UI (`apps/web`)  [ WORKING ]
 React 19 + Vite + Tailwind 4. Every verdict, permissible error and applicability decision on

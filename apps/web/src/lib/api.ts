@@ -442,6 +442,9 @@ export const api = {
   verify: (id: string, signal?: AbortSignal) =>
     request<AuditTrail["verification"]>("GET", `/reports/${encodeURIComponent(id)}/verify`, undefined, signal),
 
+  seedDemoData: () =>
+    request<{ created: string[]; note: string }>("POST", "/admin/demo-data", {}),
+
   dashboard: (signal?: AbortSignal) => request<DashboardCounts>("GET", "/dashboard", undefined, signal),
 
   rule49: (query: { from?: string; to?: string; scope?: "national"; labId?: string } = {}, signal?: AbortSignal) => {

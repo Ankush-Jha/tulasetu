@@ -13,12 +13,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Badge, Icon } from "../ui";
+import { BriefingLink } from "../onboarding/Tour";
 import { cn } from "../../lib/cn";
 import { initialsOf, useAuth } from "../../lib/auth";
 import { api } from "../../lib/api";
 import { useApi } from "../../lib/useApi";
 
-export function Header() {
+export function Header({ onReplayIntro }: { onReplayIntro?: () => void }) {
   const { session, signOut } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -65,6 +66,7 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-2">
+          {onReplayIntro && <BriefingLink onReplay={onReplayIntro} />}
           {health && (
             // A draft edition announces itself in the chrome. A report computed against a
             // committee draft is indistinguishable from one computed against the standard in

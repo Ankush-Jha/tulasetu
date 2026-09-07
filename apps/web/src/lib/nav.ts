@@ -25,6 +25,8 @@ export interface NavSection {
 }
 
 export const NAV_SECTIONS: NavSection[] = [
+  // First, deliberately. Someone opening this cold needs the problem before the workspace.
+  { path: "/brief", label: "Briefing", icon: "menu_book" },
   { path: "/dashboard", label: "Dashboard", icon: "space_dashboard" },
   { path: "/reports", label: "Reports", icon: "folder_open", prefix: true },
   { path: "/tools/family", label: "Family solver", icon: "account_tree" },

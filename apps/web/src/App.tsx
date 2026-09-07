@@ -16,6 +16,7 @@ import { AppLayout } from "./components/layout/AppLayout";
 import { AuthProvider } from "./lib/auth";
 
 import { LoginPage } from "./pages/LoginPage";
+import { BriefPage } from "./pages/brief/BriefPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { ReportsPage } from "./pages/ReportsPage";
 import { NewReportPage } from "./pages/NewReportPage";
@@ -45,6 +46,7 @@ export default function App() {
           {/* Everything below requires a session; AppLayout redirects if there is none. */}
           <Route element={<AppLayout />}>
             <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="/brief" element={<BriefPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
 
             <Route path="/reports" element={<ReportsPage />} />
