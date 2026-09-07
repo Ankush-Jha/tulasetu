@@ -14,9 +14,10 @@
  * band can be seen before a reading is committed.
  */
 
-import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Fragment, useEffect, useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
+  ActionBar,
   Alert,
   Badge,
   Button,
@@ -26,16 +27,21 @@ import {
   Field,
   Icon,
   Input,
+  SegmentedGauge,
   Select,
+  TableCallout,
   TableWrap,
   Td,
   Th,
   Verdict,
+  type GaugeSegment,
 } from "../../components/ui";
+import { MpeEnvelope, type EnvelopePoint, type RangeBoundary } from "../../components/charts/MpeEnvelope";
 import { cn } from "../../lib/cn";
 import { api, type WeighingRow } from "../../lib/api";
 import { useApi, useDebounced, useMutation } from "../../lib/useApi";
 import { fmtMass, fmtMpe, fmtNumber, fmtSigned } from "../../lib/format";
+import { reportPath } from "../../lib/nav";
 import { NeedsProfile, useReport } from "./ReportLayout";
 
 type Row = { load: string; indication: string; additionalLoad: string; label: string };
@@ -45,6 +51,7 @@ const BLANK: Row = { load: "", indication: "", additionalLoad: "0", label: "" };
 export function ObservationsStep() {
   const { reportId, detail, instrument, reload } = useReport();
   const [params, setParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const applicable = useMemo(
     () =>
@@ -130,6 +137,37 @@ export function ObservationsStep() {
   }
 
   const blockingIssues = record.error;
+
+  // The chart and the gauge are projections of the same recorded rows — nothing here is
+  // computed, only reshaped, so a picture can never disagree with the table above it.
+  const envelopePoints: EnvelopePoint[] = (results ?? []).map((r) => ({
+    load: r.load,
+    correctedError: r.correctedError,
+    mpe: r.mpe.mpe,
+    e: r.mpe.e,
+    rangeIndex: r.mpe.rangeIndex,
+    verdict: r.verdict,
+    ...(r.label ? { label: r.label } : {}),
+  }));
+
+  // The corridor's shoulders belong at the standard's boundaries, not at whichever loads the
+  // officer happened to weigh — so the chart is told where the partial ranges actually end.
+  const rangeBoundaries: RangeBoundary[] = (instrument?.ranges ?? [])
+    .slice(0, -1)
+    .map((range, idx) => ({
+      at: range.max,
+      fromE: range.e,
+      toE: instrument!.ranges[idx + 1]!.e,
+    }));
+
+  const subRanges: GaugeSegment[] = (instrument?.ranges ?? []).map((range, idx) => {
+    const inRange = (results ?? []).filter((r) => r.mpe.rangeIndex === idx + 1);
+    return {
+      label: instrument && instrument.rangeKind === "multi-interval" ? `Range ${idx + 1}` : `Range ${idx + 1}`,
+      sublabel: `e = ${fmtNumber(range.e)} ${instrument?.unit ?? ""}`,
+      state: inRange.length === 0 ? "pending" : inRange.some((r) => r.verdict === "FAILED") ? "fail" : "pass",
+    };
+  });
 
   return (
     <div className="flex flex-col gap-5">
@@ -235,8 +273,30 @@ export function ObservationsStep() {
             {rows.map((r, i) => {
               const res = results?.[i];
               const failed = res?.verdict === "FAILED";
+              const prev = results?.[i - 1];
+              // The band shoulder: e changed between this row and the one above, so the limit
+              // moved without the display resolution changing. Announced in the table, at the
+              // row where it happens, rather than footnoted.
+              const shoulder =
+                res && prev && prev.mpe.e !== res.mpe.e
+                  ? { fromE: prev.mpe.e, toE: res.mpe.e, fromMpe: prev.mpe.mpe, toMpe: res.mpe.mpe }
+                  : null;
+              const over = failed && res ? Math.abs(res.correctedError) - res.mpe.mpe : 0;
+
               return (
-                <tr key={i} className={cn(failed && "bg-error-container/30")}>
+                <Fragment key={i}>
+                {shoulder && (
+                  <TableCallout
+                    colSpan={10}
+                    icon="swap_vert"
+                    title={`Partial range changes — e ${fmtNumber(shoulder.fromE)} → ${fmtNumber(shoulder.toE)} ${unit}`}
+                  >
+                    The permissible error moves from ± {fmtNumber(shoulder.fromMpe)} {unit} to
+                    ± {fmtNumber(shoulder.toMpe)} {unit}. Nothing changes on the display; this is
+                    the step a single-e spreadsheet misses (R 76-1 §3.3).
+                  </TableCallout>
+                )}
+                <tr className={cn(failed && "bg-error-container/30")}>
                   <Td align="center" className="text-label-sm text-on-surface-variant tabular-nums">
                     {i + 1}
                   </Td>
@@ -301,41 +361,65 @@ export function ObservationsStep() {
                     )}
                   </Td>
                 </tr>
+                {failed && res && (
+                  <TableCallout
+                    colSpan={10}
+                    tone="fail"
+                    icon="warning"
+                    title="Outside the permissible error"
+                  >
+                    Ec of {res.correctedError > 0 ? "+" : ""}{fmtNumber(res.correctedError)} {unit} exceeds
+                    the ± {fmtNumber(res.mpe.mpe)} {unit} limit by {fmtNumber(over)} {unit}
+                    {res.mpe.mpe > 0 && ` (${Math.round((Math.abs(res.correctedError) / res.mpe.mpe) * 100)} % of the limit)`}.
+                  </TableCallout>
+                )}
+                </Fragment>
               );
             })}
           </tbody>
         </TableWrap>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 p-5">
-          <div className="flex items-center gap-2">
-            <Button variant="secondary" icon="add" onClick={() => setRows((rs) => [...rs, { ...BLANK }])}>
-              Add row
-            </Button>
-            <Button
-              variant="ghost"
-              icon="science"
-              onClick={() =>
-                setRows([
-                  { ...BLANK, load: "0", indication: "0", label: "zero" },
-                  { ...BLANK, load: "500", indication: "500" },
-                  { ...BLANK, load: "2000", indication: "2000", label: "changeover e1 → e2" },
-                  { ...BLANK, load: "4000", indication: "4000" },
-                  { ...BLANK, load: "4500", indication: "4500" },
-                  { ...BLANK, load: "5000", indication: "5000", label: "changeover e2 → e3" },
-                  { ...BLANK, load: "15000", indication: "15000", label: "Max" },
-                ])
-              }
-            >
-              Fill band-boundary loads
-            </Button>
-          </div>
-          <Button variant="primary" icon="calculate" loading={record.pending} onClick={compute}>
-            Compute and record
+        {/* Row-level helpers stay with the table; the forward action lives in the bar below,
+            which is where attention lands after filling a long form. */}
+        <div className="flex flex-wrap items-center gap-2 p-5">
+          <Button
+            variant="ghost"
+            icon="science"
+            onClick={() =>
+              setRows([
+                { ...BLANK, load: "0", indication: "0", label: "zero" },
+                { ...BLANK, load: "500", indication: "500" },
+                { ...BLANK, load: "2000", indication: "2000", label: "changeover e1 → e2" },
+                { ...BLANK, load: "4000", indication: "4000" },
+                { ...BLANK, load: "4500", indication: "4500" },
+                { ...BLANK, load: "5000", indication: "5000", label: "changeover e2 → e3" },
+                { ...BLANK, load: "15000", indication: "15000", label: "Max" },
+              ])
+            }
+          >
+            Fill band-boundary loads
           </Button>
         </div>
       </Card>
 
       {blockingIssues && <Alert tone="fail" title="Could not record">{blockingIssues}</Alert>}
+
+      {results && results.length > 1 && (
+        <Card>
+          <MpeEnvelope points={envelopePoints} boundaries={rangeBoundaries} unit={unit} />
+        </Card>
+      )}
+
+      {results && subRanges.length > 1 && (
+        <Card>
+          <CardHeader
+            icon="linear_scale"
+            title="Performance by partial range"
+            description="A multi-interval instrument can pass in one range and fail in another; one averaged verdict would hide that."
+          />
+          <SegmentedGauge segments={subRanges} />
+        </Card>
+      )}
 
       {results && (
         <Card>
@@ -357,6 +441,27 @@ export function ObservationsStep() {
           </ul>
         </Card>
       )}
+
+      <ActionBar
+        left={
+          <>
+            <Button variant="ghost" icon="arrow_back" onClick={() => navigate(reportPath(reportId, "tests"))}>
+              Test list
+            </Button>
+            <Button variant="secondary" icon="add" onClick={() => setRows((rs) => [...rs, { ...BLANK }])}>
+              Add row
+            </Button>
+          </>
+        }
+        right={
+          <>
+            {verdict && <Verdict value={verdict} />}
+            <Button variant="primary" icon="calculate" loading={record.pending} onClick={compute}>
+              Compute and record
+            </Button>
+          </>
+        }
+      />
     </div>
   );
 }

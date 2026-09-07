@@ -20,6 +20,7 @@ import {
   ErrorState,
   Icon,
   LoadingState,
+  Spinner,
   StatusChip,
   Verdict,
 } from "../../components/ui";
@@ -72,11 +73,17 @@ export function useReport(): ReportContextValue {
 
 export function ReportLayout() {
   const { reportId = "" } = useParams();
-  const { data, loading, error, reload } = useApi((s) => api.getReport(reportId, s), [reportId]);
+  const { data, initialLoading, loading, error, reload } = useApi(
+    (s) => api.getReport(reportId, s),
+    [reportId],
+  );
 
   const transition = useMutation(api.transition);
 
-  if (loading) return <LoadingState label="Loading report…" />;
+  // Block only on the *first* load. Blocking on every refetch unmounts the step below and
+  // throws away whatever it was holding — the validation findings the officer just triggered,
+  // the rows they just computed — which looks exactly like the save having done nothing.
+  if (initialLoading) return <LoadingState label="Loading report…" />;
   if (error) return <ErrorState error={error} onRetry={reload} />;
   if (!data) return null;
 
@@ -107,6 +114,7 @@ export function ReportLayout() {
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <span className="font-mono text-label-lg font-bold text-on-surface">{report.id}</span>
+              {loading && <Spinner size={13} className="text-on-surface-variant" />}
               <StatusChip status={report.status} />
               <Verdict value={report.overall_verdict} />
               <Badge tone="neutral">

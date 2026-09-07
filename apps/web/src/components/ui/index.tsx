@@ -79,7 +79,7 @@ export function Card({
   padded?: boolean;
 }) {
   return (
-    <section className={cn("rounded-2xl", ELEVATION[elevation], padded && "p-5", className)}>
+    <section className={cn("rounded-3xl", ELEVATION[elevation], padded && "p-6", className)}>
       {children}
     </section>
   );
@@ -157,8 +157,15 @@ export function PageHeader({
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 type ButtonSize = "sm" | "md";
 
+/**
+ * Variants.
+ *
+ * `primary` wears the obsidian anchor rather than the brand blue. DESIGN.md is explicit that
+ * the anchor is what establishes call-to-action polarity against a pastel canvas — the blue is
+ * an accent, and a blue button on a blue-tinted page is a weaker signal than a black one.
+ */
 const BUTTON_VARIANT: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-on-primary hover:bg-primary/90 disabled:bg-primary/40",
+  primary: "cta-anchor",
   secondary:
     "bg-surface-container-lowest text-on-surface border border-outline-variant/60 hover:bg-surface-container-low",
   ghost: "text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface",
@@ -166,8 +173,8 @@ const BUTTON_VARIANT: Record<ButtonVariant, string> = {
 };
 
 const BUTTON_SIZE: Record<ButtonSize, string> = {
-  sm: "h-8 px-3 text-label-md gap-1.5",
-  md: "h-10 px-4 text-label-lg gap-2",
+  sm: "h-8 px-4 text-label-md gap-1.5",
+  md: "h-10 px-5 text-label-lg gap-2",
 };
 
 export function Button({
@@ -189,7 +196,9 @@ export function Button({
       {...props}
       disabled={props.disabled || loading}
       className={cn(
-        "inline-flex items-center justify-center rounded-xl font-semibold transition-colors",
+        // Full pill: DESIGN.md's shape language gives buttons, filters and chips complete
+        // pill silhouettes, and cards the squircle.
+        "inline-flex items-center justify-center rounded-full font-semibold transition-colors",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
         "disabled:cursor-not-allowed disabled:opacity-60",
         BUTTON_VARIANT[variant],
@@ -575,4 +584,257 @@ export function Clause({ children }: { children: ReactNode }) {
 /** Horizontal rule matching the table borders. */
 export function Divider({ className }: { className?: string }) {
   return <hr className={cn("border-0 border-t border-outline-variant/40", className)} />;
+}
+
+// ---------------------------------------------------------------------------
+// Extracted from the Stitch design suite
+// ---------------------------------------------------------------------------
+
+/**
+ * Wizard stepper.
+ *
+ * A numbered rail with completed steps ticked. The Stitch screens use it to keep the officer
+ * oriented across a long, multi-form procedure — which matters here more than in most wizards,
+ * because a type evaluation is a dozen forms deep and there is no natural sense of "how far in
+ * am I" from the data itself.
+ */
+export interface StepItem {
+  id: string;
+  label: string;
+  hint?: string;
+  state: "done" | "current" | "todo";
+  href?: string;
+}
+
+export function Stepper({
+  steps,
+  onSelect,
+  className,
+}: {
+  steps: StepItem[];
+  onSelect?: (id: string) => void;
+  className?: string;
+}) {
+  return (
+    <nav aria-label="Progress" className={cn("flex items-center gap-1 overflow-x-auto pb-1", className)}>
+      {steps.map((s, i) => (
+        <div key={s.id} className="flex shrink-0 items-center">
+          <button
+            type="button"
+            onClick={() => onSelect?.(s.id)}
+            aria-current={s.state === "current" ? "step" : undefined}
+            className={cn(
+              "flex items-center gap-2.5 rounded-full px-3.5 py-2 transition-colors",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+              s.state === "current"
+                ? "bg-surface-container-lowest text-on-surface card-shadow"
+                : "text-on-surface-variant hover:bg-surface-container-low",
+            )}
+          >
+            <span
+              className={cn(
+                "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-label-sm font-bold",
+                s.state === "done"
+                  ? "bg-success-container text-on-success"
+                  : s.state === "current"
+                    ? "bg-primary text-on-primary"
+                    : "bg-surface-container-high text-on-surface-variant",
+              )}
+            >
+              {s.state === "done" ? <Icon name="check" size={14} /> : i + 1}
+            </span>
+            <span className="flex flex-col text-left leading-tight">
+              <span className="text-label-md font-semibold whitespace-nowrap">{s.label}</span>
+              {s.hint && <span className="text-label-sm opacity-75 whitespace-nowrap">{s.hint}</span>}
+            </span>
+          </button>
+          {i < steps.length - 1 && (
+            <span className="mx-0.5 h-px w-4 shrink-0 bg-outline-variant/60" aria-hidden="true" />
+          )}
+        </div>
+      ))}
+    </nav>
+  );
+}
+
+/**
+ * Segmented gauge.
+ *
+ * The Stitch design uses a run of coloured segments for "sub-range performance": one segment
+ * per partial range, so a multi-interval instrument that passes in range 1 and fails in range 2
+ * shows that at a glance rather than as a single averaged verdict.
+ *
+ * Segments carry a status colour *and* a label — never colour alone — and are separated by a
+ * 2px surface gap so adjacent fills stay distinct.
+ */
+export interface GaugeSegment {
+  label: string;
+  sublabel?: string;
+  state: "pass" | "fail" | "pending";
+}
+
+export function SegmentedGauge({ segments, className }: { segments: GaugeSegment[]; className?: string }) {
+  const fill: Record<GaugeSegment["state"], string> = {
+    pass: "bg-success",
+    fail: "bg-error",
+    pending: "bg-surface-container-high",
+  };
+  return (
+    <div className={cn("flex flex-col gap-1.5", className)}>
+      <div className="flex gap-0.5" role="img" aria-label={segments.map((s) => `${s.label}: ${s.state}`).join("; ")}>
+        {segments.map((s, i) => (
+          <span
+            key={i}
+            className={cn("h-2 flex-1 rounded-full", fill[s.state])}
+            title={`${s.label} — ${s.state}`}
+          />
+        ))}
+      </div>
+      <div className="flex justify-between gap-2">
+        {segments.map((s, i) => (
+          <span key={i} className="flex min-w-0 flex-1 flex-col leading-tight">
+            <span className="text-label-sm text-on-surface truncate">{s.label}</span>
+            {s.sublabel && (
+              <span className="text-label-sm text-on-surface-variant truncate">{s.sublabel}</span>
+            )}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * An inline row inside a data table.
+ *
+ * The single best idea in the Stitch designs: rather than footnoting the range boundary, put a
+ * banner *in the table* at the row where it happens — "e₁ = 2 g transitions to e₂ = 5 g, legal
+ * tolerance widened to ±5.0 g". The event that a spreadsheet misses becomes the most visible
+ * thing on the screen at exactly the point it occurs.
+ *
+ * Used for two things: the band shoulder, and a breach explained by how far over it went.
+ */
+export function TableCallout({
+  tone = "info",
+  icon,
+  title,
+  children,
+  colSpan,
+  action,
+}: {
+  tone?: Tone;
+  icon?: string;
+  title: string;
+  children?: ReactNode;
+  colSpan: number;
+  action?: ReactNode;
+}) {
+  const skin: Record<Tone, string> = {
+    neutral: "bg-surface-container-low",
+    pass: "bg-success-container/40",
+    fail: "bg-error-container/50",
+    warn: "bg-[#FEF3C7]/60",
+    info: "bg-primary-fixed/45",
+  };
+  const ink: Record<Tone, string> = {
+    neutral: "text-on-surface-variant",
+    pass: "text-on-success",
+    fail: "text-on-error-container",
+    warn: "text-[#92400E]",
+    info: "text-on-primary-fixed",
+  };
+  return (
+    <tr>
+      <td colSpan={colSpan} className={cn("border-b border-outline-variant/30 px-3 py-2.5", skin[tone])}>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span className={cn("flex items-center gap-2 text-label-lg", ink[tone])}>
+            <Icon name={icon ?? "swap_vert"} size={17} />
+            {title}
+          </span>
+          {children && <span className="text-body-sm text-on-surface-variant">{children}</span>}
+          {action && <span className="ml-auto">{action}</span>}
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+/**
+ * Bottom action bar.
+ *
+ * The Stitch screens anchor the forward action to the foot of a long form, which is where an
+ * officer's attention ends up after filling one. Secondary actions sit left, the anchor CTA
+ * right.
+ *
+ * Deliberately *not* sticky. A pinned bar floats over whatever is beneath it, and on these
+ * screens that is a table of observations — occluding a row of recorded measurements to keep a
+ * button in view is the wrong trade on a compliance document.
+ */
+export function ActionBar({
+  left,
+  right,
+  className,
+}: {
+  left?: ReactNode;
+  right?: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex flex-wrap items-center justify-between gap-3 rounded-full",
+        "border border-outline-variant/50 bg-surface-container-lowest/90 px-4 py-3 backdrop-blur-xl card-shadow",
+        className,
+      )}
+    >
+      <div className="flex flex-wrap items-center gap-2">{left}</div>
+      <div className="flex flex-wrap items-center gap-2">{right}</div>
+    </div>
+  );
+}
+
+/**
+ * A recorded measurement environment, as the Stitch "ambient bench sensors" strip.
+ *
+ * R 76-2 puts temperature, humidity and pressure at the head of every environment-sensitive
+ * form, and class I additionally requires barometric pressure — so this reads as instrument
+ * context rather than decoration.
+ */
+export function AmbientStrip({
+  temperatureC,
+  relativeHumidityPct,
+  pressureHPa,
+  note,
+  className,
+}: {
+  temperatureC?: number;
+  relativeHumidityPct?: number;
+  pressureHPa?: number;
+  note?: string;
+  className?: string;
+}) {
+  const items = [
+    { icon: "thermostat", value: temperatureC, unit: "°C", label: "Temperature" },
+    { icon: "humidity_percentage", value: relativeHumidityPct, unit: "%", label: "Relative humidity" },
+    { icon: "compress", value: pressureHPa, unit: "hPa", label: "Barometric pressure" },
+  ].filter((i) => i.value !== undefined);
+
+  if (items.length === 0) return null;
+
+  return (
+    <div className={cn("flex flex-wrap items-center gap-x-5 gap-y-2", className)}>
+      {items.map((i) => (
+        <span key={i.label} className="flex items-center gap-2">
+          <Icon name={i.icon} size={17} className="text-on-surface-variant" />
+          <span className="flex flex-col leading-tight">
+            <span className="text-label-lg text-on-surface tabular-nums">
+              {i.value} {i.unit}
+            </span>
+            <span className="text-label-sm text-on-surface-variant">{i.label}</span>
+          </span>
+        </span>
+      ))}
+      {note && <Badge tone="info" icon="sensors">{note}</Badge>}
+    </div>
+  );
 }

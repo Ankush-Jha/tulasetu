@@ -66,6 +66,20 @@
   /* ── Canvas (app background) ── */
   --color-canvas: #EBF0FA;
 
+  /* ── Precision anchor ──
+     DESIGN.md: "Deep obsidian black pill CTAs (#0A0A0A) establish instant visual
+     hierarchy and clear call-to-action polarity against the soft, pastel surroundings."
+     The primary blue is a brand accent; the anchor is what a primary action wears. */
+  --color-anchor: #0A0A0A;
+  --color-anchor-hover: #1E1E1E;
+  --color-on-anchor: #ffffff;
+
+  /* Chart ink. Validated for CVD separation against the breach colour
+     (deutan ΔE 31.5, normal ΔE 36.4) before use — see the dataviz palette check. */
+  --color-chart-line: #2563eb;
+  --color-chart-breach: #ba1a1a;
+  --color-chart-band: #dbe1ff;
+
   /* ── Gradient Accent Colors ── */
   --color-grad-cyan: #2DD4BF;
   --color-grad-teal: #06B6D4;
@@ -251,6 +265,20 @@
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.9);
   }
+
+  /* Obsidian CTA. No downward shadow — DESIGN.md specifies a faint inner rim light
+     instead, so the pill reads as a crisp anchor rather than another floating card. */
+  .cta-anchor {
+    background-color: #0A0A0A;
+    color: #ffffff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transition: background-color 150ms ease, transform 150ms ease;
+  }
+  .cta-anchor:hover:not(:disabled) {
+    background-color: #1E1E1E;
+    transform: scale(1.02);
+  }
+  .cta-anchor:active:not(:disabled) { transform: scale(0.99); }
 
   /* Nav pill states */
   .nav-pill-active {

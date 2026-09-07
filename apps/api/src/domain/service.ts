@@ -185,6 +185,11 @@ export function setInstrumentProfile(
     ...validateProfile(profile, ctx.pack),
     ...(profile.softwareChecksum
       ? validateSoftwareIdentification(profile.softwareChecksum, {
+          // The owner matters: the defect the register actually contains is one checksum
+          // shared by *two different manufacturers* (certificates #259 and #300). The same
+          // manufacturer declaring the same software on a second model is ordinary, and
+          // flagging it would train officers to ignore the warning.
+          ...(profile.manufacturer ? { owner: profile.manufacturer } : {}),
           knownChecksums: knownChecksums(ctx.db, reportId),
         })
       : []),

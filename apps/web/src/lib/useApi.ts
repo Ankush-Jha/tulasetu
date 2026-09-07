@@ -15,7 +15,17 @@ import { ApiError } from "./api";
 
 export interface AsyncState<T> {
   data: T | null;
+  /** True while any request is in flight, including a refetch of data already held. */
   loading: boolean;
+  /**
+   * True only while the *first* load is in flight.
+   *
+   * The distinction matters more than it looks. A screen that blocks on `loading` unmounts its
+   * children on every refetch, and unmounting throws away whatever they were holding — the
+   * validation findings an officer just triggered, the rows they just computed. Block on
+   * `initialLoading`; show a quiet indicator for the rest.
+   */
+  initialLoading: boolean;
   error: string | null;
   /** Re-run the request. */
   reload: () => void;
@@ -71,7 +81,7 @@ export function useApi<T>(
   }, [...deps, nonce, enabled]);
 
   const reload = useCallback(() => setNonce((n) => n + 1), []);
-  return { data, loading, error, reload };
+  return { data, loading, initialLoading: loading && data === null, error, reload };
 }
 
 /**
