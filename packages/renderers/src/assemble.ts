@@ -306,6 +306,18 @@ function toRenderColumn(c: FormColumnSpec) {
 function formatValue(v: unknown, col: FormColumnSpec, unit: MassUnit): string {
   if (v === undefined || v === null || v === "") return "";
   if (typeof v === "boolean") return v ? "Yes" : "No";
+
+  // A value can arrive as a { "↓": …, "↑": … } pair for a column the form does not split.
+  // Stringifying it would print "[object Object]" onto a legal document — which is exactly
+  // what happened before this guard existed. Take the down-direction reading, or the first
+  // value present, and render that.
+  if (typeof v === "object") {
+    const bucket = v as Record<string, unknown>;
+    const first = bucket["↓"] ?? bucket["down"] ?? Object.values(bucket)[0];
+    // One level only: a nested object is a bug upstream, and blank is the honest rendering.
+    return first === undefined || typeof first === "object" ? "" : formatValue(first, col, unit);
+  }
+
   if (typeof v !== "number") return String(v);
   if (!Number.isFinite(v)) return "—";
   return col.unit === "mass" ? `${fmt(v)} ${unit}` : fmt(v);

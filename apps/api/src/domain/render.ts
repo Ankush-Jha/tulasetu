@@ -25,6 +25,8 @@ import {
   renderPdf,
   serializeJson,
   type ComputedForm,
+  type FormColumnSpec,
+  type FormSpec,
   type FormsFile,
   type ReportDocument,
 } from "@tulasetu/renderers";
@@ -69,6 +71,28 @@ export function loadFormsFile(path?: string): FormsFile {
   return file;
 }
 
+/**
+ * Does this form take the weighing-test observations the K1 entry screen produces?
+ *
+ * The full weighing shape is Load, Indication, Additional load, Error, Corrected error and mpe
+ * — forms 1, 3.1, 3.2, 9, 11, 13 and 15. Forms 10 (keyed on elapsed time), 12.x (disturbance
+ * trials with a significant-fault column) and 14 (span stability) share a column or two but are
+ * a different measurement, and posting weighing rows into them would fill a legal document with
+ * data that does not answer the question the form asks.
+ */
+export function acceptsWeighingObservations(spec: FormSpec | undefined): boolean {
+  const keys = new Set((spec?.columns ?? []).map((c) => c.key));
+  return keys.has("load") && keys.has("indication") && keys.has("error") &&
+    keys.has("correctedError") && keys.has("mpe");
+}
+
+/** The ids of every form the weighing entry can fill, for a given forms file. */
+export function weighingFormIds(file?: FormsFile): string[] {
+  return (file ?? loadFormsFile()).forms
+    .filter(acceptsWeighingObservations)
+    .map((f) => f.formId);
+}
+
 export type RenderFormat = "pdf" | "docx" | "json" | "html";
 
 export interface RenderedReport {
@@ -92,6 +116,8 @@ export function buildReportDocument(
   opts: { generatedAt: string; formsFile?: FormsFile },
 ): ReportDocument {
   const formsFile = opts.formsFile ?? loadFormsFile();
+  // Indexed once: every row of every form needs its own column spec to reshape against.
+  const specs = new Map(formsFile.forms.map((f) => [f.formId, f]));
 
   const lab = db.prepare("SELECT * FROM labs WHERE id = ?").get(report.lab_id) as
     | { id: string; name: string; kind: string; lab_code: string | null; nabl_accredited: number }
@@ -160,6 +186,7 @@ export function buildReportDocument(
 
     const stored = JSON.parse(f.result_json) as { rows?: WeighingRowResult[] };
     const rows = stored.rows ?? [];
+    const columns = specs.get(f.form_id)?.columns ?? [];
 
     return {
       formId: f.form_id,
@@ -167,7 +194,7 @@ export function buildReportDocument(
       ...(f.range_index ? { rangeIndex: f.range_index } : {}),
       applicable: true,
       verdict: f.verdict as Verdict,
-      rows: rows.map(toRenderRow),
+      rows: rows.map((r) => toRenderRow(r, columns)),
       failedCells: rows
         .map((r, rowIndex) => ({
           rowIndex,
@@ -300,19 +327,46 @@ export function buildReportDocument(
   });
 }
 
-/** Rows are stored as the engine computed them; this only reshapes for the form's columns. */
-function toRenderRow(r: WeighingRowResult): Record<string, unknown> {
-  return {
+/**
+ * Reshape one computed row for the columns *this* form actually declares.
+ *
+ * Every R 76-2 form has its own columns. Form 1 splits Indication, Additional load, Error and
+ * Corrected error into ↓ and ↑ sub-columns for the two directions of loading; form 11 has a
+ * Voltage column and no sub-columns at all; form 10 is keyed on Time and a load condition.
+ *
+ * An earlier version emitted form 1's shape for every form, so a `{ "↓": …, "↑": … }` pair
+ * landed in a column that expected a scalar and printed as "[object Object]" — on a document
+ * that is the legal basis for a model approval. The fix is that nothing is emitted for a
+ * column the form does not declare, and a value is wrapped in sub-columns only where the form
+ * asks for them.
+ *
+ * A column the recorded observations genuinely cannot fill — form 10's elapsed Time, form 11's
+ * supply Voltage — is left blank rather than guessed. A blank cell on a test form is an honest
+ * statement that the figure was not recorded; an invented one is not.
+ */
+function toRenderRow(r: WeighingRowResult, columns: FormColumnSpec[]): Record<string, unknown> {
+  /** What the engine computed, by the column key each value belongs under. */
+  const byKey: Record<string, number | string> = {
     load: r.load,
-    // R 76-2 form 1 splits these into ↓ and ↑ sub-columns for the two directions of loading.
-    // A single recorded pass fills both; recording the directions separately is a later step.
-    indication: { "↓": r.indication, "↑": r.indication },
-    additionalLoad: { "↓": r.additionalLoad, "↑": r.additionalLoad },
-    error: { "↓": r.error, "↑": r.error },
-    correctedError: { "↓": r.correctedError, "↑": r.correctedError },
+    indication: r.indication,
+    additionalLoad: r.additionalLoad,
+    error: r.error,
+    correctedError: r.correctedError,
     mpe: r.mpe.mpe,
-    ...(r.label ? { label: r.label } : {}),
+    // Form 3.1/3.2 record where on the receptor the load sat; the officer types it as the
+    // row's label, so that is where it belongs.
+    ...(r.label ? { location: r.label, label: r.label } : {}),
   };
+
+  const row: Record<string, unknown> = {};
+  for (const col of columns) {
+    const value = byKey[col.key];
+    if (value === undefined) continue; // Not a column this data can fill. Leave it blank.
+    row[col.key] = col.subcolumns?.length
+      ? Object.fromEntries(col.subcolumns.map((sub) => [sub, value]))
+      : value;
+  }
+  return row;
 }
 
 function buildCaveats(

@@ -331,3 +331,84 @@ describe("lock", () => {
     expect(docx.statusCode).toBe(200);
   });
 });
+
+/**
+ * Nothing that is not a number, a word or a blank may reach a printed report.
+ *
+ * A rendered report is the legal basis for a model approval. An earlier version emitted form
+ * 1's column shape for every form, so a `{ "↓": …, "↑": … }` pair landed in a column that
+ * expected a scalar and printed as "[object Object]" across several pages of the PDF. These
+ * tests exist so that class of defect cannot come back quietly.
+ */
+describe("no programmer artefacts on a printed report", () => {
+  const FORBIDDEN = [
+    "[object Object]",
+    "undefined",
+    "NaN",
+    "[object",
+    "null",
+  ];
+
+  it("renders every form of a fully recorded report without a single artefact", async () => {
+    await recordEverything();
+    const html = (await call("GET", "/reports/R1/render/html", "u-ma")).body;
+
+    for (const bad of FORBIDDEN) {
+      expect(html.includes(bad), `rendered HTML contains ${JSON.stringify(bad)}`).toBe(false);
+    }
+  });
+
+  it("keeps the artefacts out of the machine-readable output too", async () => {
+    await recordEverything();
+    const body = (await call("GET", "/reports/R1/render/json", "u-ma")).json();
+
+    // Check the report data, not the whole payload: the embedded PDF is base64, and an
+    // arbitrary byte sequence contains "NaN" often enough to make a substring search on the
+    // raw body meaningless.
+    const data = JSON.stringify(body.report);
+    expect(data.includes("[object Object]")).toBe(false);
+    expect(data.includes("NaN")).toBe(false);
+    expect(data.includes("undefined")).toBe(false);
+  });
+
+  it("gives a sub-columned column its pair, and a plain column a scalar", async () => {
+    await call("POST", "/reports/R1/forms/1/observations", "u-ma", {
+      observations: [{ load: 1000, indication: 1000, additionalLoad: 0 }],
+    });
+    const report = db.prepare("SELECT * FROM reports WHERE id = ?").get("R1") as any;
+    const doc = buildReportDocument(db, report, { generatedAt: T });
+
+    // Form 1 splits Indication into ↓ and ↑, so it contributes two cells, not one.
+    const form1 = doc.forms.find((f) => f.formId === "1")!;
+    const indication = form1.columns.find((c) => c.key === "indication")!;
+    expect(indication.subcolumns).toEqual(["↓", "↑"]);
+
+    // Every cell is a rendered string; none of them is an object's toString.
+    for (const row of form1.rows) {
+      for (const cell of row) {
+        expect(typeof cell.value).toBe("string");
+        expect(cell.value).not.toContain("object");
+      }
+    }
+    // Column count and cell count agree once sub-columns are expanded.
+    const expected = form1.columns.reduce((n, c) => n + (c.subcolumns?.length || 1), 0);
+    expect(form1.rows[0]).toHaveLength(expected);
+  });
+
+  it("leaves a column the observations cannot fill blank rather than guessing", async () => {
+    // Form 11 (voltage variations) shares Load and Indication with the weighing test but adds a
+    // supply-voltage column that weighing observations say nothing about.
+    await call("POST", "/reports/R1/forms/11/observations", "u-ma", {
+      observations: [{ load: 1000, indication: 1000, additionalLoad: 0 }],
+    });
+    const report = db.prepare("SELECT * FROM reports WHERE id = ?").get("R1") as any;
+    const doc = buildReportDocument(db, report, { generatedAt: T });
+
+    const form11 = doc.forms.find((f) => f.formId === "11");
+    if (!form11 || form11.verdict === "NA") return; // not applicable to this instrument
+
+    const voltageIndex = form11.columns.findIndex((c) => c.key === "voltage");
+    expect(voltageIndex).toBeGreaterThanOrEqual(0);
+    expect(form11.rows[0]![voltageIndex]!.value).toBe("");
+  });
+});

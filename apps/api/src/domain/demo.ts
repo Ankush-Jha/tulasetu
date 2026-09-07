@@ -21,6 +21,7 @@ import type { InstrumentProfile } from "@tulasetu/engine";
 import type { ServiceContext } from "./service.js";
 import * as svc from "./service.js";
 import type { Principal } from "./rbac.js";
+import { weighingFormIds } from "./render.js";
 
 /** Loads that straddle every band boundary of the class III worked example. */
 const BAND_WALK = [
@@ -220,9 +221,15 @@ function recordAllForms(
   reportId: string,
   observations: { load: number; indication: number; label?: string }[],
 ): void {
-  const forms = ctx.db
+  // Only the forms that actually take weighing observations. Form 10 is keyed on elapsed time,
+  // the 12.x forms record disturbance trials, form 14 is span stability — posting weighing rows
+  // into any of them would fill the report with data that does not answer the form's question.
+  // Those forms stay unrecorded, and print "– –" with the reason, which is the honest state.
+  const weighing = new Set(weighingFormIds());
+  const forms = (ctx.db
     .prepare("SELECT form_id, test_id FROM report_forms WHERE report_id = ? AND applicable = 1")
-    .all(reportId) as { form_id: string; test_id: string }[];
+    .all(reportId) as { form_id: string; test_id: string }[])
+    .filter((f) => weighing.has(f.form_id));
 
   for (const f of forms) {
     svc.recordWeighingObservations(ctx, principal, reportId, {
