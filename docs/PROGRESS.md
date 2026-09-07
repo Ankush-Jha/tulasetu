@@ -1,15 +1,18 @@
 # PROGRESS
 
-State as of 2026-09-07. **327 tests passing**, `tsc` clean across all packages.
+State as of 2026-09-07. **420 tests passing**, `tsc` clean across all packages.
 
 ```bash
-npm test                        # 327 tests
+npm test                        # 420 tests
 npm run typecheck
 npm run demo                    # engine -> out/report.{html,pdf,docx,json}
 
 # the application, in two terminals
 npx tsx apps/api/src/server.ts  # API on :3000
 npm run dev:web                 # UI on :5173, proxying /api
+
+# the same engine against a different edition of the standard
+TULASETU_RULESET=draft npx tsx apps/api/src/server.ts   # oiml | india | draft
 ```
 
 The UI needs seeded users to sign in — see "Seeding" at the foot of this file.
@@ -30,8 +33,10 @@ The UI needs seeded users to sign in — see "Seeding" at the foot of this file.
 - [x] family/EUT solver + Table 8 golden test (8 variants → 1.2, 2.1, 2.4) + coverage-clause generation
 - [x] Annex F module compatibility + Annex F.6.1's own worked example
 
-Not implemented, deliberately, and recorded in `docs/VERIFIED.md` §14 / §13:
-form 7 (stability of equilibrium — its acceptance fits no kernel); Annex F items (8)–(10).
+- [x] **K6** — R 76-2 form 7 (stability of equilibrium). A sixth kernel, because the form
+      genuinely does not reduce: two checks against fixed multiples of e that never consult a
+      resolved mpe band. See `docs/VERIFIED.md` §14.
+- [x] Annex F items (8)–(10) — input voltage, impedance, cable length
 
 ## M2 — Rule packs (`packages/rulepacks`)  [ MOSTLY DONE ]
 - [x] `OIML_R76_2006.json` **v1.1.0** — clause refs on every test, `kernel_params` for K2–K5,
@@ -44,7 +49,11 @@ form 7 (stability of equilibrium — its acceptance fits no kernel); Annex F ite
       the raw legal text. Table 17, Table 20, in-service ×2 and the multi-interval table are
       **verified identical** to OIML at the primary-source level. Corrects the extract's
       IV/IIII counts (IV appears 13 times, not ~11).
-- [ ] Draft 5-part edition pack (for the edition-toggle demo)
+- [x] `OIML_R76_DRAFT_5PART.json` — the committee drafts, verified against Parts 3 and 4
+- [x] `edition-toggle.test.ts` — proves the pair that matters: the engine resolves an
+      *identical* permissible error at every load under either pack, while the form numbering,
+      the new 12.3(c) surge sub-item and every renumbered citation differ. An edition change is
+      a different file, not a different program.
 
 ## M3 — Web UI (`apps/web`)  [ WORKING ]
 React 19 + Vite + Tailwind 4. Every verdict, permissible error and applicability decision on
@@ -61,9 +70,11 @@ report will carry.
 - [x] Report shell with six steps: profile → tests → observations → checklist → audit → output
 - [x] Family solver, live against the engine, reproducing Table 8
 - [x] Module compatibility (Annex F) · Statistics (Rule 4(9)) · Rule pack · Profile · 404
-- [ ] Report generation buttons are inert — the renderers exist and are tested, but no
-      download endpoint is wired yet (`npm run demo` produces all three outputs)
-- [ ] Checklist answers are held in the browser and not yet posted to the log; the page says so
+- [x] Report download (PDF / DOCX / JSON / HTML) and render-and-lock in one step
+- [x] Checklist answers written to the append-only log
+- [x] Attachments — Figure 1, Figure 2, drawings; drag-and-drop, confidentiality tiers
+- [x] Digital signatures on the audit page, re-verified on every read
+- [x] The permissible-error envelope chart, and the range-boundary callout inside the table
 
 ## M4 — Renderers (`packages/renderers`)  [ DONE ]
 - [x] `assemble.ts` — one document, three projections, so the outputs cannot disagree
@@ -84,9 +95,9 @@ report will carry.
 - [x] Fastify routes, with 25 HTTP tests that walk the whole approval chain
 - [x] Standalone `/tools/family` and `/tools/modules` — both pure, so neither needs a report
 - [x] `/checklists` serves the 363-item bank
-- [ ] Attachment storage (schema exists, no handler)
-- [ ] Report rendering endpoint (renderers built; not yet exposed over HTTP)
-- [ ] Digital signature integration (schema + hash chain ready; DSC/eSign not wired)
+- [x] Attachments — content-addressed, hash-verified on read, Rule 16(2) confidentiality
+- [x] Rendering over HTTP, logged with the hash of the bytes produced
+- [x] Digital signatures (Ed25519 over the chain head), returned with the chain's own verdict
 
 ## Vertical-slice demo  [ WORKING ]
 `apps/cli/src/demo.ts` runs profile → validation → applicability → K1 on two forms → family
@@ -141,8 +152,14 @@ u.run("u-dir", "lab-fbd", "DIRECTOR", "C. Director",  "dir@example.gov.in", T);
 - **Authentication is a stub on both sides.** The browser sends `X-User-Id` and the server
   trusts it. The API refuses to start under `NODE_ENV=production` while that is true. Real
   deployment means NIC SSO or a DSC-backed session; IT Act 2000 §§4–5 give those standing.
-- **Form 7 (stability of equilibrium) is not implemented** — its acceptance fits no kernel.
-- **Annex F items (8)–(10) are not implemented** — indicator electrical specifications.
+  The signing code is already arranged for it: verification takes a detached signature and a
+  public key and does not care what produced them.
 - **Load-cell figures in the Annex F tests and on the modules page are illustrative**, not from
-  datasheets. Replace them with real OIML R 60 certificate values before they reach a slide.
-- **Checklist answers are not yet recorded** to the append-only log.
+  datasheets. The brand names are real, from the certificate corpus; the numbers are not.
+  Replace them with values off the cells' own OIML R 60 certificates before they reach a slide.
+- **Repeatability's spread check** (`Emax − Emin ≤ |mpe|`, §3.6.1) is recorded in the rule pack
+  as an `extra` note but is not computed — the per-row check is.
+- **Forms 8 and 14's fixed thresholds** (tilting's 2 e when unloaded, span stability's graphical
+  bands) are documented in the pack but the kernels apply the mpe-shaped check.
+- **The draft five-part pack is a committee draft**, not the standard in force. It says so, the
+  server warns at boot, and the UI badges it.
