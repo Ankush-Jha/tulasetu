@@ -23,6 +23,7 @@ import {
   checkModuleCompatibility,
   type IndicatorModuleData,
   type LoadCellModuleData,
+  type ModuleCheckResult,
   type ModuleCompatibilityInput,
   type WeighingInstrumentModuleData,
 } from "../src/annexF.js";
@@ -296,5 +297,175 @@ describe("checkModuleCompatibility — rule-pack error-fraction defaults are hon
     const errApp = result.checks.find((c) => c.check === "annexF.error_apportionment")!;
     // 0.7^2 + 0.5^2 + 0.5^2 = 0.49 + 0.25 + 0.25 = 0.99, same as the sourced example.
     expect(errApp.actual).toBeCloseTo(0.99, 4);
+  });
+});
+
+/**
+ * F.4 items (8), (9) and (10) — the electrical checks.
+ *
+ * These were the three CLAUDE.md §6 omitted and that were, until now, left unimplemented.
+ * They are indicator-side electrical specifications rather than metrological ones, but the
+ * form treats them as compatibility conditions like any other, and an instrument that fails
+ * them does not work.
+ *
+ * All three are *skipped rather than failed* when the certificates do not state the figures.
+ * An indicator whose OIML certificate is silent on its minimum input voltage has not failed
+ * the check — the check could not be performed, and a report saying so is more honest than one
+ * inventing a pass.
+ */
+describe("Annex F.4 items (8)-(10) — electrical compatibility", () => {
+  /** A single-cell class III platform, with the electrical figures the form asks for. */
+  function build(overrides: {
+    loadCell?: Record<string, unknown>;
+    indicator?: Record<string, unknown>;
+    instrument?: Record<string, unknown>;
+    cable?: { length: number; crossSection: number };
+  } = {}) {
+    return {
+      instrument: {
+        accuracyClass: "III" as const,
+        unit: "g" as const,
+        ranges: [{ max: 30000, e: 10 }],
+        reductionRatio: 1,
+        numberOfLoadCells: 1,
+        deadLoad: 2000,
+        initialZeroSettingRange: 600,
+        nonUniformLoadCorrection: 0,
+        temperatureRange: { minC: -10, maxC: 40 },
+        ...overrides.instrument,
+      },
+      loadCell: {
+        accuracyClass: "C" as const,
+        unit: "g" as const,
+        maxCapacity: 35000,
+        minDeadLoad: 0,
+        maxScaleIntervals: 3000,
+        y: 15000,
+        temperatureRange: { minC: -10, maxC: 40 },
+        fractionOfMpe: 0.7,
+        humidityMark: "CH" as const,
+        // ILLUSTRATIVE electrical figures — a 2 mV/V cell at 350 ohm is an ordinary
+        // specification, but these are not read off any particular datasheet.
+        ratedOutput: 2,
+        inputResistance: 350,
+        ...overrides.loadCell,
+      },
+      indicator: {
+        accuracyClass: "III" as const,
+        maxScaleIntervals: 6000,
+        temperatureRange: { minC: -10, maxC: 40 },
+        fractionOfMpe: 0.5,
+        excitationVoltage: 5,
+        minInputVoltage: 0.1,
+        minInputVoltagePerInterval: 0.5,
+        minLoadImpedance: 87,
+        maxLoadImpedance: 1200,
+        maxCableLengthPerArea: 100,
+        ...overrides.indicator,
+      },
+      ...(overrides.cable ? { cable: overrides.cable } : {}),
+    } as never;
+  }
+
+  const find = (checks: ModuleCheckResult[], id: string) => checks.find((c) => c.check === id);
+
+  it("computes the general minimum input voltage from the form's own formula", () => {
+    // U = C x Uexc x R x DL / (Emax x N) = 2 x 5 x 1 x 2000 / (35000 x 1) = 0.5714 mV
+    const { checks } = checkModuleCompatibility(build(), PACK);
+    const c = find(checks, "annexF.input_voltage.general")!;
+    expect(c.passed).toBe(true);
+    expect(String(c.actual)).toMatch(/^0\.571/);
+  });
+
+  it("fails when the dead load does not raise the signal above the indicator's floor", () => {
+    // An indicator needing 2 mV sees only 0.571 mV on this receptor.
+    const { checks } = checkModuleCompatibility(
+      build({ indicator: { minInputVoltage: 2 } }), PACK,
+    );
+    expect(find(checks, "annexF.input_voltage.general")!.passed).toBe(false);
+  });
+
+  it("checks the per-interval signal separately, in microvolts", () => {
+    // u = 2 x 5 x 1 x 10 / (35000 x 1) = 0.002857 mV = 2.857 uV/e
+    const { checks } = checkModuleCompatibility(build(), PACK);
+    const c = find(checks, "annexF.input_voltage.per_interval")!;
+    expect(String(c.actual)).toMatch(/uV\/e$/);
+    expect(c.passed).toBe(true);
+  });
+
+  it("fails a combination that cannot resolve one scale interval", () => {
+    // An indicator needing 10 uV/e against a signal of 2.86 uV/e cannot weigh, however
+    // healthy the overall signal is.
+    const { checks } = checkModuleCompatibility(
+      build({ indicator: { minInputVoltagePerInterval: 10 } }), PACK,
+    );
+    expect(find(checks, "annexF.input_voltage.per_interval")!.passed).toBe(false);
+  });
+
+  it("divides load-cell resistance by the number of cells, because they are in parallel", () => {
+    // Four 350 ohm cells present 87.5 ohm, which is inside 87-1200.
+    const { checks } = checkModuleCompatibility(
+      build({ instrument: { numberOfLoadCells: 4 } }), PACK,
+    );
+    const c = find(checks, "annexF.impedance")!;
+    expect(c.passed).toBe(true);
+    expect(String(c.actual)).toBe("87.5 ohm");
+  });
+
+  it("fails when too many cells in parallel drop below the indicator's floor", () => {
+    // Eight cells present 43.75 ohm, below the 87 ohm minimum.
+    const { checks } = checkModuleCompatibility(
+      build({ instrument: { numberOfLoadCells: 8 } }), PACK,
+    );
+    expect(find(checks, "annexF.impedance")!.passed).toBe(false);
+  });
+
+  it("checks the cable as a length-to-cross-section ratio", () => {
+    // 30 m of 0.5 mm2 wire is 60 m/mm2, inside a 100 m/mm2 allowance.
+    const ok = checkModuleCompatibility(build({ cable: { length: 30, crossSection: 0.5 } }), PACK);
+    expect(find(ok.checks, "annexF.cable_length")!.passed).toBe(true);
+
+    // The same 30 m on thinner wire is 120 m/mm2, and fails.
+    const bad = checkModuleCompatibility(build({ cable: { length: 30, crossSection: 0.25 } }), PACK);
+    expect(find(bad.checks, "annexF.cable_length")!.passed).toBe(false);
+  });
+
+  it("rejects a cable with no cross-section rather than dividing by zero", () => {
+    const { checks } = checkModuleCompatibility(
+      build({ cable: { length: 10, crossSection: 0 } }), PACK,
+    );
+    expect(find(checks, "annexF.cable_length")!.passed).toBe(false);
+  });
+
+  it("skips each check, rather than failing it, when the figures were not supplied", () => {
+    const { checks, verdict } = checkModuleCompatibility(
+      build({
+        loadCell: { ratedOutput: undefined, inputResistance: undefined },
+        indicator: {
+          excitationVoltage: undefined, minInputVoltage: undefined,
+          minInputVoltagePerInterval: undefined,
+          minLoadImpedance: undefined, maxLoadImpedance: undefined,
+          maxCableLengthPerArea: undefined,
+        },
+      }),
+      PACK,
+    );
+    for (const id of ["annexF.input_voltage", "annexF.impedance", "annexF.cable_length"]) {
+      const c = find(checks, id)!;
+      expect(c.passed, `${id} should be skipped, not failed`).toBe(true);
+      expect(String(c.actual)).toBe("not stated");
+      expect(c.detail).toMatch(/not evaluated/i);
+    }
+    // And a combination that is otherwise sound still passes overall.
+    expect(verdict).toBe("PASSED");
+  });
+
+  it("cites Annex F.4 on every one of the three", () => {
+    const { checks } = checkModuleCompatibility(
+      build({ cable: { length: 10, crossSection: 0.5 } }), PACK,
+    );
+    for (const c of checks.filter((x) => /input_voltage|impedance|cable_length/.test(x.check))) {
+      expect(c.clause).toMatch(/Annex F\.4 item \((8|9|10)\)/);
+    }
   });
 });

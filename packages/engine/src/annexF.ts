@@ -91,10 +91,18 @@ function fmt(g: number): string {
   return `${round(g, 6)} g`;
 }
 
-function round(v: number, dp: number): number {
+function round(v: number, dp = 6): number {
   const f = 10 ** dp;
   return Math.round(v * f) / f;
 }
+
+/**
+ * Comparison slack for the electrical checks.
+ *
+ * These quantities are millivolts and ohms taken off a certificate, not exact integers, and a
+ * value sitting exactly on its stated limit must not fail on floating-point noise.
+ */
+const EPS = 1e-9;
 
 // ---------------------------------------------------------------------------
 // Input shape
@@ -164,6 +172,14 @@ export interface LoadCellModuleData {
   fractionOfMpe?: number;
   /** F.2: only SH or CH tested load cells are allowed under the modular approach (not NH). */
   humidityMark?: "SH" | "CH" | "NH";
+
+  // --- Electrical characteristics, for F.4 items (8) and (9) ---
+  /** C — rated output of the load cell, in mV/V (F.2, F.4 item (8)). */
+  ratedOutput?: number;
+  /** R_LC — input resistance of one load cell, in ohms (F.4 item (9)). */
+  inputResistance?: number;
+  /** DR — minimum dead load output return (F.2, F.4 items (6b)/(6c)). */
+  deadLoadOutputReturn?: number;
 }
 
 /** R 76-1 Annex F.3 — an indicator (or analog data-processing device) separately certified under Annex C. */
@@ -174,9 +190,30 @@ export interface IndicatorModuleData {
   temperatureRange: TemperatureRange;
   /** pind — fraction of mpe. F.3.2: defaults to 0.5 if the OIML Certificate states no value. */
   fractionOfMpe?: number;
+
+  // --- Electrical characteristics, for F.4 items (8), (9) and (10) ---
+  /** U_exc — excitation voltage the indicator supplies to the load cells, in volts. */
+  excitationVoltage?: number;
+  /** U_min — minimum input voltage the indicator needs on an unloaded instrument, in mV. */
+  minInputVoltage?: number;
+  /** Δu_min — minimum input voltage per verification scale interval, in µV/e. */
+  minInputVoltagePerInterval?: number;
+  /** R_Lmin — lowest load-cell impedance the indicator accepts, in ohms. */
+  minLoadImpedance?: number;
+  /** R_Lmax — highest load-cell impedance the indicator accepts, in ohms. */
+  maxLoadImpedance?: number;
+  /** (L/A)max — longest cable per unit cross-section the indicator allows, in m/mm². */
+  maxCableLengthPerArea?: number;
 }
 
 /** Connecting elements (cabling, junction boxes, etc.) — Table 7's "Connecting elements, etc." column. */
+export interface CableData {
+  /** L — length of the extension cable between load cells and indicator, in metres. */
+  length: number;
+  /** A — cross-section of a single wire of that cable, in mm². */
+  crossSection: number;
+}
+
 export interface ConnectingElementsData {
   /**
    * pcon — fraction of mpe. Annex F gives no explicit numeric default for connecting
@@ -192,6 +229,8 @@ export interface ModuleCompatibilityInput {
   loadCell: LoadCellModuleData;
   indicator: IndicatorModuleData;
   connecting?: ConnectingElementsData;
+  /** The extension cable, for F.4 item (10). */
+  cable?: CableData;
 }
 
 export interface ModuleCheckResult {
@@ -442,11 +481,202 @@ function checkMinVerificationInterval(instrument: WeighingInstrumentModuleData, 
 // Public entry point
 // ---------------------------------------------------------------------------
 
+
+// ---------------------------------------------------------------------------
+// F.4 items (8), (9) and (10) — the electrical checks
+// ---------------------------------------------------------------------------
+
+/**
+ * F.4 item (8) — minimum input voltage.
+ *
+ * Two conditions, both printed on the form:
+ *
+ *   U = C x U_exc x R x DL / (Emax x N)  >=  U_min      (unloaded instrument, in general)
+ *   u = C x U_exc x R x e  / (Emax x N)  >=  du_min      (per verification scale interval)
+ *
+ * where C is the load cell's rated output in mV/V, U_exc the indicator's excitation voltage,
+ * R the reduction ratio of the load-transmitting device, DL the dead load of the receptor,
+ * Emax the load cell's maximum capacity and N the number of load cells.
+ *
+ * The two differ only in what the signal is measured against — the dead load for the first,
+ * one scale interval for the second — which is why the second is expressed in microvolts: an
+ * indicator that cannot resolve one interval cannot weigh, however healthy its overall signal.
+ *
+ * Skipped, rather than failed, when the certificates do not state the figures. An indicator
+ * whose OIML certificate is silent on U_min has not failed the check; the check could not be
+ * performed, and saying so is more useful than inventing a pass.
+ */
+function checkInputVoltage(
+  instrument: WeighingInstrumentModuleData,
+  loadCell: LoadCellModuleData,
+  indicator: IndicatorModuleData,
+): ModuleCheckResult[] {
+  const C = loadCell.ratedOutput;
+  const Uexc = indicator.excitationVoltage;
+  const { reductionRatio: R, numberOfLoadCells: N, deadLoad: DL } = instrument;
+  const Emax = loadCell.maxCapacity;
+  const results: ModuleCheckResult[] = [];
+
+  if (C === undefined || Uexc === undefined || Emax <= 0 || N <= 0) {
+    return [
+      {
+        check: "annexF.input_voltage",
+        passed: true,
+        clause: "R 76-1 Annex F.4 item (8)",
+        detail:
+          "Not evaluated: the load cell's rated output (C) or the indicator's excitation " +
+          "voltage was not supplied, so the minimum input voltage cannot be computed.",
+        required: "C and U_exc",
+        actual: "not stated",
+      },
+    ];
+  }
+
+  // U in millivolts: C is mV/V and U_exc is V, so C x U_exc is already mV.
+  const U = (C * Uexc * R * DL) / (Emax * N);
+  if (indicator.minInputVoltage !== undefined) {
+    results.push({
+      check: "annexF.input_voltage.general",
+      passed: U >= indicator.minInputVoltage - EPS,
+      clause: "R 76-1 Annex F.4 item (8)",
+      detail:
+        `Minimum input voltage on the unloaded instrument: ` +
+        `U = C x U_exc x R x DL / (Emax x N) = ${round(C)} x ${round(Uexc)} x ${round(R)} x ` +
+        `${round(DL)} / (${round(Emax)} x ${N}) = ${round(U)} mV.`,
+      required: `>= ${round(indicator.minInputVoltage)} mV`,
+      actual: `${round(U)} mV`,
+    });
+  }
+
+  // The per-interval signal is small, so the form states it in microvolts per e.
+  const e1 = instrument.ranges[0]?.e;
+  if (indicator.minInputVoltagePerInterval !== undefined && e1 !== undefined) {
+    const uMicrovolts = ((C * Uexc * R * e1) / (Emax * N)) * 1000;
+    results.push({
+      check: "annexF.input_voltage.per_interval",
+      passed: uMicrovolts >= indicator.minInputVoltagePerInterval - EPS,
+      clause: "R 76-1 Annex F.4 item (8)",
+      detail:
+        `Minimum input voltage per verification scale interval: ` +
+        `u = C x U_exc x R x e / (Emax x N) = ${round(uMicrovolts)} uV/e. An indicator that ` +
+        `cannot resolve one interval cannot weigh, whatever its overall signal.`,
+      required: `>= ${round(indicator.minInputVoltagePerInterval)} uV/e`,
+      actual: `${round(uMicrovolts)} uV/e`,
+    });
+  }
+
+  if (results.length === 0) {
+    results.push({
+      check: "annexF.input_voltage",
+      passed: true,
+      clause: "R 76-1 Annex F.4 item (8)",
+      detail:
+        "Not evaluated: the indicator's minimum input voltage requirements were not supplied.",
+      required: "U_min and/or du_min",
+      actual: "not stated",
+    });
+  }
+  return results;
+}
+
+/**
+ * F.4 item (9) — impedance.
+ *
+ * `R_Lmin <= R_LC / N <= R_Lmax`. Load cells are wired in parallel, so N of them present the
+ * indicator with a fraction of one cell's resistance; too low and the indicator overdrives its
+ * excitation supply, too high and the signal is starved.
+ */
+function checkImpedance(
+  instrument: WeighingInstrumentModuleData,
+  loadCell: LoadCellModuleData,
+  indicator: IndicatorModuleData,
+): ModuleCheckResult {
+  const RLC = loadCell.inputResistance;
+  const { minLoadImpedance: lo, maxLoadImpedance: hi } = indicator;
+  const N = instrument.numberOfLoadCells;
+
+  if (RLC === undefined || lo === undefined || hi === undefined || N <= 0) {
+    return {
+      check: "annexF.impedance",
+      passed: true,
+      clause: "R 76-1 Annex F.4 item (9)",
+      detail:
+        "Not evaluated: the load cell's input resistance or the indicator's accepted impedance " +
+        "range was not supplied.",
+      required: "R_Lmin, R_Lmax and R_LC",
+      actual: "not stated",
+    };
+  }
+
+  const presented = RLC / N;
+  return {
+    check: "annexF.impedance",
+    passed: presented >= lo - EPS && presented <= hi + EPS,
+    clause: "R 76-1 Annex F.4 item (9)",
+    detail:
+      `${N} load cell${N === 1 ? "" : "s"} in parallel present R_LC / N = ${round(RLC)} / ${N} = ` +
+      `${round(presented)} ohm to the indicator, which accepts ${round(lo)}-${round(hi)} ohm.`,
+    required: `${round(lo)} <= R_LC/N <= ${round(hi)} ohm`,
+    actual: `${round(presented)} ohm`,
+  };
+}
+
+/**
+ * F.4 item (10) — extension cable.
+ *
+ * `(L / A) <= (L / A)max`, in metres per square millimetre. Length and cross-section only
+ * matter as a ratio because what actually degrades the measurement is the resistance of the
+ * run, and that is proportional to length over area.
+ */
+function checkCableLength(
+  indicator: IndicatorModuleData,
+  cable: CableData | undefined,
+): ModuleCheckResult {
+  const max = indicator.maxCableLengthPerArea;
+
+  if (max === undefined || cable === undefined) {
+    return {
+      check: "annexF.cable_length",
+      passed: true,
+      clause: "R 76-1 Annex F.4 item (10)",
+      detail:
+        "Not evaluated: the cable run or the indicator's maximum length per unit cross-section " +
+        "was not supplied. A load cell with an integral cable that is not extended does not " +
+        "need this check.",
+      required: "(L/A)max and the cable run",
+      actual: "not stated",
+    };
+  }
+
+  if (cable.crossSection <= 0) {
+    return {
+      check: "annexF.cable_length",
+      passed: false,
+      clause: "R 76-1 Annex F.4 item (10)",
+      detail: "The cable cross-section must be greater than zero.",
+      required: "A > 0",
+      actual: String(cable.crossSection),
+    };
+  }
+
+  const ratio = cable.length / cable.crossSection;
+  return {
+    check: "annexF.cable_length",
+    passed: ratio <= max + EPS,
+    clause: "R 76-1 Annex F.4 item (10)",
+    detail:
+      `${round(cable.length)} m of cable at ${round(cable.crossSection)} mm2 per wire gives ` +
+      `L/A = ${round(ratio)} m/mm2.`,
+    required: `<= ${round(max)} m/mm2`,
+    actual: `${round(ratio)} m/mm2`,
+  };
+}
+
 export function checkModuleCompatibility(
   input: ModuleCompatibilityInput,
   pack: RulePack,
 ): { checks: ModuleCheckResult[]; verdict: Verdict } {
-  const { instrument, loadCell, indicator, connecting } = input;
+  const { instrument, loadCell, indicator, connecting, cable } = input;
 
   const typical = (pack.module_error_fractions ?? {}).typical as
     | { load_cell?: number; indicator?: number; connecting?: number }
@@ -468,6 +698,9 @@ export function checkModuleCompatibility(
     ...checkScaleIntervals("loadCell", "(6a)", " / F.2.6", loadCell.maxScaleIntervals, instrument.ranges),
     checkMinDeadLoad(instrument, loadCell),
     checkMinVerificationInterval(instrument, loadCell),
+    ...checkInputVoltage(instrument, loadCell, indicator),
+    checkImpedance(instrument, loadCell, indicator),
+    checkCableLength(indicator, cable),
   ];
 
   if (loadCell.humidityMark === "NH") {

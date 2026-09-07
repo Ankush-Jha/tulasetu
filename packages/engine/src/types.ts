@@ -188,7 +188,12 @@ export interface FormResult {
   notes?: string[];
 }
 
-export type KernelId = "K1" | "K2" | "K3" | "K4" | "K5";
+/**
+ * K6 is not a sixth kind of maths — it is R 76-2 form 7, which checks against fixed multiples
+ * of e rather than against a resolved mpe band and so fits none of the first five.
+ * docs/VERIFIED.md §14 records the four forms that sit outside the reduction.
+ */
+export type KernelId = "K1" | "K2" | "K3" | "K4" | "K5" | "K6";
 
 // ---------------------------------------------------------------------------
 // Engine-wide error reporting

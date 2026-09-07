@@ -303,7 +303,7 @@ say so rather than be caught out:
 | Form | What does not fit |
 |---|---|
 | **5 Repeatability** | Not assigned a kernel in CLAUDE.md. Uses K1's error formula, but adds a *spread* check across ten weighings — `Emax − Emin ≤ \|mpe\|` (§3.6.1) — which matches no kernel. |
-| **7 Stability of equilibrium** | Tagged K4 ("time-delta") but nothing on it is time-based. It is a fixed `≤ 1e` check on raw printed or stored readings, plus a zero-setting check against a fixed **0.25 e** rather than the resolved mpe. |
+| **7 Stability of equilibrium** | Tagged K4 ("time-delta") but nothing on it is time-based. It is a fixed `≤ 1e` check on raw printed or stored readings, plus a zero-setting check against a fixed **0.25 e** rather than the resolved mpe. **Now implemented as K6** — the reduction is 5 kernels + K6 + three special cases. |
 | **8 Tilting** | Not assigned a kernel. K1-shaped, but the *unloaded* check uses a fixed **2 e**, not the mpe; only the loaded check uses mpe. |
 | **14 Span stability** | See §11 — no mpe column at all. |
 
@@ -372,8 +372,16 @@ text by the extraction. Each is flagged in the file rather than guessed silently
   not yet apply it.
 - ❓ The draft 5-part edition's differences (new 12.3(c) surge test, renumbered
   cross-references, checklist moved to Part 4) — needed before the edition-toggle demo.
-- ❓ Form 7 (stability of equilibrium) is not implemented — see §14.
-- ❓ Annex F items (8)–(10) are not implemented — see §13.
+- ✅ ~~Form 7 (stability of equilibrium) is not implemented~~ — **done.** Implemented as **K6**,
+  a sixth kernel, because the form genuinely does not reduce: the printed value must not deviate
+  more than 1 e from the readings over the 5 s after print-out (and §A.4.12 allows no more than
+  two adjacent values, one being the printed one), and zero-setting or tare balancing is checked
+  against a fixed **0.25 e** — not the resolved mpe. Five trials each.
+- ✅ ~~Annex F items (8)–(10) are not implemented~~ — **done.** (8) minimum input voltage, both
+  in general `U = C·U_exc·R·DL/(E_max·N) ≥ U_min` and per scale interval
+  `u = C·U_exc·R·e/(E_max·N) ≥ Δu_min`; (9) impedance `R_Lmin ≤ R_LC/N ≤ R_Lmax`; (10) cable
+  `L/A ≤ (L/A)_max`. All three are *skipped rather than failed* when the certificates do not
+  state the figures — a check that could not be performed is not a check that was passed.
 - ❓ The ½e term at an exact changeover reading. §3.3.3 says the term is ½eᵢ or ½eᵢ₊₁ according
   to the partial range in which the indication `I + e` appears. The engine uses the range of
   the applied load, which differs only at exact boundary changeover readings.

@@ -1,7 +1,7 @@
 {
   "$schema": "./rulepack.schema.json",
   "ruleset_id": "OIML_R76_2006",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "edition": "2007-report-format",
   "description": "OIML R 76-1:2006 requirements + R 76-2:2007 report format. Every value below is traced in docs/VERIFIED.md to a page of docs/standards/OIML_R76-1_2006_requirements.pdf or OIML_R76-2_2007_report_format.pdf.",
   "class_aliases": { "IIII": ["IV"] },
@@ -101,6 +101,14 @@
       "variation_basis": "max(e, |mpe_initial|)",
       "clause": "R 76-1:2006 Annex B.4 / §5.3.3"
     },
+    "stability_of_equilibrium": {
+      "print_deviation_in_e": 1,
+      "max_adjacent_values": 2,
+      "zero_setting_limit_in_e": 0.25,
+      "required_trials": 5,
+      "clause": "R 76-1:2006 §A.4.12 / §4.4.2, and R 76-2:2007 form 7",
+      "note": "Fixed multiples of e, printed on the form itself. The mpe band plays no part in this test."
+    },
     "significant_fault": {
       "threshold": "e",
       "comparison": "strictly greater than",
@@ -119,7 +127,7 @@
     { "id": "repeatability",              "form": "5",    "kernel": "K1", "title": "Repeatability", "clause": "R 76-1:2006 §3.6.1", "applies": { "always": true }, "extra": "In addition to |Ec| <= mpe per row, the spread across repeated weighings must satisfy Emax - Emin <= |mpe| (§3.6.1). The spread check is not covered by any of the five kernels — see docs/VERIFIED.md." },
     { "id": "zero_return",                "form": "6.1",  "kernel": "K4", "title": "Zero return", "clause": "R 76-1:2006 §3.9.4.2", "applies": { "always": true } },
     { "id": "creep",                      "form": "6.2",  "kernel": "K4", "title": "Creep", "clause": "R 76-1:2006 §4.6", "applies": { "always": true } },
-    { "id": "stability_of_equilibrium",   "form": "7",    "kernel": "K4", "title": "Stability of equilibrium", "clause": "R 76-1:2006 A.4.12", "applies": { "has_print_or_storage": true }, "note": "Not implemented. Its acceptance is not time-based and does not fit K4: a fixed <= 1e check on raw printed or stored readings, plus a zero-setting check against a fixed 0.25e rather than the resolved mpe. Tracked in docs/VERIFIED.md." },
+    { "id": "stability_of_equilibrium",   "form": "7",    "kernel": "K6", "title": "Stability of equilibrium", "clause": "R 76-1:2006 A.4.12", "applies": { "has_print_or_storage": true }, "note": "Checked against fixed multiples of e, never the resolved mpe: the printed value must not deviate more than 1e from the readings over the 5 s following print-out (and no more than two adjacent values may be indicated), and zero-setting or tare balancing must satisfy |E0| <= 0.25e. Five trials each." },
     { "id": "tilting",                    "form": "8",    "kernel": "K1", "title": "Tilting", "clause": "R 76-1:2006 §3.9.1", "applies": { "class_in": ["II", "III", "IIII"], "tiltable": true }, "note": "The unloaded check uses a fixed 2e threshold, not the resolved mpe; only the loaded check uses mpe." },
     { "id": "tare",                       "form": "9",    "kernel": "K1", "title": "Tare (weighing test)", "clause": "R 76-1:2006 §3.5.3.4", "applies": { "has_tare": true } },
     { "id": "warm_up",                    "form": "10",   "kernel": "K1", "title": "Warm-up time", "clause": "R 76-1:2006 §5.3.1", "applies": { "electronic": true } },

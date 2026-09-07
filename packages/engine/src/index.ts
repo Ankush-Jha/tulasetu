@@ -63,3 +63,7 @@ export {
   type K4SpanStabilityResult,
 } from "./kernels/k4.js";
 export * from "./kernels/k5.js";
+
+// K6 exists because R 76-2 form 7 does not reduce to the other five: it is two checks against
+// fixed multiples of e that never consult the resolved mpe. See docs/VERIFIED.md §14.
+export * from "./kernels/k6.js";
