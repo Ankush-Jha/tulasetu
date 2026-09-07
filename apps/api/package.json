@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@tulasetu/engine": "*",
-    "better-sqlite3": "^11.5.0",
-    "fastify": "^5.1.0",
-    "@tulasetu/renderers": "*"
+    "@tulasetu/renderers": "*",
+    "better-sqlite3": "^13.0.3",
+    "fastify": "^5.1.0"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.11",

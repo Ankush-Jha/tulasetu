@@ -309,6 +309,13 @@ export function ProfileStep() {
             profile={profile}
             step={step.id}
             report={detail.report}
+            onJumpToStep={(id) => {
+              const i = WIZARD_STEPS.findIndex((s) => s.id === id);
+              if (i >= 0) setStepIndex(i);
+            }}
+            onFixRangeMin={(rangeIndex, requiredGrams) => {
+              setRange(rangeIndex, { min: String(gramsToUnit(requiredGrams, unit)) });
+            }}
           />
         </div>
       </div>
@@ -834,16 +841,23 @@ function LivePanel({
   profile,
   step,
   report,
+  onJumpToStep,
+  onFixRangeMin,
 }: {
   preview: ReturnType<typeof useProfilePreview>;
   unit: string;
   profile: InstrumentProfileShape;
   step: string;
   report: { lab_id: string; created_at: string; profile: string };
+  onJumpToStep: (stepId: string) => void;
+  onFixRangeMin: (rangeIndex: number, requiredGrams: number) => void;
 }) {
   // Step 1 is about identity, so the panel says what that identity will become rather than
-  // showing bands for ranges the officer has not reached yet.
+  // showing bands for ranges the officer has not reached yet. But a blocking finding raised on
+  // a step the officer has already left does not stop existing — silence here would read as
+  // "nothing is wrong" when something still is.
   if (step === "identity") {
+    const carriedErrors = (preview.data?.issues ?? []).filter((i) => i.severity === "error");
     return (
       <Card elevation="raised" className="xl:sticky xl:top-[92px]">
         <h2 className="text-label-lg text-on-surface mb-3">What this becomes</h2>
@@ -852,6 +866,18 @@ function LivePanel({
           show. Twelve of sixteen sampled certificates name the manufacturer and model exactly as
           they were entered here.
         </p>
+        {carriedErrors.length > 0 && (
+          <button
+            onClick={() => onJumpToStep(carriedErrors[0]!.path?.startsWith("ranges") ? "metrology" : "construction")}
+            className="mt-3 flex w-full items-start gap-2 rounded-xl bg-error-container/50 p-3 text-left transition-colors hover:bg-error-container/70"
+          >
+            <Icon name="error" size={16} className="mt-0.5 shrink-0 text-on-error-container" />
+            <span className="text-body-sm text-on-error-container">
+              {carriedErrors.length} blocking finding{carriedErrors.length === 1 ? "" : "s"} further
+              on — this step is fine, but the report cannot be saved until they are fixed.
+            </span>
+          </button>
+        )}
         <div className="mt-4 rounded-xl border border-outline-variant/50 p-3.5">
           <p className="text-label-sm uppercase tracking-wider text-on-surface-variant">
             On the certificate
@@ -899,15 +925,52 @@ function LivePanel({
         {preview.pending && <Spinner size={14} className="text-on-surface-variant" />}
       </div>
 
-      {/* The verdict on the combination, in one line. */}
+      {/*
+        The verdict on the combination, in one line — and each finding is a way out of it, not
+        just a description of it. A Table 3 minimum-capacity shortfall is arithmetic the engine
+        already did (the required value is right there in the message); asking the officer to
+        re-derive it and retype it is friction the panel can remove. Everything else at least
+        says which step owns it, so "fix this" does not mean "go hunting".
+      */}
       {errors.length > 0 ? (
         <div className="rounded-xl bg-error-container/50 p-3">
           <p className="flex items-center gap-1.5 text-label-md text-on-error-container">
             <Icon name="error" size={16} />
             {errors.length} blocking finding{errors.length === 1 ? "" : "s"}
           </p>
-          <ul className="mt-1.5 flex flex-col gap-1 text-body-sm text-on-surface">
-            {errors.map((i, k) => <li key={k}>{i.message}</li>)}
+          <ul className="mt-1.5 flex flex-col gap-2 text-body-sm text-on-surface">
+            {errors.map((issue, k) => {
+              const rangeIndex = parseRangeIndex(issue.path);
+              const requiredGrams =
+                issue.code === "E_MIN_CAPACITY_TOO_LOW" ? parseRequiredMinGrams(issue.message) : null;
+              const ownerStep =
+                issue.path?.startsWith("ranges") ? "metrology"
+                : issue.code?.startsWith("E_SWID") ? "construction"
+                : null;
+              return (
+                <li key={k} className="flex flex-col items-start gap-1">
+                  <span>{issue.message}</span>
+                  <span className="flex flex-wrap gap-1.5">
+                    {rangeIndex !== null && requiredGrams !== null && (
+                      <button
+                        onClick={() => onFixRangeMin(rangeIndex, requiredGrams)}
+                        className="rounded-full bg-on-error-container/10 px-2.5 py-1 text-label-sm font-semibold text-on-error-container transition-colors hover:bg-on-error-container/20"
+                      >
+                        Set Min to {fmtNumber(gramsToUnit(requiredGrams, unit))} {unit}
+                      </button>
+                    )}
+                    {ownerStep && ownerStep !== step && (
+                      <button
+                        onClick={() => onJumpToStep(ownerStep)}
+                        className="rounded-full px-2.5 py-1 text-label-sm text-on-error-container underline decoration-dotted underline-offset-2 transition-colors hover:bg-on-error-container/10"
+                      >
+                        Go to {ownerStep}
+                      </button>
+                    )}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         </div>
       ) : data ? (
@@ -1023,6 +1086,37 @@ function LivePanel({
       )}
     </Card>
   );
+}
+
+// ---------------------------------------------------------------------------
+// Turning a finding into a fix
+// ---------------------------------------------------------------------------
+
+/** Grams-per-unit, mirroring the engine's own toGrams (packages/engine/src/applicability.ts). */
+const UNIT_FACTOR: Record<string, number> = { mg: 0.001, g: 1, kg: 1000, t: 1_000_000 };
+
+function gramsToUnit(grams: number, unit: string): number {
+  const factor = UNIT_FACTOR[unit] ?? 1;
+  // Round to a sane number of decimals rather than carrying float noise into the field —
+  // an officer typing "20" should not get back "19.999999999998".
+  return Math.round((grams / factor) * 1e6) / 1e6;
+}
+
+/** validate.ts's path shape is `ranges[i].min` — pull the index back out. */
+function parseRangeIndex(path?: string): number | null {
+  const m = path?.match(/^ranges\[(\d+)\]/);
+  return m ? Number(m[1]) : null;
+}
+
+/**
+ * validate.ts's E_MIN_CAPACITY_TOO_LOW message ends "... required <n>e = <grams> g for class
+ * <cls>." — the engine already did the multiplication; this reads the answer back out rather
+ * than re-deriving it client-side, which would risk disagreeing with the engine that actually
+ * decides.
+ */
+function parseRequiredMinGrams(message: string): number | null {
+  const m = message.match(/=\s*([\d.]+)\s*g for class/);
+  return m ? Number(m[1]) : null;
 }
 
 // ---------------------------------------------------------------------------

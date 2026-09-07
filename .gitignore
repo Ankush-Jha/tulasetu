@@ -19,3 +19,11 @@ apps/web/dist/
 apps/web/tsconfig.tsbuildinfo
 tulasetu.db*
 attachments/
+
+# Vercel CLI's local project link + pulled env — machine-specific, never shared.
+.vercel/
+# The bundled function scripts/build-api.mjs produces from api/_src/handler.ts. Generated on
+# every deploy by vercel.json's installCommand; committing it would let it drift from the
+# source it's built from, which is exactly the stale-build-artifact failure mode this repo
+# already learned from once (see tsconfig.json's note on the same subject).
+api/handler.mjs

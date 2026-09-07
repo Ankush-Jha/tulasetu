@@ -46,21 +46,45 @@ const NAMED_PACKS: Record<string, string> = {
 };
 
 export function buildServer(
-  opts: { dbPath?: string; rulepackPath?: string; attachmentRoot?: string } = {},
+  opts: {
+    dbPath?: string;
+    rulepackPath?: string;
+    attachmentRoot?: string;
+    /**
+     * A pre-parsed rule pack, taking priority over `rulepackPath`. `ROOT` above is computed from
+     * this file's own `import.meta.url`, which only points at the real source tree when this
+     * file is running from *that* tree — a bundled deployment (scripts/build-api.mjs) flattens
+     * every module into one file, at which point `import.meta.url` names the bundle's own
+     * location and `ROOT` stops meaning anything. The bundler works around exactly this by
+     * `import`ing the pack JSON at build time (inlined by esbuild's JSON loader) and handing the
+     * parsed object straight in here, so no path is ever resolved from ROOT.
+     */
+    rulepack?: RulePack;
+    /** Same reasoning as `rulepack`, for the checklist bank. */
+    checklists?: unknown;
+    /** Same reasoning again, for `db/open.ts`'s `schema.sql` — see `openDb`'s `schemaSql` param. */
+    schemaSql?: string;
+  } = {},
 ): Server {
-  const named = process.env["TULASETU_RULESET"];
-  const packPath =
-    opts.rulepackPath ??
-    process.env["TULASETU_RULEPACK"] ??
-    join(ROOT, (named && NAMED_PACKS[named]) || NAMED_PACKS["oiml"]!);
+  let pack: RulePack;
+  let packPath = "(supplied directly)";
+  if (opts.rulepack) {
+    pack = opts.rulepack;
+  } else {
+    const named = process.env["TULASETU_RULESET"];
+    packPath =
+      opts.rulepackPath ??
+      process.env["TULASETU_RULEPACK"] ??
+      join(ROOT, (named && NAMED_PACKS[named]) || NAMED_PACKS["oiml"]!);
 
-  if (named && !NAMED_PACKS[named]) {
-    throw new Error(
-      `TULASETU_RULESET=${named} is not a known rule pack. Use one of: ` +
-        `${Object.keys(NAMED_PACKS).join(", ")}, or set TULASETU_RULEPACK to a file path.`,
-    );
+    if (named && !NAMED_PACKS[named]) {
+      throw new Error(
+        `TULASETU_RULESET=${named} is not a known rule pack. Use one of: ` +
+          `${Object.keys(NAMED_PACKS).join(", ")}, or set TULASETU_RULEPACK to a file path.`,
+      );
+    }
+    pack = JSON.parse(readFileSync(packPath, "utf8")) as RulePack;
   }
-  const pack = JSON.parse(readFileSync(packPath, "utf8")) as RulePack;
 
   // Refuse to serve from a malformed pack. Every number in every report comes from this file;
   // starting anyway would produce reports that look authoritative and are not.
@@ -74,16 +98,21 @@ export function buildServer(
 
   // The checklist bank is optional: a rule pack without one still serves reports, and the
   // /checklists route says so rather than the server failing to start.
-  let checklists: unknown;
-  try {
-    checklists = JSON.parse(
-      readFileSync(join(ROOT, "packages/rulepacks/checklists/R76-2_2007_checklist.json"), "utf8"),
-    );
-  } catch {
-    checklists = undefined;
+  let checklists: unknown = opts.checklists;
+  if (checklists === undefined && !opts.rulepack) {
+    try {
+      checklists = JSON.parse(
+        readFileSync(join(ROOT, "packages/rulepacks/checklists/R76-2_2007_checklist.json"), "utf8"),
+      );
+    } catch {
+      checklists = undefined;
+    }
   }
 
-  const db = openDb(opts.dbPath ?? process.env["TULASETU_DB"] ?? join(ROOT, "tulasetu.db"));
+  const db = openDb(
+    opts.dbPath ?? process.env["TULASETU_DB"] ?? join(ROOT, "tulasetu.db"),
+    opts.schemaSql,
+  );
   const attachmentRoot =
     opts.attachmentRoot ?? process.env["TULASETU_ATTACHMENTS"] ?? join(ROOT, "attachments");
 

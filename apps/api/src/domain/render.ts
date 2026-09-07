@@ -47,6 +47,22 @@ interface ChecklistBank {
   checklists: { id: string; title: string; items: { ref: string; text: string }[] }[];
 }
 
+/**
+ * Seed the two caches below directly, bypassing the `ROOT`-relative `readFileSync` entirely.
+ *
+ * `ROOT` is computed from this file's own `import.meta.url`, which only names the real
+ * `packages/rulepacks/` location when this file is running from the source tree. A bundled
+ * deployment (scripts/build-api.mjs) flattens every module into one output file, so at runtime
+ * `import.meta.url` names that bundle's own path and `ROOT` stops meaning anything — the same
+ * problem `buildServer`'s `rulepack`/`checklists` options solve for the rule pack. The bundler
+ * calls this once at cold start with both files `import`ed (inlined by esbuild's JSON loader at
+ * build time), so neither cache ever needs `readFileSync` to run.
+ */
+export function primeFormsAndChecklists(forms: FormsFile, checklists: ChecklistBank | null): void {
+  formsFileCache = forms;
+  checklistBankCache = checklists;
+}
+
 /** The transcribed R 76-2 §17 item bank. Optional: a pack may ship without one. */
 export function loadChecklistBank(path?: string): ChecklistBank | null {
   if (checklistBankCache && !path) return checklistBankCache;

@@ -13,24 +13,32 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 
 export type Db = Database.Database;
 
-export function openDb(path = "tulasetu.db"): Db {
+export function openDb(path = "tulasetu.db", schemaSql?: string): Db {
   const db = new Database(path);
   db.pragma("journal_mode = WAL");
   db.pragma("foreign_keys = ON");
-  migrate(db);
+  migrate(db, schemaSql);
   return db;
 }
 
 /** In-memory database, for tests. */
-export function openMemoryDb(): Db {
+export function openMemoryDb(schemaSql?: string): Db {
   const db = new Database(":memory:");
   db.pragma("foreign_keys = ON");
-  migrate(db);
+  migrate(db, schemaSql);
   return db;
 }
 
-export function migrate(db: Db): void {
-  db.exec(readFileSync(join(HERE, "schema.sql"), "utf8"));
+/**
+ * `schemaSql`, when supplied, replaces the `readFileSync` below. A bench install and the test
+ * suite both run from the source tree, where `schema.sql` sits next to this file and reading it
+ * by path is the natural thing to do. A bundled deployment (see scripts/build-api.mjs) is a
+ * single flattened file with no such neighbour on disk — there, the caller reads schema.sql at
+ * *build* time (import, inlined as a string by esbuild's text loader) and hands the content
+ * straight through, so this function needs no idea which situation it is in.
+ */
+export function migrate(db: Db, schemaSql?: string): void {
+  db.exec(schemaSql ?? readFileSync(join(HERE, "schema.sql"), "utf8"));
   seedRoles(db);
 }
 

@@ -82,6 +82,9 @@ function safeJson(text: string): unknown {
   try {
     return JSON.parse(text);
   } catch {
+    if (text.trim().startsWith("<")) {
+      throw new Error("Received HTML instead of JSON. The API backend is not reachable.");
+    }
     return text;
   }
 }

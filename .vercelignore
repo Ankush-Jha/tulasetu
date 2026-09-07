@@ -1,0 +1,21 @@
+# What Vercel actually needs to build and run this: the workspaces, the root manifests, and
+# the serverless function. Everything else here is design reference, docs, or generated output —
+# and at 400MB+ combined (mostly "ui ux" and node_modules) it was what made the upload itself
+# time out before any build ever started.
+node_modules/
+apps/*/node_modules/
+packages/*/node_modules/
+ui ux/
+stitch_tulasetu_metrology_ui_suite/
+stitch_tulasetu_metrology_ui_suite 2/
+stitch_tulasetu_metrology_ui_suite (2).zip
+docs/
+out/
+tools/
+coverage/
+apps/web/dist/
+apps/*/dist/
+*.tsbuildinfo
+tulasetu.db*
+attachments/
+.git/
