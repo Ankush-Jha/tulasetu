@@ -6,15 +6,21 @@
  * non-self-indicating instruments, 17.2 direct sales and price computing, 17.3 electronic
  * instruments, 17.4 software-controlled ones.
  *
- * Answers are held in the browser for now and are not yet posted to the append-only log — the
- * page says so rather than implying the responses have been recorded. Everything else here is
- * live: the item bank comes from the server, and applicability is derived from the profile.
+ * Answers are written to the append-only log, so they appear on the generated report and carry
+ * the date and person who recorded them. Changing an answer appends a new entry rather than
+ * overwriting the old one — the amendment is dated and attributed, and the original survives
+ * (ISO/IEC 17025 §7.8).
+ *
+ * Items are addressed by their position within the checklist, not by the clause they cite:
+ * several items legitimately cite the same clause, and keying on the reference would let one
+ * answer stand for questions nobody answered.
  */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Badge,
+  Button,
   Card,
   CardHeader,
   Clause,
@@ -26,7 +32,8 @@ import {
   Stat,
 } from "../../components/ui";
 import { cn } from "../../lib/cn";
-import { useApi } from "../../lib/useApi";
+import { api } from "../../lib/api";
+import { useApi, useMutation } from "../../lib/useApi";
 import { NeedsProfile, useReport, type InstrumentProfileShape } from "./ReportLayout";
 
 interface ChecklistItem {
@@ -62,18 +69,33 @@ function applicableChecklists(p: InstrumentProfileShape): Record<string, string 
 }
 
 export function ChecklistStep() {
-  const { instrument } = useReport();
+  const { reportId, instrument } = useReport();
+
   const bank = useApi<ChecklistBank>(
-    (s) => fetch("/api/checklists", { signal: s }).then((r) => {
-      if (!r.ok) throw new Error(`Checklist bank unavailable (${r.status}).`);
-      return r.json() as Promise<ChecklistBank>;
-    }),
+    (s) =>
+      fetch("/api/checklists", { signal: s }).then((r) => {
+        if (!r.ok) throw new Error(`Checklist bank unavailable (${r.status}).`);
+        return r.json() as Promise<ChecklistBank>;
+      }),
     [],
   );
+  const saved = useApi((s) => api.checklistAnswers(reportId, s), [reportId]);
+  const save = useMutation(api.saveChecklistAnswers);
 
+  /** Working answers, keyed `checklistId#index`. */
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
+  const [dirty, setDirty] = useState<Set<string>>(new Set());
   const [filter, setFilter] = useState("");
   const [active, setActive] = useState<string | null>(null);
+
+  // Seed from what is already recorded, so returning to the step shows the report's state.
+  useEffect(() => {
+    if (!saved.data) return;
+    const seeded: Record<string, Answer> = {};
+    for (const a of saved.data) seeded[`${a.checklist_id}#${a.item_index}`] = a.answer;
+    setAnswers(seeded);
+    setDirty(new Set());
+  }, [saved.data]);
 
   const applicability = useMemo(
     () => (instrument ? applicableChecklists(instrument) : {}),
@@ -81,7 +103,7 @@ export function ChecklistStep() {
   );
 
   if (!instrument) return <NeedsProfile />;
-  if (bank.loading) return <LoadingState label="Loading the checklist bank…" />;
+  if (bank.loading || saved.loading) return <LoadingState label="Loading the checklist…" />;
   if (bank.error) return <ErrorState error={bank.error} onRetry={bank.reload} />;
   if (!bank.data) return null;
 
@@ -90,9 +112,6 @@ export function ChecklistStep() {
   const current = lists.find((l) => l.id === currentId);
   const naReason = applicability[currentId];
 
-  // Index within the checklist, carried alongside the item: several items legitimately cite
-  // the same clause reference, so the ref alone does not identify one. Keying answers on it
-  // would make a single click answer every item that shares it.
   const indexed = (current?.items ?? []).map((item, index) => ({ item, index }));
   const items = indexed.filter(({ item }) =>
     filter
@@ -105,6 +124,35 @@ export function ChecklistStep() {
   const totalApplicable = lists
     .filter((l) => applicability[l.id] === null)
     .reduce((n, l) => n + l.items.length, 0);
+  const totalAnswered = Object.keys(answers).length;
+
+  const dirtyHere = [...dirty].filter((k) => k.startsWith(`${currentId}#`));
+
+  function setAnswer(key: string, value: Answer) {
+    setAnswers((a) => ({ ...a, [key]: value }));
+    setDirty((d) => new Set(d).add(key));
+  }
+
+  async function saveCurrent() {
+    if (!current || dirtyHere.length === 0) return;
+    const payload = dirtyHere.map((key) => {
+      const index = Number(key.split("#")[1]);
+      return {
+        index,
+        ref: current.items[index]?.ref ?? "",
+        answer: answers[key]!,
+      };
+    });
+    const result = await save.run(reportId, currentId, payload);
+    if (result) {
+      setDirty((d) => {
+        const next = new Set(d);
+        for (const k of dirtyHere) next.delete(k);
+        return next;
+      });
+      saved.reload();
+    }
+  }
 
   return (
     <div className="flex flex-col gap-5">
@@ -112,23 +160,21 @@ export function ChecklistStep() {
         <Stat label="Items in the bank" value={lists.reduce((n, l) => n + l.items.length, 0)} icon="fact_check" />
         <Stat label="Applicable to this instrument" value={totalApplicable} icon="checklist" tone="info" />
         <Stat
-          label="Answered on this checklist"
-          value={`${answered} / ${current?.items.length ?? 0}`}
+          label="Recorded"
+          value={`${totalAnswered} / ${totalApplicable}`}
           icon="edit_note"
+          tone={totalAnswered > 0 ? "pass" : "neutral"}
         />
       </div>
 
-      <Alert tone="warn" icon="draft" title="Answers are not yet recorded">
-        Checklist responses are held in this browser only. They are not written to the
-        append-only log, so they will not appear on the generated report and will be lost on
-        refresh. The item bank, and which checklists apply, are live.
-      </Alert>
+      {save.error && <Alert tone="fail" title="Could not save">{save.error}</Alert>}
 
       {/* Checklist tabs */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         {lists.map((l) => {
           const excluded = applicability[l.id];
           const isActive = l.id === currentId;
+          const pending = [...dirty].some((k) => k.startsWith(`${l.id}#`));
           return (
             <button
               key={l.id}
@@ -144,6 +190,7 @@ export function ChecklistStep() {
               <span className="font-mono text-label-md font-semibold">{l.id}</span>
               <span className="text-label-md">{l.items.length}</span>
               {excluded ? <Badge tone="neutral">– –</Badge> : <Badge tone="info">applies</Badge>}
+              {pending && <Badge tone="warn" icon="edit">unsaved</Badge>}
             </button>
           );
         })}
@@ -154,7 +201,22 @@ export function ChecklistStep() {
           <CardHeader
             icon="fact_check"
             title={`${currentId} — ${current?.title ?? ""}`}
-            description={`${current?.items.length ?? 0} items, transcribed verbatim from R 76-2 §17`}
+            description={`${answered} of ${current?.items.length ?? 0} answered · transcribed verbatim from R 76-2 §17`}
+            action={
+              !naReason ? (
+                <Button
+                  variant="primary"
+                  icon="save"
+                  loading={save.pending}
+                  disabled={dirtyHere.length === 0}
+                  onClick={saveCurrent}
+                >
+                  {dirtyHere.length === 0
+                    ? "Saved"
+                    : `Record ${dirtyHere.length} answer${dirtyHere.length === 1 ? "" : "s"}`}
+                </Button>
+              ) : undefined
+            }
           />
           {naReason ? (
             <Alert tone="neutral" icon="do_not_disturb_on" title="Not applicable to this instrument">
@@ -182,8 +244,15 @@ export function ChecklistStep() {
               {items.map(({ item, index }) => {
                 const key = `${currentId}#${index}`;
                 const answer = answers[key];
+                const unsaved = dirty.has(key);
                 return (
-                  <li key={key} className="flex flex-wrap items-start gap-3 px-5 py-3">
+                  <li
+                    key={key}
+                    className={cn(
+                      "flex flex-wrap items-start gap-3 px-5 py-3",
+                      unsaved && "bg-[#FEF3C7]/30",
+                    )}
+                  >
                     <span className="w-20 shrink-0 font-mono text-body-sm text-on-surface-variant">
                       {item.ref}
                     </span>
@@ -202,7 +271,7 @@ export function ChecklistStep() {
                       {(["yes", "no", "na"] as const).map((v) => (
                         <button
                           key={v}
-                          onClick={() => setAnswers((a) => ({ ...a, [key]: v }))}
+                          onClick={() => setAnswer(key, v)}
                           aria-pressed={answer === v}
                           className={cn(
                             "h-8 min-w-[44px] rounded-lg border px-2 text-label-md font-semibold transition-colors",
@@ -227,8 +296,10 @@ export function ChecklistStep() {
       </Card>
 
       <p className="text-body-sm text-on-surface-variant">
-        <Clause>{bank.data.source}</Clause> — six items across the bank are marked as uncertain
-        where the PDF extraction was ambiguous; they are flagged in place rather than guessed.
+        <Clause>{bank.data.source}</Clause> — answers are appended, never overwritten: changing
+        one records a new, dated entry and the original stays in the log. Six items across the
+        bank are marked uncertain where the PDF extraction was ambiguous; they are flagged in
+        place rather than guessed.
       </p>
     </div>
   );

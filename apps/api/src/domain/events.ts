@@ -20,6 +20,8 @@ export const EVENT_TYPES = [
   "FORM_RESULT_COMPUTED",
   "ENVIRONMENT_RECORDED",
   "ATTACHMENT_ADDED",
+  "REPORT_RENDERED",
+  "CHECKLIST_ANSWERED",
   "DEFICIENCY_RAISED",
   "DEFICIENCY_RESOLVED",
   "NOTE_ADDED",
@@ -121,6 +123,10 @@ export function rebuildProjection(db: Db, reportId: string): ReportProjection | 
   const forms = new Map<string, FormRow>();
   const formKey = (formId: string, rangeIndex: number | null) => `${formId}#${rangeIndex ?? 0}`;
 
+  // Checklist answers, keyed checklist#index. Later answers supersede earlier ones — the
+  // original stays in the log, which is what ISO/IEC 17025 §7.8 actually asks for.
+  const checklistAnswers = new Map<string, { checklist_id: string; item_index: number; item_ref: string; answer: string; remark: string | null; updated_at: string }>();
+
   for (const e of events) {
     const p = JSON.parse(e.payload) as Record<string, any>;
     state.version = e.version;
@@ -188,6 +194,20 @@ export function rebuildProjection(db: Db, reportId: string): ReportProjection | 
         break;
       }
 
+      case "CHECKLIST_ANSWERED": {
+        for (const a of (p["answers"] ?? []) as any[]) {
+          checklistAnswers.set(`${p["checklistId"]}#${a.index}`, {
+            checklist_id: p["checklistId"],
+            item_index: a.index,
+            item_ref: a.ref ?? "",
+            answer: a.answer,
+            remark: a.remark ?? null,
+            updated_at: e.recorded_at,
+          });
+        }
+        break;
+      }
+
       case "SUBMITTED_FOR_REVIEW":
         state.submitted_at = e.recorded_at;
         break;
@@ -231,6 +251,16 @@ export function rebuildProjection(db: Db, reportId: string): ReportProjection | 
           fee_paid_inr=excluded.fee_paid_inr, locked_hash=excluded.locked_hash,
           version=excluded.version`,
     ).run(state as unknown as Record<string, unknown>);
+
+    db.prepare("DELETE FROM report_checklist_answers WHERE report_id = ?").run(reportId);
+    const insAnswer = db.prepare(
+      `INSERT INTO report_checklist_answers
+         (report_id, checklist_id, item_index, item_ref, answer, remark, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    );
+    for (const a of checklistAnswers.values()) {
+      insAnswer.run(reportId, a.checklist_id, a.item_index, a.item_ref, a.answer, a.remark, a.updated_at);
+    }
 
     db.prepare("DELETE FROM report_forms WHERE report_id = ?").run(reportId);
     const ins = db.prepare(

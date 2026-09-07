@@ -33,6 +33,7 @@ import type { Db } from "../db/open.js";
 import { appendEvent, verifyChain, readEvents } from "../db/events.js";
 import { rebuildProjection, type ReportProjection } from "./events.js";
 import { canTransition, type Guard, type ReportState, type RoleId } from "./lifecycle.js";
+import { renderReport, type RenderFormat, type RenderedReport } from "./render.js";
 import { can, canReadReport, canWriteReport, type Principal } from "./rbac.js";
 
 export class ServiceError extends Error {
@@ -373,13 +374,35 @@ export function satisfiedGuards(ctx: ServiceContext, reportId: string): Guard[] 
     guards.push("all_applicable_forms_complete");
   }
 
-  // Blocking issues are error-severity findings from the most recent profile or observation
-  // event. Warnings do not block; an officer may knowingly proceed past one.
-  const blocking = readEvents(ctx.db, reportId).some((e) => {
-    if (e.event_type !== "PROFILE_UPDATED" && e.event_type !== "OBSERVATIONS_RECORDED") return false;
-    const p = JSON.parse(e.payload) as { issues?: Issue[] };
-    return (p.issues ?? []).some((i) => i.severity === "error");
-  });
+  // Blocking issues are error-severity findings that still stand.
+  //
+  // "Still stand" is the whole subtlety. The log is append-only, so a superseded entry is
+  // still in it — but it has been amended, and ISO/IEC 17025 §7.8 asks that the original be
+  // *retained*, not that it keep governing. Scanning every historical event would mean an
+  // officer who once recorded a bad checksum could never validate the report again, however
+  // many times they corrected it. So only the latest profile, and the latest observations per
+  // form, are consulted.
+  //
+  // Warnings never block; an officer may knowingly proceed past one.
+  const events = readEvents(ctx.db, reportId);
+
+  const latestProfile = [...events].reverse().find((e) => e.event_type === "PROFILE_UPDATED");
+  const latestObservationsByForm = new Map<string, Issue[]>();
+  for (const e of events) {
+    if (e.event_type !== "OBSERVATIONS_RECORDED") continue;
+    const p = JSON.parse(e.payload) as { formId?: string; issues?: Issue[] };
+    if (p.formId) latestObservationsByForm.set(p.formId, p.issues ?? []);
+  }
+
+  const profileIssues = latestProfile
+    ? ((JSON.parse(latestProfile.payload) as { issues?: Issue[] }).issues ?? [])
+    : [];
+
+  const blocking =
+    profileIssues.some((i) => i.severity === "error") ||
+    [...latestObservationsByForm.values()].some((issues) =>
+      issues.some((i) => i.severity === "error"),
+    );
   if (!blocking) guards.push("no_blocking_validation_issues");
 
   const open = ctx.db
@@ -439,6 +462,147 @@ export function transitionReport(
   });
 
   return rebuildProjection(ctx.db, reportId)!;
+}
+
+/**
+ * Render a report, and record that it was rendered.
+ *
+ * The rendering itself is a read, but it is *logged*, because a report leaving the building is
+ * an event a laboratory needs in its history — "which copy did the applicant receive, and when"
+ * is exactly the question a dispute turns on. The hash of the produced bytes goes into the log
+ * with it, so any copy can later be matched back to the render that made it.
+ */
+export async function renderReportForDownload(
+  ctx: ServiceContext,
+  principal: Principal,
+  reportId: string,
+  format: RenderFormat,
+): Promise<RenderedReport> {
+  const report = getReport(ctx, principal, reportId);
+
+  let rendered: RenderedReport;
+  try {
+    rendered = await renderReport(ctx.db, report, format, { generatedAt: ctx.now });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    if (format === "pdf" && /executable doesn't exist|browserType\.launch/i.test(message)) {
+      throw new ServiceError(
+        503,
+        "RENDERER_UNAVAILABLE",
+        "PDF rendering needs Chromium, which is not installed on this server. " +
+          "Run `npx playwright install chromium`, or download the DOCX or JSON instead.",
+      );
+    }
+    throw new ServiceError(500, "RENDER_FAILED", `Could not render the ${format}: ${message}`);
+  }
+
+  appendEvent(ctx.db, {
+    reportId,
+    eventType: "REPORT_RENDERED",
+    actorId: principal.userId,
+    recordedAt: ctx.now,
+    payload: { format, sha256: rendered.sha256, byteLength: rendered.bytes.byteLength },
+  });
+  rebuildProjection(ctx.db, reportId);
+
+  return rendered;
+}
+
+/**
+ * Render the PDF and lock the report to it in one step.
+ *
+ * Deliberately one operation. Rendering and locking as two calls leaves a window in which the
+ * report could change between them, and the hash recorded would then belong to a document
+ * nobody has — which is precisely the failure the hash exists to prevent.
+ */
+export async function renderAndLock(
+  ctx: ServiceContext,
+  principal: Principal,
+  reportId: string,
+): Promise<{ report: ReportProjection; sha256: string }> {
+  const before = getReport(ctx, principal, reportId);
+  if (!can(principal, "report:lock")) {
+    throw forbidden(`Role ${principal.role} cannot lock a report.`);
+  }
+
+  // Check the move is legal *before* rendering, so a refusal costs nothing and the officer
+  // gets the state machine's own explanation.
+  const check = canTransition(
+    before.status as ReportState,
+    "LOCKED",
+    principal.role as RoleId,
+    [...satisfiedGuards(ctx, reportId), "final_pdf_rendered"],
+  );
+  if (!check.allowed) throw forbidden(check.reason ?? "The report cannot be locked yet.");
+
+  const rendered = await renderReportForDownload(ctx, principal, reportId, "pdf");
+  const report = transitionReport(ctx, principal, reportId, {
+    to: "LOCKED",
+    pdfSha256: rendered.sha256,
+  });
+  return { report, sha256: rendered.sha256 };
+}
+
+export interface ChecklistAnswerInput {
+  checklistId: string;
+  answers: { index: number; ref?: string; answer: "yes" | "no" | "na"; remark?: string }[];
+}
+
+/**
+ * Record checklist responses.
+ *
+ * Answers are appended, not replaced. Changing an answer emits a new event and the projection
+ * takes the later one; the earlier answer stays in the log, which is what ISO/IEC 17025 §7.8
+ * asks for — the original is retained, the amendment is dated and attributed.
+ *
+ * Items are addressed by their index within the checklist rather than by the clause they cite,
+ * because several items legitimately cite the same clause. Keying on the reference would let
+ * one answer silently stand for several questions.
+ */
+export function recordChecklistAnswers(
+  ctx: ServiceContext,
+  principal: Principal,
+  reportId: string,
+  input: ChecklistAnswerInput,
+): { recorded: number } {
+  const report = getReport(ctx, principal, reportId);
+  const write = canWriteReport(principal, report, "report:record_observations");
+  if (!write.allowed) throw forbidden(write.reason ?? "Cannot record checklist answers.");
+
+  if (!input.checklistId) throw badRequest("NO_CHECKLIST", "checklistId is required.");
+  if (!Array.isArray(input.answers) || input.answers.length === 0) {
+    throw badRequest("NO_ANSWERS", "Provide at least one answer.");
+  }
+  for (const a of input.answers) {
+    if (!Number.isInteger(a.index) || a.index < 0) {
+      throw badRequest("BAD_ITEM_INDEX", `Item index must be a non-negative integer (got ${a.index}).`);
+    }
+    if (!["yes", "no", "na"].includes(a.answer)) {
+      throw badRequest("BAD_ANSWER", `Answer must be yes, no or na (got ${JSON.stringify(a.answer)}).`);
+    }
+  }
+
+  appendEvent(ctx.db, {
+    reportId,
+    eventType: "CHECKLIST_ANSWERED",
+    actorId: principal.userId,
+    recordedAt: ctx.now,
+    payload: { checklistId: input.checklistId, answers: input.answers },
+  });
+  rebuildProjection(ctx.db, reportId);
+
+  return { recorded: input.answers.length };
+}
+
+export function getChecklistAnswers(ctx: ServiceContext, principal: Principal, reportId: string) {
+  getReport(ctx, principal, reportId);
+  return ctx.db
+    .prepare(
+      `SELECT checklist_id, item_index, item_ref, answer, remark, updated_at
+         FROM report_checklist_answers WHERE report_id = ?
+        ORDER BY checklist_id, item_index`,
+    )
+    .all(reportId);
 }
 
 export interface DeficiencyInput {

@@ -331,6 +331,48 @@ export const api = {
       { resolution },
     ),
 
+  /**
+   * Download a rendered report.
+   *
+   * Returns a Blob rather than parsed JSON because two of the four formats are binary. The
+   * server records the render in the append-only log, so this is a write as far as the report's
+   * history is concerned even though it is a GET.
+   */
+  renderUrl: (id: string, format: "pdf" | "docx" | "json" | "html", inline = false) =>
+    `${BASE}/reports/${encodeURIComponent(id)}/render/${format}${inline ? "?inline=1" : ""}`,
+
+  download: async (id: string, format: "pdf" | "docx" | "json" | "html") => {
+    const res = await fetch(api.renderUrl(id, format), {
+      headers: { ...(currentUserId ? { "X-User-Id": currentUserId } : {}) },
+    });
+    if (!res.ok) {
+      const body = await res.json().catch(() => null);
+      throw new ApiError(res.status, body?.error ?? "UNKNOWN", body?.message ?? "Could not render the report.");
+    }
+    return {
+      blob: await res.blob(),
+      sha256: res.headers.get("X-TulaSetu-SHA256") ?? "",
+      filename: /filename="([^"]+)"/.exec(res.headers.get("Content-Disposition") ?? "")?.[1] ?? `${id}.${format}`,
+    };
+  },
+
+  checklistAnswers: (id: string, signal?: AbortSignal) =>
+    request<{ checklist_id: string; item_index: number; item_ref: string; answer: "yes" | "no" | "na"; remark: string | null; updated_at: string }[]>(
+      "GET", `/reports/${encodeURIComponent(id)}/checklist`, undefined, signal),
+
+  saveChecklistAnswers: (
+    id: string,
+    checklistId: string,
+    answers: { index: number; ref?: string; answer: "yes" | "no" | "na"; remark?: string }[],
+  ) =>
+    request<{ recorded: number }>("POST", `/reports/${encodeURIComponent(id)}/checklist`, {
+      checklistId, answers,
+    }),
+
+  /** Render the record copy and lock the report to it — deliberately one step. */
+  lock: (id: string) =>
+    request<{ report: ReportSummary; sha256: string }>("POST", `/reports/${encodeURIComponent(id)}/lock`),
+
   audit: (id: string, signal?: AbortSignal) =>
     request<AuditTrail>("GET", `/reports/${encodeURIComponent(id)}/audit`, undefined, signal),
 

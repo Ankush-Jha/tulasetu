@@ -20,6 +20,7 @@ import { availableTransitions, TRANSITIONS, type ReportState, type RoleId } from
 import { capabilitiesOf, type Principal } from "./domain/rbac.js";
 import { dashboardCounts, rule4_9AnnualReturn, searchReports } from "./domain/stats.js";
 import * as svc from "./domain/service.js";
+import type { RenderFormat } from "./domain/render.js";
 import { ServiceError } from "./domain/service.js";
 
 export interface RouteOptions {
@@ -248,6 +249,69 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
       return { ok: true };
     }),
   );
+
+  // --- checklist ----------------------------------------------------------
+
+  app.get(
+    "/reports/:id/checklist",
+    guard((p, req) => svc.getChecklistAnswers(ctx(), p, (req.params as { id: string }).id)),
+  );
+
+  app.post(
+    "/reports/:id/checklist",
+    guard((p, req) => {
+      const { id } = req.params as { id: string };
+      return svc.recordChecklistAnswers(ctx(), p, id, req.body as svc.ChecklistAnswerInput);
+    }),
+  );
+
+  // --- rendering ----------------------------------------------------------
+
+  /**
+   * Download the report in one of its three formats (plus `html`, which is what the PDF is
+   * printed from — useful for checking layout without a browser round-trip).
+   *
+   * The rendering is logged: which copy left the building, when, and its hash.
+   */
+  app.get("/reports/:id/render/:format", async (req, reply) => {
+    try {
+      const principal = authenticate(db, req);
+      const { id, format } = req.params as { id: string; format: string };
+      if (!["pdf", "docx", "json", "html"].includes(format)) {
+        throw new ServiceError(400, "BAD_FORMAT", `Unknown format ${format}. Use pdf, docx, json or html.`);
+      }
+      const rendered = await svc.renderReportForDownload(ctx(), principal, id, format as RenderFormat);
+      const inline = (req.query as { inline?: string }).inline === "1";
+      return reply
+        .header("Content-Type", rendered.contentType)
+        .header(
+          "Content-Disposition",
+          `${inline ? "inline" : "attachment"}; filename="${rendered.filename}"`,
+        )
+        // So a downloaded copy can be matched back to the render that produced it.
+        .header("X-TulaSetu-SHA256", rendered.sha256)
+        .send(Buffer.from(rendered.bytes));
+    } catch (err) {
+      return send(reply, err);
+    }
+  });
+
+  /**
+   * Render the record copy and lock the report to it, in one step.
+   *
+   * One operation on purpose: rendering and locking separately leaves a window in which the
+   * report could change between them, and the recorded hash would then belong to a document
+   * that no longer exists.
+   */
+  app.post("/reports/:id/lock", async (req, reply) => {
+    try {
+      const principal = authenticate(db, req);
+      const { id } = req.params as { id: string };
+      return await svc.renderAndLock(ctx(), principal, id);
+    } catch (err) {
+      return send(reply, err);
+    }
+  });
 
   // --- audit --------------------------------------------------------------
 

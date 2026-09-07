@@ -155,6 +155,20 @@ CREATE TABLE IF NOT EXISTS report_forms (
   PRIMARY KEY (report_id, form_id, range_index)
 );
 
+-- R 76-2 §17 checklist responses. A projection of CHECKLIST_ANSWERED events, like everything
+-- else here -- `item_index` rather than the clause reference is the key, because several items
+-- legitimately cite the same clause and keying on the reference would conflate them.
+CREATE TABLE IF NOT EXISTS report_checklist_answers (
+  report_id    TEXT NOT NULL REFERENCES reports(id),
+  checklist_id TEXT NOT NULL,          -- '17.1' | '17.2' | '17.3' | '17.4'
+  item_index   INTEGER NOT NULL,       -- position within that checklist, 0-based
+  item_ref     TEXT NOT NULL,          -- the clause printed beside the item
+  answer       TEXT NOT NULL CHECK (answer IN ('yes','no','na')),
+  remark       TEXT,
+  updated_at   TEXT NOT NULL,
+  PRIMARY KEY (report_id, checklist_id, item_index)
+);
+
 -- Attachments: model photo (Figure 1), sealing diagram (Figure 2), circuit diagrams, scans.
 -- Rule 16(2): submitted models and drawings are not open to public inspection, so this table
 -- carries a confidentiality tier and the repository must honour it.

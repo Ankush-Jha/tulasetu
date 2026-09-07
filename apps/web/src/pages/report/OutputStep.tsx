@@ -9,11 +9,12 @@
  * 17025 §7.8. So the DOCX is watermarked DRAFT and names the locked PDF's hash, and the PDF is
  * what gets signed.
  *
- * Rendering runs on the server (the PDF is the HTML printed by headless Chromium). Until that
- * endpoint is wired, this page states plainly that the buttons are not yet live rather than
- * offering a download that would not arrive.
+ * Locking renders and locks in a single call. Doing them separately would leave a window in
+ * which the report could change between the two, and the hash recorded would then belong to a
+ * document nobody holds.
  */
 
+import { useState } from "react";
 import {
   Alert,
   Badge,
@@ -27,17 +28,21 @@ import {
   Verdict,
 } from "../../components/ui";
 import { cn } from "../../lib/cn";
+import { api } from "../../lib/api";
+import { useMutation } from "../../lib/useApi";
 import { formatDateTime } from "../../lib/format";
 import { useReport } from "./ReportLayout";
 
-const OUTPUTS = [
+type Format = "pdf" | "docx" | "json" | "html";
+
+const OUTPUTS: { id: Format; icon: string; title: string; blurb: string; note: string }[] = [
   {
     id: "pdf",
     icon: "picture_as_pdf",
     title: "PDF — record copy",
     blurb:
       "Pixel-faithful to R 76-2: the same page furniture, the ↓/↑ sub-columns for the two directions of loading, computed cells shaded, and “– –” against every form that does not apply. Bilingual headers, as the certificates on the register are.",
-    note: "SHA-256 recorded in the audit trail when the report is locked.",
+    note: "Its SHA-256 is recorded in the audit trail when the report is locked.",
   },
   {
     id: "docx",
@@ -53,18 +58,48 @@ const OUTPUTS = [
     title: "JSON — machine-readable",
     blurb:
       "DCC-inspired: the data and the human-readable PDF in one file, each with its own hash, so a downstream system never has to re-key numbers out of a document.",
-    note: "Content-addressed, so identical reports hash identically.",
+    note: "Content-addressed — identical reports hash identically.",
   },
 ];
 
 export function OutputStep() {
-  const { detail, instrument } = useReport();
+  const { reportId, detail, instrument, reload } = useReport();
   const { report, forms } = detail;
+
+  const [lastRender, setLastRender] = useState<{ format: Format; sha256: string } | null>(null);
+  const download = useMutation(api.download);
+  const lock = useMutation(api.lock);
 
   const applicable = forms.filter((f) => f.applicable === 1);
   const decided = applicable.filter((f) => f.verdict);
   const ready = applicable.length > 0 && decided.length === applicable.length;
   const locked = Boolean(report.locked_hash);
+
+  // The Director may lock; the server decides for certain, and refusing here only avoids
+  // offering a button that would be turned down.
+  const canLock = detail.available.some((t) => t.to === "LOCKED");
+
+  async function get(format: Format) {
+    const result = await download.run(reportId, format);
+    if (!result) return;
+    const url = URL.createObjectURL(result.blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = result.filename;
+    a.click();
+    URL.revokeObjectURL(url);
+    setLastRender({ format, sha256: result.sha256 });
+    // The render is recorded in the log, so the audit trail has changed.
+    reload();
+  }
+
+  async function doLock() {
+    const result = await lock.run(reportId);
+    if (result) {
+      setLastRender({ format: "pdf", sha256: result.sha256 });
+      reload();
+    }
+  }
 
   return (
     <div className="flex flex-col gap-5">
@@ -93,16 +128,22 @@ export function OutputStep() {
         <Alert tone="warn" icon="pending" title="Not every applicable form has been recorded">
           {applicable.length - decided.length} form
           {applicable.length - decided.length === 1 ? "" : "s"} still need observations. A report
-          generated now would be incomplete, and the lifecycle will not let it be locked.
+          generated now is marked as incomplete on its face — every unrecorded form prints
+          “– –” with the reason — and the lifecycle will not let it be locked.
         </Alert>
       )}
 
-      <Alert tone="info" icon="build" title="Rendering is not yet wired to this screen">
-        The renderers are built and tested — run{" "}
-        <code className="font-mono text-body-sm">npx tsx apps/cli/src/demo.ts</code> to produce all
-        three outputs from the worked example. Connecting them to a download endpoint is the
-        remaining step; the buttons below are inert until then.
-      </Alert>
+      {download.error && <Alert tone="fail" title="Could not generate that file">{download.error}</Alert>}
+      {lock.error && <Alert tone="fail" title="Could not lock the report">{lock.error}</Alert>}
+
+      {lastRender && (
+        <Alert tone="pass" icon="fingerprint" title={`${lastRender.format.toUpperCase()} generated`}>
+          SHA-256 <code className="font-mono text-body-sm break-all">{lastRender.sha256}</code>
+          <span className="mt-1 block text-body-sm text-on-surface-variant">
+            The render is recorded in the audit trail, so this copy can be matched back to it later.
+          </span>
+        </Alert>
+      )}
 
       <div className="grid gap-4 lg:grid-cols-3">
         {OUTPUTS.map((o) => (
@@ -113,18 +154,63 @@ export function OutputStep() {
             <h3 className="text-headline-sm text-on-surface">{o.title}</h3>
             <p className="text-body-md text-on-surface-variant mt-1.5 flex-1">{o.blurb}</p>
             <p className="text-body-sm text-on-surface-variant mt-2.5 italic">{o.note}</p>
-            <Button
-              variant={o.id === "pdf" ? "primary" : "secondary"}
-              icon="download"
-              disabled
-              className="mt-4 w-full"
-              title="Rendering endpoint not yet connected"
-            >
-              Generate
-            </Button>
+            <div className="mt-4 flex gap-2">
+              <Button
+                variant={o.id === "pdf" ? "primary" : "secondary"}
+                icon="download"
+                loading={download.pending}
+                onClick={() => get(o.id)}
+                className="flex-1"
+              >
+                Download
+              </Button>
+              {o.id === "pdf" && (
+                <Button
+                  variant="secondary"
+                  icon="open_in_new"
+                  title="Preview the layout in a new tab"
+                  onClick={() => window.open(api.renderUrl(reportId, "html", true), "_blank")}
+                >
+                  Preview
+                </Button>
+              )}
+            </div>
           </Card>
         ))}
       </div>
+
+      {/* Locking */}
+      <Card elevation="raised">
+        <CardHeader
+          icon={locked ? "lock" : "lock_open"}
+          title={locked ? "The record copy is locked" : "Lock the record copy"}
+          description={
+            locked
+              ? "The report is closed to further editing. Its hash is in the audit trail."
+              : "Renders the PDF and locks the report to it in one step, so the recorded hash always belongs to a document that exists."
+          }
+        />
+        {locked ? (
+          <div className="flex flex-col gap-2">
+            <code className="rounded-lg bg-surface-container-low px-3 py-2 font-mono text-body-sm break-all text-on-surface">
+              {report.locked_hash}
+            </code>
+            <p className="text-body-sm text-on-surface-variant">
+              Anyone holding the PDF can hash it and compare. Verification needs no access to
+              this system.
+            </p>
+          </div>
+        ) : canLock ? (
+          <Button variant="primary" icon="lock" loading={lock.pending} onClick={doLock}>
+            Render and lock
+          </Button>
+        ) : (
+          <p className="text-body-md text-on-surface-variant">
+            Locking is the Director&rsquo;s step, and only once the report has been recommended
+            with every applicable form recorded and no open deficiencies.
+          </p>
+        )}
+      </Card>
 
       <div className="grid gap-5 lg:grid-cols-2">
         <Card>

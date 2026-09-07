@@ -11,7 +11,8 @@
   "dependencies": {
     "@tulasetu/engine": "*",
     "better-sqlite3": "^11.5.0",
-    "fastify": "^5.1.0"
+    "fastify": "^5.1.0",
+    "@tulasetu/renderers": "*"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.11",
