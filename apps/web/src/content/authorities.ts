@@ -109,6 +109,28 @@ export const AUTHORITIES: Authority[] = [
     href: "https://www.sih.gov.in/",
     group: "programme",
   },
+  {
+    initials: "DI",
+    name: "Digital India",
+    role: "Ministry of Electronics and Information Technology",
+    relevance:
+      "The programme whose goal this work serves directly: a paper-and-spreadsheet approval " +
+      "process becoming an electronic record with standing under IT Act §§4 and 5.",
+    file: "digital-india.svg",
+    href: "https://www.digitalindia.gov.in/",
+    group: "programme",
+  },
+  {
+    initials: "CDAC",
+    name: "C-DAC",
+    role: "Centre for Development of Advanced Computing",
+    relevance:
+      "Runs the software-testing facility a software-controlled instrument is referred to. The " +
+      "engine is exposed as an API so a bench there can post observations directly.",
+    file: "cdac.svg",
+    href: "https://www.cdac.in/",
+    group: "programme",
+  },
 ];
 
 /** The legal instruments the software actually implements, as distinct from bodies. */

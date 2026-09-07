@@ -27,6 +27,7 @@ import {
   Td,
   Th,
 } from "../../components/ui";
+import { AuthorityBoard } from "../../components/Authorities";
 import { cn } from "../../lib/cn";
 import {
   ANCHOR_STATISTIC,
@@ -51,6 +52,7 @@ const TABS = [
   { id: "coverage", label: "Requirement coverage", icon: "checklist" },
   { id: "integrations", label: "Integrations", icon: "hub" },
   { id: "evidence", label: "Evidence", icon: "verified" },
+  { id: "authority", label: "Under whose authority", icon: "account_balance" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -96,6 +98,7 @@ export function BriefPage() {
       {tab === "coverage" && <CoverageTab />}
       {tab === "integrations" && <IntegrationsTab />}
       {tab === "evidence" && <EvidenceTab />}
+      {tab === "authority" && <AuthorityTab />}
     </>
   );
 }
@@ -482,5 +485,28 @@ function EvidenceTab() {
         </Badge>
       </Card>
     </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+
+/**
+ * Who this answers to.
+ *
+ * A judge's reasonable question is not "is the maths right" — it is "whose rules are these, and
+ * has the team read them or borrowed them". So each body appears with its actual contribution,
+ * and the provisions appear separately from the bodies, because a clause reference can be
+ * looked up and an organisation's name cannot.
+ */
+function AuthorityTab() {
+  return (
+    <Card elevation="raised">
+      <CardHeader
+        icon="account_balance"
+        title="Under whose authority"
+        description="The bodies whose standards this implements, and the provisions it answers to"
+      />
+      <AuthorityBoard />
+    </Card>
   );
 }

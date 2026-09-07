@@ -15,6 +15,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Alert, Card, Icon, Spinner } from "../components/ui";
 import { cn } from "../lib/cn";
 import { DEMO_ACCOUNTS, ROLE_LABEL, initialsOf, useAuth } from "../lib/auth";
+import { AuthorityStrip } from "../components/Authorities";
 
 export function LoginPage() {
   const { session, loading, signIn, error } = useAuth();
@@ -113,6 +114,12 @@ export function LoginPage() {
           signature. The API refuses to start under <code className="font-mono">NODE_ENV=production</code>{" "}
           while this stub is in place.
         </Alert>
+
+        {/*
+          The standards and the problem statement, attributed at the door. Names beside marks,
+          not emblems alone — see components/Authorities.tsx.
+        */}
+        <AuthorityStrip className="pt-2 pb-1" />
       </div>
     </div>
   );

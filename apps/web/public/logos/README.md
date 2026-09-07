@@ -1,6 +1,7 @@
 # Logos
 
-Drop artwork here and it appears automatically. Until a file is present, that organisation
+Drop artwork here and it appears automatically — `AuthorityStrip` at the foot of the sign-in
+page and `AuthorityBoard` on the briefing's "Under whose authority" tab both read this folder. Until a file is present, that organisation
 renders as a clean monogram — which reads as deliberate rather than as a gap.
 
 ## Filenames
@@ -16,6 +17,7 @@ renders as a clean monogram — which reads as deliberate rather than as a gap.
 | `iso.svg` | ISO/IEC |
 | `sih.svg` | Smart India Hackathon |
 | `digital-india.svg` | Digital India |
+| `cdac.svg` | C-DAC |
 | `emblem.svg` | State Emblem of India |
 
 SVG preferred; PNG at 2× also works — change the extension in
