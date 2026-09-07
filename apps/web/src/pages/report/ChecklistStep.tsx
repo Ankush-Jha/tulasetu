@@ -30,7 +30,6 @@ import {
   Icon,
   Input,
   LoadingState,
-  Stat,
 } from "../../components/ui";
 import { cn } from "../../lib/cn";
 import { api } from "../../lib/api";
@@ -180,16 +179,18 @@ export function ChecklistStep() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Stat label="Items in the bank" value={lists.reduce((n, l) => n + l.items.length, 0)} icon="fact_check" />
-        <Stat label="Applicable to this instrument" value={totalApplicable} icon="checklist" tone="info" />
-        <Stat
-          label="Recorded"
-          value={`${totalAnswered} / ${totalApplicable}`}
-          icon="edit_note"
-          tone={totalAnswered > 0 ? "pass" : "neutral"}
-        />
-      </div>
+      {/*
+        One line, not three tiles.
+        
+        The tiles said "363 in the bank / 281 applicable / 0 recorded" above a tab strip that
+        already carries a per-checklist count and section rows that each carry their own. Four
+        statements of the same fact, costing a third of the first screen.
+      */}
+      <p className="text-body-md text-on-surface-variant">
+        <span className="font-semibold text-on-surface tabular-nums">{totalAnswered}</span> of{" "}
+        <span className="tabular-nums">{totalApplicable}</span> applicable items recorded, from a
+        bank of {lists.reduce((n, l) => n + l.items.length, 0)} transcribed from R 76-2 §17.
+      </p>
 
       {save.error && <Alert tone="fail" title="Could not save">{save.error}</Alert>}
 

@@ -17,7 +17,6 @@ import {
   Card,
   CardHeader,
   Disclosure,
-  Stat,
   TableWrap,
   Td,
   Th,
@@ -39,21 +38,16 @@ export function TestsStep() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Stat label="Forms applicable" value={applicable.length} icon="checklist" tone="info" />
-        <Stat
-          label="Recorded"
-          value={`${recorded.length} / ${applicable.length}`}
-          icon="edit_note"
-          tone={recorded.length === applicable.length && applicable.length > 0 ? "pass" : "neutral"}
-        />
-        <Stat
-          label="Not applicable"
-          value={excluded.length}
-          icon="do_not_disturb_on"
-          hint="Each carries a reason"
-        />
-      </div>
+      {/*
+        Three stat tiles stood here: applicable, recorded, not applicable. Every one of those
+        numbers is countable from the table immediately below, and the third had its own
+        disclosure at the foot of the page. A sentence carries the same three numbers in a
+        tenth of the height.
+      */}
+      <p className="text-body-md text-on-surface-variant">
+        {applicable.length} forms apply to this instrument and {recorded.length} have observations
+        recorded. {excluded.length > 0 && `${excluded.length} do not apply, each with a reason.`}
+      </p>
 
       <Card padded={false}>
         <div className="p-5 pb-0">

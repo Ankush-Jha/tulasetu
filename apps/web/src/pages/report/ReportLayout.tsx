@@ -113,68 +113,54 @@ export function ReportLayout() {
 
   return (
     <ReportContext.Provider value={{ detail: data, reportId, reload, instrument }}>
-      {/* Report header */}
-      <Card elevation="raised" className="mb-5">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div className="min-w-0">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-mono text-label-lg font-bold text-on-surface">{report.id}</span>
-              {loading && <Spinner size={13} className="text-on-surface-variant" />}
-              <StatusChip status={report.status} />
-              <Verdict value={report.overall_verdict} />
-              <Badge tone="neutral">
-                {report.profile === "IN_Sch7A" ? "Seventh Schedule" : report.profile === "OIML_R76" ? "OIML R 76" : report.profile}
-              </Badge>
-            </div>
-            <h1 className="text-headline-md text-on-surface mt-1.5">
-              {instrument?.model ?? report.model ?? "Instrument not yet recorded"}
-            </h1>
-            <p className="text-body-md text-on-surface-variant">
-              {[
-                instrument?.manufacturer ?? report.manufacturer,
-                instrument ? `Class ${instrument.accuracyClass}` : null,
-                report.application_no ? `Application ${report.application_no}` : null,
-                `Created ${formatDate(report.created_at)}`,
-              ]
-                .filter(Boolean)
-                .join(" · ")}
-            </p>
-          </div>
+      {/*
+        The report's identity in one line.
+        
+        This was a full card — report number, three chips, a headline, the creation date, the
+        guard summary and an action row — repeated above every one of the seven sections. On the
+        profile step that pushed the first input 584px down a 1000px viewport: well over half the
+        screen spent restating which report you already knew you had open, before the page could
+        begin doing its job. It is a strip now, and the actions sit in it.
+      */}
+      <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+        <span className="font-mono text-label-md font-semibold text-on-surface">{report.id}</span>
+        <span className="text-on-surface-variant" aria-hidden="true">·</span>
+        <span className="min-w-0 truncate text-label-lg text-on-surface">
+          {instrument?.model ?? report.model ?? "Instrument not yet recorded"}
+        </span>
+        {instrument && (
+          <span className="truncate text-body-sm text-on-surface-variant">
+            {instrument.manufacturer} · class {instrument.accuracyClass}
+          </span>
+        )}
+        <StatusChip status={report.status} />
+        <Verdict value={report.overall_verdict} />
 
-          {/* Lifecycle actions the server says this officer may take from here */}
-          <div className="flex flex-wrap items-center gap-2">
-            {available.length === 0 ? (
-              <Badge tone="neutral" icon="lock">No action available to your role</Badge>
-            ) : (
-              available.map((t) => (
-                <Button
-                  key={`${t.from}-${t.to}`}
-                  size="sm"
-                  variant={t.to === "LOCKED" || t.to === "PUBLISHED" ? "primary" : "secondary"}
-                  loading={transition.pending}
-                  onClick={() => move(t.to)}
-                  title={t.basis}
-                >
-                  {t.label}
-                </Button>
-              ))
-            )}
-          </div>
+        <span className="ml-auto flex flex-wrap items-center gap-2">
+          {available.length === 0 ? (
+            <span className="text-body-sm text-on-surface-variant">No action for your role</span>
+          ) : (
+            available.map((t) => (
+              <Button
+                key={`${t.from}-${t.to}`}
+                size="sm"
+                variant={t.to === "LOCKED" || t.to === "PUBLISHED" ? "primary" : "secondary"}
+                loading={transition.pending}
+                onClick={() => move(t.to)}
+                title={t.basis}
+              >
+                {t.label}
+              </Button>
+            ))
+          )}
+        </span>
+      </div>
+
+      {transition.error && (
+        <div className="mb-3">
+          <Alert tone="fail" title="That step is not available yet">{transition.error}</Alert>
         </div>
-
-        {transition.error && (
-          <div className="mt-4">
-            <Alert tone="fail" title="That step is not available yet">{transition.error}</Alert>
-          </div>
-        )}
-
-        {guards.length > 0 && (
-          <p className="mt-3 flex items-center gap-1.5 text-body-sm text-on-surface-variant">
-            <Icon name="check_circle" size={14} className="text-on-success" />
-            {guards.map(describeGuard).join(" · ")}
-          </p>
-        )}
-      </Card>
+      )}
 
       {/*
         One progress rail for the whole report.
@@ -185,19 +171,7 @@ export function ReportLayout() {
         offered. This is the single one: seven segments, the current section named, and how much
         of the applicable work is recorded. A page with its own sub-steps shows those itself.
       */}
-      <nav aria-label="Report sections" className="mb-5">
-        <div className="flex items-end justify-between gap-4 mb-2">
-          <p className="text-label-md text-on-surface">
-            <span className="text-on-surface-variant">Section {currentStepIndex + 1} of {REPORT_STEPS.length} · </span>
-            {REPORT_STEPS[currentStepIndex]?.label ?? "Report"}
-          </p>
-          <p className="text-body-sm text-on-surface-variant tabular-nums">
-            {applicable.length > 0
-              ? `${decided.length} of ${applicable.length} forms recorded`
-              : "No forms resolved yet"}
-          </p>
-        </div>
-
+      <nav aria-label="Report sections" className="mb-4">
         <ol className="flex gap-1">
           {REPORT_STEPS.map((step, i) => {
             const active = i === currentStepIndex;
@@ -221,7 +195,7 @@ export function ReportLayout() {
                   />
                   <span
                     className={cn(
-                      "mt-1.5 block truncate text-label-sm transition-colors",
+                      "mt-1 block truncate text-label-sm transition-colors",
                       active ? "font-semibold text-on-surface" : "text-on-surface-variant",
                     )}
                   >

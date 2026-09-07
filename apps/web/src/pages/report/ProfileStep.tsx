@@ -216,25 +216,25 @@ export function ProfileStep() {
       <div className="grid items-start gap-5 xl:grid-cols-5">
         <div className="flex flex-col gap-5 xl:col-span-3">
           <Card elevation="raised">
-            <div className="mb-4 flex items-start justify-between gap-4">
-              <div className="min-w-0">
-                <p className="text-label-sm uppercase tracking-wider text-on-surface-variant">
-                  Step {step.number} of {WIZARD_STEPS.length}
-                </p>
-                <h2 className="text-headline-md text-on-surface mt-0.5">{step.title}</h2>
-                <p className="text-body-md text-on-surface-variant mt-1.5 max-w-xl">{step.purpose}</p>
-              </div>
-              {stepIndex === 0 && (
+            {/*
+              No step heading here. The stepper directly above already names the step and its
+              number, and a heading, a "Step 2 of 4" line and a paragraph of purpose were three
+              further restatements of it standing between the officer and the first field. The
+              purpose is a sentence worth reading once, so it is available on demand.
+            */}
+            {stepIndex === 0 && (
+              <div className="mb-3 flex justify-end">
                 <Button size="sm" variant="ghost" icon="science" onClick={loadSample}>
                   Load worked example
                 </Button>
-              )}
-            </div>
+              </div>
+            )}
 
             {step.id === "identity" && (
               <IdentityStep
                 {...{ manufacturer, setManufacturer, model, setModel, serialNumber, setSerialNumber,
                       indicatingType, setIndicatingType }}
+                report={detail.report}
               />
             )}
             {step.id === "metrology" && (
@@ -295,9 +295,21 @@ export function ProfileStep() {
           )}
         </div>
 
-        {/* The live consequence panel. */}
+        {/*
+          The live panel, and what it shows depends on the step.
+          
+          A permissible-error staircase beside the manufacturer's name is answering a question
+          nobody has asked yet. Each step gets the consequence of *that* step: what the
+          certificate will carry, then the bands, then the test count, then the whole thing.
+        */}
         <div className="flex flex-col gap-5 xl:col-span-2">
-          <LivePanel preview={preview} unit={unit} profile={profile} />
+          <LivePanel
+            preview={preview}
+            unit={unit}
+            profile={profile}
+            step={step.id}
+            report={detail.report}
+          />
         </div>
       </div>
     </div>
@@ -380,29 +392,71 @@ function IdentityStep(p: {
   serialNumber: string; setSerialNumber: (v: string) => void;
   indicatingType: InstrumentProfileShape["indicatingType"];
   setIndicatingType: (v: InstrumentProfileShape["indicatingType"]) => void;
+  report: { application_no: string | null; profile: string; ruleset_id: string; created_at: string };
 }) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
-      <Field label="Manufacturer" required>
-        <Input value={p.manufacturer} onChange={(e) => p.setManufacturer(e.target.value)} />
-      </Field>
-      <Field label="Model" required hint="As it will appear on the certificate.">
-        <Input value={p.model} onChange={(e) => p.setModel(e.target.value)} />
-      </Field>
-      <Field label="Serial number" hint="Of the sample submitted for testing.">
-        <Input value={p.serialNumber} onChange={(e) => p.setSerialNumber(e.target.value)} />
-      </Field>
-      <Field
-        label="How equilibrium is reached"
-        required
-        hint="Non-self-indicating instruments attract the sensitivity test and are excluded from checklist 17.1."
-      >
-        <Select value={p.indicatingType} onChange={(e) => p.setIndicatingType(e.target.value as never)}>
-          <option value="self">Self-indicating — settles on its own</option>
-          <option value="semi-self">Semi-self-indicating</option>
-          <option value="non-self">Non-self-indicating — the operator balances it</option>
-        </Select>
-      </Field>
+    <div className="flex flex-col gap-6">
+      <section>
+        <h3 className="text-label-lg text-on-surface mb-2">The instrument</h3>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Manufacturer" required>
+            <Input value={p.manufacturer} onChange={(e) => p.setManufacturer(e.target.value)} />
+          </Field>
+          <Field label="Model" required hint="As it will appear on the certificate.">
+            <Input value={p.model} onChange={(e) => p.setModel(e.target.value)} />
+          </Field>
+          <Field label="Serial number" hint="Of the sample submitted for testing.">
+            <Input value={p.serialNumber} onChange={(e) => p.setSerialNumber(e.target.value)} />
+          </Field>
+          <Field
+            label="How equilibrium is reached"
+            required
+            hint="Non-self-indicating instruments attract the sensitivity test and are excluded from checklist 17.1."
+          >
+            <Select value={p.indicatingType} onChange={(e) => p.setIndicatingType(e.target.value as never)}>
+              <option value="self">Self-indicating — settles on its own</option>
+              <option value="semi-self">Semi-self-indicating</option>
+              <option value="non-self">Non-self-indicating — the operator balances it</option>
+            </Select>
+          </Field>
+        </div>
+      </section>
+
+      {/*
+        The application context, fixed when the report was created.
+        
+        Shown here rather than only on the creation screen because these are the fields AoM
+        Rule 5 puts alongside the instrument's identity, and an officer returning to a report
+        weeks later needs them without hunting. They are read-only: the rule pack in particular
+        is pinned at creation so that a later pack update cannot retroactively change an issued
+        result, and letting it be edited here would defeat that.
+      */}
+      <section>
+        <h3 className="text-label-lg text-on-surface mb-2">
+          The application
+          <Explain term="these fields">
+            Fixed when the report was created. The rule pack is pinned so a later update to the
+            standard cannot change a result that has already been issued.
+          </Explain>
+        </h3>
+        <dl className="grid gap-x-6 gap-y-1 sm:grid-cols-2">
+          {[
+            ["Application number", p.report.application_no ?? "Not allotted"],
+            ["Conformity profile",
+              p.report.profile === "IN_Sch7A"
+                ? "Seventh Schedule, Heading A"
+                : p.report.profile === "OIML_R76" ? "OIML R 76" : p.report.profile],
+            ["Rule pack", p.report.ruleset_id],
+            ["Opened", new Date(p.report.created_at).toLocaleDateString("en-IN", {
+              day: "2-digit", month: "short", year: "numeric" })],
+          ].map(([k, v]) => (
+            <div key={k} className="flex justify-between gap-3 border-b border-outline-variant/30 py-1.5">
+              <dt className="text-body-sm text-on-surface-variant">{k}</dt>
+              <dd className="text-body-md text-on-surface text-right">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
     </div>
   );
 }
@@ -430,7 +484,13 @@ function MetrologyStep(p: {
       {/* Accuracy class. Four compact choices; the detail that matters once is one click away. */}
       <section>
         <div className="mb-2 flex items-baseline justify-between gap-3">
-          <h3 className="text-label-lg text-on-surface">Accuracy class</h3>
+          <h3 className="text-label-lg text-on-surface">
+            Accuracy class
+            <Explain term="the accuracy class">
+              Pick by what the instrument is for. The class fixes the permissible errors and
+              decides which of the seventeen test forms apply.
+            </Explain>
+          </h3>
           <Clause>R 76-1 Table 3</Clause>
         </div>
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
@@ -462,20 +522,24 @@ function MetrologyStep(p: {
             );
           })}
         </div>
-        <Disclosure summary={`What class ${selectedClass.symbol} means, and its Table 3 limits`} className="mt-2">
-          <p className="text-body-sm text-on-surface-variant">{selectedClass.meaning}</p>
-          <p className="mt-2 flex flex-wrap gap-1.5">
-            <Badge tone="neutral">{selectedClass.eRange}</Badge>
-            <Badge tone="neutral">n {selectedClass.nRange}</Badge>
-            <Badge tone="neutral">{selectedClass.minCapacity}</Badge>
-          </p>
-        </Disclosure>
+        <p className="mt-2 flex flex-wrap items-center gap-1.5 text-body-sm text-on-surface-variant">
+          <span>{selectedClass.meaning}</span>
+          <Badge tone="neutral">{selectedClass.eRange}</Badge>
+          <Badge tone="neutral">n {selectedClass.nRange}</Badge>
+          <Badge tone="neutral">{selectedClass.minCapacity}</Badge>
+        </p>
       </section>
 
       {/* Range structure. The consequence in one line; the reasoning behind a disclosure. */}
       <section>
         <div className="mb-2 flex items-baseline justify-between gap-3">
-          <h3 className="text-label-lg text-on-surface">Range structure</h3>
+          <h3 className="text-label-lg text-on-surface">
+            Range structure
+            <Explain term="the range structure">
+              How the weighing range is divided. This is the choice most often got wrong, and it
+              decides whether the report carries one set of forms or one per range.
+            </Explain>
+          </h3>
           <Clause>{kind.clause}</Clause>
         </div>
         <div className="flex gap-1 rounded-xl bg-surface-container-low p-1">
@@ -500,10 +564,9 @@ function MetrologyStep(p: {
             </button>
           ))}
         </div>
-        <p className="mt-2 text-body-sm text-on-surface-variant">{kind.meaning}</p>
-        <Disclosure summary="What this changes about the report" className="mt-2">
-          <p className="text-body-sm text-on-surface-variant">{kind.consequence}</p>
-        </Disclosure>
+        <p className="mt-2 text-body-sm text-on-surface-variant">
+          {kind.meaning} <span className="text-on-surface">{kind.consequence}</span>
+        </p>
       </section>
 
       {/* Ranges. Compact rows: labels once, in the header, rather than under every field. */}
@@ -519,7 +582,6 @@ function MetrologyStep(p: {
                 what the class limits are set on.
               </Explain>
             </h3>
-            <p className="text-body-sm text-on-surface-variant">n is computed as Max / e.</p>
           </div>
           <Field label="Unit" className="w-24">
             <Select value={p.unit} onChange={(e) => p.setUnit(e.target.value as never)} className="h-9">
@@ -612,7 +674,12 @@ function ConstructionStep(p: {
         <section key={group.id}>
           <h3 className="text-label-lg text-on-surface">{group.title}</h3>
           <p className="text-body-sm text-on-surface-variant mb-2.5">{group.hint}</p>
-          <div className="flex flex-col gap-2">
+          {/*
+            Two columns. Each of these is a short question with a one-line answer, and stacking
+            eleven of them singly ran the step to 1.6 screens against a half-empty right-hand
+            panel — scrolling past whitespace to reach a checkbox.
+          */}
+          <div className="grid gap-2 sm:grid-cols-2">
             {FEATURES.filter((f) => f.group === group.id).map((f) => {
               const on = Boolean(p.flags[f.key as string]);
               return (
@@ -765,11 +832,50 @@ function LivePanel({
   preview,
   unit,
   profile,
+  step,
+  report,
 }: {
   preview: ReturnType<typeof useProfilePreview>;
   unit: string;
   profile: InstrumentProfileShape;
+  step: string;
+  report: { lab_id: string; created_at: string; profile: string };
 }) {
+  // Step 1 is about identity, so the panel says what that identity will become rather than
+  // showing bands for ranges the officer has not reached yet.
+  if (step === "identity") {
+    return (
+      <Card elevation="raised" className="xl:sticky xl:top-[92px]">
+        <h2 className="text-label-lg text-on-surface mb-3">What this becomes</h2>
+        <p className="text-body-md text-on-surface-variant">
+          These four fields are what the certificate carries and what the public register will
+          show. Twelve of sixteen sampled certificates name the manufacturer and model exactly as
+          they were entered here.
+        </p>
+        <div className="mt-4 rounded-xl border border-outline-variant/50 p-3.5">
+          <p className="text-label-sm uppercase tracking-wider text-on-surface-variant">
+            On the certificate
+          </p>
+          <p className="mt-1 text-headline-sm text-on-surface">
+            {profile.model || "Model"}
+          </p>
+          <p className="text-body-md text-on-surface-variant">
+            {profile.manufacturer || "Manufacturer"}
+          </p>
+          {profile.serialNumber && (
+            <p className="mt-1 font-mono text-body-sm text-on-surface-variant">
+              {profile.serialNumber}
+            </p>
+          )}
+        </div>
+        <p className="mt-3 text-body-sm text-on-surface-variant">
+          Approval marks follow <span className="font-mono">IND / lab / year / model</span> under
+          AoM Rule 12. <Clause>Rule 5 — application contents</Clause>
+        </p>
+      </Card>
+    );
+  }
+
   const data = preview.data;
   const errors = (data?.issues ?? []).filter((i) => i.severity === "error");
   const warnings = (data?.issues ?? []).filter((i) => i.severity === "warning");
@@ -834,7 +940,7 @@ function LivePanel({
         </p>
       )}
 
-      {data && data.bands.length > 0 && (
+      {data && data.bands.length > 0 && step !== "construction" && (
         <>
           <div className="mt-4 border-t border-outline-variant/40 pt-3">
             <p className="mb-1 text-label-md text-on-surface">
@@ -871,7 +977,30 @@ function LivePanel({
         </>
       )}
 
-      {data && data.applicable.length > 0 && (
+      {data && data.applicable.length > 0 && step === "construction" && (
+        <div className="mt-4 border-t border-outline-variant/40 pt-3">
+          <p className="text-metric-display text-on-surface tabular-nums">
+            {applicable.length}
+            <span className="text-body-lg text-on-surface-variant"> of {data.applicable.length} forms</span>
+          </p>
+          <p className="text-body-sm text-on-surface-variant">
+            Every feature you tick changes this. Endurance always runs last.
+          </p>
+          <div className="mt-2 flex flex-wrap gap-1">
+            {data.applicable.map((t) => (
+              <Badge
+                key={`${t.formId}-${t.rangeIndex ?? 0}`}
+                tone={t.applicable ? "info" : "neutral"}
+                className={t.applicable ? undefined : "opacity-50"}
+              >
+                {t.formId}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {data && data.applicable.length > 0 && step !== "construction" && (
         <Disclosure
           summary={`${applicable.length} of ${data.applicable.length} test forms apply`}
           className="mt-2"

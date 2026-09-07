@@ -104,34 +104,15 @@ export function OutputStep() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Stat
-          label="Forms recorded"
-          value={`${decided.length} / ${applicable.length}`}
-          icon="checklist"
-          tone={ready ? "pass" : "neutral"}
-        />
-        <Stat
-          label="Overall result"
-          value={report.overall_verdict ?? "In progress"}
-          icon="verified"
-          tone={report.overall_verdict === "PASSED" ? "pass" : report.overall_verdict === "FAILED" ? "fail" : "neutral"}
-        />
-        <Stat
-          label="Record copy"
-          value={locked ? "Locked" : "Not locked"}
-          icon={locked ? "lock" : "lock_open"}
-          tone={locked ? "pass" : "neutral"}
-        />
-      </div>
-
       {!ready && (
-        <Alert tone="warn" icon="pending" title="Not every applicable form has been recorded">
-          {applicable.length - decided.length} form
-          {applicable.length - decided.length === 1 ? "" : "s"} still need observations. A report
-          generated now is marked as incomplete on its face — every unrecorded form prints
-          “– –” with the reason — and the lifecycle will not let it be locked.
-        </Alert>
+        <p className="flex items-start gap-2 text-body-md text-on-surface-variant">
+          <Icon name="pending" size={16} className="mt-0.5 shrink-0 text-[#B45309]" />
+          <span>
+            {applicable.length - decided.length} of {applicable.length} applicable forms still
+            need observations. A report generated now prints “– –” with a reason against each,
+            and cannot be locked.
+          </span>
+        </p>
       )}
 
       {download.error && <Alert tone="fail" title="Could not generate that file">{download.error}</Alert>}
@@ -145,6 +126,39 @@ export function OutputStep() {
           </span>
         </Alert>
       )}
+
+      {/* Locking */}
+      <Card elevation="raised">
+        <CardHeader
+          icon={locked ? "lock" : "lock_open"}
+          title={locked ? "The record copy is locked" : "Lock the record copy"}
+          description={
+            locked
+              ? "The report is closed to further editing. Its hash is in the audit trail."
+              : "Renders the PDF and locks the report to it in one step, so the recorded hash always belongs to a document that exists."
+          }
+        />
+        {locked ? (
+          <div className="flex flex-col gap-2">
+            <code className="rounded-lg bg-surface-container-low px-3 py-2 font-mono text-body-sm break-all text-on-surface">
+              {report.locked_hash}
+            </code>
+            <p className="text-body-sm text-on-surface-variant">
+              Anyone holding the PDF can hash it and compare. Verification needs no access to
+              this system.
+            </p>
+          </div>
+        ) : canLock ? (
+          <Button variant="primary" icon="lock" loading={lock.pending} onClick={doLock}>
+            Render and lock
+          </Button>
+        ) : (
+          <p className="text-body-md text-on-surface-variant">
+            Locking is the Director&rsquo;s step, and only once the report has been recommended
+            with every applicable form recorded and no open deficiencies.
+          </p>
+        )}
+      </Card>
 
       {/*
         One card, three actions.
@@ -204,39 +218,6 @@ export function OutputStep() {
             ))}
           </ul>
         </Disclosure>
-      </Card>
-
-      {/* Locking */}
-      <Card elevation="raised">
-        <CardHeader
-          icon={locked ? "lock" : "lock_open"}
-          title={locked ? "The record copy is locked" : "Lock the record copy"}
-          description={
-            locked
-              ? "The report is closed to further editing. Its hash is in the audit trail."
-              : "Renders the PDF and locks the report to it in one step, so the recorded hash always belongs to a document that exists."
-          }
-        />
-        {locked ? (
-          <div className="flex flex-col gap-2">
-            <code className="rounded-lg bg-surface-container-low px-3 py-2 font-mono text-body-sm break-all text-on-surface">
-              {report.locked_hash}
-            </code>
-            <p className="text-body-sm text-on-surface-variant">
-              Anyone holding the PDF can hash it and compare. Verification needs no access to
-              this system.
-            </p>
-          </div>
-        ) : canLock ? (
-          <Button variant="primary" icon="lock" loading={lock.pending} onClick={doLock}>
-            Render and lock
-          </Button>
-        ) : (
-          <p className="text-body-md text-on-surface-variant">
-            Locking is the Director&rsquo;s step, and only once the report has been recommended
-            with every applicable form recorded and no open deficiencies.
-          </p>
-        )}
       </Card>
 
       <div className="grid gap-5 lg:grid-cols-2">
