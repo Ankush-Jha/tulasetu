@@ -31,6 +31,7 @@ import {
 
 import type { Db } from "../db/open.js";
 import { readEvents, verifyChain } from "../db/events.js";
+import { verifySignature } from "./signing.js";
 import type { ReportProjection } from "./events.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -197,6 +198,26 @@ export function buildReportDocument(
     signatureOf("RECOMMENDED_TO_DIRECTOR", "Assistant / Deputy Director"),
     signatureOf("REPORT_LOCKED", "Director (Legal Metrology)"),
   ].filter((s): s is NonNullable<typeof s> => s !== null);
+
+  // Cryptographic signatures, re-verified at render time. A signature printed on a report is
+  // an assertion the reader cannot check, so it is only printed when it verifies *now* —
+  // and one that does not is printed as failing rather than omitted.
+  for (const e of events) {
+    if (e.event_type !== "REPORT_SIGNED" || !e.signature) continue;
+    const payload = JSON.parse(e.payload) as { signedHash: string };
+    const signer = db
+      .prepare("SELECT full_name, role_id, public_key FROM users WHERE id = ?")
+      .get(e.actor_id) as { full_name: string; role_id: string; public_key: string | null } | undefined;
+    const ok = signer?.public_key
+      ? verifySignature(payload.signedHash, e.signature, signer.public_key).ok
+      : false;
+    signatures.push({
+      role: `${signer?.role_id ?? "—"} — digital signature${ok ? "" : " (DOES NOT VERIFY)"}`,
+      name: signer?.full_name ?? e.actor_id,
+      at: e.recorded_at,
+      signatureHash: payload.signedHash,
+    });
+  }
 
   // Checklists: only those with recorded answers are printed as answered; the rest are
   // marked not applicable with the reason, so the report never implies a question was put

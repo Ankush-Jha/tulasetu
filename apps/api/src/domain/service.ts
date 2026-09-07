@@ -35,6 +35,12 @@ import { rebuildProjection, type ReportProjection } from "./events.js";
 import { canTransition, type Guard, type ReportState, type RoleId } from "./lifecycle.js";
 import { renderReport, type RenderFormat, type RenderedReport } from "./render.js";
 import {
+  generateKeyPair,
+  signHash,
+  verifySignature,
+  type SignatureRecord,
+} from "./signing.js";
+import {
   AttachmentError,
   getAttachment,
   listAttachments,
@@ -663,6 +669,154 @@ export function readAttachment(
     }
     throw err;
   }
+}
+
+// ---------------------------------------------------------------------------
+// Digital signatures (FR16)
+// ---------------------------------------------------------------------------
+
+/**
+ * Register the officer's public key.
+ *
+ * The private half is generated and returned once, here, and never stored — which is the
+ * closest a demonstration can get to a DSC token without one. A deployment registers a public
+ * key whose private half already lives on the officer's card, and this endpoint takes only the
+ * public half.
+ */
+export function registerSigningKey(
+  ctx: ServiceContext,
+  principal: Principal,
+  publicKeyPem?: string,
+): { publicKeyPem: string; privateKeyPem?: string; generated: boolean } {
+  if (publicKeyPem) {
+    ctx.db.prepare("UPDATE users SET public_key = ? WHERE id = ?").run(publicKeyPem, principal.userId);
+    return { publicKeyPem, generated: false };
+  }
+
+  const pair = generateKeyPair();
+  ctx.db.prepare("UPDATE users SET public_key = ? WHERE id = ?").run(pair.publicKeyPem, principal.userId);
+  // Returned once and not retained. If it is lost, a new key is registered; past signatures
+  // stay verifiable because they are checked against the key that made them.
+  return { publicKeyPem: pair.publicKeyPem, privateKeyPem: pair.privateKeyPem, generated: true };
+}
+
+/**
+ * Sign the report's current head — the latest event in its chain.
+ *
+ * Because each event's hash covers the previous one, a signature over the head commits the
+ * signer to the entire history behind it. There is nothing to sign "the report" separately.
+ *
+ * The signature is recorded as its own event rather than written onto the event it covers,
+ * because the log is append-only: an entry is never modified after the fact, not even to
+ * countersign it.
+ */
+export function signReport(
+  ctx: ServiceContext,
+  principal: Principal,
+  reportId: string,
+  input: { signature?: string; privateKeyPem?: string },
+): { signedVersion: number; hash: string; signature: string } {
+  getReport(ctx, principal, reportId);
+
+  const user = ctx.db
+    .prepare("SELECT public_key FROM users WHERE id = ?")
+    .get(principal.userId) as { public_key: string | null } | undefined;
+  if (!user?.public_key) {
+    throw badRequest(
+      "NO_SIGNING_KEY",
+      "No signing key is registered for this officer. Register one before signing.",
+    );
+  }
+
+  const events = readEvents(ctx.db, reportId);
+  const head = events[events.length - 1];
+  if (!head) throw badRequest("NOTHING_TO_SIGN", "This report has no records to sign.");
+
+  // Either the officer's device produced the signature (the real case) or, for a
+  // demonstration, the caller hands over a private key and the server signs with it. The
+  // second is a convenience, never a security property, and the route says so.
+  const signature = input.signature ?? (input.privateKeyPem ? signHash(head.hash, input.privateKeyPem) : null);
+  if (!signature) {
+    throw badRequest(
+      "NO_SIGNATURE",
+      "Provide either a detached `signature` over the report's head hash, or a `privateKeyPem` " +
+        "for the demonstration signer.",
+    );
+  }
+
+  const check = verifySignature(head.hash, signature, user.public_key);
+  if (!check.ok) throw badRequest("BAD_SIGNATURE", check.reason ?? "The signature did not verify.");
+
+  appendEvent(ctx.db, {
+    reportId,
+    eventType: "REPORT_SIGNED",
+    actorId: principal.userId,
+    recordedAt: ctx.now,
+    payload: { signedVersion: head.version, signedHash: head.hash },
+    signature,
+  });
+  rebuildProjection(ctx.db, reportId);
+
+  return { signedVersion: head.version, hash: head.hash, signature };
+}
+
+/**
+ * Every signature on a report, re-verified, together with the state of the chain beneath them.
+ *
+ * Both halves are returned because either alone misleads. Verification runs on read rather
+ * than being trusted from when it was recorded — a stored "verified" flag is an assertion, and
+ * the point of a signature is that the assertion can be re-checked.
+ *
+ * The subtler half: a signature commits its signer to the event hash as it stood, and that
+ * stored hash does not change when someone rewrites the row it describes. So a tampered report
+ * can still carry a **cryptographically valid** signature — what fails is the chain, because
+ * the recorded hash no longer matches the recomputed one. Returning the signatures without the
+ * chain's verdict would show green ticks over altered data, which is worse than showing
+ * nothing. The two travel together.
+ */
+export function getSignatures(
+  ctx: ServiceContext,
+  principal: Principal,
+  reportId: string,
+): { chain: ReturnType<typeof verifyChain>; trustworthy: boolean; signatures: SignatureRecord[] } {
+  getReport(ctx, principal, reportId);
+  const events = readEvents(ctx.db, reportId);
+  const chain = verifyChain(ctx.db, reportId);
+
+  const signatures = events
+    .filter((e) => e.event_type === "REPORT_SIGNED" && e.signature)
+    .map((e) => {
+      const payload = JSON.parse(e.payload) as { signedVersion: number; signedHash: string };
+      const user = ctx.db
+        .prepare("SELECT full_name, role_id, public_key FROM users WHERE id = ?")
+        .get(e.actor_id) as { full_name: string; role_id: string; public_key: string | null } | undefined;
+
+      const check = user?.public_key
+        ? verifySignature(payload.signedHash, e.signature!, user.public_key)
+        : { ok: false, reason: "The signer has no registered public key." };
+
+      return {
+        eventVersion: payload.signedVersion,
+        eventType: e.event_type,
+        actorId: e.actor_id,
+        actorName: user?.full_name ?? e.actor_id,
+        role: user?.role_id ?? "—",
+        recordedAt: e.recorded_at,
+        hash: payload.signedHash,
+        signature: e.signature!,
+        verified: check.ok,
+        ...(check.reason ? { reason: check.reason } : {}),
+      };
+    });
+
+  return {
+    chain,
+    // A signature is only worth anything if the record it covers is intact. One broken link
+    // anywhere in the chain devalues every signature on the report, however well each verifies
+    // on its own.
+    trustworthy: chain.ok && signatures.length > 0 && signatures.every((s) => s.verified),
+    signatures,
+  };
 }
 
 export interface ChecklistAnswerInput {

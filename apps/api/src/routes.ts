@@ -356,6 +356,37 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
     }
   });
 
+  // --- signatures (FR16) ---------------------------------------------------
+
+  /**
+   * Register a signing key.
+   *
+   * With a `publicKeyPem` in the body this takes only the public half — the deployment case,
+   * where the private half is on the officer's DSC token. With no body it generates a pair and
+   * returns the private half **once**, for the demonstration; that is a convenience, not a
+   * security property.
+   */
+  app.post(
+    "/me/signing-key",
+    guard((p, req) => {
+      const body = (req.body ?? {}) as { publicKeyPem?: string };
+      return svc.registerSigningKey(ctx(), p, body.publicKeyPem);
+    }),
+  );
+
+  app.get(
+    "/reports/:id/signatures",
+    guard((p, req) => svc.getSignatures(ctx(), p, (req.params as { id: string }).id)),
+  );
+
+  app.post(
+    "/reports/:id/sign",
+    guard((p, req) => {
+      const { id } = req.params as { id: string };
+      return svc.signReport(ctx(), p, id, (req.body ?? {}) as { signature?: string; privateKeyPem?: string });
+    }),
+  );
+
   // --- checklist ----------------------------------------------------------
 
   app.get(

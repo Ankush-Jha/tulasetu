@@ -13,9 +13,11 @@
  * merely promised.
  */
 
+import { useState } from "react";
 import {
   Alert,
   Badge,
+  Button,
   Card,
   CardHeader,
   ErrorState,
@@ -27,7 +29,7 @@ import {
   Th,
 } from "../../components/ui";
 import { api } from "../../lib/api";
-import { useApi } from "../../lib/useApi";
+import { useApi, useMutation } from "../../lib/useApi";
 import { formatDateTime, humanizeEvent } from "../../lib/format";
 import { useReport } from "./ReportLayout";
 
@@ -37,8 +39,30 @@ const OBSERVATION_EVENTS = new Set(["OBSERVATIONS_RECORDED", "FORM_RESULT_COMPUT
 export function AuditStep() {
   const { reportId } = useReport();
   const audit = useApi((s) => api.audit(reportId, s), [reportId]);
+  const sigs = useApi((s) => api.signatures(reportId, s), [reportId]);
 
-  if (audit.loading) return <LoadingState label="Reading the log…" />;
+  // The demonstration signer: a key pair is issued once and the private half is held only in
+  // this tab, for as long as the page is open. A deployment replaces this with a DSC token —
+  // the server never sees a private key either way, which is the property that matters.
+  const [demoKey, setDemoKey] = useState<string | null>(null);
+  const issueKey = useMutation(api.registerSigningKey);
+  const sign = useMutation(api.signReport);
+
+  async function issue() {
+    const r = await issueKey.run();
+    if (r?.privateKeyPem) setDemoKey(r.privateKeyPem);
+  }
+
+  async function doSign() {
+    if (!demoKey) return;
+    const r = await sign.run(reportId, { privateKeyPem: demoKey });
+    if (r) {
+      sigs.reload();
+      audit.reload();
+    }
+  }
+
+  if (audit.initialLoading) return <LoadingState label="Reading the log…" />;
   if (audit.error) return <ErrorState error={audit.error} onRetry={audit.reload} />;
   if (!audit.data) return null;
 
@@ -79,6 +103,93 @@ export function AuditStep() {
           This report should not be relied on until the cause is established.
         </Alert>
       )}
+
+      {/* Signatures */}
+      <Card>
+        <CardHeader
+          icon="draw"
+          title="Digital signatures"
+          description="A signature covers the head of the chain, and so the whole history behind it"
+          action={
+            <div className="flex items-center gap-2">
+              {!demoKey && (
+                <Button size="sm" variant="secondary" icon="key" loading={issueKey.pending} onClick={issue}>
+                  Issue a demonstration key
+                </Button>
+              )}
+              {demoKey && (
+                <Button size="sm" variant="primary" icon="draw" loading={sign.pending} onClick={doSign}>
+                  Sign this report
+                </Button>
+              )}
+            </div>
+          }
+        />
+
+        {issueKey.error && <Alert tone="fail" title="Could not issue a key">{issueKey.error}</Alert>}
+        {sign.error && <Alert tone="fail" title="Could not sign">{sign.error}</Alert>}
+
+        {demoKey && (
+          <div className="mb-4">
+            <Alert tone="warn" icon="key" title="A demonstration key, held in this tab only">
+              The private half exists in this browser tab and nowhere else — reload and it is
+              gone. A deployment signs on a DSC token instead; the server never holds a private
+              key in either case. Sections 4 and 5 of the Information Technology Act, 2000 give
+              a signature produced by a secure asymmetric process the standing of a handwritten
+              one.
+            </Alert>
+          </div>
+        )}
+
+        {sigs.error ? (
+          <ErrorState error={sigs.error} onRetry={sigs.reload} />
+        ) : sigs.initialLoading ? (
+          <LoadingState />
+        ) : !sigs.data?.signatures.length ? (
+          <p className="text-body-md text-on-surface-variant">
+            Not signed. The hash chain already makes the record tamper-evident; a signature adds
+            who stands behind it.
+          </p>
+        ) : (
+          <>
+            {!sigs.data.trustworthy && (
+              <div className="mb-3">
+                <Alert tone="fail" icon="gpp_bad" title="These signatures cannot be relied on">
+                  {sigs.data.chain.ok
+                    ? "At least one signature does not verify under its signer's registered key."
+                    : "The chain beneath them does not verify, so a valid signature would still " +
+                      "be covering altered data."}
+                </Alert>
+              </div>
+            )}
+            <ul className="flex flex-col gap-2">
+              {sigs.data.signatures.map((s) => (
+                <li
+                  key={s.signature}
+                  className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl border border-outline-variant/50 p-3"
+                >
+                  <Icon
+                    name={s.verified ? "verified" : "gpp_bad"}
+                    size={18}
+                    className={s.verified ? "text-on-success" : "text-error"}
+                  />
+                  <span className="text-label-lg text-on-surface">{s.actorName}</span>
+                  <Badge tone="neutral">{s.role}</Badge>
+                  <span className="text-body-sm text-on-surface-variant">
+                    record {s.eventVersion} · {formatDateTime(s.recordedAt)}
+                  </span>
+                  <Badge tone={s.verified ? "pass" : "fail"}>
+                    {s.verified ? "verifies" : "does not verify"}
+                  </Badge>
+                  {s.reason && (
+                    <span className="w-full text-body-sm text-error">{s.reason}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </Card>
 
       <Card padded={false}>
         <div className="p-5 pb-0">

@@ -369,6 +369,24 @@ export const api = {
     };
   },
 
+  signatures: (id: string, signal?: AbortSignal) =>
+    request<{
+      chain: { ok: boolean; eventCount: number; reason?: string };
+      trustworthy: boolean;
+      signatures: {
+        eventVersion: number; actorId: string; actorName: string; role: string;
+        recordedAt: string; hash: string; signature: string; verified: boolean; reason?: string;
+      }[];
+    }>("GET", `/reports/${encodeURIComponent(id)}/signatures`, undefined, signal),
+
+  registerSigningKey: () =>
+    request<{ publicKeyPem: string; privateKeyPem?: string; generated: boolean }>(
+      "POST", "/me/signing-key", {}),
+
+  signReport: (id: string, body: { signature?: string; privateKeyPem?: string }) =>
+    request<{ signedVersion: number; hash: string; signature: string }>(
+      "POST", `/reports/${encodeURIComponent(id)}/sign`, body),
+
   attachments: (id: string, signal?: AbortSignal) =>
     request<Attachment[]>("GET", `/reports/${encodeURIComponent(id)}/attachments`, undefined, signal),
 
