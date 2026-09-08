@@ -37,6 +37,13 @@ interface ReportContextValue {
   reload: () => void;
   /** Parsed instrument profile, or null while it has not been recorded. */
   instrument: InstrumentProfileShape | null;
+  /**
+   * May this officer still change anything? Comes from the server, which has always enforced
+   * it; the screens now ask before drawing a form nothing will accept.
+   */
+  writable: boolean;
+  /** Why not, in the server's own words — worth showing rather than paraphrasing. */
+  readOnlyReason?: string;
 }
 
 /** The subset of the engine's InstrumentProfile the UI reads. */
@@ -113,7 +120,16 @@ export function ReportLayout() {
   }
 
   return (
-    <ReportContext.Provider value={{ detail: data, reportId, reload, instrument }}>
+    <ReportContext.Provider
+      value={{
+        detail: data,
+        reportId,
+        reload,
+        instrument,
+        writable: data.writable?.allowed ?? true,
+        ...(data.writable?.reason ? { readOnlyReason: data.writable.reason } : {}),
+      }}
+    >
       {/*
         The report's identity in one line.
         
@@ -208,6 +224,19 @@ export function ReportLayout() {
           })}
         </ol>
       </nav>
+
+      {/*
+        Said once, at the top, rather than by every disabled control separately. A reader who
+        cannot change anything needs to know that before they start reading the form, not after
+        they try to type in it.
+      */}
+      {data.writable && !data.writable.allowed && slug !== "overview" && (
+        <div className="mb-4">
+          <Alert tone="info" icon="lock" title="This report is read-only">
+            {data.writable.reason}
+          </Alert>
+        </div>
+      )}
 
       <Outlet />
     </ReportContext.Provider>

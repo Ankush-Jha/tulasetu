@@ -193,7 +193,16 @@ describe("signing a report", () => {
     expect(res.trustworthy).toBe(false);
   });
 
-  it("reports a signature as unverified when the signer's key has been replaced", async () => {
+  it("keeps a signature valid when the signer's key is replaced, and says the key changed", async () => {
+    /**
+     * This used to assert the opposite: replacing a key marked every past signature
+     * unverified, and the report untrustworthy. That conflated two different questions.
+     * Verification asks whether the maths holds against the key that made the signature, and
+     * it does. Revocation asks whether that key should still be trusted, which is a separate
+     * matter and not one a laboratory answers by silently failing arithmetic — the old
+     * behaviour would have turned an archive red the first time anyone renewed a DSC, and
+     * reported "tampered" about records nobody had touched.
+     */
     const key = (await call("POST", "/me/signing-key", "u-dir")).json();
     await call("POST", "/reports/R1/sign", "u-dir", { privateKeyPem: key.privateKeyPem });
 
@@ -201,9 +210,10 @@ describe("signing a report", () => {
     await call("POST", "/me/signing-key", "u-dir");
 
     const res = (await call("GET", "/reports/R1/signatures", "u-dir")).json();
-    expect(res.signatures[0].verified).toBe(false);
-    expect(res.trustworthy).toBe(false);
-    expect(res.signatures[0].reason).toMatch(/not signed by that officer|does not match/i);
+    expect(res.signatures[0].verified).toBe(true);
+    expect(res.trustworthy).toBe(true);
+    // The fact is surfaced rather than buried, so a reader can weigh it.
+    expect(res.signatures[0].keyRotated).toBe(true);
   });
 
   it("does not let another laboratory sign the report", async () => {
@@ -213,5 +223,37 @@ describe("signing a report", () => {
     ).run("u-x", "lab-x", "MA", "X", "x@x.gov.in", T);
     await call("POST", "/me/signing-key", "u-x");
     expect((await call("POST", "/reports/R1/sign", "u-x", {})).statusCode).toBe(403);
+  });
+});
+
+
+describe("a rotated key does not invalidate the signatures made before it", () => {
+  /**
+   * Verification used to look the signer's key up on the user row, so an officer who rotated
+   * their key silently turned every signature they had ever made red — on reports that had not
+   * changed at all. A signature is an assertion about a moment, so the key that made it is part
+   * of the record of that moment.
+   */
+  it("verifies each signature against the key that actually made it", async () => {
+    await call("POST", "/reports", "u-ma", { reportId: "K1", profile: "OIML_R76" });
+    const first = (await call("POST", "/me/signing-key", "u-ma", {})).json();
+    await call("POST", "/reports/K1/sign", "u-ma", { privateKeyPem: first.privateKeyPem });
+
+    const before = (await call("GET", "/reports/K1/signatures", "u-ma")).json();
+    expect(before.signatures).toHaveLength(1);
+    expect(before.signatures[0].verified).toBe(true);
+
+    // The officer registers a new pair — a lost device, a renewed DSC, an ordinary rotation.
+    const second = (await call("POST", "/me/signing-key", "u-ma", {})).json();
+    expect(second.publicKeyPem).not.toBe(first.publicKeyPem);
+
+    const after = (await call("GET", "/reports/K1/signatures", "u-ma")).json();
+    expect(after.signatures[0].verified, "the old signature is still good").toBe(true);
+
+    // And a signature made under the new key verifies too, so both coexist on one report.
+    await call("POST", "/reports/K1/sign", "u-ma", { privateKeyPem: second.privateKeyPem });
+    const both = (await call("GET", "/reports/K1/signatures", "u-ma")).json();
+    expect(both.signatures).toHaveLength(2);
+    expect(both.signatures.every((s: { verified: boolean }) => s.verified)).toBe(true);
   });
 });

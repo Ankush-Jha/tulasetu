@@ -146,6 +146,16 @@ export interface ReportDetail {
   forms: ReportForm[];
   available: LifecycleTransition[];
   guards: string[];
+  /**
+   * Whether this officer may still change anything, and why not.
+   *
+   * The server has always enforced it — a locked report is the record copy under ISO/IEC 17025
+   * §7.8 — but the browser never asked, so it drew a full data-entry form over a published
+   * report and only discovered the refusal on save.
+   */
+  writable: { allowed: boolean; reason?: string };
+  signatures: ReportSignature[];
+  deficiencies: Deficiency[];
 }
 
 export interface Issue {
@@ -347,6 +357,29 @@ export interface FormRunResult {
   /** Form-level conditions that are not per-row: creep's ΔP checks, a span variation. */
   summary?: { label: string; value: string; verdict?: string }[];
   notes?: string[];
+}
+
+/** A signature over the report's head hash, re-verified when it was read. */
+export interface ReportSignature {
+  actorName: string;
+  role: string;
+  recordedAt: string;
+  hash: string;
+  verified: boolean;
+  /** Signed under a key the officer has since replaced. Not a failure — see the service. */
+  keyRotated?: boolean;
+  reason?: string;
+}
+
+export interface Deficiency {
+  id: string;
+  formId: string | null;
+  severity: string;
+  text: string;
+  raisedBy: string;
+  raisedAt: string;
+  resolvedAt: string | null;
+  resolution: string | null;
 }
 
 export const api = {

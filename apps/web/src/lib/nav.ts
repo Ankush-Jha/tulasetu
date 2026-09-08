@@ -93,11 +93,17 @@ export interface ReportStep {
 /**
  * Six steps, of which five are things the officer fills in.
  *
- * The audit trail used to be a seventh. It is a *view* of the append-only log, not a step of
+ * The audit trail used to be one of them. It is a *view* of the append-only log, not a step of
  * the work, and putting it in the sequence made a reader count seven places to enter data when
  * there are five. It now lives on the report step, beside the outputs it authenticates.
+ *
+ * Overview leads, and is where a report opens. It is not a step of the work either — it is the
+ * answer to "where is this report and what can I do about it", which is the question anyone
+ * opening one actually has. Sending them to the instrument form instead meant a published
+ * report, signed by three officers and locked as the record copy, opened on an editable form.
  */
 export const REPORT_STEPS: ReportStep[] = [
+  { slug: "overview", label: "Overview", icon: "summarize", hint: "Where it is, and what it says" },
   { slug: "profile", label: "Instrument", icon: "precision_manufacturing", hint: "Identity, class, ranges" },
   { slug: "tests", label: "Applicable tests", icon: "checklist", hint: "Resolved from the rule pack" },
   { slug: "observations", label: "Observations", icon: "edit_note", hint: "Bench readings and verdicts" },

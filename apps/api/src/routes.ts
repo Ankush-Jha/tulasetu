@@ -17,7 +17,7 @@ import type { Db } from "./db/open.js";
 import { verifyChain } from "./db/events.js";
 import { rebuildAllProjections } from "./domain/events.js";
 import { availableTransitions, TRANSITIONS, type ReportState, type RoleId } from "./domain/lifecycle.js";
-import { capabilitiesOf, type Principal } from "./domain/rbac.js";
+import { canWriteReport, capabilitiesOf, type Principal } from "./domain/rbac.js";
 import { dashboardCounts, rule4_9AnnualReturn, searchReports } from "./domain/stats.js";
 import * as svc from "./domain/service.js";
 import { loadFormsFile, type RenderFormat } from "./domain/render.js";
@@ -252,11 +252,20 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
     guard((p, req) => {
       const id = (req.params as { id: string }).id;
       const report = svc.getReport(ctx(), p, id);
+      // Whether this officer may still change anything, and why not. The server has always
+      // enforced this — a locked report is the record copy under ISO/IEC 17025 §7.8 — but it
+      // never said so up front, so the browser offered a full data-entry form on a published
+      // report and only found out on save. Answering here lets the screen show the record
+      // rather than a form that cannot be submitted.
+      const writable = canWriteReport(p, report, "report:edit_profile");
       return {
         report,
         forms: svc.getReportForms(ctx(), p, id),
         available: availableTransitions(report.status as ReportState, p.role),
         guards: svc.satisfiedGuards(ctx(), id),
+        writable: { allowed: writable.allowed, ...(writable.reason ? { reason: writable.reason } : {}) },
+        signatures: svc.getSignatures(ctx(), p, id).signatures,
+        deficiencies: svc.listDeficiencies(ctx(), p, id),
       };
     }),
   );

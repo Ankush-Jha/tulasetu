@@ -250,6 +250,37 @@ real Postgres behind an async data layer. The second is a genuine migration rath
 all 23 service functions here are synchronous by design, over 64 statement sites and four
 transactions, and converting them would touch every route and every test.
 
+## A report opens on what it is, not on a form
+
+A report used to open on the instrument wizard whatever its state. So TS-DEMO-0001 — recorded,
+validated, submitted, reviewed, signed by three officers, locked, certificated and published —
+opened on an editable form with a "Save and resolve tests" button, an action the server would
+have refused on a document that is the record copy under ISO/IEC 17025 §7.8.
+
+`GET /reports/:id` now answers `writable` (with the server's own reason), the signatures and the
+deficiencies, and the report opens on an **Overview**: where it is, what that state means, who it
+is waiting on, the verdict with the failing forms as links, who signed and whether those
+signatures verify, the deficiencies and their answers, and the moves this officer's role can
+actually take. Where a report is closed, the entry screens print the record instead of offering
+boxes, and say once at the top why.
+
+The demonstration set also seeds itself on the first boot of a hosted deployment, rather than
+waiting for someone to press a button — an empty dashboard and an instruction is a poor answer
+to "does this work". `TULASETU_NO_AUTOSEED=1` turns it off; a bench install never runs it.
+
+### A signature is verified against the key that made it
+
+Found while reading the seeded reports: two of three signatures showed "does not verify" on a
+report nobody had touched. Verification looked the signer's key up on the *user row*, so an
+officer who rotated their key silently invalidated every signature they had ever made — and
+under the Indian DSC regime a key is renewed every year or two. The report would then read as
+tampered when nothing had changed.
+
+The signer's public key is now recorded in the `REPORT_SIGNED` event, and verification uses it.
+Rotation is reported separately, as `keyRotated`, because it is worth knowing and is not a
+failure — revocation is a different question from verification, and answering it by silently
+failing arithmetic conflates the two.
+
 ## Known gaps, stated plainly
 
 - **Authentication is a stub on both sides.** The browser sends `X-User-Id` and the server

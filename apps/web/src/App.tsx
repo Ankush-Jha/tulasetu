@@ -27,6 +27,7 @@ import { SettingsPage } from "./pages/SettingsPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
 import { ReportLayout } from "./pages/report/ReportLayout";
+import { OverviewStep } from "./pages/report/OverviewStep";
 import { ProfileStep } from "./pages/report/ProfileStep";
 import { TestsStep } from "./pages/report/TestsStep";
 import { ObservationsStep } from "./pages/report/ObservationsStep";
@@ -50,7 +51,8 @@ export default function App() {
             <Route path="/reports/new" element={<NewReportPage />} />
 
             <Route path="/reports/:reportId" element={<ReportLayout />}>
-              <Route index element={<Navigate to="profile" replace />} />
+              <Route index element={<Navigate to="overview" replace />} />
+              <Route path="overview" element={<OverviewStep />} />
               <Route path="profile" element={<ProfileStep />} />
               <Route path="tests" element={<TestsStep />} />
               <Route path="observations" element={<ObservationsStep />} />

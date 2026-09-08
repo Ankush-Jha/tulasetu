@@ -115,5 +115,14 @@ export interface SignatureRecord {
   hash: string;
   signature: string;
   verified: boolean;
+  /**
+   * Signed under a key the officer has since replaced.
+   *
+   * Not a failure. A signature made with a key that was valid at the time stays valid, and
+   * verification is done against the key recorded with the signature. This says only that the
+   * officer's *current* key is a different one — a renewed DSC, a replaced device — which a
+   * reader may want to know without it being reported as tampering.
+   */
+  keyRotated?: boolean;
   reason?: string;
 }

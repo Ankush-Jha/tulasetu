@@ -378,7 +378,10 @@ export function recordWeighingObservations(
       kernel: result.kernel,
       ...(input.rangeIndex !== undefined ? { rangeIndex: input.rangeIndex } : {}),
       verdict: result.verdict,
-      result,
+      // The environmental header travels with the computed form, so a reader of the record
+      // gets the conditions the readings were taken in without replaying the event log. The
+      // entry screen showed empty boxes on a recorded form for exactly this reason.
+      result: { ...result, ...(input.environment ? { environment: input.environment } : {}) },
     },
   });
 
@@ -839,7 +842,14 @@ export function signReport(
     eventType: "REPORT_SIGNED",
     actorId: principal.userId,
     recordedAt: ctx.now,
-    payload: { signedVersion: head.version, signedHash: head.hash },
+    // The signer's public key travels *with* the signature.
+    //
+    // Verification used to look the key up on the user, which meant an officer who rotated
+    // their key silently invalidated every signature they had ever made — the report would
+    // show a red "does not verify" against a signature that was, in fact, perfectly good at
+    // the time. A signature is an assertion about a moment, so the key that made it belongs in
+    // the record of that moment, not in a row that can move underneath it.
+    payload: { signedVersion: head.version, signedHash: head.hash, publicKey: user.public_key },
     signature,
   });
   rebuildProjection(ctx.db, reportId);
@@ -873,14 +883,33 @@ export function getSignatures(
   const signatures = events
     .filter((e) => e.event_type === "REPORT_SIGNED" && e.signature)
     .map((e) => {
-      const payload = JSON.parse(e.payload) as { signedVersion: number; signedHash: string };
+      const payload = JSON.parse(e.payload) as {
+        signedVersion: number; signedHash: string; publicKey?: string;
+      };
       const user = ctx.db
         .prepare("SELECT full_name, role_id, public_key FROM users WHERE id = ?")
         .get(e.actor_id) as { full_name: string; role_id: string; public_key: string | null } | undefined;
 
-      const check = user?.public_key
-        ? verifySignature(payload.signedHash, e.signature!, user.public_key)
+      // The key recorded with the signature, where there is one: it is the key that actually
+      // made this signature. The user's current key is the fallback for events written before
+      // the key was carried in the payload, and it is only correct while nobody has rotated.
+      const key = payload.publicKey ?? user?.public_key ?? null;
+      const check = key
+        ? verifySignature(payload.signedHash, e.signature!, key)
         : { ok: false, reason: "The signer has no registered public key." };
+
+      // Signed under a key the officer has since replaced.
+      //
+      // Reported, but not as a failure. A signature made with a key that was valid at the time
+      // is valid; treating rotation as invalidity would turn a laboratory's whole archive red
+      // the first time anyone renewed a DSC — which under the Indian regime is every year or
+      // two — and would say "tampered" about records that had not changed. Revocation is a
+      // separate question from verification, and answering it by silently failing the maths
+      // conflates the two. So the fact is surfaced and the reader decides what it means.
+      const keyRotated =
+        Boolean(payload.publicKey) &&
+        Boolean(user?.public_key) &&
+        payload.publicKey !== user?.public_key;
 
       return {
         eventVersion: payload.signedVersion,
@@ -892,6 +921,7 @@ export function getSignatures(
         hash: payload.signedHash,
         signature: e.signature!,
         verified: check.ok,
+        ...(keyRotated ? { keyRotated: true } : {}),
         ...(check.reason ? { reason: check.reason } : {}),
       };
     });
@@ -1004,6 +1034,47 @@ export function raiseDeficiency(
     payload: { deficiencyId: input.id, severity: input.severity, text: input.text, formId: input.formId },
   });
   rebuildProjection(ctx.db, reportId);
+}
+
+/**
+ * Every deficiency raised against a report, open and closed.
+ *
+ * Closed ones are returned too: a deficiency that was raised and answered is part of what
+ * happened to the report, and a screen that showed only the open ones would say a report had a
+ * clean history when it had a corrected one.
+ */
+export function listDeficiencies(
+  ctx: ServiceContext,
+  principal: Principal,
+  reportId: string,
+): {
+  id: string; formId: string | null; severity: string; text: string;
+  raisedBy: string; raisedAt: string; resolvedAt: string | null; resolution: string | null;
+}[] {
+  getReport(ctx, principal, reportId);
+  const rows = ctx.db
+    .prepare(
+      `SELECT d.id, d.form_id, d.severity, d.text, d.raised_at, d.resolved_at, d.resolution,
+              COALESCE(u.full_name, d.raised_by) AS raised_by
+         FROM deficiencies d
+         LEFT JOIN users u ON u.id = d.raised_by
+        WHERE d.report_id = ?
+        ORDER BY d.raised_at`,
+    )
+    .all(reportId) as {
+      id: string; form_id: string | null; severity: string; text: string;
+      raised_at: string; resolved_at: string | null; resolution: string | null; raised_by: string;
+    }[];
+  return rows.map((r) => ({
+    id: r.id,
+    formId: r.form_id,
+    severity: r.severity,
+    text: r.text,
+    raisedBy: r.raised_by,
+    raisedAt: r.raised_at,
+    resolvedAt: r.resolved_at,
+    resolution: r.resolution,
+  }));
 }
 
 export function resolveDeficiency(

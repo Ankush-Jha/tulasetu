@@ -491,6 +491,8 @@ export async function seedDemonstrationData(
 
   const ad = as("AD");
   const director = as("DIRECTOR");
+  /** Generated once per officer; see `sign`. */
+  const keys = new Map<string, string>();
   if (!ad || !director) {
     notes.push(
       "Only the recording officer's account exists in this laboratory, so the reports stop " +
@@ -505,7 +507,7 @@ export async function seedDemonstrationData(
   // -----------------------------------------------------------------------
   if (!exists("TS-DEMO-0001")) {
     build(ctx, principal, "TS-DEMO-0001", "MA/2026/DEMO/0001", "IN_Sch7A", MULTI_INTERVAL);
-    await walk(ctx, { ma: principal, ad, director }, "TS-DEMO-0001", "PUBLISHED", notes);
+    await walk(ctx, { ma: principal, ad, director, keys }, "TS-DEMO-0001", "PUBLISHED", notes);
     created.push("TS-DEMO-0001");
   }
 
@@ -522,7 +524,7 @@ export async function seedDemonstrationData(
       // one that is marginal.
       3,
     );
-    await walk(ctx, { ma: principal, ad, director }, "TS-DEMO-0002", "SUBMITTED", notes);
+    await walk(ctx, { ma: principal, ad, director, keys }, "TS-DEMO-0002", "SUBMITTED", notes);
     // Only if the report actually reached review. A deficiency is what a reviewing officer
     // records against a report in front of them, so raising one on a report still on the bench
     // would seed a history that could not have happened.
@@ -577,7 +579,7 @@ export async function seedDemonstrationData(
   // -----------------------------------------------------------------------
   if (!exists("TS-DEMO-0005")) {
     build(ctx, principal, "TS-DEMO-0005", "MA/2026/DEMO/0005", "OIML_R76", ANALYTICAL, 0, 10000);
-    await walk(ctx, { ma: principal, ad, director }, "TS-DEMO-0005", "SUBMITTED", notes);
+    await walk(ctx, { ma: principal, ad, director, keys }, "TS-DEMO-0005", "SUBMITTED", notes);
     created.push("TS-DEMO-0005");
   }
 
@@ -587,7 +589,7 @@ export async function seedDemonstrationData(
   // -----------------------------------------------------------------------
   if (!exists("TS-DEMO-0006")) {
     build(ctx, principal, "TS-DEMO-0006", "MA/2026/DEMO/0006", "IN_Sch7A", BEAM_SCALE, 0, 10000);
-    await walk(ctx, { ma: principal, ad, director }, "TS-DEMO-0006", "RECOMMENDED", notes);
+    await walk(ctx, { ma: principal, ad, director, keys }, "TS-DEMO-0006", "RECOMMENDED", notes);
     created.push("TS-DEMO-0006");
   }
 
@@ -597,7 +599,7 @@ export async function seedDemonstrationData(
   // -----------------------------------------------------------------------
   if (!exists("TS-DEMO-0007")) {
     build(ctx, principal, "TS-DEMO-0007", "MA/2026/DEMO/0007", "IN_Sch7A", COUNTER_SCALE);
-    await walk(ctx, { ma: principal, ad, director }, "TS-DEMO-0007", "RECOMMENDED", notes);
+    await walk(ctx, { ma: principal, ad, director, keys }, "TS-DEMO-0007", "RECOMMENDED", notes);
     // Only from RECOMMENDED — Rule 8 lets the Director remit a report that has reached them,
     // and a laboratory with no AD account never gets one that far.
     if (director && svc.getReport(ctx, principal, "TS-DEMO-0007").status === "RECOMMENDED") {
@@ -619,7 +621,7 @@ export async function seedDemonstrationData(
       ctx, principal, "TS-DEMO-0008", "MA/2026/DEMO/0008", "OIML_R76",
       { ...COUNTER_SCALE, model: "SI-30 CS rev C", serialNumber: "SI30-2026-0209" },
     );
-    await walk(ctx, { ma: principal, ad, director }, "TS-DEMO-0008", "RECOMMENDED", notes);
+    await walk(ctx, { ma: principal, ad, director, keys }, "TS-DEMO-0008", "RECOMMENDED", notes);
     created.push("TS-DEMO-0008");
   }
 
@@ -716,7 +718,13 @@ function recordForms(
  */
 async function walk(
   ctx: ServiceContext,
-  people: { ma: Principal; ad: Principal | null; director: Principal | null },
+  people: {
+    ma: Principal;
+    ad: Principal | null;
+    director: Principal | null;
+    /** One signing key per officer, shared across every report this run seeds. */
+    keys: Map<string, string>;
+  },
   reportId: string,
   target: string,
   notes: string[],
@@ -742,7 +750,7 @@ async function walk(
       } else {
         svc.transitionReport(ctx, step.by, reportId, { to: step.to as never });
       }
-      if (step.sign) sign(ctx, step.by, reportId);
+      if (step.sign) sign(ctx, step.by, reportId, people.keys);
     } catch (err) {
       notes.push(
         `${reportId} stopped at the step before ${step.to}: ${(err as Error).message ?? "unavailable"}`,
@@ -760,20 +768,21 @@ async function walk(
  * never a security property: a real deployment signs on the officer's own device or with a DSC,
  * and the verification path does not care which produced the signature.
  */
-function sign(ctx: ServiceContext, principal: Principal, reportId: string): void {
-  const existing = ctx.db
-    .prepare("SELECT public_key FROM users WHERE id = ?")
-    .get(principal.userId) as { public_key: string | null } | undefined;
-
-  let privateKeyPem: string | undefined;
-  if (!existing?.public_key) {
+function sign(
+  ctx: ServiceContext,
+  principal: Principal,
+  reportId: string,
+  keys: Map<string, string>,
+): void {
+  // One key pair per officer for the whole seeding run, held here and used for every report
+  // they sign. Registering a fresh pair per signature would rotate the officer's key eight
+  // times over — which the signature record now survives, since the key travels with it, but
+  // which is not what any laboratory does and would make the audit page harder to read.
+  let privateKeyPem = keys.get(principal.userId);
+  if (!privateKeyPem) {
     privateKeyPem = svc.registerSigningKey(ctx, principal).privateKeyPem;
-  } else {
-    // A key is already registered but its private half was never retained, so a fresh pair is
-    // registered for this signature. Signatures made under the old key stay verifiable —
-    // each is checked against the key that made it, not against the officer's current one.
-    privateKeyPem = svc.registerSigningKey(ctx, principal).privateKeyPem;
+    if (!privateKeyPem) return;
+    keys.set(principal.userId, privateKeyPem);
   }
-  if (!privateKeyPem) return;
   svc.signReport(ctx, principal, reportId, { privateKeyPem });
 }

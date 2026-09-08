@@ -43,7 +43,7 @@ type RangeRow = { e: string; d: string; min: string; max: string };
 const BLANK_RANGE: RangeRow = { e: "", d: "", min: "", max: "" };
 
 export function ProfileStep() {
-  const { reportId, instrument, detail, reload } = useReport();
+  const { reportId, instrument, detail, reload, writable } = useReport();
   const navigate = useNavigate();
 
   const [unit, setUnit] = useState<InstrumentProfileShape["unit"]>("g");
@@ -145,6 +145,13 @@ export function ProfileStep() {
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-4">
+      {/*
+        The form itself is inert on a closed report: every control inside stops taking focus,
+        clicks and typing, without each of them having to know about it. The banner at the top
+        of the page says why. The server refuses the write regardless — this only stops an
+        officer filling in a form that was never going to be accepted.
+      */}
+      <div className={cn("contents", !writable && "pointer-events-none opacity-90")} inert={!writable}>
       {/* 1 — Identity ---------------------------------------------------- */}
       <Card>
         <SectionHeading n={1} title="Identity" note="What the certificate will carry." />
@@ -401,6 +408,14 @@ export function ProfileStep() {
         </Alert>
       )}
 
+      {/*
+        No save on a report that cannot be saved. The server refuses it — a locked report is the
+        record copy under ISO/IEC 17025 §7.8 — and offering the button anyway meant filling in a
+        form to be told so afterwards. The banner above the page says why; here the way forward
+        is simply the next section.
+      */}
+      </div>
+
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-outline-variant/50 bg-surface-container-lowest px-4 py-3">
         <span className="flex items-center gap-2 text-body-sm text-on-surface-variant">
           {preview.pending && <Spinner size={14} />}
@@ -408,9 +423,19 @@ export function ProfileStep() {
             ? "A legal combination under R 76-1 Table 3."
             : "Enter the class and a weighing range."}
         </span>
-        <Button variant="primary" icon="check" loading={save.pending} onClick={submit}>
-          Save and resolve tests
-        </Button>
+        {writable ? (
+          <Button variant="primary" icon="check" loading={save.pending} onClick={submit}>
+            Save and resolve tests
+          </Button>
+        ) : (
+          <Button
+            variant="primary"
+            icon="arrow_forward"
+            onClick={() => navigate(reportPath(reportId, "tests"))}
+          >
+            Applicable tests
+          </Button>
+        )}
       </div>
     </div>
   );

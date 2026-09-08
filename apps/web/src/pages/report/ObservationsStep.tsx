@@ -62,7 +62,7 @@ const KERNEL_SUMMARY: Record<string, string> = {
 };
 
 export function ObservationsStep() {
-  const { reportId, detail, instrument, reload } = useReport();
+  const { reportId, detail, instrument, reload, writable } = useReport();
   const [params, setParams] = useSearchParams();
 
   const formsFile = useApi((s) => api.forms(s), []);
@@ -118,7 +118,8 @@ export function ObservationsStep() {
     setVerdict(currentForm?.verdict ?? null);
 
     const checkpoints = spec?.environmental?.checkpoints ?? [];
-    setEnvironment(checkpoints.map((checkpoint) => ({ checkpoint })));
+    const blankEnv = checkpoints.map((checkpoint) => ({ checkpoint }));
+    setEnvironment(blankEnv);
 
     const blank = Object.fromEntries(tables.map((t) => [t.id, [{} as FormRow]]));
 
@@ -131,7 +132,18 @@ export function ObservationsStep() {
         rows?: FormRow[];
         summary?: { label: string; value: string; verdict?: string }[];
         notes?: string[];
+        environment?: EnvironmentReading[];
       };
+      // What was actually recorded, not an empty header. A recorded form used to show blank
+      // temperature and humidity boxes, which reads as "nobody wrote these down" when somebody
+      // had — and on a published report there is nowhere to write them anyway.
+      if (parsed.environment?.length) {
+        setEnvironment(
+          blankEnv.map((slot) =>
+            parsed.environment!.find((e) => e.checkpoint === slot.checkpoint) ?? slot,
+          ),
+        );
+      }
       if (parsed.rows?.length) {
         const grouped: Record<string, FormRow[]> = { ...blank };
         for (const row of parsed.rows) {
@@ -289,7 +301,9 @@ export function ObservationsStep() {
         </div>
 
         {/* The header values this form carries above its table, where it has any. */}
-        <ExtrasRow formId={formId} kernel={kernel} unit={unit} extras={extras} setExtras={setExtras} />
+        {writable && (
+          <ExtrasRow formId={formId} kernel={kernel} unit={unit} extras={extras} setExtras={setExtras} />
+        )}
 
         {isExamination ? (
           /*
@@ -324,6 +338,7 @@ export function ObservationsStep() {
           <>
             {tables.map((table) => (
               <FormTable
+                readOnly={!writable}
                 key={table.id}
                 table={table}
                 showTitle={tables.length > 1}
@@ -356,6 +371,7 @@ export function ObservationsStep() {
           spec={spec}
           readings={environment}
           setReadings={setEnvironment}
+          readOnly={!writable}
           classI={instrument.accuracyClass === "I"}
         />
       )}
@@ -400,14 +416,16 @@ export function ObservationsStep() {
       <StepNav
         slug="observations"
         nextLabel={
-          nextForm
-            ? `Record and continue to form ${nextForm.form_id}`
-            : remaining > 0
-              ? `${remaining} form${remaining === 1 ? "" : "s"} still to record`
-              : undefined
+          !writable
+            ? undefined
+            : nextForm
+              ? `Record and continue to form ${nextForm.form_id}`
+              : remaining > 0
+                ? `${remaining} form${remaining === 1 ? "" : "s"} still to record`
+                : undefined
         }
         onNext={
-          nextForm
+          writable && nextForm
             ? async () => {
                 await compute();
                 setParams({ form: nextForm.form_id }, { replace: true });
@@ -417,14 +435,17 @@ export function ObservationsStep() {
         extra={
           <>
             {verdict && <Verdict value={verdict} />}
-            <Button
-              variant={nextForm ? "secondary" : "primary"}
-              icon={isExamination ? "check" : "calculate"}
-              loading={record.pending}
-              onClick={compute}
-            >
-              {isExamination ? "Record examination" : "Compute and record"}
-            </Button>
+            {/* Nothing to compute on a closed report — the rows below are the record. */}
+            {writable && (
+              <Button
+                variant={nextForm ? "secondary" : "primary"}
+                icon={isExamination ? "check" : "calculate"}
+                loading={record.pending}
+                onClick={compute}
+              >
+                {isExamination ? "Record examination" : "Compute and record"}
+              </Button>
+            )}
           </>
         }
       />
@@ -446,6 +467,7 @@ export function ObservationsStep() {
  */
 function FormTable({
   table,
+  readOnly,
   showTitle,
   unit,
   rows,
@@ -457,6 +479,8 @@ function FormTable({
   onRemoveRow,
 }: {
   table: FormSubformSpec;
+  /** A closed report's rows are the record: shown, never editable. */
+  readOnly: boolean;
   showTitle: boolean;
   unit: string;
   rows: FormRow[];
@@ -514,7 +538,12 @@ function FormTable({
 
                   {inputColumns.map((c) => (
                     <Td key={c.key}>
-                      <CellInput column={c} value={row[c.key]} onChange={(v) => onCell(i, c.key, v)} />
+                      <CellInput
+                        column={c}
+                        value={row[c.key]}
+                        readOnly={readOnly}
+                        onChange={(v) => onCell(i, c.key, v)}
+                      />
                     </Td>
                   ))}
 
@@ -536,7 +565,7 @@ function FormTable({
 
                   <Td align="center">{res?.verdict ? <Verdict value={res.verdict} /> : null}</Td>
                   <Td align="center">
-                    {rows.length > 1 && (
+                    {rows.length > 1 && !readOnly && (
                       <button
                         onClick={() => onRemoveRow(i)}
                         aria-label={`Remove row ${i + 1}`}
@@ -568,11 +597,13 @@ function FormTable({
         </tbody>
       </TableWrap>
 
-      <div className="px-5 py-2">
-        <Button variant="ghost" size="sm" icon="add" onClick={onAddRow}>
-          Add row
-        </Button>
-      </div>
+      {!readOnly && (
+        <div className="px-5 py-2">
+          <Button variant="ghost" size="sm" icon="add" onClick={onAddRow}>
+            Add row
+          </Button>
+        </div>
+      )}
     </>
   );
 }
@@ -598,12 +629,32 @@ function countFilled(rows: FormRow[], table: FormSubformSpec): number {
 function CellInput({
   column,
   value,
+  readOnly,
   onChange,
 }: {
   column: FormColumnSpec;
   value: string | number | boolean | null | undefined;
+  readOnly?: boolean;
   onChange: (v: string | boolean) => void;
 }) {
+  // On a closed report the value is printed rather than put in a box: a disabled input still
+  // reads as something that was meant to be filled in, and this was.
+  if (readOnly) {
+    const shown = value === undefined || value === null || value === "" ? "—" : String(value);
+    return (
+      <span
+        className={cn(
+          "block px-1 text-body-md text-on-surface",
+          column.unit === "boolean"
+            ? "text-center"
+            : alignOf(column) === "right" && "text-right tabular-nums",
+        )}
+      >
+        {column.unit === "boolean" ? (value === true || value === "true" ? "Yes" : "No") : shown}
+      </span>
+    );
+  }
+
   if (column.unit === "boolean") {
     return (
       <span className="flex justify-center">
@@ -744,11 +795,14 @@ function EnvironmentCard({
   spec,
   readings,
   setReadings,
+  readOnly,
   classI,
 }: {
   spec: FormSpec;
   readings: EnvironmentReading[];
   setReadings: (fn: (r: EnvironmentReading[]) => EnvironmentReading[]) => void;
+  /** A recorded form's conditions are the record: printed, not offered for editing. */
+  readOnly: boolean;
   classI: boolean;
 }) {
   const wantsPressure = Boolean(spec.environmental?.capturesPressure) && (classI || spec.formId === "14");
@@ -794,16 +848,22 @@ function EnvironmentCard({
                 {f.label} <span className="text-on-surface-variant">({f.unit})</span>
               </Td>
               {readings.map((r, i) => (
-                <Td key={r.checkpoint}>
-                  <Input
-                    value={r[f.key] === undefined ? "" : String(r[f.key])}
-                    onChange={(e) =>
-                      set(i, { [f.key]: e.target.value === "" ? undefined : Number(e.target.value) })
-                    }
-                    inputMode="decimal"
-                    aria-label={`${f.label} ${r.checkpoint}`}
-                    className="h-9 text-right tabular-nums"
-                  />
+                <Td key={r.checkpoint} align="right" numeric>
+                  {readOnly ? (
+                    <span className="block text-body-md text-on-surface">
+                      {r[f.key] === undefined ? "—" : String(r[f.key])}
+                    </span>
+                  ) : (
+                    <Input
+                      value={r[f.key] === undefined ? "" : String(r[f.key])}
+                      onChange={(e) =>
+                        set(i, { [f.key]: e.target.value === "" ? undefined : Number(e.target.value) })
+                      }
+                      inputMode="decimal"
+                      aria-label={`${f.label} ${r.checkpoint}`}
+                      className="h-9 text-right tabular-nums"
+                    />
+                  )}
                 </Td>
               ))}
             </tr>

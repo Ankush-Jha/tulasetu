@@ -54,6 +54,7 @@ import {
   loadSnapshot,
   supabaseConfig,
 } from "../../apps/api/src/db/persistence.js";
+import { seedDemonstrationData } from "../../apps/api/src/domain/demo.js";
 import type { RulePack } from "@tulasetu/engine";
 
 // eslint-disable-next-line import/extensions -- inlined at build time; see the note above.
@@ -146,6 +147,33 @@ function getServer(): Promise<Server> {
       seedDemoUsers(server.db);
       if (config) snapshots = new SnapshotWriter(config, server.db);
       await server.app.ready();
+
+      // Seed the demonstration set when the repository is empty.
+      //
+      // It used to be a button. On a deployment whose database does not survive a cold start
+      // that meant a visitor's first sight of the application was an empty dashboard and a
+      // instruction to press something — which teaches nothing, and is a poor answer to "does
+      // this work". An empty repository is only ever the first boot of a demonstration host; a
+      // bench install runs `apps/api/src/server.ts`, which does none of this.
+      const empty =
+        (server.db.prepare("SELECT COUNT(*) AS n FROM reports").get() as { n: number }).n === 0;
+      if (empty && process.env["TULASETU_NO_AUTOSEED"] !== "1") {
+        try {
+          const result = await seedDemonstrationData(
+            { db: server.db, pack: server.pack, now: new Date().toISOString() },
+            { userId: "u-ma", labId: "lab-fbd", role: "MA" },
+          );
+          console.log(`[tulasetu] seeded ${result.created.length} demonstration reports`);
+          // Straight to storage, so the next cold start restores them rather than seeding
+          // again — and so a reader of the bucket sees the same repository the site shows.
+          if (config) await snapshots?.flush();
+        } catch (err) {
+          // A demonstration that failed to seed is still a working application; failing to
+          // boot over it would not be.
+          console.error(`[tulasetu] could not seed demonstration data: ${(err as Error).message}`);
+        }
+      }
+
       return server;
     })();
   }
