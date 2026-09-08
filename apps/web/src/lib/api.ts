@@ -285,6 +285,70 @@ export interface RulePackInfo {
 // Endpoints
 // ---------------------------------------------------------------------------
 
+/** One column as the printed form declares it. */
+export interface FormColumnSpec {
+  key: string;
+  label: string;
+  /** Drives the input control: mass, time, count, percent, boolean or free text. */
+  unit?: "mass" | "time" | "count" | "percent" | "boolean" | "text" | string;
+  /** "computed" cells are filled by the engine and are never editable. */
+  kind?: "input" | "computed";
+  subcolumns?: string[];
+}
+
+/** A form that prints more than one table under one heading — form 7 is the case. */
+export interface FormSubformSpec {
+  id: string;
+  title: string;
+  columns?: FormColumnSpec[];
+  acceptance?: string;
+  /** How many rows the printed form provides. */
+  rows?: number;
+}
+
+export interface FormSpec {
+  formId: string;
+  title: string;
+  clause?: string | null;
+  kernel?: "K1" | "K2" | "K3" | "K4" | "K5" | "K6";
+  columns?: FormColumnSpec[];
+  subforms?: FormSubformSpec[];
+  formulas?: string[];
+  acceptance?: string | null;
+  notes?: string[];
+  environmental?: {
+    checkpoints?: string[];
+    capturesTemperature?: boolean;
+    capturesHumidity?: boolean;
+    capturesPressure?: boolean;
+    pressureNote?: string;
+  };
+}
+
+export interface FormsFile {
+  forms: FormSpec[];
+}
+
+export type FormRow = Record<string, string | number | boolean | null | undefined>;
+
+/** R 76-2's environmental header: the same three readings at start, at max and at end. */
+export interface EnvironmentReading {
+  checkpoint: string;
+  temperatureC?: number;
+  relativeHumidityPct?: number;
+  pressureHPa?: number;
+}
+
+/** What the engine returns for one recorded form, whichever kernel decided it. */
+export interface FormRunResult {
+  verdict: string;
+  issues: Issue[];
+  rows: (FormRow & { verdict?: string })[];
+  /** Form-level conditions that are not per-row: creep's ΔP checks, a span variation. */
+  summary?: { label: string; value: string; verdict?: string }[];
+  notes?: string[];
+}
+
 export const api = {
   health: (signal?: AbortSignal) =>
     request<{
@@ -326,12 +390,24 @@ export const api = {
       { profile, ...(expectedVersion !== undefined ? { expectedVersion } : {}) },
     ),
 
+  /** The printed layout of every R 76-2 form — columns, formulas, acceptance, env header. */
+  forms: (signal?: AbortSignal) =>
+    request<FormsFile>("GET", "/forms", undefined, signal),
+
   recordObservations: (
     id: string,
     formId: string,
-    body: { testId?: string; rangeIndex?: number; observations: unknown[]; zeroError?: number; environment?: unknown[] },
+    body: {
+      testId?: string;
+      rangeIndex?: number;
+      /** Rows keyed by the column keys this form prints. */
+      rows: FormRow[];
+      /** Header values that are not columns — the test load, a nominal supply voltage. */
+      extras?: Record<string, unknown>;
+      environment?: EnvironmentReading[];
+    },
   ) =>
-    request<{ verdict: string; issues: Issue[]; rows: WeighingRow[] }>(
+    request<FormRunResult>(
       "POST", `/reports/${encodeURIComponent(id)}/forms/${encodeURIComponent(formId)}/observations`, body,
     ),
 
