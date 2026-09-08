@@ -36,7 +36,7 @@ import { cn } from "../../lib/cn";
 import { api, type Attachment } from "../../lib/api";
 import { useApi, useMutation } from "../../lib/useApi";
 import { formatDateTime } from "../../lib/format";
-import { useReport } from "./ReportLayout";
+import { StepNav, useReport } from "./ReportLayout";
 
 const KINDS: { id: string; label: string; hint: string }[] = [
   { id: "model_photo", label: "Figure 1 — model photograph", hint: "Printed on the report" },
@@ -275,6 +275,8 @@ export function AttachmentsStep() {
           </TableWrap>
         )}
       </Card>
+
+      <StepNav slug="attachments" />
     </div>
   );
 }

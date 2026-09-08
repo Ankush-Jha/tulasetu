@@ -10,14 +10,16 @@
  * Two things are deliberately different from a bench deployment, both forced by what a
  * serverless function *is*, not by choice:
  *
- * - **The database is in memory.** This application's whole design rests on a durable,
- *   hash-chained append-only log (CLAUDE.md §3.4) — which needs a real filesystem, and a
- *   serverless function's is ephemeral and not shared across instances. So a bench install
- *   still wants `apps/api/src/server.ts` against a real file. This function exists so a judge
- *   can click through a *live* demonstration without anyone standing up a second host; a report
- *   made here lives for as long as this instance stays warm, and vanishes on the next cold
- *   start. That is a demo property, not a compliance one, and the dashboard's seed button
- *   labels its data "(demonstration)" precisely so nobody mistakes one for the other.
+ * - **The database is in memory, and persisted as a whole file.** This application's design
+ *   rests on a durable, hash-chained append-only log (CLAUDE.md §3.4), which wants a real
+ *   filesystem; a serverless function's is ephemeral and not shared across instances. So the
+ *   database is opened in memory and, where Supabase is configured, restored from and written
+ *   back to a Storage object so that a demonstration survives a cold start — see
+ *   `apps/api/src/db/persistence.ts`, which is explicit that this is a demo convenience and
+ *   not safe against two instances writing at once. Without that configuration the behaviour is
+ *   what it always was: a report lives as long as the instance stays warm. Either way a bench
+ *   install still wants `apps/api/src/server.ts` against a real file, and the seed button
+ *   labels its data "(demonstration)" so nobody mistakes one for the other.
  * - **PDF rendering is unavailable.** It needs Chromium, which is not installed on a stock
  *   Node function. `renderReportForDownload` already turns that into a clear 503 rather than a
  *   crash (see apps/api/src/domain/service.ts) — DOCX and JSON, which do not need a browser,
@@ -47,6 +49,11 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { buildServer, type Server } from "../../apps/api/src/server.js";
 import { primeFormsAndChecklists } from "../../apps/api/src/domain/render.js";
+import {
+  SnapshotWriter,
+  loadSnapshot,
+  supabaseConfig,
+} from "../../apps/api/src/db/persistence.js";
 import type { RulePack } from "@tulasetu/engine";
 
 // eslint-disable-next-line import/extensions -- inlined at build time; see the note above.
@@ -82,18 +89,62 @@ function seedDemoUsers(db: Server["db"]): void {
   for (const [id, role, name, email] of users) insert.run(id, "lab-fbd", role, name, email, now);
 }
 
+/**
+ * Set once the database is backed by Supabase Storage, so a request that wrote something can
+ * ask for the file to be uploaded again. Null when Supabase is not configured, in which case
+ * nothing here does anything.
+ */
+let snapshots: SnapshotWriter | null = null;
+
 function getServer(): Promise<Server> {
   if (!serverPromise) {
     serverPromise = (async () => {
       primeFormsAndChecklists(forms as never, checklists as never);
+
+      // Restore before building, because the database has to exist as the *restored* file
+      // rather than be emptied and refilled — the event log's hash chain is the record, and
+      // replaying it into a fresh database is not the same thing as keeping it.
+      const config = supabaseConfig();
+      let restoreFrom: Buffer | undefined;
+      if (config) {
+        const snapshot = await loadSnapshot(config);
+        if (snapshot.error) {
+          // Reported, not swallowed: starting empty when a snapshot exists looks exactly like
+          // data loss, and an operator needs to be able to tell the two apart.
+          console.error(`[tulasetu] could not read the stored database: ${snapshot.error}`);
+        }
+        if (snapshot.bytes) restoreFrom = snapshot.bytes;
+      }
+
       const server = buildServer({
         dbPath: ":memory:",
         attachmentRoot: "/tmp/attachments",
         rulepack: rulepack as RulePack,
         checklists,
         schemaSql: schemaSql as unknown as string,
+        ...(restoreFrom ? { restoreFrom } : {}),
+        storage: () =>
+          config
+            ? {
+                kind: "supabase-storage",
+                durable: true,
+                note:
+                  "The database is kept in memory and mirrored to a Supabase Storage object " +
+                  "after every write, so a demonstration survives a cold start. It is not safe " +
+                  "against two instances writing at once — a bench install uses a real file.",
+                error: snapshots?.error ?? null,
+              }
+            : {
+                kind: "memory",
+                durable: false,
+                note:
+                  "Nothing is persisted: this data lives only as long as the serverless " +
+                  "instance stays warm. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to " +
+                  "keep it between visits.",
+              },
       });
       seedDemoUsers(server.db);
+      if (config) snapshots = new SnapshotWriter(config, server.db);
       await server.app.ready();
       return server;
     })();
@@ -109,6 +160,16 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
   // route paths, reachable the same way in development and here).
   if (req.url) {
     req.url = req.url.replace(/^\/api/, "") || "/";
+  }
+
+  // A read changes nothing, so only a write is worth uploading after. Rendering is the
+  // exception among GETs — it appends a REPORT_RENDERED event — so it is included by method
+  // rather than by guessing from the path.
+  const writes = req.method !== undefined && !["GET", "HEAD", "OPTIONS"].includes(req.method);
+  if (snapshots && (writes || req.url?.includes("/render/"))) {
+    // After the response, not before: the upload must carry what the request wrote, and it
+    // must not make the officer wait for a network round trip to Supabase to see their result.
+    res.on("finish", () => snapshots?.request());
   }
 
   app.server.emit("request", req, res);

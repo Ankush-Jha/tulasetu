@@ -220,6 +220,36 @@ ever edited:
   fail moves the indication. Pushing ΔL negative would seed an observation no bench could
   produce, and the validator refuses it.
 
+## Persisting the hosted demonstration (Supabase)
+
+The Vercel deployment keeps its database in memory, because a serverless function's filesystem
+is ephemeral and not shared between instances. Configure Supabase and the whole SQLite file is
+restored on cold start and written back after every write, so a demonstration survives being
+left alone.
+
+1. In a Supabase project, create a **private** Storage bucket named `tulasetu`.
+2. Set two environment variables on the Vercel project:
+   - `SUPABASE_URL` — `https://<project>.supabase.co`
+   - `SUPABASE_SERVICE_ROLE_KEY` — the service-role key, **not** the anon key. It bypasses row
+     level security, so it belongs only in the server's environment; it must never reach the
+     browser bundle.
+   - Optional: `SUPABASE_DB_BUCKET` (default `tulasetu`), `SUPABASE_DB_OBJECT` (default
+     `tulasetu.db`).
+3. Redeploy. `GET /api/health` reports `storage.kind` — `supabase-storage` when it is on,
+   `memory` when it is not, with `storage.error` carrying the reason if an upload failed.
+
+With neither variable set, nothing changes: the server behaves exactly as it did, and the bench
+install and the test suite never touch any of this.
+
+**What this is not.** It is a demonstration convenience, and `apps/api/src/db/persistence.ts`
+says so at the top. Two instances writing at once each upload their own whole file and the later
+upload wins, losing the other's events — a single officer clicking through a demonstration never
+hits that; a laboratory would. The durable, hash-chained append-only log that ISO/IEC 17025 §7.8
+asks for wants a real filesystem (CLAUDE.md §4's bench install, against a real SQLite file) or a
+real Postgres behind an async data layer. The second is a genuine migration rather than a swap:
+all 23 service functions here are synchronous by design, over 64 statement sites and four
+transactions, and converting them would touch every route and every test.
+
 ## Known gaps, stated plainly
 
 - **Authentication is a stub on both sides.** The browser sends `X-User-Id` and the server
@@ -240,5 +270,7 @@ ever edited:
   R 76-2 prints 12.1, 12.2a and 12.3a for AC-mains instruments and 12.3b for any other supply;
   all nine are currently offered to any electronic instrument. Splitting them further needs the
   supply type on the profile, which the form does not yet collect.
+- **Snapshot persistence is last-write-wins.** See above. It keeps the hosted demonstration's
+  data between visits; it is not a concurrency-safe system of record.
 - **The draft five-part pack is a committee draft**, not the standard in force. It says so, the
   server warns at boot, and the UI badges it.

@@ -10,9 +10,10 @@
  * so the buttons on screen are exactly the moves that will be allowed.
  */
 
-import { createContext, useContext } from "react";
-import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
+import { createContext, useContext, type ReactNode } from "react";
+import { NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
+  ActionBar,
   Alert,
   Badge,
   Button,
@@ -222,6 +223,68 @@ function describeGuard(guard: string): string {
     case "final_pdf_rendered": return "Record copy rendered";
     default: return guard;
   }
+}
+
+/**
+ * Move to the next step, and back to the last one.
+ *
+ * Every step needs this and only two of the six had it: an officer could fill in a whole
+ * checklist or upload every drawing and find no way forward except the progress rail at the top
+ * of the page, which reads as a status display rather than a control. A wizard that does not
+ * say what comes next is not a wizard.
+ *
+ * The steps come from REPORT_STEPS, so the order here cannot drift from the order the rail
+ * shows. `extra` is for a step that has its own inner loop — the observation screen moves
+ * between forms before it moves to the next step.
+ */
+export function StepNav({
+  slug,
+  extra,
+  nextLabel,
+  onNext,
+}: {
+  slug: string;
+  extra?: ReactNode;
+  /** Overrides the label when the next action is not simply "the next step". */
+  nextLabel?: string;
+  onNext?: () => void;
+}) {
+  const { reportId } = useReport();
+  const navigate = useNavigate();
+
+  const i = REPORT_STEPS.findIndex((s) => s.slug === slug);
+  const previous = i > 0 ? REPORT_STEPS[i - 1] : null;
+  const next = i >= 0 && i < REPORT_STEPS.length - 1 ? REPORT_STEPS[i + 1] : null;
+
+  return (
+    <ActionBar
+      left={
+        previous ? (
+          <Button
+            variant="ghost"
+            icon="arrow_back"
+            onClick={() => navigate(reportPath(reportId, previous.slug))}
+          >
+            {previous.label}
+          </Button>
+        ) : undefined
+      }
+      right={
+        <>
+          {extra}
+          {next && (
+            <Button
+              variant="primary"
+              icon="arrow_forward"
+              onClick={onNext ?? (() => navigate(reportPath(reportId, next.slug)))}
+            >
+              {nextLabel ?? `Continue to ${next.label.toLowerCase()}`}
+            </Button>
+          )}
+        </>
+      }
+    />
+  );
 }
 
 /** Shared empty state for steps that need the profile first. */

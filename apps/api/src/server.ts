@@ -18,7 +18,7 @@ import { fileURLToPath } from "node:url";
 import type { RulePack } from "@tulasetu/engine";
 import { validateRulePack } from "@tulasetu/engine";
 
-import { openDb, type Db } from "./db/open.js";
+import { openDb, openMemoryDb, type Db } from "./db/open.js";
 import { MAX_BYTES } from "./domain/attachments.js";
 import { registerRoutes } from "./routes.js";
 
@@ -64,6 +64,16 @@ export function buildServer(
     checklists?: unknown;
     /** Same reasoning again, for `db/open.ts`'s `schema.sql` — see `openDb`'s `schemaSql` param. */
     schemaSql?: string;
+    /**
+     * A previously serialised database to open instead of a file or an empty one.
+     *
+     * Used by the serverless deployment, whose filesystem does not survive a cold start: the
+     * bytes come back from Supabase Storage (see db/persistence.ts). Supplying this implies an
+     * in-memory database, because there is nowhere durable to put it.
+     */
+    restoreFrom?: Buffer;
+    /** How durable this deployment's data is; reported on /health. See RouteOptions.storage. */
+    storage?: () => { kind: string; durable: boolean; note?: string; error?: string | null };
   } = {},
 ): Server {
   let pack: RulePack;
@@ -109,10 +119,10 @@ export function buildServer(
     }
   }
 
-  const db = openDb(
-    opts.dbPath ?? process.env["TULASETU_DB"] ?? join(ROOT, "tulasetu.db"),
-    opts.schemaSql,
-  );
+  const db =
+    opts.restoreFrom || opts.dbPath === ":memory:"
+      ? openMemoryDb(opts.schemaSql, opts.restoreFrom)
+      : openDb(opts.dbPath ?? process.env["TULASETU_DB"] ?? join(ROOT, "tulasetu.db"), opts.schemaSql);
   const attachmentRoot =
     opts.attachmentRoot ?? process.env["TULASETU_ATTACHMENTS"] ?? join(ROOT, "attachments");
 
@@ -120,7 +130,11 @@ export function buildServer(
   // The limit is enforced again in the attachment store; here it stops a large upload being
   // buffered at all rather than being read and then rejected.
   app.register(multipart, { limits: { fileSize: MAX_BYTES, files: 1 } });
-  registerRoutes(app, { db, pack, attachmentRoot, ...(checklists ? { checklists } : {}) });
+  registerRoutes(app, {
+    db, pack, attachmentRoot,
+    ...(checklists ? { checklists } : {}),
+    ...(opts.storage ? { storage: opts.storage } : {}),
+  });
   return { app, db, pack };
 }
 

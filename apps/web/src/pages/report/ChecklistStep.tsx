@@ -34,7 +34,7 @@ import {
 import { cn } from "../../lib/cn";
 import { api } from "../../lib/api";
 import { useApi, useMutation } from "../../lib/useApi";
-import { NeedsProfile, useReport, type InstrumentProfileShape } from "./ReportLayout";
+import { NeedsProfile, StepNav, useReport, type InstrumentProfileShape } from "./ReportLayout";
 
 interface ChecklistItem {
   ref: string;
@@ -380,6 +380,8 @@ export function ChecklistStep() {
         bank are marked uncertain where the PDF extraction was ambiguous; they are flagged in
         place rather than guessed.
       </p>
+
+      <StepNav slug="checklist" />
     </div>
   );
 }

@@ -40,6 +40,15 @@ export interface RouteOptions {
   now?: () => string;
   /** Directory for attachment bytes. Defaults to ./attachments beside the database. */
   attachmentRoot?: string;
+  /**
+   * How durable this deployment's data is, reported on /health.
+   *
+   * Supplied by the caller because only it knows: a bench install writes to a file, and the
+   * serverless deployment keeps the database in memory and mirrors it to Supabase Storage
+   * (or, unconfigured, keeps it only for as long as the instance stays warm). Left unset it
+   * reports the file case, which is what `server.ts` builds.
+   */
+  storage?: () => { kind: string; durable: boolean; note?: string; error?: string | null };
 }
 
 /**
@@ -106,6 +115,9 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
 
   app.get("/health", async () => ({
     ok: true,
+    // Whether this deployment's data survives a restart, and why. A demonstration that
+    // silently forgets everything is worse than one that says it will.
+    storage: opts.storage?.() ?? { kind: "file", durable: true },
     rulesetId: pack.ruleset_id,
     rulesetVersion: pack["version"] ?? null,
     edition: pack.edition ?? null,

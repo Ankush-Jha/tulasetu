@@ -22,12 +22,26 @@ import {
   Th,
   Verdict,
 } from "../../components/ui";
+import { api } from "../../lib/api";
+import { useApi } from "../../lib/useApi";
 import { reportPath } from "../../lib/nav";
-import { NeedsProfile, useReport } from "./ReportLayout";
+import { NeedsProfile, StepNav, useReport } from "./ReportLayout";
 
 export function TestsStep() {
   const { reportId, detail, instrument } = useReport();
+  // Which kernel decides a form comes from the server, which reads it from the rule pack.
+  // It used to be a list of test ids in this file, and it had already gone stale: it named
+  // "discrimination" and "creep" after the pack had split them, and put stability of
+  // equilibrium under K4 when the pack says K6. A threshold or a clause is data (CLAUDE.md
+  // design rule #2), and so is this.
+  const formsFile = useApi((s) => api.forms(s), []);
+
   if (!instrument) return <NeedsProfile />;
+
+  const kernelOf = (formId: string) =>
+    formsFile.data?.forms.find((f) => f.formId === formId)?.kernel ?? "—";
+  const titleOfForm = (formId: string, testId: string) =>
+    formsFile.data?.forms.find((f) => f.formId === formId)?.title ?? titleOf(testId);
 
   const forms = [...detail.forms].sort((a, b) =>
     a.form_id.localeCompare(b.form_id, undefined, { numeric: true }),
@@ -82,10 +96,10 @@ export function TestsStep() {
                   ) : null}
                 </Td>
                 <Td>
-                  <span className="text-on-surface">{titleOf(f.test_id)}</span>
+                  <span className="text-on-surface">{titleOfForm(f.form_id, f.test_id)}</span>
                 </Td>
                 <Td>
-                  <Badge tone="neutral" className="font-mono" >{kernelOf(f.test_id)}</Badge>
+                  <Badge tone="neutral" className="font-mono">{kernelOf(f.form_id)}</Badge>
                 </Td>
                 <Td><Verdict value={f.verdict} /></Td>
                 <Td align="right">
@@ -114,7 +128,7 @@ export function TestsStep() {
                 </span>
                 <span className="min-w-0">
                   <span className="flex items-center gap-2">
-                    <span className="text-label-lg text-on-surface">{titleOf(f.test_id)}</span>
+                    <span className="text-label-lg text-on-surface">{titleOfForm(f.form_id, f.test_id)}</span>
                     <Badge tone="neutral">– –</Badge>
                   </span>
                   <span className="block text-body-md text-on-surface-variant mt-0.5">
@@ -127,6 +141,7 @@ export function TestsStep() {
         </Disclosure>
       )}
 
+      <StepNav slug="tests" />
     </div>
   );
 }
@@ -137,12 +152,4 @@ function titleOf(testId: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-/** Kernel per test, mirroring the rule pack's own assignment. */
-function kernelOf(testId: string): string {
-  if (["discrimination"].includes(testId)) return "K2";
-  if (["sensitivity"].includes(testId)) return "K3";
-  if (["temp_no_load", "zero_return", "creep", "span_stability", "stability_of_equilibrium"].includes(testId))
-    return "K4";
-  if (testId.startsWith("disturbances")) return "K5";
-  return "K1";
-}
+

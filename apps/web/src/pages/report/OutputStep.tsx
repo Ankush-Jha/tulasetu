@@ -69,6 +69,7 @@ export function OutputStep() {
   const { report, forms } = detail;
 
   const [lastRender, setLastRender] = useState<{ format: Format; sha256: string } | null>(null);
+  const [previewBlocked, setPreviewBlocked] = useState(false);
   const download = useMutation(api.download);
   const lock = useMutation(api.lock);
 
@@ -95,6 +96,34 @@ export function OutputStep() {
     reload();
   }
 
+  /**
+   * Open the report in a new tab.
+   *
+   * It has to be fetched here and opened as a blob, rather than pointed at the render URL
+   * directly. A new tab is a fresh request that carries no `X-User-Id`, so handing the browser
+   * the API URL produced a tab containing the server's own "Missing X-User-Id header" refusal —
+   * the preview was unauthenticated, not the session.
+   *
+   * The blob URL is revoked on a delay rather than immediately: the new tab has to finish
+   * loading from it first, and revoking in the same tick leaves it blank.
+   */
+  async function preview() {
+    const result = await download.run(reportId, "html");
+    if (!result) return;
+    const url = URL.createObjectURL(result.blob);
+    const tab = window.open(url, "_blank");
+    if (!tab) {
+      // A blocked pop-up would otherwise fail silently, leaving the officer with a button that
+      // appears to do nothing.
+      setPreviewBlocked(true);
+      URL.revokeObjectURL(url);
+      return;
+    }
+    setPreviewBlocked(false);
+    window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    reload();
+  }
+
   async function doLock() {
     const result = await lock.run(reportId);
     if (result) {
@@ -117,6 +146,12 @@ export function OutputStep() {
       )}
 
       {download.error && <Alert tone="fail" title="Could not generate that file">{download.error}</Alert>}
+      {previewBlocked && (
+        <Alert tone="warn" title="The preview tab was blocked">
+          Your browser stopped this page opening a new tab. Allow pop-ups for this site, or use
+          Download instead — it produces the same document.
+        </Alert>
+      )}
       {lock.error && <Alert tone="fail" title="Could not lock the report">{lock.error}</Alert>}
 
       {lastRender && (
@@ -192,7 +227,8 @@ export function OutputStep() {
                 {o.id === "pdf" && (
                   <Button
                     size="sm" variant="ghost" icon="visibility"
-                    onClick={() => window.open(api.renderUrl(reportId, "html", true), "_blank")}
+                    loading={download.pending}
+                    onClick={preview}
                   >
                     Preview
                   </Button>

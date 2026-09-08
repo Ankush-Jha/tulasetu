@@ -20,9 +20,8 @@
  */
 
 import { Fragment, useEffect, useMemo, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import {
-  ActionBar,
   Alert,
   Badge,
   Button,
@@ -50,8 +49,7 @@ import {
 } from "../../lib/api";
 import { useApi, useMutation } from "../../lib/useApi";
 import { fmtNumber } from "../../lib/format";
-import { reportPath } from "../../lib/nav";
-import { NeedsProfile, useReport } from "./ReportLayout";
+import { NeedsProfile, StepNav, useReport } from "./ReportLayout";
 
 /** What each kernel is judging, in one sentence an officer can act on. */
 const KERNEL_SUMMARY: Record<string, string> = {
@@ -66,7 +64,6 @@ const KERNEL_SUMMARY: Record<string, string> = {
 export function ObservationsStep() {
   const { reportId, detail, instrument, reload } = useReport();
   const [params, setParams] = useSearchParams();
-  const navigate = useNavigate();
 
   const formsFile = useApi((s) => api.forms(s), []);
 
@@ -227,6 +224,16 @@ export function ObservationsStep() {
 
   const kernel = spec?.kernel ?? "K1";
 
+  // The next form worth going to is the next one with no verdict yet, wrapping past the end —
+  // an officer who jumps back to fix form 3 should still be pointed at whatever is unfinished,
+  // not at form 4 which they did an hour ago.
+  const currentIndex = applicable.findIndex((f) => f.form_id === formId);
+  const nextForm =
+    applicable.slice(currentIndex + 1).find((f) => !f.verdict) ??
+    applicable.slice(0, Math.max(currentIndex, 0)).find((f) => !f.verdict) ??
+    null;
+  const remaining = applicable.filter((f) => !f.verdict).length;
+
   return (
     <div className="flex flex-col gap-4">
       {/* Which form. One control, because that is the only choice on this screen. */}
@@ -381,19 +388,41 @@ export function ObservationsStep() {
         </Card>
       )}
 
-      <ActionBar
-        left={
-          <>
-            <Button variant="ghost" icon="arrow_back" onClick={() => navigate(reportPath(reportId, "tests"))}>
-              Test list
-            </Button>
+      {/*
+        Two moves, and they are different moves.
 
-          </>
+        Recording this form and moving to the next one is the inner loop — twenty-six times on
+        a fully electronic instrument — so it is the primary action, and it says which form is
+        next rather than "next". Leaving observations altogether is the outer loop and only
+        makes sense once every applicable form carries a verdict, so until then it says how
+        many are left.
+      */}
+      <StepNav
+        slug="observations"
+        nextLabel={
+          nextForm
+            ? `Record and continue to form ${nextForm.form_id}`
+            : remaining > 0
+              ? `${remaining} form${remaining === 1 ? "" : "s"} still to record`
+              : undefined
         }
-        right={
+        onNext={
+          nextForm
+            ? async () => {
+                await compute();
+                setParams({ form: nextForm.form_id }, { replace: true });
+              }
+            : undefined
+        }
+        extra={
           <>
             {verdict && <Verdict value={verdict} />}
-            <Button variant="primary" icon={isExamination ? "check" : "calculate"} loading={record.pending} onClick={compute}>
+            <Button
+              variant={nextForm ? "secondary" : "primary"}
+              icon={isExamination ? "check" : "calculate"}
+              loading={record.pending}
+              onClick={compute}
+            >
               {isExamination ? "Record examination" : "Compute and record"}
             </Button>
           </>

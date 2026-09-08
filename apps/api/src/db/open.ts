@@ -21,9 +21,16 @@ export function openDb(path = "tulasetu.db", schemaSql?: string): Db {
   return db;
 }
 
-/** In-memory database, for tests. */
-export function openMemoryDb(schemaSql?: string): Db {
-  const db = new Database(":memory:");
+/**
+ * In-memory database, for tests and for the serverless deployment.
+ *
+ * `restoreFrom` opens a previously serialised database rather than an empty one — the bytes a
+ * snapshot came back with (see db/persistence.ts). `migrate` still runs over it, because the
+ * schema is written with `IF NOT EXISTS` and the role seed is an upsert, so restoring a
+ * snapshot taken under an older schema brings it forward rather than failing on it.
+ */
+export function openMemoryDb(schemaSql?: string, restoreFrom?: Buffer): Db {
+  const db = restoreFrom ? new Database(restoreFrom) : new Database(":memory:");
   db.pragma("foreign_keys = ON");
   migrate(db, schemaSql);
   return db;
