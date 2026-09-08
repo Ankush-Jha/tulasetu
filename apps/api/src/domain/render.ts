@@ -200,7 +200,11 @@ export function buildReportDocument(
       };
     }
 
-    const stored = JSON.parse(f.result_json) as { rows?: WeighingRowResult[] };
+    const stored = JSON.parse(f.result_json) as {
+      rows?: Record<string, unknown>[];
+      summary?: { label: string; value: string; verdict?: Verdict }[];
+      notes?: string[];
+    };
     const rows = stored.rows ?? [];
     const columns = specs.get(f.form_id)?.columns ?? [];
 
@@ -211,10 +215,16 @@ export function buildReportDocument(
       applicable: true,
       verdict: f.verdict as Verdict,
       rows: rows.map((r) => toRenderRow(r, columns)),
+      // Mark the computed cells of a failed row, whichever kernel produced them: the column
+      // that carries the verdict differs per form (Ec on a weighing form, ΔP on creep, the
+      // fault magnitude on a disturbance form), so the form's own spec decides.
       failedCells: rows
         .map((r, rowIndex) => ({
           rowIndex,
-          keys: r.verdict === "FAILED" ? ["correctedError", "error"] : [],
+          keys:
+            r["verdict"] === "FAILED"
+              ? columns.filter((c) => c.kind === "computed" && r[c.key] !== undefined).map((c) => c.key)
+              : [],
         }))
         .filter((x) => x.keys.length > 0),
       ...(environmentByForm.get(f.form_id) ? { environment: environmentByForm.get(f.form_id)! } : {}),
@@ -360,24 +370,19 @@ export function buildReportDocument(
  * supply Voltage — is left blank rather than guessed. A blank cell on a test form is an honest
  * statement that the figure was not recorded; an invented one is not.
  */
-function toRenderRow(r: WeighingRowResult, columns: FormColumnSpec[]): Record<string, unknown> {
-  /** What the engine computed, by the column key each value belongs under. */
-  const byKey: Record<string, number | string> = {
-    load: r.load,
-    indication: r.indication,
-    additionalLoad: r.additionalLoad,
-    error: r.error,
-    correctedError: r.correctedError,
-    mpe: r.mpe.mpe,
-    // Form 3.1/3.2 record where on the receptor the load sat; the officer types it as the
-    // row's label, so that is where it belongs.
-    ...(r.label ? { location: r.label, label: r.label } : {}),
-  };
-
+/**
+ * Lay one computed row out under the columns the printed form declares.
+ *
+ * The runner already writes its results under those column keys, so this is a projection, not
+ * a translation: it drops anything the form does not print and expands a value into the two
+ * sub-columns (down-arrow / up-arrow) a form like weighing performance carries. It used to map
+ * a K1-shaped result by hand, which is why nothing but K1 could be printed.
+ */
+function toRenderRow(r: Record<string, unknown>, columns: FormColumnSpec[]): Record<string, unknown> {
   const row: Record<string, unknown> = {};
   for (const col of columns) {
-    const value = byKey[col.key];
-    if (value === undefined) continue; // Not a column this data can fill. Leave it blank.
+    const value = r[col.key];
+    if (value === undefined || value === null) continue; // Not filled. Leave the cell blank.
     row[col.key] = col.subcolumns?.length
       ? Object.fromEntries(col.subcolumns.map((sub) => [sub, value]))
       : value;

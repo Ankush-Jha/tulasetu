@@ -15,6 +15,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { InstrumentProfile, RulePack } from "@tulasetu/engine";
 
+import { payloadFor } from "./formRows.js";
 import { openMemoryDb, type Db } from "../src/db/open.js";
 import { registerRoutes } from "../src/routes.js";
 
@@ -160,13 +161,12 @@ describe("the whole approval chain", () => {
     // --- observations on every applicable form ---
     const applicableForms = prof.body.applicable.filter((t: any) => t.applicable);
     for (const t of applicableForms) {
+      // Each form gets rows in the shape it is printed in. Posting weighing rows into a creep
+      // or a disturbance form is refused now, which is what makes this loop meaningful: it
+      // used to pass because the server ran K1 on everything.
       const r = await call("POST", `/reports/TS-1/forms/${t.formId}/observations`, "u-ma", {
         testId: t.testId,
-        observations: [
-          { load: 0, indication: 0, additionalLoad: 0 },
-          { load: 1000, indication: 1000, additionalLoad: 0 },
-          { load: 4500, indication: 4500, additionalLoad: 0 },
-        ],
+        ...payloadFor(t.formId),
       });
       expect(r.status, `form ${t.formId}`).toBe(200);
       expect(r.body.verdict).toBe("PASSED");
@@ -220,9 +220,8 @@ describe("the deficiency loop", () => {
       if (t === "OBSERVATIONS_COMPLETE") {
         const applicable = (await call("GET", "/reports/TS-2", "u-ma")).body.forms.filter((f: any) => f.applicable);
         for (const f of applicable) {
-          await call("POST", `/reports/TS-2/forms/${f.form_id}/observations`, "u-ma", {
-            observations: [{ load: 1000, indication: 1000 }],
-          });
+          await call("POST", `/reports/TS-2/forms/${f.form_id}/observations`, "u-ma",
+            payloadFor(f.form_id));
         }
       }
       await call("POST", "/reports/TS-2/transition", "u-ma", { to: t });

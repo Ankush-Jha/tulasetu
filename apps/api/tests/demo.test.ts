@@ -125,15 +125,21 @@ describe("seeding the demonstration set", () => {
     // Class I: no tilting, no damp heat, no span stability, no endurance.
     const classI = (await call("GET", "/reports/TS-DEMO-0005", "u-ma")).json();
     const na = (d: any, form: string) => d.forms.find((f: any) => f.form_id === form)?.applicable === 0;
-    expect(na(classI, "13"), "damp heat should not apply to class I").toBe(true);
+    // Damp heat and endurance are each printed as several lettered forms (13a/b/c, 15a/c),
+    // so the exemption has to hold for every one of them, not just the first.
+    expect(na(classI, "13a"), "damp heat should not apply to class I").toBe(true);
+    expect(na(classI, "13b"), "damp heat should not apply to class I").toBe(true);
+    expect(na(classI, "13c"), "damp heat should not apply to class I").toBe(true);
     expect(na(classI, "14"), "span stability should not apply to class I").toBe(true);
-    expect(na(classI, "15"), "endurance should not apply to class I").toBe(true);
+    expect(na(classI, "15a"), "endurance should not apply to class I").toBe(true);
+    expect(na(classI, "15c"), "endurance should not apply to class I").toBe(true);
 
     // The 500 kg platform: endurance out on capacity, tilting in, 12.7 in.
     const platform = (await call("GET", "/reports/TS-DEMO-0004", "u-ma")).json();
-    expect(na(platform, "15"), "endurance should not apply above 100 kg").toBe(true);
+    expect(na(platform, "15a"), "endurance should not apply above 100 kg").toBe(true);
     expect(na(platform, "8"), "tilting should apply to a tiltable instrument").toBe(false);
-    expect(na(platform, "12.7"), "12.7 should apply to a vehicle-powered instrument").toBe(false);
+    expect(na(platform, "12.7a"), "12.7 should apply to a vehicle-powered instrument").toBe(false);
+    expect(na(platform, "12.7b"), "12.7 should apply to a vehicle-powered instrument").toBe(false);
   });
 
   it("refuses a role that cannot create reports", async () => {

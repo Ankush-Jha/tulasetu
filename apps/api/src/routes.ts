@@ -20,7 +20,7 @@ import { availableTransitions, TRANSITIONS, type ReportState, type RoleId } from
 import { capabilitiesOf, type Principal } from "./domain/rbac.js";
 import { dashboardCounts, rule4_9AnnualReturn, searchReports } from "./domain/stats.js";
 import * as svc from "./domain/service.js";
-import type { RenderFormat } from "./domain/render.js";
+import { loadFormsFile, type RenderFormat } from "./domain/render.js";
 import { seedDemonstrationData } from "./domain/demo.js";
 import {
   ATTACHMENT_KINDS,
@@ -133,6 +133,29 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
       });
     }
     return checklists;
+  });
+
+  /**
+   * The printed layout of every R 76-2 form: its columns, formulas, acceptance criterion and
+   * environmental header.
+   *
+   * Served for the same reason the rule pack is. The entry screen draws its inputs from this,
+   * the runner computes from it and the renderer prints from it — one description, so a column
+   * cannot appear on screen that the report has no place for. Compiling a copy into the browser
+   * bundle would be a copy that silently falls behind the one the engine uses.
+   */
+  app.get("/forms", async () => {
+    const file = loadFormsFile();
+    // Each form is paired with the kernel the *rule pack* names for it, not the one the forms
+    // file guessed: the pack is what the runner dispatches on, so the screen must agree with it.
+    const kernelOf = new Map(pack.tests.map((t) => [t.form, t.kernel]));
+    return {
+      ...file,
+      forms: file.forms.map((f) => ({
+        ...f,
+        ...(kernelOf.has(f.formId) ? { kernel: kernelOf.get(f.formId) } : {}),
+      })),
+    };
   });
 
   app.get("/lifecycle", async () => ({

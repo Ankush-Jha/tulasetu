@@ -17,6 +17,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { InstrumentProfile, RulePack } from "@tulasetu/engine";
 
+import { payloadFor } from "./formRows.js";
 import { openMemoryDb, type Db } from "../src/db/open.js";
 import { registerRoutes } from "../src/routes.js";
 import { buildReportDocument } from "../src/domain/render.js";
@@ -85,13 +86,11 @@ afterEach(async () => {
 async function recordEverything() {
   const detail = (await call("GET", "/reports/R1", "u-ma")).json();
   for (const f of detail.forms.filter((x: any) => x.applicable === 1)) {
+    // Each form gets the shape it actually prints; posting weighing rows into a creep or a
+    // disturbance form is refused, which is the whole point of the change these fixtures track.
     await call("POST", `/reports/R1/forms/${f.form_id}/observations`, "u-ma", {
       testId: f.test_id,
-      observations: [
-        { load: 0, indication: 0, additionalLoad: 0, label: "zero" },
-        { load: 1000, indication: 1000, additionalLoad: 0 },
-        { load: 4500, indication: 4500, additionalLoad: 0 },
-      ],
+      ...payloadFor(f.form_id),
     });
   }
 }

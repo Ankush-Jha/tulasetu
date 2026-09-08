@@ -15,6 +15,10 @@ import {
   checkModuleCompatibility,
   k1ErrorVsMpe,
   mpeBandTable,
+  runForm,
+  findTestRule,
+  type FormRow,
+  type FormExtras,
   resolveApplicableTests,
   resolveMpe,
   solveFamily,
@@ -34,7 +38,7 @@ import type { Db } from "../db/open.js";
 import { appendEvent, verifyChain, readEvents } from "../db/events.js";
 import { rebuildProjection, type ReportProjection } from "./events.js";
 import { canTransition, type Guard, type ReportState, type RoleId } from "./lifecycle.js";
-import { renderReport, type RenderFormat, type RenderedReport } from "./render.js";
+import { renderReport, loadFormsFile, type RenderFormat, type RenderedReport } from "./render.js";
 import {
   generateKeyPair,
   signHash,
@@ -255,13 +259,28 @@ export interface RecordObservationsInput {
   formId: string;
   testId?: string;
   rangeIndex?: number;
-  observations: WeighingObservation[];
+  /**
+   * The rows exactly as the printed form lays them out: values keyed by the column keys the
+   * form declares. Not a weighing-shaped array — form 12.1's rows carry an amplitude and a
+   * significant-fault flag, form 4.2's a displacement in millimetres.
+   */
+  rows?: FormRow[];
+  /** Header values that are part of the observation but are not columns (test load, Utest). */
+  extras?: FormExtras;
+  /** Legacy weighing-shaped body, still accepted so existing callers keep working. */
+  observations?: WeighingObservation[];
   zeroError?: number;
   environment?: unknown[];
 }
 
 /**
- * Record observations for a K1-shaped form and compute its result.
+ * Record observations for one R 76-2 form and compute its result.
+ *
+ * The kernel is chosen by the rule pack, never by this function: `runForm` looks up which
+ * kernel the pack names for the form and feeds it the rows under the column keys the printed
+ * form declares. Before that, this ran `k1ErrorVsMpe` on everything, which meant a creep form
+ * and a disturbance form both came back with an error-against-mpe verdict — a real answer to a
+ * question neither form asks.
  *
  * The raw observations are appended *before* the computed result, as two separate events.
  * That ordering is the ISO/IEC 17025 §7.8 requirement in practice: what the officer read off
@@ -273,7 +292,7 @@ export function recordWeighingObservations(
   principal: Principal,
   reportId: string,
   input: RecordObservationsInput,
-): { verdict: Verdict; issues: Issue[]; rows: unknown[] } {
+): { verdict: Verdict; issues: Issue[]; rows: unknown[]; summary?: unknown[]; notes?: string[] } {
   const report = getReport(ctx, principal, reportId);
   const write = canWriteReport(principal, report, "report:record_observations");
   if (!write.allowed) throw forbidden(write.reason ?? "Cannot record observations.");
@@ -289,7 +308,43 @@ export function recordWeighingObservations(
     );
   }
 
-  const issues = validateObservations(profile, input.observations);
+  const rule = findTestRule(ctx.pack, input.formId);
+  if (!rule) {
+    throw badRequest(
+      "UNKNOWN_FORM",
+      `No test in rule pack ${ctx.pack.ruleset_id} corresponds to form ${input.formId}.`,
+    );
+  }
+
+  // A caller may post either the form-shaped rows or the older weighing array. The weighing
+  // array is only meaningful for a form whose columns are the weighing columns, so converting
+  // it for, say, form 12.1 would be inventing data — hence the check rather than a silent map.
+  let rows: FormRow[];
+  if (input.rows) {
+    rows = input.rows;
+  } else if (input.observations) {
+    if (rule.kernel !== "K1") {
+      throw badRequest(
+        "WRONG_OBSERVATION_SHAPE",
+        `Form ${input.formId} is decided by kernel ${rule.kernel}, not by the error-against-mpe ` +
+          `check, so it does not take load/indication rows. Post \`rows\` keyed by the columns ` +
+          `form ${input.formId} prints.`,
+      );
+    }
+    rows = input.observations.map((o) => ({ ...o })) as FormRow[];
+  } else {
+    throw badRequest("NO_OBSERVATIONS", "No observations were supplied for this form.");
+  }
+
+  // The weighing-shaped validator only speaks about load/indication rows, so it is applied
+  // only where those are what the form holds.
+  const issues =
+    rule.kernel === "K1"
+      ? validateObservations(profile, rows as unknown as WeighingObservation[])
+      : [];
+
+  const extras: FormExtras = { ...(input.extras ?? {}) };
+  if (input.zeroError !== undefined) extras["zeroError"] = input.zeroError;
 
   appendEvent(ctx.db, {
     reportId,
@@ -299,20 +354,17 @@ export function recordWeighingObservations(
     payload: {
       formId: input.formId,
       ...(input.rangeIndex !== undefined ? { rangeIndex: input.rangeIndex } : {}),
-      observations: input.observations,
-      ...(input.zeroError !== undefined ? { zeroError: input.zeroError } : {}),
+      rows,
+      ...(Object.keys(extras).length > 0 ? { extras } : {}),
       ...(input.environment ? { environment: input.environment } : {}),
       issues,
     },
   });
 
-  const result = k1ErrorVsMpe(
-    {
-      profile,
-      observations: input.observations,
-      ...(input.zeroError !== undefined ? { zeroError: input.zeroError } : {}),
-    },
+  const result = runForm(
+    { formId: input.formId, profile, rows, extras },
     ctx.pack,
+    loadFormsFile(),
   );
 
   appendEvent(ctx.db, {
@@ -322,7 +374,8 @@ export function recordWeighingObservations(
     recordedAt: ctx.now,
     payload: {
       formId: input.formId,
-      ...(input.testId ? { testId: input.testId } : {}),
+      testId: result.testId,
+      kernel: result.kernel,
       ...(input.rangeIndex !== undefined ? { rangeIndex: input.rangeIndex } : {}),
       verdict: result.verdict,
       result,
@@ -330,7 +383,13 @@ export function recordWeighingObservations(
   });
 
   rebuildProjection(ctx.db, reportId);
-  return { verdict: result.verdict, issues, rows: result.rows };
+  return {
+    verdict: result.verdict,
+    issues,
+    rows: result.rows,
+    summary: result.summary,
+    notes: result.notes,
+  };
 }
 
 /** Resolve an mpe without recording anything — for live feedback as an officer types. */
