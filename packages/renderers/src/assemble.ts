@@ -19,35 +19,16 @@ import type {
 } from "./model.js";
 
 // --- The shape of the forms file -------------------------------------------
+//
+// Declared once, in the engine, and re-exported here. There used to be a second copy in this
+// file, which is how the two drifted: the engine typed `kernel` as a KernelId and this one as
+// a string, so a forms file that named a kernel the engine cannot run type-checked cleanly on
+// its way to the renderer. The entry screen, the runner and the renderer all read the same
+// file, so they read the same description of it.
 
-export interface FormColumnSpec {
-  key: string;
-  label: string;
-  unit?: string;
-  kind?: string;
-  subcolumns?: string[];
-}
+import type { FormColumnSpec, FormSpec, FormsFile } from "@tulasetu/engine";
 
-export interface FormSpec {
-  formId: string;
-  title: string;
-  clause?: string;
-  clauses?: string[];
-  page?: number;
-  kernel?: string;
-  environmental?: { checkpoints?: string[] } & Record<string, unknown>;
-  columns?: FormColumnSpec[];
-  formulas?: string[];
-  acceptance?: string;
-  notes?: string[];
-}
-
-export interface FormsFile {
-  source?: string;
-  markingConvention?: unknown;
-  summaryTable?: unknown;
-  forms: FormSpec[];
-}
+export type { FormColumnSpec, FormSpec, FormsFile };
 
 /** Index a forms file by form id for lookup during assembly. */
 export function indexForms(file: FormsFile): Map<string, FormSpec> {

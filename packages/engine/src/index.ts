@@ -20,6 +20,7 @@ export * from "./applicability.js";
 export * from "./validate.js";
 
 // --- Solvers ----------------------------------------------------------------
+export * from "./forms.js";
 export * from "./family.js";
 export * from "./annexF.js";
 
