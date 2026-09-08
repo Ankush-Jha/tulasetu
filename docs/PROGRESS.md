@@ -189,6 +189,37 @@ entry screen comes from the form's own printed layout.
 - **`FormSpec` is declared once**, in the engine, and re-exported by the renderers. There were
   two copies, typed differently, which is how they drifted.
 
+## The demonstration set
+
+`POST /admin/demo-data` seeds eight reports spread across the approval chain, every one through
+the same service calls and role checks an officer's clicks reach — the MA records, the AD
+recommends, the Director locks. A report is never written into a state one person could reach.
+
+| Report | Instrument | State | Verdict |
+|---|---|---|---|
+| TS-DEMO-0001 | Class III multi-interval, 2/5/15 kg | PUBLISHED | PASSED |
+| TS-DEMO-0002 | The same, over-reading by 3 e | DEFICIENCY | FAILED |
+| TS-DEMO-0003 | Class II\* retail, defective checksum | DRAFT | FAILED |
+| TS-DEMO-0004 | Class IIII 500 kg platform | DRAFT (6 of 26 forms) | — |
+| TS-DEMO-0005 | Class I analytical balance | SUBMITTED | PASSED |
+| TS-DEMO-0006 | Non-self-indicating beam scale | RECOMMENDED | PASSED |
+| TS-DEMO-0007 | Class III counter scale | REMITTED | PASSED |
+| TS-DEMO-0008 | The same, rev C | RECOMMENDED | PASSED |
+
+TS-DEMO-0001 carries all 26 of its applicable forms, signed by the MA, the AD and the Director,
+with a 66-event hash chain behind it. Before the form runner it could only ever reach FAILED or
+DRAFT, because the seeder could fill only the weighing-shaped forms.
+
+Two things the observation fixtures had to get right, and which are worth knowing if they are
+ever edited:
+
+- **Loads come from the instrument, not from a constant.** A 6 kg counter scale cannot be
+  weighed at 15 kg, and the mpe resolver rightly refuses a load past Max.
+- **A failing instrument reads wrong; it does not have a negative ΔL.** The seeded error runs
+  through ΔL, which is what actually varies at the bench, but the *bias* that makes a report
+  fail moves the indication. Pushing ΔL negative would seed an observation no bench could
+  produce, and the validator refuses it.
+
 ## Known gaps, stated plainly
 
 - **Authentication is a stub on both sides.** The browser sends `X-User-Id` and the server

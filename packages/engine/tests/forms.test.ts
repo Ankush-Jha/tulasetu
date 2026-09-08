@@ -297,12 +297,40 @@ describe("K6 — stability of equilibrium (form 7) checks fixed multiples of e",
     expect(out.verdict).toBe("FAILED");
   });
 
+  it("judges each sub-table against the e in force at its own load", () => {
+    /**
+     * The three sub-tables are run at different loads: printing at about half of Max,
+     * zero-setting at no load, tare balancing part-way up. On the worked example those fall in
+     * three different partial ranges, so they are held to 0.25 × 1 g, 0.25 × 2 g and 1 e = 10 g
+     * respectively. Resolving one e for the whole form judged the zero-setting trials against
+     * the interval in force near Max — ten times too loose.
+     */
+    const out = runForm(
+      {
+        formId: "7",
+        profile: multiInterval,
+        rows: [
+          // At 7 500 g, e₃ = 10 g, so a 5 g print deviation is inside the 1 e limit.
+          { subform: "print", load: 7500, printedValue: 7505, minimumReading: 7500, maximumReading: 7500 },
+          // At no load, e₁ = 1 g, so the limit is 0.25 g and an error of 0.5 g fails.
+          { subform: "zero", zeroLoad: 0, load0: 10, indication: 10, additionalLoad: 0 },
+        ],
+      },
+      pack, forms,
+    );
+    expect(out.summary.find((s) => s.label === "Printing")?.verdict).toBe("PASSED");
+    expect(out.summary.find((s) => s.label === "Zero-setting")?.verdict).toBe("FAILED");
+    // The threshold each sub-table was held to is stated, not merely applied.
+    expect(out.summary.find((s) => s.label === "Zero-setting")?.value).toContain("0.25");
+    expect(out.summary.find((s) => s.label === "Printing")?.value).toContain("10");
+  });
+
   it("passes zero-setting within 0.25 e", () => {
     const out = runForm(
       {
         formId: "7",
         profile: multiInterval,
-        rows: [{ subform: "zero", appliedLoad: 0, l0: 10, indication: 10, additionalLoad: 0.5 }],
+        rows: [{ subform: "zero", zeroLoad: 0, load0: 10, indication: 10, additionalLoad: 0.5 }],
       },
       pack, forms,
     );

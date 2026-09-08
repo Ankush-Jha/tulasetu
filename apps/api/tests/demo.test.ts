@@ -41,6 +41,10 @@ beforeEach(async () => {
     "INSERT INTO users (id,lab_id,role_id,full_name,email,active,created_at) VALUES (?,?,?,?,?,1,?)",
   );
   u.run("u-ma", "lab-fbd", "MA", "A. Assistant", "ma@x.gov.in", T);
+  // The AD is here because the seeder walks reports up the approval chain, and it can only do
+  // so through officers who actually hold the role each step requires: an MA cannot recommend
+  // their own work. Without this account the set would stop at SUBMITTED.
+  u.run("u-ad", "lab-fbd", "AD", "B. Deputy", "ad@x.gov.in", T);
   u.run("u-dir", "lab-fbd", "DIRECTOR", "C. Director", "dir@x.gov.in", T);
 
   app = Fastify();
@@ -56,7 +60,7 @@ describe("seeding the demonstration set", () => {
   it("creates a spread of instruments a visitor can learn from", async () => {
     const res = await call("POST", "/admin/demo-data", "u-ma");
     expect(res.statusCode).toBe(200);
-    expect(res.json().created).toHaveLength(5);
+    expect(res.json().created).toHaveLength(8);
 
     const reports = (await call("GET", "/reports", "u-ma")).json();
     const classes = reports.map((r: any) => r.accuracy_class).sort();
@@ -72,7 +76,7 @@ describe("seeding the demonstration set", () => {
     const again = await call("POST", "/admin/demo-data", "u-ma");
     expect(again.json().created).toEqual([]);
     expect(again.json().note).toMatch(/already present/i);
-    expect((await call("GET", "/reports", "u-ma")).json()).toHaveLength(5);
+    expect((await call("GET", "/reports", "u-ma")).json()).toHaveLength(8);
   });
 
   it("labels everything as demonstration data", async () => {
@@ -84,22 +88,49 @@ describe("seeding the demonstration set", () => {
     }
   });
 
-  it("produces a failing report, and leaves the rest honestly in progress", async () => {
-    // A failing row fails its form, and a failed form fails the report — that verdict is
-    // reachable from the weighing observations alone.
-    //
-    // PASSED is not, and deliberately so. It requires *every* applicable form to have a
-    // verdict, and the demonstration set only records the weighing-shaped forms because those
-    // are the ones with an entry path today (K2–K6 are implemented and tested in the engine
-    // but have no screen yet). A seeder that reported PASSED here would be claiming tests had
-    // been run that had not.
+  it("shows a passing report, a failing one, and one still in progress", async () => {
+    // All three verdicts are reachable now. PASSED requires *every* applicable form to carry
+    // one, which used to be impossible: the seeder could only fill the weighing-shaped forms,
+    // because those were the only ones the server would compute. Now each form is run by its
+    // own kernel, so a report can genuinely be complete — and a seeder that reports PASSED is
+    // no longer claiming tests were run that were not.
     await call("POST", "/admin/demo-data", "u-ma");
     const reports = (await call("GET", "/reports", "u-ma")).json();
     const verdicts = reports.map((r: any) => r.overall_verdict);
 
+    expect(verdicts).toContain("PASSED");
     expect(verdicts).toContain("FAILED");
+    // At least one report left part-way through the bench work, which is what most of a
+    // laboratory's repository looks like on any given day.
     expect(verdicts.filter((v: string | null) => v === null).length).toBeGreaterThan(0);
-    expect(verdicts).not.toContain("PASSED");
+  });
+
+  it("records every applicable form of a completed report, not just the weighing ones", async () => {
+    await call("POST", "/admin/demo-data", "u-ma");
+    const detail = (await call("GET", "/reports/TS-DEMO-0001", "u-ma")).json();
+    const applicable = detail.forms.filter((f: any) => f.applicable === 1);
+    expect(applicable.length).toBeGreaterThan(20);
+    for (const f of applicable) {
+      expect(f.verdict, `form ${f.form_id} was left unrecorded`).toBeTruthy();
+    }
+    // And the forms that are not error-against-mpe are among them.
+    const ids = applicable.map((f: any) => f.form_id);
+    expect(ids).toContain("6.2");   // creep, K4
+    expect(ids).toContain("12.1");  // disturbances, K5
+    expect(ids).toContain("7");     // stability of equilibrium, K6
+  });
+
+  it("walks reports through the approval chain, each step by the role entitled to take it", async () => {
+    await call("POST", "/admin/demo-data", "u-ma");
+    const reports = (await call("GET", "/reports", "u-ma")).json();
+    const states = new Set(reports.map((r: any) => r.status));
+    // A repository where nothing has ever been reviewed cannot show the approval chain, which
+    // is the point of the product.
+    expect(states.has("DRAFT")).toBe(true);
+    expect(states.has("SUBMITTED")).toBe(true);
+    expect(states.has("RECOMMENDED")).toBe(true);
+    expect(states.has("DEFICIENCY")).toBe(true);
+    expect(states.has("REMITTED")).toBe(true);
   });
 
   it("leaves the class II* scale unvalidatable, because its checksum is the register's own defect", async () => {

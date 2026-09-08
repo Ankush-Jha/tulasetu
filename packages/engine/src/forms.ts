@@ -36,7 +36,7 @@ import { k2Digital, k2Analog, k2NonSelfIndicating, type MpeLookup } from "./kern
 import { k3Sensitivity } from "./kernels/k3.js";
 import { k4Creep, k4ZeroReturn, k4TemperatureNoLoad, k4SpanStability } from "./kernels/k4.js";
 import { k5Form, type K5Trial } from "./kernels/k5.js";
-import { k6StabilityOfEquilibrium } from "./kernels/k6.js";
+import { k6PrintStability, k6ZeroSetting } from "./kernels/k6.js";
 
 // ---------------------------------------------------------------------------
 // The shape a form is described in
@@ -800,13 +800,26 @@ function runK5(input: RunFormInput, pack: RulePack) {
  * them under one heading.
  */
 function runK6(input: RunFormInput, pack: RulePack, params: Record<string, unknown>) {
-  const load = num(input.rows[0] ?? {}, "load");
-  const e = eAt(input.profile, load, pack);
-
   const of = (name: string) =>
     input.rows.filter((r) => (text(r, "subform") ?? "print").toLowerCase().startsWith(name));
 
-  const printTrials = of("print").map((row) => ({
+  /**
+   * Each sub-table gets the e in force at *its own* load, not one e for the whole form.
+   *
+   * The three tables are run at different loads — printing at about half of Max, zero-setting
+   * at no load, tare balancing at about a third of Max — and on a multi-interval instrument
+   * those fall in different partial ranges (§3.3.3). Resolving e once from the first row meant
+   * the zero-setting trials were judged against the e in force near Max, which on the standard's
+   * own worked example is ten times too large a threshold.
+   */
+  const eFor = (rows: FormRow[], loadKey: string) =>
+    eAt(input.profile, num(rows[0] ?? {}, loadKey, "load"), pack);
+
+  const printRows = of("print");
+  const zeroRows = of("zero");
+  const tareRows = of("tare");
+
+  const printTrials = printRows.map((row) => ({
     load: num(row, "load"),
     printedValue: num(row, "firstPrintedOrStoredValue", "printedValue"),
     minimumReading: num(row, "readingMin", "minimumReading"),
@@ -823,16 +836,27 @@ function runK6(input: RunFormInput, pack: RulePack, params: Record<string, unkno
     indication: num(row, "indicationAfterZeroSetting", "indicationAfterTareBalancing", "indication"),
     additionalLoad: num(row, "additionalLoad"),
   });
-  const zeroTrials = of("zero").map(zeroLike);
-  const tareTrials = of("tare").map(zeroLike);
+  const zeroTrials = zeroRows.map(zeroLike);
+  const tareTrials = tareRows.map(zeroLike);
 
-  const out = k6StabilityOfEquilibrium({
-    e,
-    printTrials,
-    zeroSettingTrials: zeroTrials,
-    tareBalancingTrials: tareTrials,
-    ...(params ? { params: params as never } : {}),
-  });
+  const kParams = params as never;
+  const ePrint = eFor(printRows, "load");
+  const eZero = eFor(zeroRows, "zeroLoad");
+  const eTare = eFor(tareRows, "tareLoad");
+
+  // The three sub-kernels are called directly rather than through k6StabilityOfEquilibrium,
+  // which takes a single e for the whole form. Same functions, same thresholds; each simply
+  // gets the interval that applies where its own readings were taken.
+  const print = k6PrintStability(printTrials, ePrint, kParams);
+  const zeroSetting = k6ZeroSetting(zeroTrials, eZero, "zero-setting", kParams);
+  const tareBalancing = k6ZeroSetting(tareTrials, eTare, "tare-balancing", kParams);
+
+  const failedDocumentationChecks: string[] = [];
+  const verdict: Verdict =
+    [print.verdict, zeroSetting.verdict, tareBalancing.verdict].includes("FAILED")
+      ? "FAILED"
+      : "PASSED";
+  const out = { print, zeroSetting, tareBalancing, failedDocumentationChecks, verdict };
 
   // Stitch each sub-table's verdicts back onto the rows the officer typed, in order.
   const queues: Record<string, Verdict[]> = {
@@ -862,9 +886,9 @@ function runK6(input: RunFormInput, pack: RulePack, params: Record<string, unkno
     verdict: out.verdict,
     rows,
     summary: [
-      { label: "Printing", value: `deviation ≤ 1 e = ${round(e)}`, verdict: out.print.verdict },
-      { label: "Zero-setting", value: `|E₀| ≤ 0.25 e`, verdict: out.zeroSetting.verdict },
-      { label: "Tare balancing", value: `|E₀| ≤ 0.25 e`, verdict: out.tareBalancing.verdict },
+      { label: "Printing", value: `deviation ≤ 1 e = ${round(ePrint)}`, verdict: out.print.verdict },
+      { label: "Zero-setting", value: `|E₀| ≤ 0.25 e = ${round(0.25 * eZero)}`, verdict: out.zeroSetting.verdict },
+      { label: "Tare balancing", value: `|E₀| ≤ 0.25 e = ${round(0.25 * eTare)}`, verdict: out.tareBalancing.verdict },
     ],
     notes: [
       ...(out.failedDocumentationChecks.length > 0
