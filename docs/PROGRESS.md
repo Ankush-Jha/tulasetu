@@ -159,6 +159,36 @@ u.run("u-ad",  "lab-fbd", "AD",       "B. Deputy",    "ad@example.gov.in",  T);
 u.run("u-dir", "lab-fbd", "DIRECTOR", "C. Director",  "dir@example.gov.in", T);
 ```
 
+## What changed in the form-driven pass
+
+Every R 76-2 form is now run by the kernel the rule pack names for it, and every column on the
+entry screen comes from the form's own printed layout.
+
+- **The rule pack emits the forms R 76-2 actually prints.** 20 test rules became 34: form 4.1
+  split into 4.1.1 / 4.1.2 / 4.1.3 by mode of indication, form 12 into the nine forms 12.1
+  through 12.6 plus 12.7a/b, 13 into 13a/b/c and 15 into 15a and 15c. Before this, five of the
+  twenty rules emitted a form id (`4.1`, `12`, `12.7`, `13`, `15`) that had no printed layout,
+  so those forms had no columns to render.
+- **`packages/engine/src/forms.ts`** is the join between the rule pack and the forms file: it
+  reads rows keyed by a form's printed column keys, dispatches to K1–K6, and writes the computed
+  values back under the same keys. `packages/engine/tests/forms.test.ts` covers it.
+- **Nine of the twenty tests were computing the wrong thing.** The API ran `k1ErrorVsMpe` on
+  every form, so creep, zero return, discrimination, sensitivity, the disturbance forms, span
+  stability and stability of equilibrium all returned an error-against-mpe verdict — a
+  real-looking answer to a question those forms do not ask. Posting weighing rows into a
+  non-K1 form is now refused rather than silently computed.
+- **The two data files disagreed on kernels for forms 7 and 14** (`K1` in the forms file, `K6`
+  and `K4` in the rule pack). The forms file's `kernel` was the transcriber's guess and its own
+  `_kernelNote` said so; the rule pack is now the authority and the files are reconciled.
+- **Laboratory and environmental conditions are captured.** The API accepted them and the
+  renderer printed the header, but nothing collected the values, so it printed empty. Barometric
+  pressure is asked for only where R 76-2 owes it — class I instruments and span stability.
+- **Form 7 renders its three sub-tables** (printing/storage, zero-setting, tare balancing) and
+  form 16 is recorded as an examination — a verdict and remarks — rather than as a measurement
+  with a Compute button over nothing.
+- **`FormSpec` is declared once**, in the engine, and re-exported by the renderers. There were
+  two copies, typed differently, which is how they drifted.
+
 ## Known gaps, stated plainly
 
 - **Authentication is a stub on both sides.** The browser sends `X-User-Id` and the server
@@ -171,7 +201,13 @@ u.run("u-dir", "lab-fbd", "DIRECTOR", "C. Director",  "dir@example.gov.in", T);
   Replace them with values off the cells' own OIML R 60 certificates before they reach a slide.
 - **Repeatability's spread check** (`Emax − Emin ≤ |mpe|`, §3.6.1) is recorded in the rule pack
   as an `extra` note but is not computed — the per-row check is.
-- **Forms 8 and 14's fixed thresholds** (tilting's 2 e when unloaded, span stability's graphical
-  bands) are documented in the pack but the kernels apply the mpe-shaped check.
+- **Form 8's fixed threshold** (tilting's 2 e when unloaded) is documented in the pack but the
+  kernel applies the mpe-shaped check. Form 14 now runs K4's compound span check — every
+  measurement against |mpe| plus the variation against max(0.5 e, 0.5 |mpe|) — rather than a
+  per-row K1 check, which is what R 76-1 §5.3.3 / Annex B.4 actually asks for.
+- **The disturbance forms' applicability is not conditioned on the kind of power supply.**
+  R 76-2 prints 12.1, 12.2a and 12.3a for AC-mains instruments and 12.3b for any other supply;
+  all nine are currently offered to any electronic instrument. Splitting them further needs the
+  supply type on the profile, which the form does not yet collect.
 - **The draft five-part pack is a committee draft**, not the standard in force. It says so, the
   server warns at boot, and the UI badges it.

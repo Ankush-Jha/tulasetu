@@ -16,7 +16,6 @@ import { AppLayout } from "./components/layout/AppLayout";
 import { AuthProvider } from "./lib/auth";
 
 import { LoginPage } from "./pages/LoginPage";
-import { BriefPage } from "./pages/brief/BriefPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { ReportsPage } from "./pages/ReportsPage";
 import { NewReportPage } from "./pages/NewReportPage";
@@ -33,7 +32,6 @@ import { TestsStep } from "./pages/report/TestsStep";
 import { ObservationsStep } from "./pages/report/ObservationsStep";
 import { ChecklistStep } from "./pages/report/ChecklistStep";
 import { AttachmentsStep } from "./pages/report/AttachmentsStep";
-import { AuditStep } from "./pages/report/AuditStep";
 import { OutputStep } from "./pages/report/OutputStep";
 
 export default function App() {
@@ -46,7 +44,6 @@ export default function App() {
           {/* Everything below requires a session; AppLayout redirects if there is none. */}
           <Route element={<AppLayout />}>
             <Route index element={<Navigate to="/dashboard" replace />} />
-            <Route path="/brief" element={<BriefPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
 
             <Route path="/reports" element={<ReportsPage />} />
@@ -59,7 +56,6 @@ export default function App() {
               <Route path="observations" element={<ObservationsStep />} />
               <Route path="checklist" element={<ChecklistStep />} />
               <Route path="attachments" element={<AttachmentsStep />} />
-              <Route path="audit" element={<AuditStep />} />
               <Route path="report" element={<OutputStep />} />
             </Route>
 

@@ -13,14 +13,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Badge, Icon } from "../ui";
-import { BriefingLink } from "../onboarding/Tour";
-import { AuthorityMark } from "../Authorities";
 import { cn } from "../../lib/cn";
 import { initialsOf, useAuth } from "../../lib/auth";
 import { api } from "../../lib/api";
 import { useApi } from "../../lib/useApi";
 
-export function Header({ onReplayIntro }: { onReplayIntro?: () => void }) {
+export function Header() {
   const { session, signOut } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,16 +47,6 @@ export function Header({ onReplayIntro }: { onReplayIntro?: () => void }) {
     <header className="fixed inset-x-0 top-0 z-50 h-[76px] border-b border-outline-variant/40 bg-canvas/85 backdrop-blur-xl">
       <div className="flex h-full items-center justify-between gap-4 px-4">
         <div className="flex min-w-0 items-center gap-3">
-          {/*
-            The issuing department's mark, then a rule, then this application's own identity —
-            the ordinary government-portal lockup, and in that order for a reason. The department
-            is named because it issued the problem statement, not because it published this
-            software; keeping TulaSetu's own name and mark distinct on the other side of the rule
-            is what stops the header reading as an official departmental release.
-          */}
-          <AuthorityMark initials="DoCA" height={30} className="hidden shrink-0 sm:block" />
-          <span className="hidden h-8 w-px shrink-0 bg-outline-variant/60 sm:block" aria-hidden="true" />
-
           <Link
             to="/dashboard"
             className="flex min-w-0 items-center gap-3 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -79,7 +67,6 @@ export function Header({ onReplayIntro }: { onReplayIntro?: () => void }) {
         </div>
 
         <div className="flex items-center gap-2">
-          {onReplayIntro && <BriefingLink onReplay={onReplayIntro} />}
           {health && (
             // A draft edition announces itself in the chrome. A report computed against a
             // committee draft is indistinguishable from one computed against the standard in

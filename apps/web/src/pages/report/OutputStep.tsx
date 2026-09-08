@@ -32,6 +32,7 @@ import { cn } from "../../lib/cn";
 import { api } from "../../lib/api";
 import { useMutation } from "../../lib/useApi";
 import { formatDateTime } from "../../lib/format";
+import { AuditStep } from "./AuditStep";
 import { useReport } from "./ReportLayout";
 
 type Format = "pdf" | "docx" | "json" | "html";
@@ -291,6 +292,16 @@ export function OutputStep() {
           </p>
         </Card>
       </div>
+
+      {/*
+        The audit trail, here rather than as a step of its own.
+
+        It is a view of the append-only log, not a thing an officer fills in, and standing in
+        the sequence it made the report look like seven places to enter data when there are
+        five. It belongs beside the outputs because that is what it authenticates: the hash
+        chain is the reason the locked PDF can be trusted to be the document that was signed.
+      */}
+      <AuditStep />
     </div>
   );
 }

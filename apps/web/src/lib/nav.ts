@@ -37,14 +37,21 @@ export interface NavSection {
  * module combination checked once per design, the rule pack read when someone doubts a number.
  * Grouping them says so, rather than giving them the same weight as the daily work.
  */
-export type NavGroup = "work" | "tools" | "about";
+export type NavGroup = "work" | "tools";
 
 export const NAV_GROUPS: { id: NavGroup; label: string }[] = [
   { id: "work", label: "Work" },
-  { id: "tools", label: "Tools" },
-  { id: "about", label: "About" },
+  { id: "tools", label: "Reference" },
 ];
 
+/**
+ * Three things an officer does, and four things they occasionally look up.
+ *
+ * The "Reference" group is deliberately below the fold of attention. The family solver, the
+ * module compatibility check, the rule pack and the annual return are all real and all
+ * correct, but none of them is daily work, and giving them the same weight as "record a
+ * report" made a nine-item sidebar out of a three-item job.
+ */
 export const NAV_SECTIONS: NavSection[] = [
   { path: "/dashboard", label: "Dashboard", icon: "space_dashboard", group: "work" },
   // The primary action of the application, given its own entry rather than buried in a list.
@@ -55,9 +62,7 @@ export const NAV_SECTIONS: NavSection[] = [
   { path: "/tools/modules", label: "Modules", icon: "memory", group: "tools" },
   { path: "/rulepack", label: "Rule pack", icon: "gavel", group: "tools" },
   { path: "/statistics", label: "Statistics", icon: "monitoring", group: "tools", capability: "stats:read_own_lab" },
-
-  { path: "/brief", label: "Briefing", icon: "menu_book", group: "about" },
-  { path: "/settings", label: "Settings", icon: "settings", group: "about" },
+  { path: "/settings", label: "Settings", icon: "settings", group: "tools" },
 ];
 
 /** Is `pathname` inside `section`? */
@@ -85,13 +90,19 @@ export interface ReportStep {
   hint: string;
 }
 
+/**
+ * Six steps, of which five are things the officer fills in.
+ *
+ * The audit trail used to be a seventh. It is a *view* of the append-only log, not a step of
+ * the work, and putting it in the sequence made a reader count seven places to enter data when
+ * there are five. It now lives on the report step, beside the outputs it authenticates.
+ */
 export const REPORT_STEPS: ReportStep[] = [
-  { slug: "profile", label: "Instrument profile", icon: "precision_manufacturing", hint: "Identity, class, ranges" },
+  { slug: "profile", label: "Instrument", icon: "precision_manufacturing", hint: "Identity, class, ranges" },
   { slug: "tests", label: "Applicable tests", icon: "checklist", hint: "Resolved from the rule pack" },
   { slug: "observations", label: "Observations", icon: "edit_note", hint: "Bench readings and verdicts" },
   { slug: "checklist", label: "Checklist", icon: "fact_check", hint: "R 76-2 §17" },
   { slug: "attachments", label: "Attachments", icon: "attachment", hint: "Figures and drawings" },
-  { slug: "audit", label: "Audit trail", icon: "verified_user", hint: "Append-only record" },
   { slug: "report", label: "Report", icon: "description", hint: "PDF, DOCX, JSON" },
 ];
 
