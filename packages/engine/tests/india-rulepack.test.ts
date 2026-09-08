@@ -290,11 +290,15 @@ describe("IN_Sch7A_2011 — class II* tilting rule (Heading A §11(i)(a), verifi
 describe("IN_Sch7A_2011 — genuine differences from OIML (docs/research/heading-a-verified.md §8)", () => {
   it("discrimination applies unconditionally -- Heading A has no 'd >= 5 mg' exemption", () => {
     const indiaRule = india.tests.find((t) => t.id === "discrimination");
-    const oimlRule = oiml.tests.find((t) => t.id === "discrimination");
     expect(indiaRule?.applies).toEqual({ always: true });
-    // OIML's own rule is the negated exemption -- confirms the two packs really do differ here,
-    // not just in how the same rule happens to be spelled.
-    expect(oimlRule?.applies).toEqual({ not: { digital_d_lt_5mg: true } });
+    // OIML prints discrimination as three forms (4.1.1 digital, 4.1.2 analog, 4.1.3 non-self)
+    // and carries the d >= 5 mg exemption on the digital one, which is the case §3.8.2.2
+    // actually governs. India has no such exemption on any of them.
+    const oimlDigital = oiml.tests.find((t) => t.id === "discrimination_digital");
+    expect(oimlDigital?.applies).toEqual({
+      not: { digital_d_lt_5mg: true },
+      digital_indication: true,
+    });
   });
 
   it("uses the full mpe (not OIML's 0.4x) as the non-self-indicating discrimination extra load", () => {
@@ -320,8 +324,11 @@ describe("IN_Sch7A_2011 — genuine differences from OIML (docs/research/heading
   });
 
   it("has no disturbances_road_vehicle test (form 12.7) -- no Annexure A equivalent", () => {
-    expect(india.tests.find((t) => t.id === "disturbances_road_vehicle")).toBeUndefined();
-    expect(oiml.tests.find((t) => t.id === "disturbances_road_vehicle")).toBeDefined();
+    const group = (pack: typeof oiml) =>
+      pack.tests.filter((t) => (t.reason_group ?? t.id) === "disturbances_road_vehicle");
+    expect(group(india)).toHaveLength(0);
+    // OIML carries it as the two lettered forms R 76-2 prints, 12.7a and 12.7b.
+    expect(group(oiml).map((t) => t.form)).toEqual(["12.7a", "12.7b"]);
   });
 });
 

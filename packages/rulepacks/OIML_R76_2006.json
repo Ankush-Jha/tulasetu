@@ -4,18 +4,72 @@
   "version": "1.2.0",
   "edition": "2007-report-format",
   "description": "OIML R 76-1:2006 requirements + R 76-2:2007 report format. Every value below is traced in docs/VERIFIED.md to a page of docs/standards/OIML_R76-1_2006_requirements.pdf or OIML_R76-2_2007_report_format.pdf.",
-  "class_aliases": { "IIII": ["IV"] },
-  "accuracy_classes": ["I", "II", "III", "IIII"],
-  "e_form": [1, 2, 5],
+  "class_aliases": {
+    "IIII": [
+      "IV"
+    ]
+  },
+  "accuracy_classes": [
+    "I",
+    "II",
+    "III",
+    "IIII"
+  ],
+  "e_form": [
+    1,
+    2,
+    5
+  ],
   "mpe_clause": "R 76-1:2006 §3.5.1 (Table 6), with §3.3 for multi-interval instruments",
-
   "classification": [
-    { "class": "I",    "e_min_g": 0.001, "e_max_g": null,  "n_min": 50000, "n_max": null,   "min_capacity": "100e" },
-    { "class": "II",   "e_min_g": 0.001, "e_max_g": 0.05,  "n_min": 100,   "n_max": 100000, "min_capacity": "20e" },
-    { "class": "II",   "e_min_g": 0.1,   "e_max_g": null,  "n_min": 5000,  "n_max": 100000, "min_capacity": "50e" },
-    { "class": "III",  "e_min_g": 0.1,   "e_max_g": 2,     "n_min": 100,   "n_max": 10000,  "min_capacity": "20e" },
-    { "class": "III",  "e_min_g": 5,     "e_max_g": null,  "n_min": 500,   "n_max": 10000,  "min_capacity": "20e" },
-    { "class": "IIII", "e_min_g": 5,     "e_max_g": null,  "n_min": 100,   "n_max": 1000,   "min_capacity": "10e" }
+    {
+      "class": "I",
+      "e_min_g": 0.001,
+      "e_max_g": null,
+      "n_min": 50000,
+      "n_max": null,
+      "min_capacity": "100e"
+    },
+    {
+      "class": "II",
+      "e_min_g": 0.001,
+      "e_max_g": 0.05,
+      "n_min": 100,
+      "n_max": 100000,
+      "min_capacity": "20e"
+    },
+    {
+      "class": "II",
+      "e_min_g": 0.1,
+      "e_max_g": null,
+      "n_min": 5000,
+      "n_max": 100000,
+      "min_capacity": "50e"
+    },
+    {
+      "class": "III",
+      "e_min_g": 0.1,
+      "e_max_g": 2,
+      "n_min": 100,
+      "n_max": 10000,
+      "min_capacity": "20e"
+    },
+    {
+      "class": "III",
+      "e_min_g": 5,
+      "e_max_g": null,
+      "n_min": 500,
+      "n_max": 10000,
+      "min_capacity": "20e"
+    },
+    {
+      "class": "IIII",
+      "e_min_g": 5,
+      "e_max_g": null,
+      "n_min": 100,
+      "n_max": 1000,
+      "min_capacity": "10e"
+    }
   ],
   "classification_clause": "R 76-1:2006 Table 3 (= India Seventh Schedule Table 17)",
   "classification_exceptions": [
@@ -26,21 +80,46 @@
       "clause": "R 76-1:2006 §3.4.4"
     }
   ],
-
   "mpe_bands_initial": [
-    { "limit": "0.5e", "max_m_in_e": { "I": 50000,  "II": 5000,   "III": 500,   "IIII": 50 } },
-    { "limit": "1.0e", "max_m_in_e": { "I": 200000, "II": 20000,  "III": 2000,  "IIII": 200 } },
-    { "limit": "1.5e", "max_m_in_e": { "I": null,   "II": 100000, "III": 10000, "IIII": 1000 } }
+    {
+      "limit": "0.5e",
+      "max_m_in_e": {
+        "I": 50000,
+        "II": 5000,
+        "III": 500,
+        "IIII": 50
+      }
+    },
+    {
+      "limit": "1.0e",
+      "max_m_in_e": {
+        "I": 200000,
+        "II": 20000,
+        "III": 2000,
+        "IIII": 200
+      }
+    },
+    {
+      "limit": "1.5e",
+      "max_m_in_e": {
+        "I": null,
+        "II": 100000,
+        "III": 10000,
+        "IIII": 1000
+      }
+    }
   ],
   "mpe_in_service_factor": 2,
   "mpe_in_service_clause": "R 76-1:2006 §3.5.2 — in-service mpe is twice the initial-verification mpe",
-
-  "multi_interval_boundary": { "I": 50000, "II": 5000, "III": 500, "IIII": 50 },
+  "multi_interval_boundary": {
+    "I": 50000,
+    "II": 5000,
+    "III": 500,
+    "IIII": 50
+  },
   "multi_interval_boundary_clause": "R 76-1:2006 Table 4 — Max_i / e_(i+1) shall be at least this value",
-
   "rounding_elimination_when": "d > 0.2e",
   "rounding_elimination_clause": "R 76-1:2006 §3.5.3.2",
-
   "module_error_fractions": {
     "rule": "sum(p_i^2) <= 1",
     "p_max": 0.8,
@@ -49,11 +128,17 @@
     "weighing_module_may_be_one": true,
     "clause": "R 76-1:2006 §3.10.2.1 and Table 7",
     "note": "p_min applies only where more than one module contributes to the error.",
-    "typical": { "load_cell": 0.7, "indicator": 0.5, "connecting": 0.5 }
+    "typical": {
+      "load_cell": 0.7,
+      "indicator": 0.5,
+      "connecting": 0.5
+    }
   },
-
   "family_solver": {
-    "eut_must_include": ["highest_n", "smallest_e"],
+    "eut_must_include": [
+      "highest_n",
+      "smallest_e"
+    ],
     "eut_clause": "R 76-1:2006 §3.10.4.2",
     "accept_without_test_if": [
       "Max falls between two tested capacities whose ratio does not exceed max_capacity_ratio",
@@ -63,7 +148,6 @@
     "max_capacity_ratio": 10,
     "max_multiplier": 5
   },
-
   "kernel_params": {
     "discrimination": {
       "extra_load_factor_digital": 1.4,
@@ -72,7 +156,11 @@
       "clause": "R 76-1:2006 §3.8.1, §3.8.2.1, Annex A.4.8.2"
     },
     "sensitivity": {
-      "min_displacement_mm": { "class_I_II": 1, "class_III_IIII_le_30kg": 2, "class_III_IIII_gt_30kg": 5 },
+      "min_displacement_mm": {
+        "class_I_II": 1,
+        "class_III_IIII_le_30kg": 2,
+        "class_III_IIII_gt_30kg": 5
+      },
       "max_boundary_kg": 30,
       "clause": "R 76-1:2006 §6.1"
     },
@@ -92,7 +180,10 @@
       "note": "On a multi-interval instrument the limit is 0.5 x e1 — the smallest e, not the e at the applied load (§3.3.3 final paragraph). A multiple-range instrument carries an additional check of a full e1 over 5 minutes after switching down from a load above Max1."
     },
     "temperature_no_load": {
-      "drift_per_C": { "I": 1, "default": 5 },
+      "drift_per_C": {
+        "I": 1,
+        "default": 5
+      },
       "uses_e1_for_multi_range": true,
       "clause": "R 76-1:2006 §3.9.2.3"
     },
@@ -116,35 +207,472 @@
       "note": "A fault of exactly e is permitted; only a fault greater than e is significant. Four exclusions apply (simultaneous independent causes, impossibility to measure, obviously wrong, transitory)."
     }
   },
-
   "tests": [
-    { "id": "weighing_performance",       "form": "1",    "kernel": "K1", "title": "Weighing performance", "clause": "R 76-2:2007 form 1 (A.4.4, A.5.3.1)", "applies": { "always": true } },
-    { "id": "temp_no_load",               "form": "2",    "kernel": "K4", "title": "Temperature effect on no-load indication", "clause": "R 76-1:2006 §3.9.2.3 (A.5.3.2)", "applies": { "electronic": true }, "params": { "drift_per_C": { "I": 1, "default": 5 } } },
-    { "id": "eccentricity_weights",       "form": "3.1",  "kernel": "K1", "title": "Eccentricity using weights", "clause": "R 76-1:2006 A.4.7.1-3", "applies": { "always": true } },
-    { "id": "eccentricity_rolling",       "form": "3.2",  "kernel": "K1", "title": "Eccentricity using a rolling load", "clause": "R 76-1:2006 A.4.7.4", "applies": { "rolling_load": true } },
-    { "id": "discrimination",             "form": "4.1",  "kernel": "K2", "title": "Discrimination", "clause": "R 76-1:2006 §3.8", "applies": { "not": { "digital_d_lt_5mg": true } } },
-    { "id": "sensitivity",                "form": "4.2",  "kernel": "K3", "title": "Sensitivity", "clause": "R 76-1:2006 §6.1", "applies": { "indicating_type": "non-self" } },
-    { "id": "repeatability",              "form": "5",    "kernel": "K1", "title": "Repeatability", "clause": "R 76-1:2006 §3.6.1", "applies": { "always": true }, "extra": "In addition to |Ec| <= mpe per row, the spread across repeated weighings must satisfy Emax - Emin <= |mpe| (§3.6.1). The spread check is not covered by any of the five kernels — see docs/VERIFIED.md." },
-    { "id": "zero_return",                "form": "6.1",  "kernel": "K4", "title": "Zero return", "clause": "R 76-1:2006 §3.9.4.2", "applies": { "always": true } },
-    { "id": "creep",                      "form": "6.2",  "kernel": "K4", "title": "Creep", "clause": "R 76-1:2006 §4.6", "applies": { "always": true } },
-    { "id": "stability_of_equilibrium",   "form": "7",    "kernel": "K6", "title": "Stability of equilibrium", "clause": "R 76-1:2006 A.4.12", "applies": { "has_print_or_storage": true }, "note": "Checked against fixed multiples of e, never the resolved mpe: the printed value must not deviate more than 1e from the readings over the 5 s following print-out (and no more than two adjacent values may be indicated), and zero-setting or tare balancing must satisfy |E0| <= 0.25e. Five trials each." },
-    { "id": "tilting",                    "form": "8",    "kernel": "K1", "title": "Tilting", "clause": "R 76-1:2006 §3.9.1", "applies": { "class_in": ["II", "III", "IIII"], "tiltable": true }, "note": "The unloaded check uses a fixed 2e threshold, not the resolved mpe; only the loaded check uses mpe." },
-    { "id": "tare",                       "form": "9",    "kernel": "K1", "title": "Tare (weighing test)", "clause": "R 76-1:2006 §3.5.3.4", "applies": { "has_tare": true } },
-    { "id": "warm_up",                    "form": "10",   "kernel": "K1", "title": "Warm-up time", "clause": "R 76-1:2006 §5.3.1", "applies": { "electronic": true } },
-    { "id": "voltage_variation",          "form": "11",   "kernel": "K1", "title": "Voltage variations", "clause": "R 76-1:2006 §5.3.2", "applies": { "electronic": true } },
-    { "id": "disturbances",               "form": "12",   "kernel": "K5", "title": "Electrical disturbances", "clause": "R 76-1:2006 §5.4", "applies": { "electronic": true } },
-    { "id": "disturbances_road_vehicle",  "form": "12.7", "kernel": "K5", "title": "Disturbances for instruments powered from a road vehicle supply", "clause": "R 76-1:2006 §5.4.3", "applies": { "electronic": true, "vehicle_powered": true } },
-    { "id": "damp_heat",                  "form": "13",   "kernel": "K1", "title": "Damp heat, steady state", "clause": "R 76-1:2006 Annex B.2", "applies": { "electronic": true, "not_class": ["I"], "not_class_II_if_e_lt": "1g" } },
-    { "id": "span_stability",             "form": "14",   "kernel": "K4", "title": "Span stability", "clause": "R 76-1:2006 Annex B.4", "applies": { "electronic": true, "not_class": ["I"] }, "note": "The printed form checks the average error against fixed bands of 0.5e / 1e / 1.5e rather than against a resolved mpe column — the standard's own form hardcodes e-multiples here." },
-    { "id": "endurance",                  "form": "15",   "kernel": "K1", "title": "Endurance", "clause": "R 76-1:2006 Annex A.6", "applies": { "max_capacity_kg_lte": 100, "not_class": ["I"] }, "order": "last", "note": "Annex A.6 verbatim: applicable only to instruments of classes II, III and IIII with Max <= 100 kg. The class exclusion was missing before v1.1.0." },
-    { "id": "construction_examination",   "form": "16",   "kernel": "K1", "title": "Examination of the construction of the instrument", "clause": "R 76-2:2007 form 16", "applies": { "always": true } }
+    {
+      "id": "weighing_performance",
+      "form": "1",
+      "kernel": "K1",
+      "title": "Weighing performance",
+      "clause": "R 76-2:2007 form 1 (A.4.4, A.5.3.1)",
+      "applies": {
+        "always": true
+      }
+    },
+    {
+      "id": "temp_no_load",
+      "form": "2",
+      "kernel": "K4",
+      "title": "Temperature effect on no-load indication",
+      "clause": "R 76-1:2006 §3.9.2.3 (A.5.3.2)",
+      "applies": {
+        "electronic": true
+      },
+      "params": {
+        "drift_per_C": {
+          "I": 1,
+          "default": 5
+        }
+      }
+    },
+    {
+      "id": "eccentricity_weights",
+      "form": "3.1",
+      "kernel": "K1",
+      "title": "Eccentricity using weights",
+      "clause": "R 76-1:2006 A.4.7.1-3",
+      "applies": {
+        "always": true
+      }
+    },
+    {
+      "id": "eccentricity_rolling",
+      "form": "3.2",
+      "kernel": "K1",
+      "title": "Eccentricity using a rolling load",
+      "clause": "R 76-1:2006 A.4.7.4",
+      "applies": {
+        "rolling_load": true
+      }
+    },
+    {
+      "id": "discrimination_digital",
+      "form": "4.1.1",
+      "kernel": "K2",
+      "title": "Discrimination — Digital indication",
+      "clause": "R 76-1:2006 §3.8",
+      "applies": {
+        "not": {
+          "digital_d_lt_5mg": true
+        },
+        "digital_indication": true
+      },
+      "reason_group": "discrimination",
+      "note": "R 76-1 §3.8.2.2. Add 1.4 d and require the indication to rise by at least d."
+    },
+    {
+      "id": "discrimination_analog",
+      "form": "4.1.2",
+      "kernel": "K2",
+      "title": "Discrimination — Analog indication",
+      "clause": "R 76-1:2006 §3.8",
+      "applies": {
+        "not": {
+          "indicating_type": "non-self"
+        },
+        "digital_indication": false
+      },
+      "reason_group": "discrimination",
+      "note": "R 76-1 §3.8.2.1. Add |mpe| and require a displacement of at least 0.7 x |mpe|."
+    },
+    {
+      "id": "discrimination_non_self",
+      "form": "4.1.3",
+      "kernel": "K2",
+      "title": "Discrimination — Non-self-indicating instrument",
+      "clause": "R 76-1:2006 §3.8.1",
+      "applies": {
+        "indicating_type": "non-self"
+      },
+      "reason_group": "discrimination",
+      "note": "R 76-1 §3.8.1. Add 0.4 x |mpe| and require a visible displacement of the indicating element; the form records \"+\" rather than a magnitude, so the observation is a boolean."
+    },
+    {
+      "id": "sensitivity",
+      "form": "4.2",
+      "kernel": "K3",
+      "title": "Sensitivity",
+      "clause": "R 76-1:2006 §6.1",
+      "applies": {
+        "indicating_type": "non-self"
+      }
+    },
+    {
+      "id": "repeatability",
+      "form": "5",
+      "kernel": "K1",
+      "title": "Repeatability",
+      "clause": "R 76-1:2006 §3.6.1",
+      "applies": {
+        "always": true
+      },
+      "extra": "In addition to |Ec| <= mpe per row, the spread across repeated weighings must satisfy Emax - Emin <= |mpe| (§3.6.1). The spread check is not covered by any of the five kernels — see docs/VERIFIED.md."
+    },
+    {
+      "id": "zero_return",
+      "form": "6.1",
+      "kernel": "K4",
+      "title": "Zero return",
+      "clause": "R 76-1:2006 §3.9.4.2",
+      "applies": {
+        "always": true
+      }
+    },
+    {
+      "id": "creep",
+      "form": "6.2",
+      "kernel": "K4",
+      "title": "Creep",
+      "clause": "R 76-1:2006 §4.6",
+      "applies": {
+        "always": true
+      }
+    },
+    {
+      "id": "stability_of_equilibrium",
+      "form": "7",
+      "kernel": "K6",
+      "title": "Stability of equilibrium",
+      "clause": "R 76-1:2006 A.4.12",
+      "applies": {
+        "has_print_or_storage": true
+      },
+      "note": "Checked against fixed multiples of e, never the resolved mpe: the printed value must not deviate more than 1e from the readings over the 5 s following print-out (and no more than two adjacent values may be indicated), and zero-setting or tare balancing must satisfy |E0| <= 0.25e. Five trials each."
+    },
+    {
+      "id": "tilting",
+      "form": "8",
+      "kernel": "K1",
+      "title": "Tilting",
+      "clause": "R 76-1:2006 §3.9.1",
+      "applies": {
+        "class_in": [
+          "II",
+          "III",
+          "IIII"
+        ],
+        "tiltable": true
+      },
+      "note": "The unloaded check uses a fixed 2e threshold, not the resolved mpe; only the loaded check uses mpe."
+    },
+    {
+      "id": "tare",
+      "form": "9",
+      "kernel": "K1",
+      "title": "Tare (weighing test)",
+      "clause": "R 76-1:2006 §3.5.3.4",
+      "applies": {
+        "has_tare": true
+      }
+    },
+    {
+      "id": "warm_up",
+      "form": "10",
+      "kernel": "K1",
+      "title": "Warm-up time",
+      "clause": "R 76-1:2006 §5.3.1",
+      "applies": {
+        "electronic": true
+      }
+    },
+    {
+      "id": "voltage_variation",
+      "form": "11",
+      "kernel": "K1",
+      "title": "Voltage variations",
+      "clause": "R 76-1:2006 §5.3.2",
+      "applies": {
+        "electronic": true
+      }
+    },
+    {
+      "id": "disturbances_12_1",
+      "form": "12.1",
+      "kernel": "K5",
+      "title": "Electrical disturbances — AC mains voltage dips and short interruptions",
+      "clause": "R 76-1:2006 §5.4",
+      "applies": {
+        "electronic": true
+      },
+      "reason_group": "disturbances",
+      "note": "One of the nine disturbance forms R 76-2 prints under heading 12. A fault greater than e is acceptable only if it is detected and acted upon (R 76-1 T.5.5.6)."
+    },
+    {
+      "id": "disturbances_12_2a",
+      "form": "12.2a",
+      "kernel": "K5",
+      "title": "Electrical bursts — a) Mains power supply lines",
+      "clause": "R 76-1:2006 §5.4",
+      "applies": {
+        "electronic": true
+      },
+      "reason_group": "disturbances",
+      "note": "One of the nine disturbance forms R 76-2 prints under heading 12. A fault greater than e is acceptable only if it is detected and acted upon (R 76-1 T.5.5.6)."
+    },
+    {
+      "id": "disturbances_12_2b",
+      "form": "12.2b",
+      "kernel": "K5",
+      "title": "Electrical bursts — b) I/O circuits and communication lines",
+      "clause": "R 76-1:2006 §5.4",
+      "applies": {
+        "electronic": true
+      },
+      "reason_group": "disturbances",
+      "note": "One of the nine disturbance forms R 76-2 prints under heading 12. A fault greater than e is acceptable only if it is detected and acted upon (R 76-1 T.5.5.6)."
+    },
+    {
+      "id": "disturbances_12_3a",
+      "form": "12.3a",
+      "kernel": "K5",
+      "title": "Surges — a) AC mains power supply",
+      "clause": "R 76-1:2006 §5.4",
+      "applies": {
+        "electronic": true
+      },
+      "reason_group": "disturbances",
+      "note": "One of the nine disturbance forms R 76-2 prints under heading 12. A fault greater than e is acceptable only if it is detected and acted upon (R 76-1 T.5.5.6)."
+    },
+    {
+      "id": "disturbances_12_3b",
+      "form": "12.3b",
+      "kernel": "K5",
+      "title": "Surges — b) Any other kind of power supply",
+      "clause": "R 76-1:2006 §5.4",
+      "applies": {
+        "electronic": true
+      },
+      "reason_group": "disturbances",
+      "note": "One of the nine disturbance forms R 76-2 prints under heading 12. A fault greater than e is acceptable only if it is detected and acted upon (R 76-1 T.5.5.6)."
+    },
+    {
+      "id": "disturbances_12_4a",
+      "form": "12.4a",
+      "kernel": "K5",
+      "title": "Electrostatic discharges — a) Direct application",
+      "clause": "R 76-1:2006 §5.4",
+      "applies": {
+        "electronic": true
+      },
+      "reason_group": "disturbances",
+      "note": "One of the nine disturbance forms R 76-2 prints under heading 12. A fault greater than e is acceptable only if it is detected and acted upon (R 76-1 T.5.5.6)."
+    },
+    {
+      "id": "disturbances_12_4b",
+      "form": "12.4b",
+      "kernel": "K5",
+      "title": "Electrostatic discharges — b) Indirect application",
+      "clause": "R 76-1:2006 §5.4",
+      "applies": {
+        "electronic": true
+      },
+      "reason_group": "disturbances",
+      "note": "One of the nine disturbance forms R 76-2 prints under heading 12. A fault greater than e is acceptable only if it is detected and acted upon (R 76-1 T.5.5.6)."
+    },
+    {
+      "id": "disturbances_12_5",
+      "form": "12.5",
+      "kernel": "K5",
+      "title": "Immunity to radiated electromagnetic fields",
+      "clause": "R 76-1:2006 §5.4",
+      "applies": {
+        "electronic": true
+      },
+      "reason_group": "disturbances",
+      "note": "One of the nine disturbance forms R 76-2 prints under heading 12. A fault greater than e is acceptable only if it is detected and acted upon (R 76-1 T.5.5.6)."
+    },
+    {
+      "id": "disturbances_12_6",
+      "form": "12.6",
+      "kernel": "K5",
+      "title": "Immunity to conducted radio-frequency fields",
+      "clause": "R 76-1:2006 §5.4",
+      "applies": {
+        "electronic": true
+      },
+      "reason_group": "disturbances",
+      "note": "One of the nine disturbance forms R 76-2 prints under heading 12. A fault greater than e is acceptable only if it is detected and acted upon (R 76-1 T.5.5.6)."
+    },
+    {
+      "id": "disturbances_road_vehicle_a",
+      "form": "12.7a",
+      "kernel": "K5",
+      "title": "Electrical transients — a) Instruments powered from a 12 V or 24 V road-vehicle battery",
+      "clause": "R 76-1:2006 §5.4.3",
+      "applies": {
+        "electronic": true,
+        "vehicle_powered": true
+      },
+      "reason_group": "disturbances_road_vehicle"
+    },
+    {
+      "id": "disturbances_road_vehicle_b",
+      "form": "12.7b",
+      "kernel": "K5",
+      "title": "Electrical transients — b) Other lines of vehicle-powered instruments",
+      "clause": "R 76-1:2006 §5.4.3",
+      "applies": {
+        "electronic": true,
+        "vehicle_powered": true
+      },
+      "reason_group": "disturbances_road_vehicle"
+    },
+    {
+      "id": "damp_heat_a",
+      "form": "13a",
+      "kernel": "K1",
+      "title": "Damp heat, steady state — a) Initial test (at reference temperature)",
+      "clause": "R 76-1:2006 Annex B.2",
+      "applies": {
+        "electronic": true,
+        "not_class": [
+          "I"
+        ],
+        "not_class_II_if_e_lt": "1g"
+      },
+      "reason_group": "damp_heat"
+    },
+    {
+      "id": "damp_heat_b",
+      "form": "13b",
+      "kernel": "K1",
+      "title": "Damp heat, steady state — b) Test at high temperature and humidity",
+      "clause": "R 76-1:2006 Annex B.2",
+      "applies": {
+        "electronic": true,
+        "not_class": [
+          "I"
+        ],
+        "not_class_II_if_e_lt": "1g"
+      },
+      "reason_group": "damp_heat"
+    },
+    {
+      "id": "damp_heat_c",
+      "form": "13c",
+      "kernel": "K1",
+      "title": "Damp heat, steady state — c) Final test (at reference temperature)",
+      "clause": "R 76-1:2006 Annex B.2",
+      "applies": {
+        "electronic": true,
+        "not_class": [
+          "I"
+        ],
+        "not_class_II_if_e_lt": "1g"
+      },
+      "reason_group": "damp_heat"
+    },
+    {
+      "id": "span_stability",
+      "form": "14",
+      "kernel": "K4",
+      "title": "Span stability",
+      "clause": "R 76-1:2006 Annex B.4",
+      "applies": {
+        "electronic": true,
+        "not_class": [
+          "I"
+        ]
+      },
+      "note": "The printed form checks the average error against fixed bands of 0.5e / 1e / 1.5e rather than against a resolved mpe column — the standard's own form hardcodes e-multiples here."
+    },
+    {
+      "id": "endurance_a",
+      "form": "15a",
+      "kernel": "K1",
+      "title": "Endurance — a) Initial test",
+      "clause": "R 76-1:2006 Annex A.6",
+      "applies": {
+        "max_capacity_kg_lte": 100,
+        "not_class": [
+          "I"
+        ]
+      },
+      "reason_group": "endurance",
+      "order": "last"
+    },
+    {
+      "id": "endurance_c",
+      "form": "15c",
+      "kernel": "K1",
+      "title": "Endurance — c) Final test",
+      "clause": "R 76-1:2006 Annex A.6",
+      "applies": {
+        "max_capacity_kg_lte": 100,
+        "not_class": [
+          "I"
+        ]
+      },
+      "reason_group": "endurance",
+      "order": "last"
+    },
+    {
+      "id": "construction_examination",
+      "form": "16",
+      "kernel": "K1",
+      "title": "Examination of the construction of the instrument",
+      "clause": "R 76-2:2007 form 16",
+      "applies": {
+        "always": true
+      }
+    }
   ],
-
-  "checklists": ["17.1", "17.2 (direct-sales)", "17.3 (electronic)", "17.4 (software)"],
+  "checklists": [
+    "17.1",
+    "17.2 (direct-sales)",
+    "17.3 (electronic)",
+    "17.4 (software)"
+  ],
   "checklist_rules": [
-    { "id": "17.1", "title": "All types of weighing instruments except non-self-indicating instruments", "clause": "R 76-2:2007 §17.1", "applies": { "not": { "indicating_type": "non-self" } } },
-    { "id": "17.2", "title": "Instruments for direct sales to the public and price computing and labeling instruments", "clause": "R 76-2:2007 §17.2", "applies": { "any": [{ "direct_sales": true }, { "price_computing": true }] } },
-    { "id": "17.3", "title": "Electronic weighing instruments", "clause": "R 76-2:2007 §17.3", "applies": { "electronic": true } },
-    { "id": "17.4", "title": "Software-controlled digital devices and instruments", "clause": "R 76-2:2007 §17.4", "applies": { "software_controlled": true } }
+    {
+      "id": "17.1",
+      "title": "All types of weighing instruments except non-self-indicating instruments",
+      "clause": "R 76-2:2007 §17.1",
+      "applies": {
+        "not": {
+          "indicating_type": "non-self"
+        }
+      }
+    },
+    {
+      "id": "17.2",
+      "title": "Instruments for direct sales to the public and price computing and labeling instruments",
+      "clause": "R 76-2:2007 §17.2",
+      "applies": {
+        "any": [
+          {
+            "direct_sales": true
+          },
+          {
+            "price_computing": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "17.3",
+      "title": "Electronic weighing instruments",
+      "clause": "R 76-2:2007 §17.3",
+      "applies": {
+        "electronic": true
+      }
+    },
+    {
+      "id": "17.4",
+      "title": "Software-controlled digital devices and instruments",
+      "clause": "R 76-2:2007 §17.4",
+      "applies": {
+        "software_controlled": true
+      }
+    }
   ]
 }

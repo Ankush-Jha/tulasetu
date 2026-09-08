@@ -54,6 +54,16 @@ export interface TestRule {
   clause?: string;
   applies?: Record<string, unknown>;
   params?: Record<string, unknown>;
+  /**
+   * Which exclusion sentence this rule shares with others.
+   *
+   * R 76-2 prints the disturbance tests as nine separate forms (12.1 to 12.6, plus 12.7a/b)
+   * and damp heat as three (13a/b/c), but the reason each is inapplicable is one sentence:
+   * the instrument has no electronic parts. Grouping them here keeps that sentence in the
+   * rule pack's hands rather than making the engine carry a list of ids to stay in step with.
+   * Defaults to `id`.
+   */
+  reason_group?: string;
   /** "last" forces this form to the end of the test list (endurance). */
   order?: "last";
   note?: string;

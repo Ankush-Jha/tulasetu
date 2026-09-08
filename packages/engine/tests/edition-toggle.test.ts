@@ -111,15 +111,35 @@ describe("what an edition change does NOT move — the maths", () => {
     const a = under(edition2007);
     const b = under(draft);
 
-    for (const id of ["weighing_performance", "eccentricity_weights", "repeatability", "zero_return", "creep", "tare", "warm_up", "voltage_variation", "damp_heat", "span_stability", "stability_of_equilibrium"]) {
+    // Damp heat is `damp_heat_a/b/c` in the 2007 pack, because R 76-2:2007 prints it as three
+    // lettered forms; the draft carries it as one. Comparing the shared *groups* rather than
+    // raw ids is what keeps this a test about editions and not about numbering.
+    const groupsUnder = (pack: RulePack) =>
+      new Set(
+        resolveApplicableTests(multiInterval, pack)
+          .filter((t) => t.applicable)
+          .map((t) => pack.tests.find((r) => r.id === t.testId)?.reason_group ?? t.testId),
+      );
+    const aGroups = groupsUnder(edition2007);
+    const bGroups = groupsUnder(draft);
+    for (const group of ["damp_heat"]) {
+      expect(aGroups.has(group), `2007 should apply ${group}`).toBe(true);
+      expect(bGroups.has(group), `the draft should apply ${group}`).toBe(true);
+    }
+
+    for (const id of ["weighing_performance", "eccentricity_weights", "repeatability", "zero_return", "creep", "tare", "warm_up", "voltage_variation", "span_stability", "stability_of_equilibrium"]) {
       expect(a.has(id), `2007 should apply ${id}`).toBe(true);
       expect(b.has(id), `the draft should apply ${id}`).toBe(true);
     }
     // And neither applies the ones this instrument is exempt from.
-    for (const id of ["sensitivity", "eccentricity_rolling", "tilting", "disturbances_road_vehicle"]) {
+    for (const id of ["sensitivity", "eccentricity_rolling", "tilting"]) {
       expect(a.has(id), `2007 should not apply ${id}`).toBe(false);
       expect(b.has(id), `the draft should not apply ${id}`).toBe(false);
     }
+    // The road-vehicle transient test is two lettered forms in 2007 and one in the draft, so
+    // it is checked by group for the same reason as damp heat above.
+    expect(aGroups.has("disturbances_road_vehicle")).toBe(false);
+    expect(bGroups.has("disturbances_road_vehicle")).toBe(false);
   });
 });
 
@@ -136,10 +156,17 @@ describe("what an edition change DOES move — the report's shape", () => {
     expect(edition2007.tests.some((t) => t.form === "12.3")).toBe(false);
   });
 
-  it("splits the disturbance forms out, where 2007 carried one combined entry", () => {
+  it("numbers the disturbance forms differently — 2007 letters the sub-items, the draft does not", () => {
+    // Both editions print every disturbance test as its own form; they disagree only on how
+    // the sub-items are numbered. R 76-2:2007 letters them (12.2 a/b, 12.3 a/b, 12.4 a/b,
+    // 12.7 a/b), which is why 2007 carries eleven entries against the draft's seven.
     const draftDisturbances = draft.tests.filter((t) => t.form.startsWith("12"));
-    expect(draftDisturbances.length).toBe(7); // 12.1 through 12.7
-    expect(edition2007.tests.filter((t) => t.form.startsWith("12")).length).toBe(2); // 12 and 12.7
+    expect(draftDisturbances.length).toBe(7); // 12.1 through 12.7, unlettered
+    const forms2007 = edition2007.tests.filter((t) => t.form.startsWith("12")).map((t) => t.form);
+    expect(forms2007).toEqual([
+      "12.1", "12.2a", "12.2b", "12.3a", "12.3b",
+      "12.4a", "12.4b", "12.5", "12.6", "12.7a", "12.7b",
+    ]);
   });
 
   it("renumbers every cross-reference from annex form to subclause form", () => {

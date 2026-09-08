@@ -117,6 +117,7 @@ export interface ChecklistRule {
  * | max_capacity_kg_lte      | number              | the instrument's (or current range's) Max, in kg, is <= this           |
  * | not_class_II_if_e_lt     | quantity string     | ALREADY negated in its name: true unless (class===II AND e < threshold). e is the representative e (see below). Value like "1g", "500mg". |
  * | digital_d_lt_5mg         | true                | RAW condition (not negated): true iff this is a digital indication AND d < 5 mg. Meant to be wrapped in `not`, as the pack already does for "discrimination". |
+ * | digital_indication       | boolean             | true iff the instrument indicates digitally (electronic AND not non-self). Selects between R 76-2's three printed discrimination forms 4.1.1 / 4.1.2 / 4.1.3. |
  *
  * "Representative e / Max" for whole-instrument exemption checks (not_class_II_if_e_lt,
  * max_capacity_kg_lte, digital_d_lt_5mg's d): for a `multiple-range` instrument, each
@@ -279,6 +280,12 @@ function evaluateKey(key: string, value: unknown, ctx: PredicateContext): boolea
       const eG = toGrams(representativeRange(ctx).e, profile.unit);
       return !(isClassII && eG < thresholdG);
     }
+    case "digital_indication":
+      // R 76-1 §3.8 splits discrimination three ways by how the instrument indicates:
+      // §3.8.2.2 (digital), §3.8.2.1 (analog) and §3.8.1 (non-self). The rule pack needs to
+      // select between the three printed forms, so the same proxy `digital_d_lt_5mg` already
+      // relies on is exposed as a predicate in its own right.
+      return isDigitalIndication(profile) === value;
     case "digital_d_lt_5mg": {
       const dG = toGrams(representativeRange(ctx).d, profile.unit);
       return isDigitalIndication(profile) && dG < 5 * GRAMS_PER_UNIT.mg;
@@ -299,7 +306,11 @@ function evaluateKey(key: string, value: unknown, ctx: PredicateContext): boolea
 function reasonForTest(rule: TestRule, ctx: PredicateContext): string {
   const { profile } = ctx;
   const clause = rule.clause ?? defaultClauseFor(rule.id);
-  switch (rule.id) {
+  // Several printed forms share one exclusion reason: R 76-2 prints the disturbance tests as
+  // 12.1 through 12.7 and damp heat as 13a/b/c, but "this instrument has no electronic parts"
+  // is the same sentence for every one of them. `reason_group` lets the rule pack say so,
+  // rather than the engine carrying a list of ids it has to be kept in step with.
+  switch (rule.reason_group ?? rule.id) {
     case "eccentricity_rolling":
       return `Not applicable -- this instrument is not loaded with a rolling load; eccentricity is assessed via form 3.1 (weights) only (${clause ?? "R 76-1:2006 §3.6.2.4"}).`;
     case "discrimination":

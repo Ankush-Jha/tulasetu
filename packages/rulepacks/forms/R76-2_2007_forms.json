@@ -400,7 +400,7 @@
       "clause": "(A.4.12)",
       "clauses": ["A.4.12"],
       "page": 19,
-      "kernel": "K1",
+      "kernel": "K6",
       "_kernelNote": "This form does NOT match K1's formula/acceptance pattern cleanly, and it is NOT listed under K1 in CLAUDE.md §5 at all. It has two independent checks, neither of which is 'error vs mpe from the resolver': (i) printing/storage — a fixed 1e deviation check on raw readings, no E/Ec computed; (ii) zero-setting/tare-balancing — uses the K1-shaped formula E0 = I0 + ½e – ΔL – L0 but checks against a FIXED 0.25e threshold, not the class/load-band mpe. CLAUDE.md's K4 row lists 'stability' as a K4 (time-dependence) user, but nothing on this form is time-based — that reference more likely means form 14 'Span stability', not this form. Flagged for the team — see report.",
       "environmental": {
         "capturesTemperature": true,
@@ -1027,7 +1027,7 @@
       "clause": "(B.4)",
       "clauses": ["B.4"],
       "page": 40,
-      "kernel": "K1",
+      "kernel": "K4",
       "_kernelNote": "Span stability's acceptance criterion is the ONLY one among the K1-tagged forms that does NOT reference 'mpe' at all — it is a graphical check of average error against fixed bands of ±0.5e / ±1e / ±1.5e ('Maximum allowable variation'), read directly off a plotted chart, not resolved via the class/load-band mpe resolver. This is a meaningful divergence from CLAUDE.md's description of K1 ('pass if |Ec| ≤ mpe') and from design rule #2 ('never hardcode a threshold') — here the standard's own form hardcodes the e-multiples. Flagged for the team — see report.",
       "_uncertain": true,
       "environmental": {
@@ -1139,7 +1139,7 @@
       "clause": null,
       "clauses": [],
       "page": 48,
-      "kernel": null,
+      "kernel": "K1",
       "environmental": { "capturesTemperature": false, "capturesHumidity": false, "capturesPressure": false, "checkpoints": [] },
       "columns": [],
       "formulas": [],

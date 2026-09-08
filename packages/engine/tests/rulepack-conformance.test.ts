@@ -140,7 +140,7 @@ describe("endurance applicability", () => {
       accuracyClass: "I",
       ranges: [{ e: 0.001, d: 0.001, max: 220, min: 0.1, n: 220000 }],
     };
-    const endurance = resolveApplicableTests(classI, oiml).find((t) => t.testId === "endurance");
+    const endurance = resolveApplicableTests(classI, oiml).find((t) => t.testId === "endurance_a");
     expect(endurance?.applicable).toBe(false);
     expect(endurance?.reason ?? "").toMatch(/class/i);
   });
@@ -151,7 +151,7 @@ describe("endurance applicability", () => {
       accuracyClass: "III",
       ranges: [{ e: 10, d: 10, max: 30000, min: 200, n: 3000 }],
     };
-    const endurance = resolveApplicableTests(classIII, oiml).find((t) => t.testId === "endurance");
+    const endurance = resolveApplicableTests(classIII, oiml).find((t) => t.testId === "endurance_a");
     expect(endurance?.applicable).toBe(true);
   });
 
@@ -161,7 +161,7 @@ describe("endurance applicability", () => {
       accuracyClass: "III",
       ranges: [{ e: 10000, d: 10000, max: 40_000_000, min: 400000, n: 4000 }],
     };
-    const endurance = resolveApplicableTests(weighbridge, oiml).find((t) => t.testId === "endurance");
+    const endurance = resolveApplicableTests(weighbridge, oiml).find((t) => t.testId === "endurance_a");
     expect(endurance?.applicable).toBe(false);
   });
 
@@ -172,8 +172,12 @@ describe("endurance applicability", () => {
       ranges: [{ e: 10, d: 10, max: 30000, min: 200, n: 3000 }],
     };
     const tests = resolveApplicableTests(classIII, oiml);
-    const endurance = tests.find((t) => t.testId === "endurance")!;
-    expect(Math.max(...tests.map((t) => t.order))).toBe(endurance.order);
+    // Both endurance forms carry order: "last" — Annex A.6 runs the whole endurance test at
+    // the end, and its initial (15a) and final (15c) readings are two forms of one procedure.
+    // They keep their relative order (initial before final) but occupy the final positions:
+    // nothing else may be scheduled after the instrument has been run to destruction.
+    const ordered = [...tests].sort((a, b) => a.order - b.order);
+    expect(ordered.slice(-2).map((t) => t.testId)).toEqual(["endurance_a", "endurance_c"]);
   });
 });
 
