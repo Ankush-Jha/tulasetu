@@ -56,16 +56,40 @@ export function DashboardPage() {
    * submissions awaiting review, the Director's is recommendations awaiting a decision. The
    * states are read off the lifecycle table the server publishes, so this cannot drift from
    * what the server will actually permit.
+   *
+   * This used to test `t.roles.includes(session.role)`, which pulled DRAFT / OBSERVATIONS_
+   * COMPLETE / VALIDATED into an Assistant Director's queue too (F10/AD-06): those bench-state
+   * transitions list AD/DD/ADMIN alongside MA as a fallback override, the same way an
+   * administrator can act in a lab's place — but "permitted to" is not "expected to", and an
+   * AD's card filled up with a Metrological Assistant's unfinished work rather than the
+   * submissions actually waiting on a review decision.
+   *
+   * Every transition's `roles` array names its primary actor first — MA on the bench states, AD
+   * on SUBMITTED and DEFICIENCY, the Director on everything from RECOMMENDED onward — so
+   * `roles[0]` is what "this role's queue" actually means, without hand-listing states per role
+   * here and risking drift from apps/api/src/domain/lifecycle.ts.
    */
   const actionable = useMemo(() => {
     if (!recent.data || !lifecycle.data || !session) return [];
     const mine = new Set(
       lifecycle.data.transitions
-        .filter((t) => t.roles.includes(session.role))
+        .filter((t) => t.roles[0] === session.role)
         .map((t) => t.from),
     );
     return recent.data.filter((r) => mine.has(r.status));
   }, [recent.data, lifecycle.data, session]);
+
+  // One skeleton, one reveal. Four independent `useApi` calls used to each show their own
+  // loading state and pop in whenever they individually finished — a real request waterfall
+  // was never happening (they all fire on mount), but the page still *read* like four separate
+  // loads finishing in sequence (F13/V-04). Gating the whole page behind their combined first
+  // load makes it one transition: skeleton, then everything at once. Refetches triggered later
+  // (`reload()`) are quiet — each section still owns its own error and data.
+  const initialLoading =
+    counts.initialLoading ||
+    recent.initialLoading ||
+    lifecycle.initialLoading ||
+    (can("stats:read_own_lab") && stats.initialLoading);
 
   async function loadDemo() {
     const r = await seed.run();
@@ -97,15 +121,13 @@ export function DashboardPage() {
         </div>
       )}
 
+      {initialLoading ? (
+        <DashboardSkeleton />
+      ) : (
+      <>
       {/* Counts */}
       {counts.error ? (
         <ErrorState error={counts.error} onRetry={counts.reload} />
-      ) : counts.loading ? (
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {[0, 1, 2, 3].map((i) => (
-            <Skeleton key={i} className="h-[92px]" />
-          ))}
-        </div>
       ) : counts.data ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <Stat label="In process" value={counts.data.inProcess} icon="pending_actions" tone="info" />
@@ -120,9 +142,16 @@ export function DashboardPage() {
         </div>
       ) : null}
 
+      {/*
+        `min-w-0` on the table card overrides a grid item's default `min-width: auto` — without
+        it, the recent-reports table's own minimum content width became the grid column's
+        minimum, and the whole dashboard grew wider than a 390px viewport instead of the table
+        scrolling inside its own card (the same bug fixed on the family solver and modules
+        pages, F14/V-03).
+      */}
       <div className="mt-6 grid gap-6 xl:grid-cols-3">
         {/* Recent reports */}
-        <Card className="xl:col-span-2">
+        <Card className="min-w-0 xl:col-span-2">
           <CardHeader
             icon="folder_open"
             title="Recent reports"
@@ -135,8 +164,6 @@ export function DashboardPage() {
           />
           {recent.error ? (
             <ErrorState error={recent.error} onRetry={recent.reload} />
-          ) : recent.loading ? (
-            <LoadingState />
           ) : !recent.data?.length ? (
             <EmptyState
               icon="folder_off"
@@ -196,7 +223,7 @@ export function DashboardPage() {
         </Card>
 
         {/* Rule 4(9) */}
-        <div className="flex flex-col gap-6">
+        <div className="flex min-w-0 flex-col gap-6">
           <Card>
             <CardHeader
               icon="monitoring"
@@ -209,8 +236,6 @@ export function DashboardPage() {
               </p>
             ) : stats.error ? (
               <ErrorState error={stats.error} onRetry={stats.reload} />
-            ) : stats.loading ? (
-              <LoadingState />
             ) : stats.data ? (
               <>
                 <dl className="grid grid-cols-2 gap-3">
@@ -229,6 +254,17 @@ export function DashboardPage() {
                     }
                   />
                 </dl>
+                {/*
+                  MA-08: "Approved 0 · Median turnaround —" read as broken rather than as an
+                  honest zero — nothing distinguished "no report has reached that state yet"
+                  from a stat that failed to load. Naming the zero directly says which one it is.
+                */}
+                {stats.data.modelsApproved === 0 && (
+                  <p className="mt-3 text-body-sm text-on-surface-variant">
+                    No report has been locked yet this year — the approved count and turnaround
+                    will read real numbers once one is.
+                  </p>
+                )}
                 {stats.data.exceededThreeMonths > 0 && (
                   <Alert tone="warn" icon="schedule" title="Past three months">
                     {stats.data.exceededThreeMonths} report
@@ -261,9 +297,16 @@ export function DashboardPage() {
                       to={reportPath(r.id)}
                       className="flex items-center justify-between gap-3 rounded-xl px-2.5 py-2 transition-colors hover:bg-surface-container-low"
                     >
+                      {/* The report id was link-only before — nowhere in the row's own text,
+                          on any width (AD-06). It is the number an officer actually looks the
+                          report up by, so it is shown unconditionally, not just implied by the
+                          href. */}
                       <span className="min-w-0">
+                        <span className="block truncate font-mono text-label-sm text-on-surface-variant">
+                          {r.id}
+                        </span>
                         <span className="block truncate text-label-md text-on-surface">
-                          {r.model ?? r.id}
+                          {r.model ?? "—"}
                         </span>
                         <span className="block truncate text-body-sm text-on-surface-variant">
                           {r.manufacturer ?? "—"}
@@ -276,6 +319,34 @@ export function DashboardPage() {
               </ul>
             )}
           </Card>
+        </div>
+      </div>
+      </>
+      )}
+    </>
+  );
+}
+
+/**
+ * The whole dashboard's shape, before any of it has data.
+ *
+ * One skeleton block per section that will appear, so the transition to real content is a
+ * single swap rather than four sections popping in as their own requests happen to resolve
+ * (F13/V-04) — see `initialLoading` above for why this is gated the way it is.
+ */
+function DashboardSkeleton() {
+  return (
+    <>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {[0, 1, 2, 3].map((i) => (
+          <Skeleton key={i} className="h-[92px]" />
+        ))}
+      </div>
+      <div className="mt-6 grid gap-6 xl:grid-cols-3">
+        <Skeleton className="h-[420px] xl:col-span-2" />
+        <div className="flex flex-col gap-6">
+          <Skeleton className="h-[220px]" />
+          <Skeleton className="h-[220px]" />
         </div>
       </div>
     </>
