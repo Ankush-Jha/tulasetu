@@ -38,16 +38,17 @@ import { useReport } from "./ReportLayout";
 type Format = "pdf" | "docx" | "json" | "html";
 
 /**
- * `docx` and `json`'s copy depend on whether the report is locked, so this is a function of
- * that rather than a static table:
+ * `json`'s copy depends on whether the report is locked (the embedded PDF is marked DRAFT
+ * until it is); DOCX's does not, so this is a function of `locked` for consistency with it
+ * rather than because DOCX needs one.
  *
- *  - DOCX carries a DRAFT line in its footer (packages/renderers/src/docx.ts), not a watermark
- *    in the graphic-overlay sense — "watermarked" overclaimed what the file actually does.
- *  - JSON always *attempts* to embed a rendered PDF (apps/api/src/domain/render.ts renders one
- *    for every JSON export, locked or not), but only once the report is locked is that embedded
- *    PDF the record copy; before that it is a working-copy preview that will change under it,
- *    and if Chromium is unavailable server-side the `embedded` block is silently absent either
- *    way. The card should say which case applies rather than promising one unconditionally.
+ *  - DOCX carries a real rotated, semi-transparent DRAFT watermark on every page now
+ *    (packages/renderers/src/docx.ts) — "watermarked" is accurate again.
+ *  - JSON: `GET .../render/json` always attempts a fresh PDF render, whatever the report's
+ *    status (apps/api/src/domain/render.ts) — not "only once locked" as this copy previously
+ *    claimed. It embeds that PDF when the render succeeds and omits the `embedded` block
+ *    silently when it fails (Chromium unavailable). The PDF itself is marked DRAFT until the
+ *    Director locks the report — the web route never embeds a DOCX, only the CLI export does.
  */
 function outputs(locked: boolean): { id: Format; icon: string; title: string; blurb: string; note: string }[] {
   return [
@@ -64,17 +65,18 @@ function outputs(locked: boolean): { id: Format; icon: string; title: string; bl
       icon: "description",
       title: "DOCX — review copy",
       blurb:
-        "For the AD/DD cycle. Marked DRAFT in the footer of every page, and carries the record copy's hash on its first page once one exists, because an editable file sits outside the append-only log and must never be mistaken for the record.",
+        "For the AD/DD cycle. Watermarked DRAFT on every page, and carries the record copy's hash on its first page once one exists, because an editable file sits outside the append-only log and must never be mistaken for the record.",
       note: "Never the record copy, by design.",
     },
     {
       id: "json",
       icon: "data_object",
       title: "JSON — machine-readable",
-      blurb: locked
-        ? "DCC-inspired: the data and the locked record-copy PDF in one file, each with its own hash, so a downstream system never has to re-key numbers out of a document."
-        : "DCC-inspired: the data, plus a working-copy PDF preview embedded alongside it — not the record copy, and it will change until the report is locked. If the render engine is unavailable, the file still stands on the data alone.",
-      note: locked ? "Content-addressed — identical reports hash identically." : "Embedded PDF is a preview until the report is locked.",
+      blurb:
+        "DCC-inspired: the data, with the rendered PDF embedded alongside it, each carrying its own hash, so a downstream system never has to re-key numbers out of a document. The PDF is " +
+        (locked ? "the locked record copy." : "marked DRAFT until the Director locks the report.") +
+        " If the render engine is unavailable, the file still stands on the data alone.",
+      note: locked ? "Content-addressed — identical reports hash identically." : "Embedded PDF is marked DRAFT until the report is locked.",
     },
   ];
 }
