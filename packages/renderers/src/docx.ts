@@ -6,8 +6,9 @@
  * outside the append-only log, and so outside ISO/IEC 17025 §7.8's guarantee.
  *
  * This renderer resolves that by making the distinction impossible to miss rather than by
- * refusing the format. Every DOCX carries a DRAFT watermark and a first-page banner naming
- * the record copy's hash, so a printed Word file cannot be mistaken for the signed report.
+ * refusing the format. Every DOCX carries a rotated DRAFT watermark repeated on every page
+ * (see `draftWatermark`) and a first-page banner naming the record copy's hash, so a printed
+ * Word file cannot be mistaken for the signed report at any page an officer happens to open.
  * The record copy is the locked PDF; its SHA-256 lives in the event log.
  */
 
@@ -16,6 +17,7 @@ import {
   BorderStyle,
   Document,
   Footer,
+  Header,
   HeadingLevel,
   Packer,
   Paragraph,
@@ -24,6 +26,7 @@ import {
   TableCell,
   TableRow,
   TextRun,
+  Textbox,
   WidthType,
 } from "docx";
 import type { Cell, RenderedForm, ReportDocument } from "./model.js";
@@ -246,6 +249,7 @@ export async function renderDocx(doc: ReportDocument, opts: DocxOptions = {}): P
     sections: [
       {
         properties: {},
+        ...(draft ? { headers: { default: new Header({ children: [draftWatermark()] }) } } : {}),
         footers: {
           default: new Footer({
             children: [
@@ -275,6 +279,46 @@ export async function renderDocx(doc: ReportDocument, opts: DocxOptions = {}): P
 // ---------------------------------------------------------------------------
 // Building blocks
 // ---------------------------------------------------------------------------
+
+/**
+ * The actual DRAFT watermark: a rotated, semi-transparent shape in the page header, so it
+ * repeats behind the content of every page rather than announcing itself once at the top of
+ * page one. DIR-08 flagged the earlier version — a small grey line of footer text — as not a
+ * watermark at all; a laboratory officer flicking to page 12 of a review copy saw nothing to
+ * distinguish it from a record copy there.
+ *
+ * `Textbox` here compiles to the same construct Word's own "Insert Watermark" feature writes:
+ * a VML `v:shape` (`position:absolute`, a negative `z-index` so body text draws over it,
+ * `rotation:315` for the diagonal) holding a `v:textbox`. It is intentionally *not* a
+ * `Paragraph`, so it sits outside `IHeaderOptions`'s declared `(Paragraph | Table)[]` children
+ * type even though `Header` renders it correctly (confirmed by inspecting the produced
+ * `header1.xml`) — the type surface for VML shapes lagging their own implementation in `docx`
+ * 9.7.1. The cast below is that gap, not a mistake; narrowed to this one call so a real
+ * behavioural regression elsewhere in this file would still be caught.
+ */
+function draftWatermark(): Paragraph {
+  const shape = new Textbox({
+    children: [
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        children: [new TextRun({ text: "DRAFT", bold: true, size: 220, color: "D9D9D9" })],
+      }),
+    ],
+    style: {
+      width: "460pt",
+      height: "150pt",
+      position: "absolute",
+      positionHorizontal: "center",
+      positionHorizontalRelative: "page",
+      positionVertical: "center",
+      positionVerticalRelative: "page",
+      rotation: 315,
+      zIndex: -1,
+      wrapStyle: "none",
+    },
+  });
+  return shape as unknown as Paragraph;
+}
 
 function draftBanner(recordHash?: string): Paragraph[] {
   return [
