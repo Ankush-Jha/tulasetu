@@ -41,7 +41,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-canvas">
+    <main className="min-h-screen bg-canvas">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col justify-center gap-8 px-6 py-12">
         <div className="flex flex-col items-center text-center">
           <span
@@ -66,10 +66,17 @@ export function LoginPage() {
 
         <Card elevation="raised" className="p-6">
           <h2 className="text-headline-sm text-on-surface">Choose an officer</h2>
+          {/*
+            V-05: the previous copy contrasted only the Metrological Assistant and the Director,
+            leaving the Assistant/Deputy Director undescribed and never stating the separation
+            of duties this whole demonstration exists to show — that no single account can carry
+            a report from bench to certificate.
+          */}
           <p className="text-body-md text-on-surface-variant mt-1">
-            Each role sees a different application. A Metrological Assistant records
-            observations but cannot issue a certificate; the Director issues certificates but
-            does not record bench readings.
+            Three roles, one report, and no account that can carry it alone. The Metrological
+            Assistant records bench readings. The Assistant/Deputy Director reviews them and
+            recommends or sends them back. The Director alone can lock the record and issue the
+            certificate. Sign in as each in turn to see the same report move through all three.
           </p>
 
           <ul className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -81,7 +88,10 @@ export function LoginPage() {
                   className={cn(
                     "flex w-full flex-col items-start gap-2 rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-4 text-left",
                     "transition-colors hover:border-primary/50 hover:bg-surface-container-low",
-                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+                    // V-08: an `outline` here sat at the same specificity as other unconditional
+                    // utilities on this element and rendered too faint to read as a focus state.
+                    // A ring (a box-shadow, not an outline) is its own property and always wins.
+                    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest focus-visible:border-primary",
                     "disabled:cursor-not-allowed disabled:opacity-60",
                   )}
                 >
@@ -123,6 +133,6 @@ export function LoginPage() {
           Department of Consumer Affairs. Not an official publication of any department.
         </p>
       </div>
-    </div>
+    </main>
   );
 }
