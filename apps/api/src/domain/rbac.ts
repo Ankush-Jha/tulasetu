@@ -167,29 +167,83 @@ export function canReadReport(
       };
 }
 
+const RECORD_COPY_REASON =
+  `is no longer editable. The locked report is the record copy (ISO/IEC 17025 7.8); ` +
+  `record a new revision instead of amending it.`;
+
 /**
- * Write access to one report: capability, tenancy, and the fact that a locked report is
- * closed to everyone. Locking is what makes the record copy a record copy — there is no role
- * that can write through it, and correcting a locked report means a new revision, not an edit.
+ * States from which a report is closed to report-data writes (profile, observations,
+ * checklist answers, attachment upload) for EVERY role — including the role that would
+ * otherwise hold the capability.
+ *
+ * The rule (confirmed product decision, not a code default): submitting a report starts the
+ * review chain, and from SUBMITTED onward a correction happens only by moving the report back
+ * down the chain — DEFICIENCY -> DRAFT ("Return to Metrological Assistant"), REMITTED -> DRAFT
+ * ("Reopen for further tests") — never by editing report data in place while it is under
+ * review. That is what makes the two signatures on a RECOMMENDED report, and the AD/DD's
+ * review of a SUBMITTED one, mean anything: without this, an editable Instrument tab on an
+ * already-twice-signed report (AD-02) or a POST to /observations on a RECOMMENDED report that
+ * quietly flips PASSED to FAILED (MA-02) both defeat the review they claim to record.
+ *
+ * `lifecycle.ts`'s own transitions (raising/resolving a deficiency, signing, moving state) are
+ * NOT gated here — those go through their own capability checks in `service.ts`, because they
+ * are how a report under review is corrected or moved, not report data being edited in place.
+ *
+ * Every state name is written out, rather than derived as "REPORT_STATES minus the writable
+ * ones", so that adding a new state to the lifecycle forces a deliberate decision about
+ * whether it is frozen — a missing entry here fails open (writable), which a review of this
+ * list will catch, rather than failing closed silently.
+ */
+const FROZEN_REPORT_REASONS: Record<string, string> = {
+  SUBMITTED:
+    "Submitted to the AD/DD — read-only. To correct it, the reviewer returns it to the lab " +
+    "(Record deficiency), or the lab reopens it before submitting again.",
+  DEFICIENCY:
+    "A deficiency has been raised and the report is waiting to be returned to the lab — " +
+    "read-only until then (AoM Rule 8).",
+  RECOMMENDED:
+    "Recommended to the Director — read-only. If a correction is needed, the Director remits " +
+    "it back to the lab for further tests (AoM Rule 8).",
+  REMITTED: "Remitted by the Director for further tests — read-only until the lab reopens it.",
+  PROVISIONAL:
+    "A provisional certificate has been issued on this report (AoM Rule 6(8)) — read-only " +
+    "until it is reopened.",
+  LOCKED: `Report is LOCKED and ${RECORD_COPY_REASON}`,
+  CERTIFICATE_ISSUED: `Report is CERTIFICATE_ISSUED and ${RECORD_COPY_REASON}`,
+  PUBLISHED: `Report is PUBLISHED and ${RECORD_COPY_REASON}`,
+  WITHDRAWN: `Report is WITHDRAWN and ${RECORD_COPY_REASON}`,
+};
+
+/** A plain-English reason a role cannot write report data, in place of naming the capability. */
+function roleCannotWriteReportDataReason(principal: Principal, capability: Capability): string {
+  if (capability === "report:edit_profile" || capability === "report:record_observations") {
+    return (
+      `${principal.role} does not record or edit report data — that is done by the lab's ` +
+      `Metrological Assistant and its reviewing officers (MA/AD/DD).`
+    );
+  }
+  return `Role ${principal.role} lacks capability ${capability}.`;
+}
+
+/**
+ * Write access to one report: whether the report's own state is closed to writes (see
+ * `FROZEN_REPORT_REASONS`), tenancy, and the role's capability. Every write route — profile,
+ * observations, checklist answers, attachment upload — calls this one function, so there is a
+ * single place the freeze point is enforced rather than one CLOSED list per route.
  */
 export function canWriteReport(
   principal: Principal,
   report: { lab_id: string; status: string },
   capability: Capability,
 ): AccessDecision {
-  const CLOSED = ["LOCKED", "CERTIFICATE_ISSUED", "PUBLISHED", "WITHDRAWN"];
-  if (CLOSED.includes(report.status)) {
-    return {
-      allowed: false,
-      reason:
-        `Report is ${report.status} and is no longer editable. The locked report is the ` +
-        `record copy (ISO/IEC 17025 7.8); record a new revision instead of amending it.`,
-    };
+  const frozenReason = FROZEN_REPORT_REASONS[report.status];
+  if (frozenReason) {
+    return { allowed: false, reason: frozenReason };
   }
   if (report.lab_id !== principal.labId && !can(principal, "report:read_any_lab")) {
     return { allowed: false, reason: "Report belongs to another laboratory." };
   }
   return can(principal, capability)
     ? { allowed: true }
-    : { allowed: false, reason: `Role ${principal.role} lacks capability ${capability}.` };
+    : { allowed: false, reason: roleCannotWriteReportDataReason(principal, capability) };
 }

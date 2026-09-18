@@ -1077,6 +1077,18 @@ export function listDeficiencies(
   }));
 }
 
+/**
+ * Resolve a deficiency: record what was done about it, so `all_deficiencies_resolved` can
+ * become true and the report can be recommended.
+ *
+ * Deliberately NOT gated by `canWriteReport` (the report-data freeze, F1): resolving a
+ * deficiency is part of the deficiency workflow, not an edit to profile/observations/checklist
+ * data, and it is exactly the action a report in DEFICIENCY or SUBMITTED (after the lab has
+ * fixed the underlying data and resubmitted, per the deficiency loop test) needs to allow. The
+ * capability check mirrors `raiseDeficiency`'s: whoever may raise a deficiency or record report
+ * data may also mark one resolved — the lab (MA) writes the resolution text, a reviewing
+ * officer may also close one they judge no longer applies.
+ */
 export function resolveDeficiency(
   ctx: ServiceContext,
   principal: Principal,
@@ -1085,8 +1097,12 @@ export function resolveDeficiency(
   resolution: string,
 ): void {
   const report = getReport(ctx, principal, reportId);
-  const write = canWriteReport(principal, report, "report:record_observations");
-  if (!write.allowed) throw forbidden(write.reason ?? "Cannot modify this report.");
+  if (!can(principal, "report:record_observations") && !can(principal, "report:raise_deficiency")) {
+    throw forbidden(`Role ${principal.role} cannot resolve deficiencies.`);
+  }
+  if (report.lab_id !== principal.labId && !can(principal, "report:read_any_lab")) {
+    throw forbidden("Report belongs to another laboratory.");
+  }
 
   const info = ctx.db
     .prepare(

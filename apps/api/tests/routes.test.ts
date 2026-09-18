@@ -264,6 +264,113 @@ describe("the deficiency loop", () => {
   });
 });
 
+describe("the freeze point (F1): SUBMITTED and every later state is read-only for every role", () => {
+  // AD-02 / MA-02: an AD could edit a RECOMMENDED, twice-signed report's instrument profile,
+  // and an MA's POST to /observations on a RECOMMENDED report returned 200 and silently
+  // flipped the recorded verdict. Root cause was `canWriteReport`'s CLOSED list (rbac.ts) only
+  // covering LOCKED and beyond. The product decision (AoM Rule 8): once a report is submitted,
+  // a correction happens only by moving it back down the chain (deficiency -> DRAFT, remit ->
+  // DRAFT) — never by writing report data in place while it is under review, whatever the
+  // caller's role. All three report-data write routes (profile, observations, checklist) go
+  // through the one `canWriteReport` guard in service.ts, so this is tested once per route,
+  // across every role, rather than once per role.
+  async function walkToSubmitted(reportId: string) {
+    await call("POST", "/reports", "u-ma", { reportId, profile: "IN_Sch7A" });
+    await call("PUT", `/reports/${reportId}/profile`, "u-ma", { profile });
+    const applicable = (await call("GET", `/reports/${reportId}`, "u-ma")).body.forms.filter(
+      (f: any) => f.applicable,
+    );
+    for (const f of applicable) {
+      await call("POST", `/reports/${reportId}/forms/${f.form_id}/observations`, "u-ma", payloadFor(f.form_id));
+    }
+    await call("POST", `/reports/${reportId}/transition`, "u-ma", { to: "OBSERVATIONS_COMPLETE" });
+    await call("POST", `/reports/${reportId}/transition`, "u-ma", { to: "VALIDATED" });
+    await call("POST", `/reports/${reportId}/transition`, "u-ma", { to: "SUBMITTED" });
+  }
+
+  for (const role of ["u-ma", "u-ad", "u-dir"]) {
+    it(`refuses ${role} writing the profile, observations and checklist on a SUBMITTED report`, async () => {
+      const id = `TS-FREEZE-${role}`;
+      await walkToSubmitted(id);
+      expect((await call("GET", `/reports/${id}`, role)).body.report.status).toBe("SUBMITTED");
+
+      const profileWrite = await call("PUT", `/reports/${id}/profile`, role, { profile });
+      expect(profileWrite.status, "profile write").toBe(403);
+      expect(profileWrite.body.message).toMatch(/Submitted to the AD\/DD/i);
+
+      const obsWrite = await call("POST", `/reports/${id}/forms/1/observations`, role, {
+        observations: [{ load: 1000, indication: 1000 }],
+      });
+      expect(obsWrite.status, "observations write").toBe(403);
+      expect(obsWrite.body.message).toMatch(/Submitted to the AD\/DD/i);
+
+      const checklistWrite = await call("POST", `/reports/${id}/checklist`, role, {
+        checklistId: "17.1",
+        answers: [{ index: 0, answer: "yes" }],
+      });
+      expect(checklistWrite.status, "checklist write").toBe(403);
+      expect(checklistWrite.body.message).toMatch(/Submitted to the AD\/DD/i);
+    });
+  }
+
+  it("gives a state-specific, human-readable reason at DEFICIENCY, RECOMMENDED and REMITTED — not a capability name (DIR-09)", async () => {
+    await walkToSubmitted("TS-FREEZE-DEF");
+    await call("POST", "/reports/TS-FREEZE-DEF/deficiencies", "u-ad", {
+      id: "fd1", severity: "minor", text: "example",
+    });
+    const defWrite = await call("PUT", "/reports/TS-FREEZE-DEF/profile", "u-ma", { profile });
+    expect(defWrite.status).toBe(403);
+    expect(defWrite.body.message).toMatch(/returned to the lab/i);
+    expect(defWrite.body.message).not.toMatch(/lacks capability/i);
+
+    await walkToSubmitted("TS-FREEZE-REC");
+    await call("POST", "/reports/TS-FREEZE-REC/transition", "u-ad", { to: "RECOMMENDED" });
+    const recWrite = await call("PUT", "/reports/TS-FREEZE-REC/profile", "u-ad", { profile });
+    expect(recWrite.status).toBe(403);
+    expect(recWrite.body.message).toMatch(/Recommended to the Director/i);
+    expect(recWrite.body.message).not.toMatch(/lacks capability/i);
+
+    await walkToSubmitted("TS-FREEZE-REM");
+    await call("POST", "/reports/TS-FREEZE-REM/transition", "u-ad", { to: "RECOMMENDED" });
+    await call("POST", "/reports/TS-FREEZE-REM/transition", "u-dir", { to: "REMITTED" });
+    const remWrite = await call("PUT", "/reports/TS-FREEZE-REM/profile", "u-ma", { profile });
+    expect(remWrite.status).toBe(403);
+    expect(remWrite.body.message).toMatch(/Remitted by the Director/i);
+  });
+
+  it("a role with no report-data capability at all (DIRECTOR) still gets the state reason first, on an open report", async () => {
+    // Even on a DRAFT report — where the state itself is not frozen — a DIRECTOR cannot write
+    // report data at all, and the message should read as a role description, not a raw
+    // capability name (DIR-09).
+    await call("POST", "/reports", "u-ma", { reportId: "TS-FREEZE-DIR", profile: "IN_Sch7A" });
+    const r = await call("PUT", "/reports/TS-FREEZE-DIR/profile", "u-dir", { profile });
+    expect(r.status).toBe(403);
+    expect(r.body.message).not.toMatch(/lacks capability/i);
+    expect(r.body.message).toMatch(/does not record or edit report data/i);
+  });
+
+  it("still allows writes in DRAFT, OBSERVATIONS_COMPLETE and VALIDATED — the freeze starts at SUBMITTED, not earlier", async () => {
+    await call("POST", "/reports", "u-ma", { reportId: "TS-FREEZE-OPEN", profile: "IN_Sch7A" });
+    expect((await call("PUT", "/reports/TS-FREEZE-OPEN/profile", "u-ma", { profile })).status).toBe(200);
+
+    const applicable = (await call("GET", "/reports/TS-FREEZE-OPEN", "u-ma")).body.forms.filter(
+      (f: any) => f.applicable,
+    );
+    for (const f of applicable) {
+      const r = await call(
+        "POST", `/reports/TS-FREEZE-OPEN/forms/${f.form_id}/observations`, "u-ma", payloadFor(f.form_id),
+      );
+      expect(r.status, `form ${f.form_id}`).toBe(200);
+    }
+    expect((await call("POST", "/reports/TS-FREEZE-OPEN/transition", "u-ma", { to: "OBSERVATIONS_COMPLETE" })).status).toBe(200);
+    // Still writable in OBSERVATIONS_COMPLETE.
+    expect((await call("PUT", "/reports/TS-FREEZE-OPEN/profile", "u-ma", { profile })).status).toBe(200);
+    expect((await call("POST", "/reports/TS-FREEZE-OPEN/transition", "u-ma", { to: "VALIDATED" })).status).toBe(200);
+    // Still writable in VALIDATED.
+    expect((await call("PUT", "/reports/TS-FREEZE-OPEN/profile", "u-ma", { profile })).status).toBe(200);
+  });
+});
+
 describe("tenancy", () => {
   beforeEach(async () => {
     await call("POST", "/reports", "u-ma", { reportId: "TS-FBD", profile: "IN_Sch7A" });
