@@ -60,7 +60,7 @@ describe("seeding the demonstration set", () => {
   it("creates a spread of instruments a visitor can learn from", async () => {
     const res = await call("POST", "/admin/demo-data", "u-ma");
     expect(res.statusCode).toBe(200);
-    expect(res.json().created).toHaveLength(8);
+    expect(res.json().created).toHaveLength(11);
 
     const reports = (await call("GET", "/reports", "u-ma")).json();
     const classes = reports.map((r: any) => r.accuracy_class).sort();
@@ -76,7 +76,7 @@ describe("seeding the demonstration set", () => {
     const again = await call("POST", "/admin/demo-data", "u-ma");
     expect(again.json().created).toEqual([]);
     expect(again.json().note).toMatch(/already present/i);
-    expect((await call("GET", "/reports", "u-ma")).json()).toHaveLength(8);
+    expect((await call("GET", "/reports", "u-ma")).json()).toHaveLength(11);
   });
 
   it("labels everything as demonstration data", async () => {
@@ -143,7 +143,9 @@ describe("seeding the demonstration set", () => {
 
   it("writes through the real event log, so every report's chain verifies", async () => {
     await call("POST", "/admin/demo-data", "u-ma");
-    for (const id of ["TS-DEMO-0001", "TS-DEMO-0002", "TS-DEMO-0003", "TS-DEMO-0004", "TS-DEMO-0005"]) {
+    for (const id of ["TS-DEMO-0001", "TS-DEMO-0002", "TS-DEMO-0003", "TS-DEMO-0004", "TS-DEMO-0005",
+                      "TS-DEMO-0006", "TS-DEMO-0007", "TS-DEMO-0008", "TS-DEMO-0009", "TS-DEMO-0010",
+                      "TS-DEMO-0011"]) {
       const v = verifyChain(db, id);
       expect(v.ok, `${id} chain`).toBe(true);
       expect(v.eventCount, `${id} events`).toBeGreaterThan(0);
@@ -171,6 +173,40 @@ describe("seeding the demonstration set", () => {
     expect(na(platform, "8"), "tilting should apply to a tiltable instrument").toBe(false);
     expect(na(platform, "12.7a"), "12.7 should apply to a vehicle-powered instrument").toBe(false);
     expect(na(platform, "12.7b"), "12.7 should apply to a vehicle-powered instrument").toBe(false);
+  });
+
+  it("reaches LOCKED, CERTIFICATE_ISSUED, PUBLISHED and WITHDRAWN — the far end of the lifecycle, not just its middle", async () => {
+    // Those four states exist only behind a rendered, hashed PDF (lifecycle.ts's
+    // `final_pdf_rendered` guard), which needs Chromium. Rather than assume it is installed,
+    // this checks what the seed actually reached — the same fact `render.test.ts`'s "renders
+    // and locks in one step" test branches on — so the suite is honest about which case it is
+    // in rather than depending on the test machine having a browser.
+    const seed = (await call("POST", "/admin/demo-data", "u-ma")).json();
+    const reports = (await call("GET", "/reports", "u-ma")).json();
+    const statusOf = new Map(reports.map((r: any) => [r.id, r.status]));
+
+    if (statusOf.get("TS-DEMO-0009") !== "LOCKED") {
+      // Chromium was not available, so `walk` stopped each of these three reports at the step
+      // before LOCKED (RECOMMENDED) — DIR-06/MA-08's own fallback, recorded honestly rather
+      // than silently producing a repository that stops short of the far end.
+      expect(statusOf.get("TS-DEMO-0009")).toBe("RECOMMENDED");
+      expect(seed.note).toMatch(/stopped at the step before LOCKED/i);
+      return;
+    }
+
+    expect(statusOf.get("TS-DEMO-0009")).toBe("LOCKED");
+    expect(statusOf.get("TS-DEMO-0010")).toBe("CERTIFICATE_ISSUED");
+    expect(statusOf.get("TS-DEMO-0001")).toBe("PUBLISHED");
+    expect(statusOf.get("TS-DEMO-0011")).toBe("WITHDRAWN");
+
+    // The locked report carries the hash a certificate would be issued against.
+    const locked = (await call("GET", "/reports/TS-DEMO-0009", "u-ma")).json();
+    expect(locked.report.locked_hash).toHaveLength(64);
+
+    // The revocation is a real event on the log, not a status flip with no reason.
+    const audit = (await call("GET", "/reports/TS-DEMO-0011/audit", "u-ma")).json();
+    const revoked = audit.events.find((e: any) => e.eventType === "APPROVAL_REVOKED");
+    expect(revoked?.payload?.note).toMatch(/Rule 13\(1\)\(e\)/);
   });
 
   it("refuses a role that cannot create reports", async () => {

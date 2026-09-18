@@ -10,6 +10,7 @@
  */
 
 import { createHash } from "node:crypto";
+import type { Browser } from "playwright-core";
 import type { ReportDocument } from "./model.js";
 import { renderHtml, type HtmlOptions } from "./html.js";
 
@@ -29,16 +30,15 @@ export interface PdfResult {
 }
 
 /**
- * Render to PDF. Requires Chromium (`npx playwright install chromium`).
+ * Render to PDF. Requires Chromium — see `launchChromium` for where that comes from.
  *
- * Playwright is imported dynamically so that merely importing this package — to use the HTML,
+ * The browser is launched dynamically so that merely importing this package — to use the HTML,
  * DOCX or JSON renderer — does not require a browser to be installed.
  */
 export async function renderPdf(doc: ReportDocument, opts: PdfOptions = {}): Promise<PdfResult> {
   const html = renderHtml(doc, opts);
 
-  const { chromium } = await import("playwright");
-  const browser = await chromium.launch();
+  const browser = await launchChromium();
   try {
     const page = await browser.newPage();
     // `domcontentloaded` rather than `networkidle`: the document embeds everything it needs
@@ -72,6 +72,45 @@ export async function renderPdf(doc: ReportDocument, opts: PdfOptions = {}): Pro
   } finally {
     await browser.close();
   }
+}
+
+/**
+ * Launch Chromium, choosing the runtime the environment actually has.
+ *
+ * A bench install and a developer machine have a full Chromium browser on disk, put there by
+ * `npx playwright install chromium`; the ordinary `playwright` package drives that unchanged —
+ * this is the path `npm run demo` and the test suite use, so nothing about local behaviour
+ * changes.
+ *
+ * A Vercel function has neither the browser nor anywhere to install one at build time: the
+ * whole function is one bundled file (see scripts/build-api.mjs) with a 50 MB-class binary that
+ * cannot be folded into it. `@sparticuz/chromium` ships exactly that binary, Brotli-compressed,
+ * and unpacks it to `/tmp` on cold start; it is driven by `playwright-core` — the same package
+ * `playwright` itself re-exports (`playwright`'s `index.js` is `module.exports =
+ * require('playwright-core')`), so `Browser` here is the identical type either way, not a
+ * lookalike. The two are paired deliberately: `@sparticuz/chromium@153` bundles the same
+ * Chrome-for-Testing build (153.0.8010.12) that `playwright-core@1.63`'s own `browsers.json`
+ * pins, which is the compatibility Sparticuz's own README asks callers to check.
+ *
+ * `VERCEL` is the platform's own system environment variable, set on every build and every
+ * invocation (https://vercel.com/docs/environment-variables/system-environment-variables) —
+ * nothing here has to guess. `TULASETU_SERVERLESS_CHROMIUM=1` forces the same path outside of
+ * Vercel, which is how it is exercised from a developer machine without deploying anything;
+ * see packages/renderers/tests/render.test.ts.
+ */
+async function launchChromium(): Promise<Browser> {
+  const serverless =
+    process.env["VERCEL"] === "1" || process.env["TULASETU_SERVERLESS_CHROMIUM"] === "1";
+  if (serverless) {
+    const [{ chromium }, sparticuz] = await Promise.all([
+      import("playwright-core"),
+      import("@sparticuz/chromium"),
+    ]);
+    const pack = sparticuz.default;
+    return chromium.launch({ args: pack.args, executablePath: await pack.executablePath() });
+  }
+  const { chromium } = await import("playwright");
+  return chromium.launch();
 }
 
 /** Chromium's header/footer templates are raw HTML, so values must be escaped. */
