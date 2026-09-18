@@ -4,7 +4,15 @@
  * A prototype whose dashboard reads zero teaches a visitor nothing, and one whose reports all
  * sit in DRAFT teaches them only half — the approval chain is the point of the product, and a
  * repository where nothing has ever been reviewed, failed, returned or signed cannot show it.
- * So this seeds eight reports spread across the lifecycle, including the ones that went wrong.
+ * So this seeds eleven reports spread across the lifecycle, including the ones that went wrong
+ * and — LOCKED, CERTIFICATE_ISSUED, PUBLISHED, WITHDRAWN — the far end of it.
+ *
+ * Four of those states (everything from LOCKED on) exist only behind a rendered, hashed PDF
+ * (`final_pdf_rendered`, lifecycle.ts), which needs Chromium. Where Chromium is not available —
+ * a machine without `npx playwright install chromium`, or the same absence on a fresh
+ * deployment `docs/DEPLOY.md` hasn't finished — `walk` below stops each of those reports at the
+ * step before LOCKED and records why in the result's `note`, exactly as it already did for every
+ * other report here. Nothing pretends a certificate was issued when it was not.
  *
  * Three rules it holds to:
  *
@@ -148,6 +156,36 @@ const COUNTER_SCALE: InstrumentProfile = {
   softwareVersion: "2.2.7",
   softwareChecksum: "a91f4c02de77b13c8850",
   ranges: [{ e: 5, d: 5, max: 30000, min: 100, n: 6000 }],
+};
+
+/**
+ * A second class-I balance, whose approval stops at LOCKED — the record copy is signed and
+ * hashed, but the Director has not yet issued the certificate of approval. A repository where
+ * every report either sits below RECOMMENDED or has already reached PUBLISHED cannot show what
+ * "locked, waiting on the certificate" looks like, and that state is reachable only after the
+ * PDF exists — see `walk`'s `target: "LOCKED"` below.
+ */
+const LOCKED_BALANCE: InstrumentProfile = {
+  ...ANALYTICAL,
+  model: "NP-220A rev B",
+  serialNumber: "NP220-2026-0014",
+};
+
+/** A counter scale whose certificate has been issued but not yet published — Rule 11 done, Rule 11(4) not yet. */
+const CERTIFICATE_ISSUED_SCALE: InstrumentProfile = {
+  ...COUNTER_SCALE,
+  model: "SI-30 CS rev E",
+  serialNumber: "SI30-2026-0311",
+};
+
+/**
+ * A platform scale whose approval was published, then revoked — Rule 13(1)(e)'s far end, and
+ * the only state in the lifecycle that comes after a report has otherwise finished its life.
+ */
+const REVOKED_PLATFORM: InstrumentProfile = {
+  ...WEIGHBRIDGE,
+  model: "DPS-500 rev D",
+  serialNumber: "DPS-2026-0099",
 };
 
 // ---------------------------------------------------------------------------
@@ -625,8 +663,53 @@ export async function seedDemonstrationData(
     created.push("TS-DEMO-0008");
   }
 
+  // -----------------------------------------------------------------------
+  // 9. Locked, but not yet issued — the record copy exists and is hashed;
+  //    the Director has not yet taken the next, separate decision.
+  // -----------------------------------------------------------------------
+  if (!exists("TS-DEMO-0009")) {
+    build(ctx, principal, "TS-DEMO-0009", "MA/2026/DEMO/0009", "OIML_R76", LOCKED_BALANCE, 0, 10000);
+    await walk(ctx, { ma: principal, ad, director, keys }, "TS-DEMO-0009", "LOCKED", notes);
+    created.push("TS-DEMO-0009");
+  }
+
+  // -----------------------------------------------------------------------
+  // 10. Certificate issued, not yet published — Rule 11 and Rule 11(4) are
+  //     two separate acts, and a report can sit between them.
+  // -----------------------------------------------------------------------
+  if (!exists("TS-DEMO-0010")) {
+    build(ctx, principal, "TS-DEMO-0010", "MA/2026/DEMO/0010", "IN_Sch7A", CERTIFICATE_ISSUED_SCALE);
+    await walk(ctx, { ma: principal, ad, director, keys }, "TS-DEMO-0010", "CERTIFICATE_ISSUED", notes);
+    created.push("TS-DEMO-0010");
+  }
+
+  // -----------------------------------------------------------------------
+  // 11. Published, then revoked — Rule 13(1)(e)'s far end: an approval found,
+  //     after the fact, not to match what was actually manufactured.
+  // -----------------------------------------------------------------------
+  if (!exists("TS-DEMO-0011")) {
+    build(ctx, principal, "TS-DEMO-0011", "MA/2026/DEMO/0011", "IN_Sch7A", REVOKED_PLATFORM);
+    await walk(ctx, { ma: principal, ad, director, keys }, "TS-DEMO-0011", "PUBLISHED", notes);
+    // Only from PUBLISHED (or CERTIFICATE_ISSUED) — Rule 13(1)(e) reaches back from the far end
+    // of the lifecycle, and revoking a report that never published would misstate what actually
+    // happened to it.
+    const status = svc.getReport(ctx, principal, "TS-DEMO-0011").status;
+    if (director && (status === "PUBLISHED" || status === "CERTIFICATE_ISSUED")) {
+      svc.transitionReport(ctx, director, "TS-DEMO-0011", {
+        to: "WITHDRAWN",
+        note:
+          "A field inspection found the load cell had been substituted for an unapproved " +
+          "model after type approval — a change to the circuit this certificate was issued " +
+          "against. Approval revoked under Rule 13(1)(e); the applicant must reapply with the " +
+          "instrument as actually manufactured.",
+      });
+    }
+    created.push("TS-DEMO-0011");
+  }
+
   for (const id of ["TS-DEMO-0001", "TS-DEMO-0002", "TS-DEMO-0003", "TS-DEMO-0004",
-                    "TS-DEMO-0005", "TS-DEMO-0006", "TS-DEMO-0007", "TS-DEMO-0008"]) {
+                    "TS-DEMO-0005", "TS-DEMO-0006", "TS-DEMO-0007", "TS-DEMO-0008",
+                    "TS-DEMO-0009", "TS-DEMO-0010", "TS-DEMO-0011"]) {
     if (!created.includes(id)) skipped.push(id);
   }
 
