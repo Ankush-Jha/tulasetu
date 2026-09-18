@@ -310,11 +310,50 @@ function reasonForTest(rule: TestRule, ctx: PredicateContext): string {
   // 12.1 through 12.7 and damp heat as 13a/b/c, but "this instrument has no electronic parts"
   // is the same sentence for every one of them. `reason_group` lets the rule pack say so,
   // rather than the engine carrying a list of ids it has to be kept in step with.
-  switch (rule.reason_group ?? rule.id) {
+  //
+  // IMPORTANT: `group` (not `rule.id`) is what every branch below must switch on for a
+  // per-variant reason. A rule pack's per-*form* ids inside one group are suffixed
+  // (discrimination_digital/_analog/_non_self; damp_heat_a/_b/_c; disturbances_road_vehicle_a/
+  // _b), so a branch written as `rule.id === "damp_heat"` never matches any real id in that
+  // group and silently falls through to the generic fallback -- the same class of bug as the
+  // discrimination case below, just quieter because the fallback text isn't *wrong*, only
+  // uninformative. `rule.id` is still the right key for `discrimination`, because that group's
+  // three variants are not "the same reason with a shared predicate" -- they are three
+  // different exemptions and need three different sentences.
+  const group = rule.reason_group ?? rule.id;
+  switch (group) {
     case "eccentricity_rolling":
       return `Not applicable -- this instrument is not loaded with a rolling load; eccentricity is assessed via form 3.1 (weights) only (${clause ?? "R 76-1:2006 §3.6.2.4"}).`;
-    case "discrimination":
-      return `Not applicable -- the digital-indication discrimination test applies only to instruments with d >= 5 mg (${clause ?? "R 76-1:2006 §3.8.2.2"}); this instrument's d is below that threshold.`;
+    case "discrimination": {
+      // R 76-1 §3.8 splits discrimination into three genuinely different tests (digital
+      // §3.8.2.2, analog §3.8.2.1, non-self-indicating §3.8.1), each printed as its own form
+      // (4.1.1/4.1.2/4.1.3) with its own exemption. Collapsing them into one sentence (the
+      // former bug, MA-01) told an officer looking at a digital self-indicating instrument's
+      // N/A 4.1.2/4.1.3 rows that "d >= 5 mg" was why -- false; those forms are N/A because the
+      // instrument isn't analog / isn't non-self-indicating, nothing to do with d.
+      if (rule.id === "discrimination_digital") {
+        if (!isDigitalIndication(profile)) {
+          return `Not applicable -- this instrument does not have digital self-indication; form 4.1.1 (${clause ?? "R 76-1:2006 §3.8.2.2"}) applies only to digitally self-indicating instruments. See form 4.1.2 (analog) or 4.1.3 (non-self-indicating) instead.`;
+        }
+        return `Not applicable -- the digital-indication discrimination test is exempt where d >= 5 mg does not hold, i.e. d < 5 mg (${clause ?? "R 76-1:2006 §3.8.2.2"}); this instrument's d is below that threshold.`;
+      }
+      if (rule.id === "discrimination_analog") {
+        if (profile.indicatingType === "non-self") {
+          return `Not applicable -- this is a non-self-indicating instrument; form 4.1.2 (${clause ?? "R 76-1:2006 §3.8.2.1"}) applies only to self-indicating instruments with analog (non-digital) indication. See form 4.1.3 instead.`;
+        }
+        return `Not applicable -- this instrument has digital indication; form 4.1.2 (${clause ?? "R 76-1:2006 §3.8.2.1"}) applies only to self-indicating instruments with analog (non-digital) indication. See form 4.1.1 instead.`;
+      }
+      if (rule.id === "discrimination_non_self") {
+        return `Not applicable -- this instrument is ${profile.indicatingType}-indicating; form 4.1.3 (${clause ?? "R 76-1:2006 §3.8.1"}) applies only to non-self-indicating instruments. See form 4.1.1 (digital) or 4.1.2 (analog) instead.`;
+      }
+      // A rule pack with a single merged discrimination test (the draft 5-part edition's
+      // "discrimination", form 4.1) has only the d >= 5 mg digital exemption in its `applies`
+      // clause -- for a non-digital instrument that predicate is vacuously satisfied, so this
+      // branch is only ever reached for a digital instrument with d < 5 mg. (IN_Sch7A_2011's
+      // "discrimination" is `always: true` and never reaches reasonForTest at all -- Heading A
+      // carries no d >= 5 mg exemption, verified in docs/research/heading-a-verified.md §8b.)
+      return `Not applicable -- the digital-indication discrimination test is exempt where d < 5 mg (${clause ?? "R 76-1:2006 §3.8.2.2"}); this instrument's d is below that threshold.`;
+    }
     case "sensitivity":
       return `Not applicable -- sensitivity (form 4.2) is required only for non-self-indicating instruments (${clause ?? "R 76-1:2006 §A.4.9"}); this instrument is ${profile.indicatingType}-indicating.`;
     case "stability":
@@ -324,27 +363,44 @@ function reasonForTest(rule: TestRule, ctx: PredicateContext): string {
         return `Not applicable -- the tilting test does not apply to class I instruments (${clause ?? "R 76-1:2006 §3.9.1.1"}, which covers only class II, III and IIII).`;
       }
       return `Not applicable -- this instrument is not liable to be tilted in normal use (${clause ?? "R 76-1:2006 §3.9.1.1"}).`;
+    case "tilting_no_load": {
+      // India-specific (Seventh Schedule Heading A §11(i)(a), IN_Sch7A_2011.json only): unlike
+      // loaded tilting, the unloaded sub-test excludes plain class II (only class II* --
+      // directSalesToPublic -- III and IIII carry it). Falling through to the generic fallback
+      // here used to lose that distinction entirely.
+      if (normalizedClassOf(profile, ctx.pack) === "I") {
+        return `Not applicable -- the tilting test does not apply to class I instruments at all (${clause ?? "Seventh Schedule Heading A §11(i)(a)"}).`;
+      }
+      return `Not applicable -- unloaded tilting applies only to class II instruments intended for direct sale to the public (class II*), and to class III/IIII instruments (${clause ?? "Seventh Schedule Heading A §11(i)(a)"}); this is a plain class II instrument not marked for direct sales to the public.`;
+    }
     case "tare":
       return `Not applicable -- this instrument has no tare device (${clause ?? "R 76-1:2006 §4.13.3"}).`;
+    case "temp_no_load":
     case "warm_up":
     case "voltage_variation":
     case "disturbances":
+    case "disturbance_dips":
+    case "disturbance_bursts":
+    case "disturbance_surges":
+    case "disturbance_esd":
+    case "disturbance_radiated_em":
+    case "disturbance_conducted_rf":
     case "damp_heat":
     case "span_stability":
     case "disturbances_road_vehicle":
       if (profile.electronic !== true) {
         return `Not applicable -- this instrument has no electronic parts; form ${rule.form} applies only to electronic instruments (${clause ?? "R 76-1:2006 §5"}).`;
       }
-      if (rule.id === "damp_heat" && normalizedClassOf(profile, ctx.pack) === "I") {
+      if (group === "damp_heat" && normalizedClassOf(profile, ctx.pack) === "I") {
         return `Not applicable -- damp heat testing is exempt for class I instruments (${clause ?? "R 76-1:2006 §5.3.2"}).`;
       }
-      if (rule.id === "damp_heat") {
+      if (group === "damp_heat") {
         return `Not applicable -- damp heat testing is exempt for class II instruments with e < 1 g (${clause ?? "R 76-1:2006 §5.3.2"}); this instrument's e is below that threshold.`;
       }
-      if (rule.id === "span_stability") {
+      if (group === "span_stability") {
         return `Not applicable -- span stability testing is exempt for class I instruments (${clause ?? "R 76-1:2006 §5.3.3"}).`;
       }
-      if (rule.id === "disturbances_road_vehicle") {
+      if (group === "disturbances_road_vehicle") {
         return `Not applicable -- this instrument is not powered from a road-vehicle supply; form 12.7 applies only to vehicle-powered instruments (${clause ?? "R 76-1:2006 §5.4.3"}).`;
       }
       return `Not applicable to this instrument profile (${clause ?? "R 76-1:2006"}).`;

@@ -145,6 +145,22 @@ export function createReport(
   const exists = ctx.db.prepare("SELECT 1 FROM reports WHERE id = ?").get(input.reportId);
   if (exists) throw badRequest("DUPLICATE_REPORT", `Report ${input.reportId} already exists.`);
 
+  // MA-05: a negative fee was accepted, and feeds straight into the Rule 4(9) annual return's
+  // feesRealisedInr total (stats.ts), so it would silently understate a lab's own statutory
+  // figure. Only >= 0 is enforced, not a specific amount: AoM Rule 19 names two testing-fee
+  // figures (docs/PRD.md: Rs 10,000 mechanical / Rs 25,000 digital-electronic, 2019 amendment),
+  // but the instrument's mechanical/electronic nature isn't known at creation time (the profile
+  // is a separate, later PUT), and Rule 19's Fifth Schedule also covers GATC verification fees
+  // (Rs 50 - Rs 15,000) and possible future amendments -- pinning the check to the two current
+  // testing-fee figures would reject legitimate values this codebase has no way to enumerate
+  // exhaustively. A negative amount, in contrast, is never legitimate under any of those.
+  if (input.feePaidInr !== undefined && (!Number.isFinite(input.feePaidInr) || input.feePaidInr < 0)) {
+    throw badRequest(
+      "E_NEGATIVE_FEE",
+      `feePaidInr must be zero or a positive amount (got ${input.feePaidInr}).`,
+    );
+  }
+
   appendEvent(ctx.db, {
     reportId: input.reportId,
     eventType: "REPORT_CREATED",
@@ -274,6 +290,27 @@ export interface RecordObservationsInput {
 }
 
 /**
+ * A weighing row's load/indication/additionalLoad, coerced from a numeric-looking string to
+ * a number if that's what it is.
+ *
+ * Mirrors `validateObservations`'s own internal coercion (packages/engine/src/validate.ts)
+ * but is applied here, to the actual `rows` that get persisted and fed to the kernel — fixing
+ * the string-vs-number mismatch only inside validateObservations's private copy would leave
+ * `runForm` and the audit log holding the original string. AD-05 / F9: a browser `<input>`
+ * control's value is a string, and this is what stopped a perfectly finite reading like "777"
+ * being reported (and logged) as E_NON_FINITE_VALUE instead of the real finding for it.
+ */
+function coerceWeighingRow(row: FormRow): FormRow {
+  const coerce = (v: FormRow[string]): FormRow[string] =>
+    typeof v === "string" && v.trim() !== "" && Number.isFinite(Number(v)) ? Number(v) : v;
+  const out: FormRow = { ...row };
+  for (const field of ["load", "indication", "additionalLoad"] as const) {
+    if (out[field] !== undefined) out[field] = coerce(out[field]);
+  }
+  return out;
+}
+
+/**
  * Record observations for one R 76-2 form and compute its result.
  *
  * The kernel is chosen by the rule pack, never by this function: `runForm` looks up which
@@ -282,10 +319,22 @@ export interface RecordObservationsInput {
  * and a disturbance form both came back with an error-against-mpe verdict — a real answer to a
  * question neither form asks.
  *
- * The raw observations are appended *before* the computed result, as two separate events.
- * That ordering is the ISO/IEC 17025 §7.8 requirement in practice: what the officer read off
- * the instrument is recorded when made, and the derivation is a separate, later record — so
- * a change in how we compute can never look like a change in what was observed.
+ * Validation happens *before* anything is appended (AD-05 / F9). A blocking (error-severity)
+ * finding on a weighing row — an out-of-range load, a non-finite value — is not a metrology
+ * result to record, it is a data-entry problem to fix and resubmit; the mpe resolver cannot
+ * even compute an answer for it. So the request is refused outright, with the specific issue
+ * code that describes it, and nothing is written to the append-only log. This used to append
+ * the raw observation first and only then attempt the computation, which meant a rejected
+ * attempt was still permanently logged (and, because `runForm` throws a bare `Error` rather
+ * than reporting an `Issue`, under whatever generic status that produced) — worse, still,
+ * when the value that made the row invalid was itself mis-typed as non-finite (see
+ * `coerceWeighingRow`), the log recorded the wrong reason for the rejection.
+ *
+ * Once a request passes validation, the raw observations are still appended *before* the
+ * computed result, as two separate events. That ordering is the ISO/IEC 17025 §7.8
+ * requirement in practice: what the officer read off the instrument is recorded when made,
+ * and the derivation is a separate, later record — so a change in how we compute can never
+ * look like a change in what was observed.
  */
 export function recordWeighingObservations(
   ctx: ServiceContext,
@@ -336,15 +385,39 @@ export function recordWeighingObservations(
     throw badRequest("NO_OBSERVATIONS", "No observations were supplied for this form.");
   }
 
-  // The weighing-shaped validator only speaks about load/indication rows, so it is applied
-  // only where those are what the form holds.
+  // The weighing-shaped validator only speaks about load/indication rows, so both the
+  // coercion and the validation are applied only where those are what the form holds.
+  if (rule.kernel === "K1") {
+    rows = rows.map(coerceWeighingRow);
+  }
   const issues =
     rule.kernel === "K1"
       ? validateObservations(profile, rows as unknown as WeighingObservation[])
       : [];
 
+  // A blocking finding means there is nothing valid to record or compute from — refuse before
+  // writing anything, with the finding's own code and message (not a generic one).
+  const blocking = issues.find((iss) => iss.severity === "error");
+  if (blocking) {
+    throw badRequest(blocking.code, blocking.message);
+  }
+
   const extras: FormExtras = { ...(input.extras ?? {}) };
   if (input.zeroError !== undefined) extras["zeroError"] = input.zeroError;
+
+  // Computed before anything is appended: if the engine itself refuses (e.g. a non-K1 form
+  // whose extras or rows the kernel cannot resolve an mpe or a fault threshold for), the
+  // request is rejected the same way — cleanly, and with nothing left in the log — rather
+  // than the raw observation having already been written by the time the throw happens.
+  let result: ReturnType<typeof runForm>;
+  try {
+    result = runForm({ formId: input.formId, profile, rows, extras }, ctx.pack, loadFormsFile());
+  } catch (err) {
+    throw badRequest(
+      "E_COMPUTE_FAILED",
+      err instanceof Error ? err.message : "The engine could not compute a result for this form.",
+    );
+  }
 
   appendEvent(ctx.db, {
     reportId,
@@ -360,12 +433,6 @@ export function recordWeighingObservations(
       issues,
     },
   });
-
-  const result = runForm(
-    { formId: input.formId, profile, rows, extras },
-    ctx.pack,
-    loadFormsFile(),
-  );
 
   appendEvent(ctx.db, {
     reportId,
@@ -1077,6 +1144,18 @@ export function listDeficiencies(
   }));
 }
 
+/**
+ * Resolve a deficiency: record what was done about it, so `all_deficiencies_resolved` can
+ * become true and the report can be recommended.
+ *
+ * Deliberately NOT gated by `canWriteReport` (the report-data freeze, F1): resolving a
+ * deficiency is part of the deficiency workflow, not an edit to profile/observations/checklist
+ * data, and it is exactly the action a report in DEFICIENCY or SUBMITTED (after the lab has
+ * fixed the underlying data and resubmitted, per the deficiency loop test) needs to allow. The
+ * capability check mirrors `raiseDeficiency`'s: whoever may raise a deficiency or record report
+ * data may also mark one resolved — the lab (MA) writes the resolution text, a reviewing
+ * officer may also close one they judge no longer applies.
+ */
 export function resolveDeficiency(
   ctx: ServiceContext,
   principal: Principal,
@@ -1085,8 +1164,12 @@ export function resolveDeficiency(
   resolution: string,
 ): void {
   const report = getReport(ctx, principal, reportId);
-  const write = canWriteReport(principal, report, "report:record_observations");
-  if (!write.allowed) throw forbidden(write.reason ?? "Cannot modify this report.");
+  if (!can(principal, "report:record_observations") && !can(principal, "report:raise_deficiency")) {
+    throw forbidden(`Role ${principal.role} cannot resolve deficiencies.`);
+  }
+  if (report.lab_id !== principal.labId && !can(principal, "report:read_any_lab")) {
+    throw forbidden("Report belongs to another laboratory.");
+  }
 
   const info = ctx.db
     .prepare(

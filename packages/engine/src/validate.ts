@@ -326,6 +326,27 @@ function validateMultiInterval(profile: InstrumentProfile, pack: RulePack, issue
  * "load doesn't land in any declared (partial) range" trap (CLAUDE.md's #1 manual-Excel
  * mistake), and exact duplicate rows.
  */
+/**
+ * A value that looks like a number but arrived as a string is treated as that number.
+ *
+ * `WeighingObservation` types `load`/`indication`/`additionalLoad` as `number`, but nothing
+ * enforces that at the HTTP boundary: a browser `<input>` control's value is a string, and
+ * CLAUDE.md §4 wants this API postable by "a future automated bench" too, which is under no
+ * obligation to have sent a JSON number either. Without this, a perfectly finite reading like
+ * "777" fails `Number.isFinite` and is reported as E_NON_FINITE_VALUE -- a false diagnosis,
+ * since 777 *is* finite -- instead of the real finding for it (e.g. E_LOAD_ABOVE_MAX). This
+ * was AD-05 / F9: the audit log recorded "observations[0].load is not a finite number (777)."
+ * A genuinely non-numeric value ("", "abc", undefined) is left alone and still correctly fails
+ * the finiteness check below.
+ */
+function coerceNumericString(value: unknown): unknown {
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (trimmed !== "" && Number.isFinite(Number(trimmed))) return Number(trimmed);
+  }
+  return value;
+}
+
 export function validateObservations(profile: InstrumentProfile, obs: WeighingObservation[]): Issue[] {
   const issues: Issue[] = [];
   const unit = profile.unit;
@@ -340,8 +361,20 @@ export function validateObservations(profile: InstrumentProfile, obs: WeighingOb
 
   const seen = new Set<string>();
 
-  obs.forEach((row, i) => {
+  obs.forEach((rawRow, i) => {
     const path = `observations[${i}]`;
+    // Coerced once, up front, and used for every check below (including the ones further
+    // down that read row.load/row.indication directly) -- checking a coerced local while
+    // the range/duplicate checks still read the original string was exactly how this bug
+    // hid: the finiteness check would pass silently while E_LOAD_ABOVE_MAX never fired.
+    const row: WeighingObservation = {
+      ...rawRow,
+      load: coerceNumericString(rawRow.load) as number,
+      indication: coerceNumericString(rawRow.indication) as number,
+      ...(rawRow.additionalLoad !== undefined
+        ? { additionalLoad: coerceNumericString(rawRow.additionalLoad) as number }
+        : {}),
+    };
 
     for (const [field, value] of [
       ["load", row.load],

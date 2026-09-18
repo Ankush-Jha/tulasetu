@@ -281,6 +281,45 @@ Rotation is reported separately, as `keyRotated`, because it is worth knowing an
 failure — revocation is a different question from verification, and answering it by silently
 failing arithmetic conflates the two.
 
+## Phase-2 lifecycle-integrity fixes (post-audit)
+
+A role-based UX audit found that a report already reviewed and signed could still be edited.
+Fixed, in order:
+
+- **F1 — the freeze point.** `canWriteReport` (`apps/api/src/domain/rbac.ts`) only closed
+  LOCKED and beyond to writes, so an AD could edit a RECOMMENDED report's instrument profile,
+  and an MA's POST to `/observations` on a RECOMMENDED report returned 200 and silently flipped
+  its verdict. Every state from SUBMITTED onward is now closed to report-data writes (profile,
+  observations, checklist answers, attachment upload) for every role — a correction happens
+  only by moving the report back down the chain (deficiency → DRAFT, remit → DRAFT). All four
+  write routes already funnelled through this one guard, so the fix is in one place, with a
+  human-readable, state-specific reason ("Submitted to the AD/DD — read-only...") in place of
+  the capability name a role lacked. Deficiency resolution no longer goes through this guard
+  (it is a lifecycle action, not a data write, and needs to work mid-loop while SUBMITTED).
+- **F3 — discrimination's N/A reason was wrong.** The shared `discrimination` reason_group
+  returned one "d ≥ 5 mg" sentence for all three of forms 4.1.1/4.1.2/4.1.3 (R 76-1 §3.8.1/
+  .2.1/.2.2 are different tests with different exemptions); a digital self-indicating
+  instrument's N/A rows for 4.1.2/4.1.3 printed a reason unrelated to why they were actually
+  inapplicable. Each rule now gets its own reason. The same "one sentence, several rules"
+  pattern was also silently mismatching on `damp_heat_a/_b/_c` and
+  `disturbances_road_vehicle_a/_b` (checked `rule.id === "damp_heat"`, which never matches a
+  suffixed id) — fixed by switching those checks to the `reason_group` key.
+- **F9 — a rejected observation was still logged, under the wrong code.** An out-of-range load
+  (777 g on a 220 g Max) was appended to the append-only log before the engine's own
+  computation rejected it, and was logged as `E_NON_FINITE_VALUE` for a value that is very
+  much finite — because the value arrived as the string `"777"` and validation ran before
+  coercion. Fixed: numeric-looking strings are coerced before validation, and the observation
+  is now validated and computed *before* anything is appended — a blocking finding is refused
+  cleanly with its own code, and nothing lands in the log.
+- **MA-05 — a negative testing fee was accepted.** `createReport` now refuses `feePaidInr < 0`.
+  Checked AoM Rule 19 (docs/PRD.md) before adding anything stricter: the rule names two
+  amounts (mechanical/digital-electronic) but the instrument's kind isn't known until the
+  profile is set, later, and GATC verification fees add a third schedule — so ≥ 0 is the
+  defensible bound, not an exact-amount check.
+
+See `docs/VERIFIED.md` and the golden tests added alongside each fix for the standards
+citations.
+
 ## Known gaps, stated plainly
 
 - **Authentication is a stub on both sides.** The browser sends `X-User-Id` and the server
