@@ -28,6 +28,8 @@ function loadPack(name: string): RulePack {
 }
 
 const oiml = loadPack("OIML_R76_2006.json");
+const inSch7A = loadPack("IN_Sch7A_2011.json");
+const draft5 = loadPack("OIML_R76_DRAFT_5PART.json");
 
 describe("OIML_R76_2006 rule pack", () => {
   it("passes structural validation", () => {
@@ -84,6 +86,187 @@ describe("OIML_R76_2006 rule pack", () => {
     expect(oiml.checklist_rules).toBeDefined();
     const ids = (oiml["checklist_rules"] as { id: string }[]).map((c) => c.id);
     expect(ids).toEqual(["17.1", "17.2", "17.3", "17.4"]);
+  });
+});
+
+describe("discrimination N/A reasons are instrument-specific, not one shared sentence (MA-01)", () => {
+  // MA-01: the shared "discrimination" reason_group used to return one "d >= 5 mg" sentence
+  // for all three of forms 4.1.1/4.1.2/4.1.3, printed on the report even where it was false —
+  // e.g. on a digital self-indicating instrument, forms 4.1.2 (analog) and 4.1.3 (non-self)
+  // are N/A because the instrument isn't analog / isn't non-self-indicating, not because of d.
+  // Verified against docs/standards/extracted/OIML_R76-1_2006_requirements.txt §3.8
+  // (§3.8.1 non-self, §3.8.2.1 analog, §3.8.2.2 digital — three different tests).
+  const digitalSelfIndicating: InstrumentProfile = {
+    unit: "g",
+    accuracyClass: "III",
+    indicatingType: "self",
+    rangeKind: "single",
+    electronic: true,
+    ranges: [{ e: 1, d: 1, max: 15000, min: 20, n: 15000 }],
+  };
+  const analogSelfIndicating: InstrumentProfile = {
+    ...digitalSelfIndicating,
+    electronic: false,
+    ranges: [{ e: 10, d: 10, max: 15000, min: 200, n: 1500 }],
+  };
+  const nonSelfIndicating: InstrumentProfile = {
+    unit: "g",
+    accuracyClass: "IIII",
+    indicatingType: "non-self",
+    rangeKind: "single",
+    electronic: false,
+    ranges: [{ e: 5, d: 5, max: 500, min: 50, n: 90 }],
+  };
+
+  it("digital self-indicating (TS-DEMO-0001-like, d=1g): 4.1.1 applies; 4.1.2/4.1.3 N/A for the real reason", () => {
+    const tests = resolveApplicableTests(digitalSelfIndicating, oiml);
+    const byId = (id: string) => tests.find((t) => t.testId === id)!;
+    expect(byId("discrimination_digital").applicable).toBe(true);
+
+    const analog = byId("discrimination_analog");
+    expect(analog.applicable).toBe(false);
+    expect(analog.reason).toMatch(/digital indication/i);
+    expect(analog.reason ?? "").not.toMatch(/d\s*>=?\s*5\s*mg/i);
+
+    const nonSelf = byId("discrimination_non_self");
+    expect(nonSelf.applicable).toBe(false);
+    expect(nonSelf.reason).toMatch(/non-self-indicating/i);
+    expect(nonSelf.reason ?? "").not.toMatch(/d\s*>=?\s*5\s*mg/i);
+  });
+
+  it("analog self-indicating: 4.1.2 applies; 4.1.1/4.1.3 N/A for the real reason", () => {
+    const tests = resolveApplicableTests(analogSelfIndicating, oiml);
+    const byId = (id: string) => tests.find((t) => t.testId === id)!;
+    expect(byId("discrimination_analog").applicable).toBe(true);
+
+    const digital = byId("discrimination_digital");
+    expect(digital.applicable).toBe(false);
+    expect(digital.reason).toMatch(/digital self-indication/i);
+    expect(digital.reason ?? "").not.toMatch(/d\s*>=?\s*5\s*mg/i);
+
+    const nonSelf = byId("discrimination_non_self");
+    expect(nonSelf.applicable).toBe(false);
+    expect(nonSelf.reason).toMatch(/non-self-indicating/i);
+  });
+
+  it("non-self-indicating instrument: 4.1.3 applies; 4.1.1/4.1.2 N/A for the real reason", () => {
+    const tests = resolveApplicableTests(nonSelfIndicating, oiml);
+    const byId = (id: string) => tests.find((t) => t.testId === id)!;
+    expect(byId("discrimination_non_self").applicable).toBe(true);
+
+    const digital = byId("discrimination_digital");
+    expect(digital.applicable).toBe(false);
+    expect(digital.reason).toMatch(/digital/i);
+    expect(digital.reason ?? "").not.toMatch(/d\s*>=?\s*5\s*mg/i);
+
+    const analog = byId("discrimination_analog");
+    expect(analog.applicable).toBe(false);
+    expect(analog.reason).toMatch(/non-self-indicating/i);
+  });
+
+  it("still gives the digital d < 5 mg exemption its own (correct) reason", () => {
+    const digitalCoarse: InstrumentProfile = { ...digitalSelfIndicating, ranges: [{ e: 0.001, d: 0.001, max: 1, min: 0.001, n: 1000 }] };
+    const t = resolveApplicableTests(digitalCoarse, oiml).find((x) => x.testId === "discrimination_digital")!;
+    expect(t.applicable).toBe(false);
+    expect(t.reason).toMatch(/d < 5 mg/i);
+  });
+
+  it("India Seventh Schedule (no d >= 5 mg exemption): discrimination is unconditionally applicable", () => {
+    const t = resolveApplicableTests(nonSelfIndicating, inSch7A).find((x) => x.testId === "discrimination")!;
+    expect(t.applicable).toBe(true);
+  });
+
+  it("the draft 5-part pack's single merged discrimination test keeps the d < 5 mg reason", () => {
+    const digitalCoarse: InstrumentProfile = { ...digitalSelfIndicating, ranges: [{ e: 0.001, d: 0.001, max: 1, min: 0.001, n: 1000 }] };
+    const t = resolveApplicableTests(digitalCoarse, draft5).find((x) => x.testId === "discrimination")!;
+    expect(t.applicable).toBe(false);
+    expect(t.reason).toMatch(/d < 5 mg/i);
+  });
+});
+
+describe("reason text keys on the shared reason_group, not a suffixed per-form id (regression)", () => {
+  // A second instance of the MA-01 pattern, found while auditing every reason_group: the
+  // per-variant branches inside reasonForTest's "warm_up"/.../"disturbances_road_vehicle"
+  // case used to check `rule.id === "damp_heat"` etc., but the real pack's ids are suffixed
+  // (damp_heat_a/_b/_c, disturbances_road_vehicle_a/_b) — so those checks never matched and
+  // silently fell through to the generic "Not applicable to this instrument profile" text,
+  // losing the actual legal reason. Not factually wrong like MA-01, but not useful either.
+  const classI: InstrumentProfile = {
+    unit: "g",
+    accuracyClass: "I",
+    indicatingType: "self",
+    rangeKind: "single",
+    electronic: true,
+    ranges: [{ e: 0.001, d: 0.001, max: 220, min: 0.1, n: 220000 }],
+  };
+  const classIINarrowE: InstrumentProfile = {
+    unit: "g",
+    accuracyClass: "II",
+    indicatingType: "self",
+    rangeKind: "single",
+    electronic: true,
+    ranges: [{ e: 0.5, d: 0.5, max: 3000, min: 10, n: 6000 }],
+  };
+  const notVehiclePowered: InstrumentProfile = {
+    unit: "kg",
+    accuracyClass: "III",
+    indicatingType: "self",
+    rangeKind: "single",
+    electronic: true,
+    vehiclePowered: false,
+    ranges: [{ e: 10, d: 10, max: 40000, min: 200, n: 4000 }],
+  };
+
+  it("damp heat (13a): class I exemption gets its own reason, not the generic fallback", () => {
+    const t = resolveApplicableTests(classI, oiml).find((x) => x.testId === "damp_heat_a")!;
+    expect(t.applicable).toBe(false);
+    expect(t.reason).toMatch(/class I/i);
+    expect(t.reason ?? "").not.toMatch(/^Not applicable to this instrument profile/);
+  });
+
+  it("damp heat (13b): class II e < 1 g exemption gets its own reason", () => {
+    const t = resolveApplicableTests(classIINarrowE, oiml).find((x) => x.testId === "damp_heat_b")!;
+    expect(t.applicable).toBe(false);
+    expect(t.reason).toMatch(/e < 1 g/i);
+  });
+
+  it("span stability (14): class I exemption gets its own reason", () => {
+    const t = resolveApplicableTests(classI, oiml).find((x) => x.testId === "span_stability")!;
+    expect(t.applicable).toBe(false);
+    expect(t.reason).toMatch(/class I/i);
+  });
+
+  it("form 12.7a: not-vehicle-powered gets its own reason, not the generic fallback", () => {
+    const t = resolveApplicableTests(notVehiclePowered, oiml).find((x) => x.testId === "disturbances_road_vehicle_a")!;
+    expect(t.applicable).toBe(false);
+    expect(t.reason).toMatch(/road-vehicle/i);
+    expect(t.reason ?? "").not.toMatch(/^Not applicable to this instrument profile/);
+  });
+});
+
+describe("India Seventh Schedule: unloaded tilting (tilting_no_load) reason is specific", () => {
+  const plainClassII: InstrumentProfile = {
+    unit: "g",
+    accuracyClass: "II",
+    indicatingType: "self",
+    rangeKind: "single",
+    electronic: true,
+    tiltable: true,
+    directSalesToPublic: false,
+    ranges: [{ e: 1, d: 1, max: 15000, min: 50, n: 15000 }],
+  };
+
+  it("plain class II (not direct sales) is N/A with the class II* distinction named, not the generic fallback", () => {
+    const t = resolveApplicableTests(plainClassII, inSch7A).find((x) => x.testId === "tilting_no_load")!;
+    expect(t.applicable).toBe(false);
+    expect(t.reason).toMatch(/class II\*/i);
+    expect(t.reason ?? "").not.toMatch(/^Not applicable to this instrument profile/);
+  });
+
+  it("class II* (direct sales to the public) requires it", () => {
+    const classIIStar: InstrumentProfile = { ...plainClassII, directSalesToPublic: true };
+    const t = resolveApplicableTests(classIIStar, inSch7A).find((x) => x.testId === "tilting_no_load")!;
+    expect(t.applicable).toBe(true);
   });
 });
 
