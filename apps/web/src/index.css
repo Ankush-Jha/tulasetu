@@ -290,4 +290,61 @@
   .nav-pill-inactive {
     color: #434655;
   }
+
+  /*
+   * Horizontal-scrolling containers get their scrollbar back.
+   *
+   * The base layer above hides every scrollbar site-wide, which is a deliberate look for the
+   * page's own vertical scroll. Applied to a table wrapper (`overflow-x-auto` — the observation
+   * forms, the family solver, the module-compatibility results) it had a different effect: a
+   * genuinely wider-than-its-card table scrolled fine with a trackpad, but a mouse user had no
+   * visual sign there was anything past the right edge, so the last column (often the verdict)
+   * read as clipped and gone rather than one scroll away (F12/V-03/F14).
+   *
+   * Cascade layers, not source order, are why this wins over the `@layer base` rule above
+   * despite matching the same elements: Tailwind always places `utilities` after `base`, and a
+   * later layer beats an earlier one regardless of selector specificity.
+   */
+  .overflow-x-auto {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-outline-variant) transparent;
+  }
+  .overflow-x-auto::-webkit-scrollbar {
+    display: block;
+    height: 8px;
+  }
+  .overflow-x-auto::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .overflow-x-auto::-webkit-scrollbar-thumb {
+    background-color: var(--color-outline-variant);
+    border-radius: 9999px;
+  }
+
+  /*
+   * Skip-to-content link (V-07).
+   *
+   * Off-screen until it receives keyboard focus, at which point it is the first focus stop in
+   * the whole application — before the eight-plus stops of the header and sidebar — for anyone
+   * who does not want to tab through navigation chrome to reach the page they came for.
+   */
+  .skip-link {
+    position: fixed;
+    top: -100px;
+    left: 1rem;
+    z-index: 200;
+    border-radius: 0.75rem;
+    background-color: var(--color-surface-container-lowest);
+    color: var(--color-on-surface);
+    padding: 0.625rem 1rem;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 20px 40px -15px rgba(100,116,139,0.35);
+    transition: top 150ms ease;
+  }
+  .skip-link:focus {
+    top: 1rem;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
