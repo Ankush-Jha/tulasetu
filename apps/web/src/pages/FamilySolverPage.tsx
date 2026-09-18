@@ -114,7 +114,15 @@ export function FamilySolverPage() {
       />
 
       <div className="grid items-start gap-5 xl:grid-cols-5">
-        <Card padded={false} className="xl:col-span-3">
+        {/*
+          `min-w-0` overrides a grid item's default `min-width: auto` — without it, the
+          variants table's own minimum content width (now that its inputs carry a real
+          `min-width`, V-03) became the grid column's minimum, and the whole page grew wider
+          than the viewport instead of the table scrolling inside TableWrap's own
+          `overflow-x-auto`. This is what keeps that scroll contained to the card, at 390px and
+          everywhere narrower than the table itself.
+        */}
+        <Card padded={false} className="min-w-0 xl:col-span-3">
           <div className="p-5 pb-3">
             <CardHeader
               icon="table_rows"
@@ -141,16 +149,16 @@ export function FamilySolverPage() {
                 return (
                   <tr key={i} className={cn(selection?.eut && "bg-success-container/30")}>
                     <Td>
-                      <Input value={r.id} onChange={(e) => setRow(i, { id: e.target.value })} className="h-9 font-mono" />
+                      <Input value={r.id} onChange={(e) => setRow(i, { id: e.target.value })} className="h-9 min-w-[64px] font-mono" />
                     </Td>
                     <Td>
-                      <Input value={r.family} onChange={(e) => setRow(i, { family: e.target.value })} className="h-9" />
+                      <Input value={r.family} onChange={(e) => setRow(i, { family: e.target.value })} className="h-9 min-w-[56px]" />
                     </Td>
                     <Td>
                       <Select
                         value={r.accuracyClass}
                         onChange={(e) => setRow(i, { accuracyClass: e.target.value })}
-                        className="h-9"
+                        className="h-9 min-w-[72px]"
                       >
                         <option value="I">I</option>
                         <option value="II">II</option>
@@ -158,10 +166,18 @@ export function FamilySolverPage() {
                         <option value="IIII">IIII</option>
                       </Select>
                     </Td>
-                    <Td><Input value={r.max} onChange={(e) => setRow(i, { max: e.target.value })} className="h-9 text-right tabular-nums" inputMode="decimal" /></Td>
-                    <Td><Input value={r.e} onChange={(e) => setRow(i, { e: e.target.value })} className="h-9 text-right tabular-nums" inputMode="decimal" /></Td>
-                    <Td><Input value={r.d} onChange={(e) => setRow(i, { d: e.target.value })} className="h-9 text-right tabular-nums" inputMode="decimal" /></Td>
-                    <Td><Input value={r.n} onChange={(e) => setRow(i, { n: e.target.value })} className="h-9 text-right tabular-nums" inputMode="decimal" /></Td>
+                    {/*
+                      Mass columns need room for a five-digit Max (R 76-1's own Table 8 goes to
+                      60000) as well as a three-decimal e or d — at 390px an unconstrained input
+                      shrank to 26px, under the readable floor, with the table quietly cropping
+                      the value inside a box too narrow to show it (V-03). A minimum width forces
+                      the table to overflow honestly into TableWrap's own horizontal scroll
+                      instead of cramming digits nobody could read.
+                    */}
+                    <Td><Input value={r.max} onChange={(e) => setRow(i, { max: e.target.value })} className="h-9 min-w-[76px] text-right tabular-nums" inputMode="decimal" /></Td>
+                    <Td><Input value={r.e} onChange={(e) => setRow(i, { e: e.target.value })} className="h-9 min-w-[76px] text-right tabular-nums" inputMode="decimal" /></Td>
+                    <Td><Input value={r.d} onChange={(e) => setRow(i, { d: e.target.value })} className="h-9 min-w-[76px] text-right tabular-nums" inputMode="decimal" /></Td>
+                    <Td><Input value={r.n} onChange={(e) => setRow(i, { n: e.target.value })} className="h-9 min-w-[76px] text-right tabular-nums" inputMode="decimal" /></Td>
                     <Td align="center">
                       <button
                         onClick={() => setRows((rs) => rs.filter((_, j) => j !== i))}
@@ -183,7 +199,7 @@ export function FamilySolverPage() {
           </div>
         </Card>
 
-        <div className="flex flex-col gap-5 xl:col-span-2">
+        <div className="flex min-w-0 flex-col gap-5 xl:col-span-2">
           {run.error && <Alert tone="fail" title="Solver failed">{run.error}</Alert>}
 
           {!result ? (
