@@ -665,12 +665,31 @@ export async function renderReportForDownload(
     rendered = await renderReport(ctx.db, report, format, { generatedAt: ctx.now });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    if (format === "pdf" && /executable doesn't exist|browserType\.launch/i.test(message)) {
+    // Two distinct "Chromium is not where we expected it" failures, told apart by environment
+    // rather than by guessing from the message alone:
+    //  - locally / on a bench install, `playwright`'s own browser is missing — Playwright's
+    //    launch error says so in those words ("Executable doesn't exist at ...");
+    //  - on Vercel, `packages/renderers/src/pdf.ts` drives `@sparticuz/chromium` instead, and a
+    //    packaging problem there (wrong `includeFiles`, too little memory to unpack it in time)
+    //    fails as an ordinary filesystem or launch error mentioning "chromium" — worth telling
+    //    apart from an unrelated 500, since the fix is an operator action, not a code bug.
+    const looksLikeMissingChromium =
+      /executable doesn't exist|browserType\.launch|chromium/i.test(message);
+    if (format === "pdf" && looksLikeMissingChromium) {
+      const onVercel = process.env["VERCEL"] === "1";
+      // The raw failure only goes to the server log — an officer's 503 stays short and
+      // actionable, but whoever deployed this needs the real reason available somewhere.
+      console.error(`[tulasetu] PDF rendering could not start Chromium: ${message}`);
       throw new ServiceError(
         503,
         "RENDERER_UNAVAILABLE",
-        "PDF rendering needs Chromium, which is not installed on this server. " +
-          "Run `npx playwright install chromium`, or download the DOCX or JSON instead.",
+        onVercel
+          ? "PDF rendering could not start Chromium on this deployment. This is an operator " +
+              "problem, not yours — check the function's bundled files and memory in the " +
+              "Vercel project settings (see docs/DEPLOY.md), or download the DOCX or JSON " +
+              "instead."
+          : "PDF rendering needs Chromium, which is not installed on this server. " +
+              "Run `npx playwright install chromium`, or download the DOCX or JSON instead.",
       );
     }
     throw new ServiceError(500, "RENDER_FAILED", `Could not render the ${format}: ${message}`);

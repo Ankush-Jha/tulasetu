@@ -8,6 +8,11 @@
   "dependencies": {
     "@tulasetu/engine": "*",
     "docx": "^9.0.2",
-    "playwright": "^1.49.1"
+    "playwright": "^1.49.1",
+    "playwright-core": "^1.63.0",
+    "@sparticuz/chromium": "153.0.0"
+  },
+  "devDependencies": {
+    "jszip": "^3.10.1"
   }
 }
