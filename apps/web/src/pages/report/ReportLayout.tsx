@@ -132,6 +132,13 @@ export function ReportLayout() {
   const [defText, setDefText] = useState("");
   const [defSeverity, setDefSeverity] = useState("major");
   const [defFormId, setDefFormId] = useState("");
+  // Raising a deficiency (SUBMITTED -> DEFICIENCY) and returning it to the lab (DEFICIENCY ->
+  // DRAFT, "Return to Metrological Assistant") are two distinct transitions in lifecycle.ts —
+  // but in practice a reviewing officer almost always wants both in the same breath, and
+  // making them click through a second dialog for the second one is friction with no
+  // corresponding benefit. Default to doing both; the checkbox is there for the rarer case of
+  // wanting to raise a finding without sending the report back yet.
+  const [defReturnNow, setDefReturnNow] = useState(true);
 
   // Block only on the *first* load. Blocking on every refetch unmounts the step below and
   // throws away whatever it was holding — the validation findings the officer just triggered,
@@ -176,7 +183,9 @@ export function ReportLayout() {
       setDefText("");
       setDefSeverity("major");
       setDefFormId("");
+      setDefReturnNow(true);
       raiseDeficiency.reset();
+      transition.reset();
       setDeficiencyOpen(true);
       return;
     }
@@ -215,10 +224,14 @@ export function ReportLayout() {
       text: defText.trim(),
       ...(defFormId ? { formId: defFormId } : {}),
     });
-    if (ok) {
-      setDeficiencyOpen(false);
-      reload();
-    }
+    if (!ok) return;
+    // Raising the deficiency alone only performs SUBMITTED -> DEFICIENCY (a side effect of
+    // POST /deficiencies — see lifecycle.ts). "Return to Metrological Assistant" is the
+    // separate DEFICIENCY -> DRAFT transition; doing it here too, reusing the same text as the
+    // note, is what "Record and return to the MA" promises on the button.
+    if (defReturnNow) await runTransition("DRAFT", defText.trim());
+    setDeficiencyOpen(false);
+    reload();
   }
 
   return (
@@ -406,9 +419,11 @@ export function ReportLayout() {
         )}
       </Dialog>
 
-      {/* Record deficiency. A single POST /deficiencies call both records the finding and moves
-          SUBMITTED -> DEFICIENCY (apps/api/src/domain/service.ts, lifecycle.ts) — there is no
-          separate transition call to make here. */}
+      {/* Record deficiency. POST /deficiencies records the finding and, as a side effect,
+          performs SUBMITTED -> DEFICIENCY (apps/api/src/domain/service.ts, lifecycle.ts).
+          "Return to Metrological Assistant" is the separate DEFICIENCY -> DRAFT transition —
+          offered here as one action, since a reviewer raising a finding is nearly always ready
+          to send it back in the same breath. */}
       <Dialog
         open={deficiencyOpen}
         onClose={() => setDeficiencyOpen(false)}
@@ -441,16 +456,32 @@ export function ReportLayout() {
               ))}
             </Select>
           </Field>
-          {raiseDeficiency.error && <Alert tone="fail">{raiseDeficiency.error}</Alert>}
+          <label className="flex items-start gap-2.5 text-body-md text-on-surface">
+            <input
+              type="checkbox"
+              checked={defReturnNow}
+              onChange={(e) => setDefReturnNow(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-outline-variant/60 text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            />
+            <span>
+              Also return this to the Metrological Assistant now
+              <span className="block text-body-sm text-on-surface-variant">
+                Otherwise it stays with you, recorded but not yet sent back.
+              </span>
+            </span>
+          </label>
+          {(raiseDeficiency.error || transition.error) && (
+            <Alert tone="fail">{raiseDeficiency.error || transition.error}</Alert>
+          )}
           <DialogActions>
             <Button variant="secondary" onClick={() => setDeficiencyOpen(false)}>Cancel</Button>
             <Button
               variant="primary"
-              loading={raiseDeficiency.pending}
+              loading={raiseDeficiency.pending || transition.pending}
               disabled={!defText.trim()}
               onClick={submitDeficiency}
             >
-              Record deficiency
+              {defReturnNow ? "Record and return to the MA" : "Record deficiency"}
             </Button>
           </DialogActions>
         </div>
