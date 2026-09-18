@@ -145,6 +145,22 @@ export function createReport(
   const exists = ctx.db.prepare("SELECT 1 FROM reports WHERE id = ?").get(input.reportId);
   if (exists) throw badRequest("DUPLICATE_REPORT", `Report ${input.reportId} already exists.`);
 
+  // MA-05: a negative fee was accepted, and feeds straight into the Rule 4(9) annual return's
+  // feesRealisedInr total (stats.ts), so it would silently understate a lab's own statutory
+  // figure. Only >= 0 is enforced, not a specific amount: AoM Rule 19 names two testing-fee
+  // figures (docs/PRD.md: Rs 10,000 mechanical / Rs 25,000 digital-electronic, 2019 amendment),
+  // but the instrument's mechanical/electronic nature isn't known at creation time (the profile
+  // is a separate, later PUT), and Rule 19's Fifth Schedule also covers GATC verification fees
+  // (Rs 50 - Rs 15,000) and possible future amendments -- pinning the check to the two current
+  // testing-fee figures would reject legitimate values this codebase has no way to enumerate
+  // exhaustively. A negative amount, in contrast, is never legitimate under any of those.
+  if (input.feePaidInr !== undefined && (!Number.isFinite(input.feePaidInr) || input.feePaidInr < 0)) {
+    throw badRequest(
+      "E_NEGATIVE_FEE",
+      `feePaidInr must be zero or a positive amount (got ${input.feePaidInr}).`,
+    );
+  }
+
   appendEvent(ctx.db, {
     reportId: input.reportId,
     eventType: "REPORT_CREATED",

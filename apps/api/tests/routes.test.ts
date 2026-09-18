@@ -456,6 +456,21 @@ describe("guards and errors", () => {
     expect(r.body.error).toBe("DUPLICATE_REPORT");
   });
 
+  it("refuses a negative testing fee (MA-05) but accepts zero and a positive amount", async () => {
+    const negative = await call("POST", "/reports", "u-ma", {
+      reportId: "TS-FEE-NEG", profile: "IN_Sch7A", feePaidInr: -1,
+    });
+    expect(negative.status).toBe(400);
+    expect(negative.body.error).toBe("E_NEGATIVE_FEE");
+
+    expect((await call("POST", "/reports", "u-ma", {
+      reportId: "TS-FEE-ZERO", profile: "IN_Sch7A", feePaidInr: 0,
+    })).status).toBe(200);
+    expect((await call("POST", "/reports", "u-ma", {
+      reportId: "TS-FEE-OK", profile: "IN_Sch7A", feePaidInr: 25000,
+    })).status).toBe(200);
+  });
+
   it("409s a concurrent edit rather than overwriting it", async () => {
     await call("POST", "/reports", "u-ma", { reportId: "TS-5", profile: "IN_Sch7A" });
     await call("PUT", "/reports/TS-5/profile", "u-ma", { profile, expectedVersion: 1 });
