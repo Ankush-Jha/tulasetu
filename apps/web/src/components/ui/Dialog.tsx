@@ -119,7 +119,7 @@ export function Dialog({
   if (!open) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* The backdrop is the click target that closes the dialog; it carries no content of
           its own, so `aria-hidden` keeps assistive tech from ever landing on it. */}
       <div

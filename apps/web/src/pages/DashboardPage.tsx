@@ -39,6 +39,10 @@ export function DashboardPage() {
 
   const counts = useApi((s) => api.dashboard(s), []);
   const recent = useApi((s) => api.listReports({ limit: 8 }, s), []);
+  // The queue reads every report in the lab, not the eight most recent. It used to filter
+  // `recent`, so a submission older than the latest eight silently dropped out of the AD/DD's
+  // "Waiting on you" — the one list whose whole job is not to lose anything.
+  const all = useApi((s) => api.listReports({}, s), []);
   const year = new Date().getUTCFullYear();
   const stats = useApi(
     (s) => api.rule49({ from: `${year}-01-01`, to: `${year}-12-31` }, s),
@@ -70,14 +74,14 @@ export function DashboardPage() {
    * here and risking drift from apps/api/src/domain/lifecycle.ts.
    */
   const actionable = useMemo(() => {
-    if (!recent.data || !lifecycle.data || !session) return [];
+    if (!all.data || !lifecycle.data || !session) return [];
     const mine = new Set(
       lifecycle.data.transitions
         .filter((t) => t.roles[0] === session.role)
         .map((t) => t.from),
     );
-    return recent.data.filter((r) => mine.has(r.status));
-  }, [recent.data, lifecycle.data, session]);
+    return all.data.filter((r) => mine.has(r.status));
+  }, [all.data, lifecycle.data, session]);
 
   // One skeleton, one reveal. Four independent `useApi` calls used to each show their own
   // loading state and pop in whenever they individually finished — a real request waterfall
@@ -88,6 +92,7 @@ export function DashboardPage() {
   const initialLoading =
     counts.initialLoading ||
     recent.initialLoading ||
+    all.initialLoading ||
     lifecycle.initialLoading ||
     (can("stats:read_own_lab") && stats.initialLoading);
 
@@ -96,6 +101,7 @@ export function DashboardPage() {
     if (r) {
       counts.reload();
       recent.reload();
+      all.reload();
       stats.reload();
     }
   }
@@ -316,6 +322,16 @@ export function DashboardPage() {
                     </Link>
                   </li>
                 ))}
+                {actionable.length > 6 && (
+                  <li>
+                    <Link
+                      to="/reports"
+                      className="block rounded-xl px-2.5 py-2 text-label-lg text-primary hover:bg-surface-container-low"
+                    >
+                      and {actionable.length - 6} more waiting — see all reports
+                    </Link>
+                  </li>
+                )}
               </ul>
             )}
           </Card>

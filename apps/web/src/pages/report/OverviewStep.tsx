@@ -137,9 +137,16 @@ export function OverviewStep() {
   const lastReturn = audit.data?.events
     .filter((e) => RETURN_EVENTS.has(e.eventType))
     .at(-1);
-  const lastReturnNote = lastReturn && typeof lastReturn.payload["note"] === "string"
+  const returnNote = lastReturn && typeof lastReturn.payload["note"] === "string"
     ? (lastReturn.payload["note"] as string)
     : null;
+  // "Record and return to the MA" sends the deficiency's own text as the return note, so the
+  // same sentence would print twice — once here, once in the Deficiencies card just below.
+  // The card is the fuller record (severity, officer, date), so it wins.
+  const lastReturnNote =
+    returnNote && deficiencies.some((d) => !d.resolvedAt && d.text.trim() === returnNote.trim())
+      ? null
+      : returnNote;
 
   // How many data-changing events exist now, past the version each signature covers.
   // `eventVersion` is on the wire already (apps/web/src/lib/api.ts ReportSignature) — this just
