@@ -404,6 +404,47 @@ describe("guards and errors", () => {
     expect(r.body.message).toMatch(/mpe cannot be resolved/i);
   });
 
+  it("rejects an out-of-range load before appending anything to the log, with the real error code (AD-05 / F9)", async () => {
+    await call("POST", "/reports", "u-ma", { reportId: "TS-8", profile: "IN_Sch7A" });
+    await call("PUT", "/reports/TS-8/profile", "u-ma", { profile });
+    const before = await call("GET", "/reports/TS-8/audit", "u-ma");
+    const eventsBefore = before.body.events.length;
+
+    // 20000 g is comfortably past this profile's overall Max (15000 g). Sent as a STRING,
+    // the way a browser <input> control's value arrives over JSON: this is exactly what used
+    // to make the finiteness check fail first, so a genuinely finite, out-of-range reading was
+    // logged as E_NON_FINITE_VALUE rather than E_LOAD_ABOVE_MAX (AD-05).
+    const r = await call("POST", "/reports/TS-8/forms/1/observations", "u-ma", {
+      observations: [{ load: "20000", indication: "20000" }],
+    });
+    expect(r.status).toBe(400);
+    expect(r.body.error).toBe("E_LOAD_ABOVE_MAX");
+    expect(r.body.error).not.toBe("E_NON_FINITE_VALUE");
+    expect(r.body.message).toMatch(/exceeds the instrument's Max/i);
+
+    // Nothing was appended for the rejected attempt — the log is exactly as it was.
+    const after = await call("GET", "/reports/TS-8/audit", "u-ma");
+    expect(after.body.events.length).toBe(eventsBefore);
+  });
+
+  it("still records a genuinely finite, in-range reading sent as a numeric string (coerced, not rejected)", async () => {
+    await call("POST", "/reports", "u-ma", { reportId: "TS-8b", profile: "IN_Sch7A" });
+    await call("PUT", "/reports/TS-8b/profile", "u-ma", { profile });
+    const before = await call("GET", "/reports/TS-8b/audit", "u-ma");
+    const eventsBefore = before.body.events.length;
+
+    const r = await call("POST", "/reports/TS-8b/forms/1/observations", "u-ma", {
+      observations: [{ load: "1000", indication: "1000" }],
+    });
+    expect(r.status).toBe(200);
+
+    // Both the raw observation and the computed result were appended, in that order.
+    const after = await call("GET", "/reports/TS-8b/audit", "u-ma");
+    expect(after.body.events.length).toBe(eventsBefore + 2);
+    const types = after.body.events.slice(eventsBefore).map((e: any) => e.eventType);
+    expect(types).toEqual(["OBSERVATIONS_RECORDED", "FORM_RESULT_COMPUTED"]);
+  });
+
   it("404s an unknown report", async () => {
     expect((await call("GET", "/reports/nope", "u-ma")).status).toBe(404);
   });
