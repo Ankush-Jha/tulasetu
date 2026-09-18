@@ -109,7 +109,7 @@ export const REPORT_STEPS: ReportStep[] = [
   { slug: "observations", label: "Observations", icon: "edit_note", hint: "Bench readings and verdicts" },
   { slug: "checklist", label: "Checklist", icon: "fact_check", hint: "R 76-2 §17" },
   { slug: "attachments", label: "Attachments", icon: "attachment", hint: "Figures and drawings" },
-  { slug: "report", label: "Report", icon: "description", hint: "PDF, DOCX, JSON" },
+  { slug: "report", label: "Report", icon: "description", hint: "Outputs, audit trail, signatures" },
 ];
 
 export function reportPath(reportId: string, slug?: string): string {
