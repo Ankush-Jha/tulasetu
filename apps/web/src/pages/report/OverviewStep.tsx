@@ -39,6 +39,15 @@ import { useReport } from "./ReportLayout";
 const RETURN_EVENTS = new Set(["REMITTED_FOR_FURTHER_TESTS", "RETURNED_TO_LAB"]);
 
 /**
+ * Events that change what a signature is actually vouching for — a re-recorded observation, a
+ * recomputed form, an edited profile. Matches AuditStep.tsx's OBSERVATION_EVENTS. A later
+ * transition event (recommend, remit, another signature) also bumps the chain's version but is
+ * not "data changed under the signature" in the sense AD-04 is about, so it is not counted here
+ * — counting it would flag every signature as stale the moment the report moved forward at all.
+ */
+const DATA_EVENTS = new Set(["OBSERVATIONS_RECORDED", "FORM_RESULT_COMPUTED", "PROFILE_UPDATED"]);
+
+/**
  * What each state means, and what is owed next — in the words an officer would use rather than
  * the state machine's own.
  *
@@ -131,6 +140,19 @@ export function OverviewStep() {
   const lastReturnNote = lastReturn && typeof lastReturn.payload["note"] === "string"
     ? (lastReturn.payload["note"] as string)
     : null;
+
+  // How many data-changing events exist now, past the version each signature covers.
+  // `eventVersion` is on the wire already (apps/web/src/lib/api.ts ReportSignature) — this just
+  // reads it and compares it against the log.
+  const dataEventVersions = audit.data?.events
+    .filter((e) => DATA_EVENTS.has(e.eventType))
+    .map((e) => e.version) ?? [];
+  const staleCounts = new Map<number, number>();
+  signatures.forEach((s, i) => {
+    if (typeof s.eventVersion !== "number") return;
+    const after = dataEventVersions.filter((v) => v > s.eventVersion!).length;
+    if (after > 0) staleCounts.set(i, after);
+  });
 
   const applicable = forms.filter((f) => f.applicable === 1);
   const recorded = applicable.filter((f) => f.verdict);
@@ -334,6 +356,19 @@ export function OverviewStep() {
                         Signed under a key since replaced — verified against the key that made it.
                       </span>
                     )}
+                    {/* AD-04: a signature covers the chain up to its own event version. Anything
+                        appended afterwards — a re-recorded observation, a second edit — is not
+                        vouched for by it, and that gap does not show up anywhere else: the
+                        Signatures list says "verified" (true, of its own narrower claim) and the
+                        record count lives on a different tab entirely. State it here, next to
+                        the signature it qualifies. */}
+                    {staleCounts.get(i) ? (
+                      <span className="mt-1 flex items-center gap-1 text-body-sm text-[#92400E]">
+                        <Icon name="history_toggle_off" size={14} />
+                        {staleCounts.get(i)} record{staleCounts.get(i) === 1 ? "" : "s"} added since
+                        this signature — it does not cover {staleCounts.get(i) === 1 ? "it" : "them"}.
+                      </span>
+                    ) : null}
                   </span>
                 </li>
               ))}
