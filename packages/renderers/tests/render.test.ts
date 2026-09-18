@@ -225,6 +225,18 @@ describe("renderHtml", () => {
     expect(html).toContain("&lt;script&gt;");
   });
 
+  it("separates the checksum value from the Annex G acceptance note (DIR-10)", () => {
+    // Regression: these two used to be concatenated with no separator at all —
+    // "34559a18232bc0c6c417format accepted (R 76-1 Annex G)" — reading as one string, as if
+    // the sentence were part of the checksum itself.
+    const doc = buildDoc({ instrument: { ...multiInterval, softwareChecksum: "34559a18232bc0c6c417" } });
+    const html = renderHtml(doc);
+    expect(html).not.toContain("34559a18232bc0c6c417Format accepted");
+    expect(html).not.toContain("34559a18232bc0c6c417format accepted");
+    // The value sits in its own element, closed, before the annotation's element opens.
+    expect(html).toMatch(/<code>34559a18232bc0c6c417<\/code>\s*<div class="ok">/);
+  });
+
   it("surfaces software-identification findings next to the field they concern", () => {
     const doc = buildDoc({
       instrument: { ...multiInterval, softwareChecksum: "8100kb" },

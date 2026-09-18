@@ -115,7 +115,11 @@ function coverPage(doc: ReportDocument, bi: boolean): string {
                         )}${x.clause ? ` <em>${esc(x.clause)}</em>` : ""}</div>`,
                     )
                     .join("")}</div>`
-                : `<span class="ok">format accepted (R 76-1 Annex G)</span>`
+                // A block on its own line, not appended straight after </code> — DIR-10:
+                // the checksum value and this annotation about it ran into one string with no
+                // separator ("34559a18232bc0c6c417format accepted (R 76-1 Annex G)"), reading as
+                // part of the checksum itself rather than a comment on it.
+                : `<div class="ok">Format accepted (R 76-1 Annex G)</div>`
             }`,
           )
         : ""
