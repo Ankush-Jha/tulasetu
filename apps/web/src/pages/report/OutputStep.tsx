@@ -37,32 +37,49 @@ import { useReport } from "./ReportLayout";
 
 type Format = "pdf" | "docx" | "json" | "html";
 
-const OUTPUTS: { id: Format; icon: string; title: string; blurb: string; note: string }[] = [
-  {
-    id: "pdf",
-    icon: "picture_as_pdf",
-    title: "PDF — record copy",
-    blurb:
-      "Pixel-faithful to R 76-2: the same page furniture, the ↓/↑ sub-columns for the two directions of loading, computed cells shaded, and “– –” against every form that does not apply. Bilingual headers, as the certificates on the register are.",
-    note: "Its SHA-256 is recorded in the audit trail when the report is locked.",
-  },
-  {
-    id: "docx",
-    icon: "description",
-    title: "DOCX — review copy",
-    blurb:
-      "For the AD/DD cycle. Watermarked DRAFT and carries the record copy's hash on its first page, because an editable file sits outside the append-only log and must never be mistaken for the record.",
-    note: "Never the record copy, by design.",
-  },
-  {
-    id: "json",
-    icon: "data_object",
-    title: "JSON — machine-readable",
-    blurb:
-      "DCC-inspired: the data and the human-readable PDF in one file, each with its own hash, so a downstream system never has to re-key numbers out of a document.",
-    note: "Content-addressed — identical reports hash identically.",
-  },
-];
+/**
+ * `json`'s copy depends on whether the report is locked (the embedded PDF is marked DRAFT
+ * until it is); DOCX's does not, so this is a function of `locked` for consistency with it
+ * rather than because DOCX needs one.
+ *
+ *  - DOCX carries a real rotated, semi-transparent DRAFT watermark on every page now
+ *    (packages/renderers/src/docx.ts) — "watermarked" is accurate again.
+ *  - JSON: `GET .../render/json` always attempts a fresh PDF render, whatever the report's
+ *    status (apps/api/src/domain/render.ts) — not "only once locked" as this copy previously
+ *    claimed. It embeds that PDF when the render succeeds and omits the `embedded` block
+ *    silently when it fails (Chromium unavailable). The PDF itself is marked DRAFT until the
+ *    Director locks the report — the web route never embeds a DOCX, only the CLI export does.
+ */
+function outputs(locked: boolean): { id: Format; icon: string; title: string; blurb: string; note: string }[] {
+  return [
+    {
+      id: "pdf",
+      icon: "picture_as_pdf",
+      title: "PDF — record copy",
+      blurb:
+        "Pixel-faithful to R 76-2: the same page furniture, the ↓/↑ sub-columns for the two directions of loading, computed cells shaded, and “– –” against every form that does not apply. Bilingual headers, as the certificates on the register are.",
+      note: "Its SHA-256 is recorded in the audit trail when the report is locked.",
+    },
+    {
+      id: "docx",
+      icon: "description",
+      title: "DOCX — review copy",
+      blurb:
+        "For the AD/DD cycle. Watermarked DRAFT on every page, and carries the record copy's hash on its first page once one exists, because an editable file sits outside the append-only log and must never be mistaken for the record.",
+      note: "Never the record copy, by design.",
+    },
+    {
+      id: "json",
+      icon: "data_object",
+      title: "JSON — machine-readable",
+      blurb:
+        "DCC-inspired: the data, with the rendered PDF embedded alongside it, each carrying its own hash, so a downstream system never has to re-key numbers out of a document. The PDF is " +
+        (locked ? "the locked record copy." : "marked DRAFT until the Director locks the report.") +
+        " If the render engine is unavailable, the file still stands on the data alone.",
+      note: locked ? "Content-addressed — identical reports hash identically." : "Embedded PDF is marked DRAFT until the report is locked.",
+    },
+  ];
+}
 
 export function OutputStep() {
   const { reportId, detail, instrument, reload } = useReport();
@@ -77,6 +94,7 @@ export function OutputStep() {
   const decided = applicable.filter((f) => f.verdict);
   const ready = applicable.length > 0 && decided.length === applicable.length;
   const locked = Boolean(report.locked_hash);
+  const OUTPUTS = outputs(locked);
 
   // The Director may lock; the server decides for certain, and refusing here only avoids
   // offering a button that would be turned down.

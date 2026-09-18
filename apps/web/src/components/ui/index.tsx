@@ -20,8 +20,10 @@
  *    `text-on-surface-variant` *is* `#434655`. Writing the hex again just hides it.
  */
 
-import { useState, type ReactNode, type ButtonHTMLAttributes, type InputHTMLAttributes, type SelectHTMLAttributes } from "react";
+import { useState, type ReactNode, type ButtonHTMLAttributes, type InputHTMLAttributes, type SelectHTMLAttributes, type TextareaHTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
+
+export { Dialog, DialogActions } from "./Dialog";
 
 // ---------------------------------------------------------------------------
 // Icon
@@ -375,6 +377,26 @@ export function Select({
     <select {...props} className={cn(CONTROL, "pr-8 appearance-none cursor-pointer", className)}>
       {children}
     </select>
+  );
+}
+
+export function TextArea({
+  className,
+  invalid,
+  rows = 4,
+  ...props
+}: TextareaHTMLAttributes<HTMLTextAreaElement> & { invalid?: boolean }) {
+  return (
+    <textarea
+      {...props}
+      rows={rows}
+      className={cn(
+        CONTROL,
+        "h-auto resize-y py-2",
+        invalid && "border-error focus:border-error focus:ring-error/20",
+        className,
+      )}
+    />
   );
 }
 

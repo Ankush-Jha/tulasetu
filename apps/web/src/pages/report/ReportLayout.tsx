@@ -10,7 +10,7 @@
  * so the buttons on screen are exactly the moves that will be allowed.
  */
 
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import { NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   ActionBar,
@@ -18,18 +18,25 @@ import {
   Badge,
   Button,
   Card,
+  Dialog,
+  DialogActions,
   ErrorState,
+  Field,
+  humanizeStatus,
   Icon,
   LoadingState,
+  Select,
   Spinner,
   StatusChip,
+  TextArea,
   Verdict,
 } from "../../components/ui";
 import { cn } from "../../lib/cn";
-import { api, type ReportDetail } from "../../lib/api";
+import { api, type LifecycleTransition, type ReportDetail } from "../../lib/api";
 import { useApi, useMutation } from "../../lib/useApi";
 import { REPORT_STEPS, reportPath } from "../../lib/nav";
 import { formatDate } from "../../lib/format";
+import { ROLE_LABEL } from "../../lib/auth";
 
 interface ReportContextValue {
   detail: ReportDetail;
@@ -79,6 +86,27 @@ export function useReport(): ReportContextValue {
   return ctx;
 }
 
+/**
+ * Transitions whose consequence is irreversible enough (or expensive enough to undo) that a
+ * single click should not be the whole interaction. Restating the transition's own `basis` —
+ * the statutory provision it implements — means the confirmation says *why* this step matters
+ * instead of a generic "are you sure?".
+ */
+const CONFIRM_ON: ReadonlySet<string> = new Set([
+  "LOCKED",
+  "CERTIFICATE_ISSUED",
+  "PUBLISHED",
+  "WITHDRAWN",
+  "PROVISIONAL",
+]);
+
+/** Deficiency severities the server's CHECK constraint accepts (db/schema.sql). */
+const SEVERITIES: { value: string; label: string }[] = [
+  { value: "major", label: "Major — blocks recommendation until resolved" },
+  { value: "minor", label: "Minor" },
+  { value: "observation", label: "Observation" },
+];
+
 export function ReportLayout() {
   const { reportId = "" } = useParams();
   const { pathname } = useLocation();
@@ -88,6 +116,29 @@ export function ReportLayout() {
   );
 
   const transition = useMutation(api.transition);
+  const raiseDeficiency = useMutation(api.raiseDeficiency);
+
+  // Three dialog states, one per shape of interruption this lifecycle needs:
+  //  - a plain confirmation, for the CONFIRM_ON set, echoing the transition's own `basis`;
+  //  - a required reason, for the two "send it back" moves (remit, return to the MA) — the
+  //    officer on the other end needs to know what to fix, not just that it moved;
+  //  - the deficiency form, which is not a transition at all from the client's point of view
+  //    (POST /deficiencies performs the SUBMITTED -> DEFICIENCY move as a side effect of being
+  //    recorded — see apps/api/src/domain/service.ts raiseDeficiency / lifecycle.ts).
+  const [confirming, setConfirming] = useState<LifecycleTransition | null>(null);
+  const [reasonFor, setReasonFor] = useState<LifecycleTransition | null>(null);
+  const [reasonText, setReasonText] = useState("");
+  const [deficiencyOpen, setDeficiencyOpen] = useState(false);
+  const [defText, setDefText] = useState("");
+  const [defSeverity, setDefSeverity] = useState("major");
+  const [defFormId, setDefFormId] = useState("");
+  // Raising a deficiency (SUBMITTED -> DEFICIENCY) and returning it to the lab (DEFICIENCY ->
+  // DRAFT, "Return to Metrological Assistant") are two distinct transitions in lifecycle.ts —
+  // but in practice a reviewing officer almost always wants both in the same breath, and
+  // making them click through a second dialog for the second one is friction with no
+  // corresponding benefit. Default to doing both; the checkbox is there for the rarer case of
+  // wanting to raise a finding without sending the report back yet.
+  const [defReturnNow, setDefReturnNow] = useState(true);
 
   // Block only on the *first* load. Blocking on every refetch unmounts the step below and
   // throws away whatever it was holding — the validation findings the officer just triggered,
@@ -114,9 +165,73 @@ export function ReportLayout() {
   const slug = pathname.split("/").pop() ?? "";
   const currentStepIndex = Math.max(0, REPORT_STEPS.findIndex((s) => s.slug === slug));
 
-  async function move(to: string) {
-    const ok = await transition.run(reportId, { to });
+  async function runTransition(to: string, note?: string) {
+    const ok = await transition.run(reportId, note ? { to, note } : { to });
     if (ok) reload();
+    return ok;
+  }
+
+  /**
+   * The single entry point for every transition button, wherever it is drawn. Deciding *here*
+   * which of the three interruptions (if any) a given move needs is what keeps a Cancel/Esc
+   * genuinely free of network calls — nothing runs until one of the dialogs' own confirm
+   * handlers below calls `runTransition` or `raiseDeficiency.run`.
+   */
+  function beginTransition(t: LifecycleTransition) {
+    transition.reset();
+    if (t.to === "DEFICIENCY") {
+      setDefText("");
+      setDefSeverity("major");
+      setDefFormId("");
+      setDefReturnNow(true);
+      raiseDeficiency.reset();
+      transition.reset();
+      setDeficiencyOpen(true);
+      return;
+    }
+    if (t.to === "REMITTED" || (t.from === "DEFICIENCY" && t.to === "DRAFT")) {
+      setReasonText("");
+      setReasonFor(t);
+      return;
+    }
+    if (CONFIRM_ON.has(t.to)) {
+      setConfirming(t);
+      return;
+    }
+    void runTransition(t.to);
+  }
+
+  async function confirmReason() {
+    if (!reasonFor || !reasonText.trim()) return;
+    const ok = await runTransition(reasonFor.to, reasonText.trim());
+    if (ok) setReasonFor(null);
+  }
+
+  async function confirmDialog() {
+    if (!confirming) return;
+    const ok = await runTransition(confirming.to);
+    if (ok) setConfirming(null);
+  }
+
+  async function submitDeficiency() {
+    if (!defText.trim()) return;
+    // Client-generated id: apps/api/src/domain/service.ts's DeficiencyInput takes an arbitrary
+    // caller-chosen string (the demo seed uses "DEF-0002-1"), not a server-assigned one.
+    const id = `DEF-${reportId}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+    const ok = await raiseDeficiency.run(reportId, {
+      id,
+      severity: defSeverity,
+      text: defText.trim(),
+      ...(defFormId ? { formId: defFormId } : {}),
+    });
+    if (!ok) return;
+    // Raising the deficiency alone only performs SUBMITTED -> DEFICIENCY (a side effect of
+    // POST /deficiencies — see lifecycle.ts). "Return to Metrological Assistant" is the
+    // separate DEFICIENCY -> DRAFT transition; doing it here too, reusing the same text as the
+    // note, is what "Record and return to the MA" promises on the button.
+    if (defReturnNow) await runTransition("DRAFT", defText.trim());
+    setDeficiencyOpen(false);
+    reload();
   }
 
   return (
@@ -162,8 +277,8 @@ export function ReportLayout() {
                 key={`${t.from}-${t.to}`}
                 size="sm"
                 variant={t.to === "LOCKED" || t.to === "PUBLISHED" ? "primary" : "secondary"}
-                loading={transition.pending}
-                onClick={() => move(t.to)}
+                loading={transition.pending || raiseDeficiency.pending}
+                onClick={() => beginTransition(t)}
                 title={t.basis}
               >
                 {t.label}
@@ -173,9 +288,11 @@ export function ReportLayout() {
         </span>
       </div>
 
-      {transition.error && (
+      {(transition.error || raiseDeficiency.error) && (
         <div className="mb-3">
-          <Alert tone="fail" title="That step is not available yet">{transition.error}</Alert>
+          <Alert tone="fail" title="That step is not available yet">
+            {transition.error || raiseDeficiency.error}
+          </Alert>
         </div>
       )}
 
@@ -233,14 +350,162 @@ export function ReportLayout() {
       {data.writable && !data.writable.allowed && slug !== "overview" && (
         <div className="mb-4">
           <Alert tone="info" icon="lock" title="This report is read-only">
-            {data.writable.reason}
+            {humanizeReadOnlyReason(data.writable.reason, report.status)}
           </Alert>
         </div>
       )}
 
       <Outlet />
+
+      {/* Confirm: LOCKED / CERTIFICATE_ISSUED / PUBLISHED / WITHDRAWN / PROVISIONAL. Cancel and
+          Esc both route through Dialog's onClose, which only clears this state — neither calls
+          runTransition, so neither makes a network request. */}
+      <Dialog
+        open={confirming !== null}
+        onClose={() => setConfirming(null)}
+        title={confirming ? confirming.label : ""}
+      >
+        {confirming && (
+          <>
+            <p className="text-body-md text-on-surface">{confirming.basis}</p>
+            <p className="mt-2 text-body-sm text-on-surface-variant">
+              This report moves from <span className="font-semibold">{humanizeStatus(confirming.from)}</span> to{" "}
+              <span className="font-semibold">{humanizeStatus(confirming.to)}</span>. This cannot be undone
+              from here — a correction after this point is a new revision, not an edit.
+            </p>
+            {transition.error && <div className="mt-3"><Alert tone="fail">{transition.error}</Alert></div>}
+            <DialogActions>
+              <Button variant="secondary" onClick={() => setConfirming(null)}>Cancel</Button>
+              <Button variant="primary" loading={transition.pending} onClick={confirmDialog}>
+                {confirming.label}
+              </Button>
+            </DialogActions>
+          </>
+        )}
+      </Dialog>
+
+      {/* Reason required: Remit back for further tests, and Return to Metrological Assistant.
+          api.transition already accepts `note` (apps/web/src/lib/api.ts) — this is the one place
+          that ever sends it. */}
+      <Dialog
+        open={reasonFor !== null}
+        onClose={() => setReasonFor(null)}
+        title={reasonFor ? reasonFor.label : ""}
+        description="The officer who receives this next needs to know what to fix, not just that it moved."
+      >
+        {reasonFor && (
+          <>
+            <Field label="Reason" required hint={reasonFor.basis}>
+              <TextArea
+                autoFocus
+                value={reasonText}
+                onChange={(e) => setReasonText(e.target.value)}
+                placeholder="What needs to change before this comes back?"
+              />
+            </Field>
+            {transition.error && <div className="mt-3"><Alert tone="fail">{transition.error}</Alert></div>}
+            <DialogActions>
+              <Button variant="secondary" onClick={() => setReasonFor(null)}>Cancel</Button>
+              <Button
+                variant="primary"
+                loading={transition.pending}
+                disabled={!reasonText.trim()}
+                onClick={confirmReason}
+              >
+                {reasonFor.label}
+              </Button>
+            </DialogActions>
+          </>
+        )}
+      </Dialog>
+
+      {/* Record deficiency. POST /deficiencies records the finding and, as a side effect,
+          performs SUBMITTED -> DEFICIENCY (apps/api/src/domain/service.ts, lifecycle.ts).
+          "Return to Metrological Assistant" is the separate DEFICIENCY -> DRAFT transition —
+          offered here as one action, since a reviewer raising a finding is nearly always ready
+          to send it back in the same breath. */}
+      <Dialog
+        open={deficiencyOpen}
+        onClose={() => setDeficiencyOpen(false)}
+        title="Record deficiency"
+        description="AoM Rule 8: the reviewing officer records deficiencies and returns the report to the laboratory."
+      >
+        <div className="flex flex-col gap-4">
+          <Field label="What is wrong" required>
+            <TextArea
+              autoFocus
+              value={defText}
+              onChange={(e) => setDefText(e.target.value)}
+              placeholder="Describe the deficiency — specific enough that the Metrological Assistant knows what to redo."
+            />
+          </Field>
+          <Field label="Severity" required>
+            <Select value={defSeverity} onChange={(e) => setDefSeverity(e.target.value)}>
+              {SEVERITIES.map((s) => (
+                <option key={s.value} value={s.value}>{s.label}</option>
+              ))}
+            </Select>
+          </Field>
+          <Field label="Form reference" hint="Optional — which recorded form this is about.">
+            <Select value={defFormId} onChange={(e) => setDefFormId(e.target.value)}>
+              <option value="">Not tied to one form</option>
+              {applicable.map((f) => (
+                <option key={f.form_id} value={f.form_id}>
+                  Form {f.form_id} — {f.test_id.replace(/_/g, " ")}
+                </option>
+              ))}
+            </Select>
+          </Field>
+          <label className="flex items-start gap-2.5 text-body-md text-on-surface">
+            <input
+              type="checkbox"
+              checked={defReturnNow}
+              onChange={(e) => setDefReturnNow(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-outline-variant/60 text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            />
+            <span>
+              Also return this to the Metrological Assistant now
+              <span className="block text-body-sm text-on-surface-variant">
+                Otherwise it stays with you, recorded but not yet sent back.
+              </span>
+            </span>
+          </label>
+          {(raiseDeficiency.error || transition.error) && (
+            <Alert tone="fail">{raiseDeficiency.error || transition.error}</Alert>
+          )}
+          <DialogActions>
+            <Button variant="secondary" onClick={() => setDeficiencyOpen(false)}>Cancel</Button>
+            <Button
+              variant="primary"
+              loading={raiseDeficiency.pending || transition.pending}
+              disabled={!defText.trim()}
+              onClick={submitDeficiency}
+            >
+              {defReturnNow ? "Record and return to the MA" : "Record deficiency"}
+            </Button>
+          </DialogActions>
+        </div>
+      </Dialog>
     </ReportContext.Provider>
   );
+}
+
+/**
+ * The server's `canWriteReport` always checks against one representative capability
+ * (`report:edit_profile`) and, when that is what fails, says so literally: "Role AD lacks
+ * capability report:edit_profile." True, but nobody outside this codebase reads capability
+ * strings — reword the one case that leaks one; the other two reasons are already in plain
+ * language.
+ */
+function humanizeReadOnlyReason(reason: string | undefined, status: string): string {
+  if (!reason) return "Nothing here can be changed.";
+  const m = /^Role (\w+) lacks capability report:edit_profile\.$/.exec(reason);
+  if (!m) return reason;
+  const role = ROLE_LABEL[m[1] as keyof typeof ROLE_LABEL] ?? m[1];
+  const reviewing = ["SUBMITTED", "DEFICIENCY", "RECOMMENDED", "PROVISIONAL"].includes(status);
+  return reviewing
+    ? `${role} can review this report but not edit it while it is ${humanizeStatus(status).toLowerCase()}.`
+    : `${role} cannot edit this report in its current state.`;
 }
 
 /** The server's guard names, in words an officer would use. */

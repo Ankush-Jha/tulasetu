@@ -369,6 +369,13 @@ export interface ReportSignature {
   /** Signed under a key the officer has since replaced. Not a failure — see the service. */
   keyRotated?: boolean;
   reason?: string;
+  /**
+   * The event-log version this signature covers (apps/api/src/domain/service.ts getSignatures).
+   * Already present on the wire — GET /reports/:id and GET /reports/:id/signatures both return
+   * it from the same service call — just not previously declared here. Lets the UI say when a
+   * record has been appended after a signature that is meant to cover the whole chain.
+   */
+  eventVersion?: number;
 }
 
 export interface Deficiency {
