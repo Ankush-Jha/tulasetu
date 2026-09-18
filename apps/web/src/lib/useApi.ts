@@ -121,6 +121,82 @@ export function useMutation<TArgs extends unknown[], TResult>(
 }
 
 /**
+ * A cache entry: the in-flight (or already-settled) promise, plus the resolved value once
+ * there is one. Kept at module scope so it survives the mounting and unmounting of whatever
+ * component asked for it — the point of this hook.
+ */
+interface CacheEntry<T> {
+  promise: Promise<T>;
+  value?: T;
+}
+const resourceCache = new Map<string, CacheEntry<unknown>>();
+
+/**
+ * Like `useApi`, for a resource that is the same for every caller and does not change during a
+ * session — the R 76-2 form layouts being the motivating case (MA-07). `useApi` refetches on
+ * every mount, which is correct for report data (it changes) and wasteful for a static file
+ * that opening the Observations tab a second time asked for again, sometimes visibly slowly.
+ *
+ * The fetch happens once per `key` per page load: the first caller populates `resourceCache`,
+ * every later caller — including one that mounts before the first request has even resolved —
+ * reads the same promise instead of starting a second request. `reload()` is provided for
+ * symmetry with `useApi` but is expected to be rare, since the whole point of this hook is a
+ * resource that does not need refetching.
+ */
+export function useCachedResource<T>(key: string, fetcher: () => Promise<T>): AsyncState<T> {
+  const existing = resourceCache.get(key) as CacheEntry<T> | undefined;
+  const [data, setData] = useState<T | null>(existing?.value ?? null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(existing?.value === undefined);
+  const [nonce, setNonce] = useState(0);
+
+  useEffect(() => {
+    let live = true;
+    let entry = resourceCache.get(key) as CacheEntry<T> | undefined;
+
+    // A fresh key, or an explicit reload, starts a new request; anything else reuses whatever
+    // is already in flight or already resolved.
+    if (!entry || nonce > 0) {
+      entry = { promise: fetcher() };
+      resourceCache.set(key, entry as CacheEntry<unknown>);
+    }
+
+    if (entry.value !== undefined) {
+      setData(entry.value);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    entry.promise
+      .then((result) => {
+        resourceCache.set(key, { promise: entry!.promise, value: result });
+        if (live) {
+          setData(result);
+          setError(null);
+        }
+      })
+      .catch((err: unknown) => {
+        // Do not cache a failure — the next mount should get a real chance to retry rather than
+        // replay the same rejection forever.
+        resourceCache.delete(key);
+        if (live) setError(err instanceof ApiError ? err.message : err instanceof Error ? err.message : String(err));
+      })
+      .finally(() => {
+        if (live) setLoading(false);
+      });
+
+    return () => {
+      live = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key, nonce]);
+
+  const reload = useCallback(() => setNonce((n) => n + 1), []);
+  return { data, loading, initialLoading: loading && data === null, error, reload };
+}
+
+/**
  * Debounced value, for the live mpe preview.
  *
  * An officer typing "4500" passes through 4, 45 and 450 on the way. Without a delay each of

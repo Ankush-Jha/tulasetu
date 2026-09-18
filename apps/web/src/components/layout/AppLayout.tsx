@@ -6,20 +6,44 @@
  * checked whether anyone was signed in, so `/` rendered the full application to an anonymous
  * visitor. The canvas is now the coloured ground and each page's cards sit directly on it,
  * which is what gives the surfaces an edge to be read against.
+ *
+ * Three more additions live here rather than in a page, because all three are properties of the
+ * shell, not of any one screen:
+ *
+ *  - **The phone-width nav drawer's open/closed state.** The sidebar renders differently below
+ *    `md` (see Sidebar.tsx); this is what opens and closes that, and it closes automatically on
+ *    every route change so a link followed from the drawer does not leave it sitting over the
+ *    page it just navigated to (F11/V-02).
+ *  - **The skip-to-content link (V-07).** First in the DOM, off-screen until focused, so a
+ *    keyboard user is not forced through the header and sidebar's stops on every single page.
+ *  - **Onboarding.** Triggered here, once, the first time a role's session reaches `/dashboard`
+ *    — see `useOnboarding` for why this file rather than DashboardPage owns the automatic
+ *    trigger (the header's replay control needs the same dialog reachable from every page, not
+ *    just the dashboard).
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
 import { LoadingState } from "../ui";
 import { cn } from "../../lib/cn";
 import { useAuth } from "../../lib/auth";
+import { OnboardingDialog, useOnboarding } from "../onboarding/Onboarding";
 
 export function AppLayout() {
   const { session, loading } = useAuth();
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const onboarding = useOnboarding(session, location.pathname);
+
+  // A link followed inside the drawer already closes it (Sidebar's own click handler), but the
+  // browser back/forward buttons and any programmatic navigation do not go through that
+  // handler — this catches those too.
+  useEffect(() => {
+    setMobileNavOpen(false);
+  }, [location.pathname]);
 
   // Wait for the restore attempt before deciding. Redirecting first would sign out anyone
   // who refreshed the page.
@@ -37,12 +61,27 @@ export function AppLayout() {
 
   return (
     <div className="min-h-screen bg-canvas">
-      <Header />
-      <Sidebar collapsed={collapsed} onToggle={() => setCollapsed((c) => !c)} />
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+
+      <Header
+        onOpenMobileNav={() => setMobileNavOpen(true)}
+        onReplayOnboarding={onboarding.replay}
+        canReplayOnboarding={onboarding.canReplay}
+      />
+      <Sidebar
+        collapsed={collapsed}
+        onToggle={() => setCollapsed((c) => !c)}
+        mobileOpen={mobileNavOpen}
+        onCloseMobile={() => setMobileNavOpen(false)}
+      />
       <main
+        id="main-content"
+        tabIndex={-1}
         className={cn(
-          "min-h-screen pt-[92px] pb-8 pr-4 transition-[padding] duration-200",
-          collapsed ? "pl-[92px]" : "pl-[236px]",
+          "min-h-screen pt-[92px] pb-8 pl-4 pr-4 transition-[padding] duration-200",
+          collapsed ? "md:pl-[92px]" : "md:pl-[236px]",
         )}
       >
         <div className="mx-auto w-full max-w-[1400px]">
@@ -61,6 +100,10 @@ export function AppLayout() {
           </footer>
         </div>
       </main>
+
+      {onboarding.visible && (
+        <OnboardingDialog steps={onboarding.steps} onClose={onboarding.dismiss} />
+      )}
     </div>
   );
 }

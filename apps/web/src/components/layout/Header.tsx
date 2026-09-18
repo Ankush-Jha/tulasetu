@@ -8,6 +8,16 @@
  * The user cluster shows who is actually signed in and what they may do, because the approval
  * chain (MA → AD/DD → Director) is the point of the product and a header that shows one
  * hard-coded name to everybody cannot express it.
+ *
+ * Two things were wrong at phone width (MA-06). First, the ruleset badge carried its own
+ * `hidden lg:inline-flex` while its own component (`Badge` in components/ui) already puts an
+ * unconditional `inline-flex` in its base classes — same specificity, so whichever rule Tailwind
+ * happens to emit later in the stylesheet wins, and it was `inline-flex`, not `hidden`. The
+ * badge showed at every width and ran into the brand title. Wrapping it in a plain
+ * `hidden lg:block` element sidesteps the clash without touching components/ui: the wrapper's
+ * display, not the badge's own, is what the breakpoint controls. Second, the brand subtitle
+ * ("NAWI type evaluation…") was competing for the same cramped row as the hamburger, the badge
+ * and the identity menu; it now drops below `sm` rather than truncating the title next to it.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -18,7 +28,18 @@ import { initialsOf, useAuth } from "../../lib/auth";
 import { api } from "../../lib/api";
 import { useApi } from "../../lib/useApi";
 
-export function Header() {
+export function Header({
+  onOpenMobileNav,
+  onReplayOnboarding,
+  canReplayOnboarding,
+}: {
+  /** Opens the off-canvas sidebar drawer below `md` (F11/V-02). */
+  onOpenMobileNav: () => void;
+  /** Reopens the onboarding dialog for the signed-in role, from any page (F8/V-01/V-10). */
+  onReplayOnboarding: () => void;
+  /** False when this role has no scripted walkthrough yet — the control still shows, disabled. */
+  canReplayOnboarding: boolean;
+}) {
   const { session, signOut } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -45,8 +66,18 @@ export function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 h-[76px] border-b border-outline-variant/40 bg-canvas/85 backdrop-blur-xl">
-      <div className="flex h-full items-center justify-between gap-4 px-4">
-        <div className="flex min-w-0 items-center gap-3">
+      <div className="flex h-full items-center justify-between gap-2 px-3 sm:gap-4 sm:px-4">
+        <div className="flex min-w-0 items-center gap-1 sm:gap-3">
+          {/* Off-canvas sidebar drawer trigger — the sidebar itself is fixed and off-screen
+              below md, so this is the only way to reach navigation on a phone (F11/V-02). */}
+          <button
+            onClick={onOpenMobileNav}
+            aria-label="Open navigation"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container-low focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:hidden"
+          >
+            <Icon name="menu" size={20} />
+          </button>
+
           <Link
             to="/dashboard"
             className="flex min-w-0 items-center gap-3 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -59,28 +90,51 @@ export function Header() {
             </span>
             <span className="flex min-w-0 flex-col leading-tight">
               <span className="text-headline-sm font-bold text-on-surface">TulaSetu</span>
-              <span className="truncate text-label-sm text-on-surface-variant">
+              {/* Dropped below `sm` rather than truncated — at phone width there is not room
+                  for both this and the identity menu, and the title alone still identifies the
+                  application. */}
+              <span className="hidden truncate text-label-sm text-on-surface-variant sm:block">
                 NAWI type evaluation · OIML R 76
               </span>
             </span>
           </Link>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          {canReplayOnboarding && (
+            <button
+              onClick={onReplayOnboarding}
+              title="Replay the introduction"
+              aria-label="Replay the introduction"
+              className={cn(
+                "flex h-9 w-9 items-center justify-center gap-1.5 rounded-full border border-outline-variant/50",
+                "bg-surface-container-lowest text-on-surface-variant transition-colors hover:bg-surface-container-low",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+                "md:w-auto md:px-3",
+              )}
+            >
+              <Icon name="help" size={16} />
+              <span className="hidden text-label-md font-semibold md:inline">Replay intro</span>
+            </button>
+          )}
+
           {health && (
             // A draft edition announces itself in the chrome. A report computed against a
             // committee draft is indistinguishable from one computed against the standard in
-            // force unless the application says so.
-            <Badge
-              tone={health.draftEdition ? "warn" : "neutral"}
-              icon={health.draftEdition ? "science" : "gavel"}
-              className="hidden lg:inline-flex"
-              {...(health.rulesetStatus ? { title: health.rulesetStatus } : {})}
-            >
-              {health.rulesetId}
-              {health.rulesetVersion ? ` v${health.rulesetVersion}` : ""}
-              {health.draftEdition ? " · DRAFT" : ""}
-            </Badge>
+            // force unless the application says so. Hidden below `lg` through this wrapper, not
+            // through a class on the badge itself — see the file-level note on why that split
+            // matters.
+            <div className="hidden lg:block">
+              <Badge
+                tone={health.draftEdition ? "warn" : "neutral"}
+                icon={health.draftEdition ? "science" : "gavel"}
+                {...(health.rulesetStatus ? { title: health.rulesetStatus } : {})}
+              >
+                {health.rulesetId}
+                {health.rulesetVersion ? ` v${health.rulesetVersion}` : ""}
+                {health.draftEdition ? " · DRAFT" : ""}
+              </Badge>
+            </div>
           )}
 
           {session && (

@@ -47,7 +47,7 @@ import {
   type FormSpec,
   type FormSubformSpec,
 } from "../../lib/api";
-import { useApi, useMutation } from "../../lib/useApi";
+import { useCachedResource, useMutation } from "../../lib/useApi";
 import { fmtNumber } from "../../lib/format";
 import { NeedsProfile, StepNav, useReport } from "./ReportLayout";
 
@@ -65,7 +65,11 @@ export function ObservationsStep() {
   const { reportId, detail, instrument, reload, writable } = useReport();
   const [params, setParams] = useSearchParams();
 
-  const formsFile = useApi((s) => api.forms(s), []);
+  // The R 76-2 layouts are the same file for every report and every officer in the session —
+  // fetching them again each time this tab is opened was the slow, and pointless, part of
+  // MA-07 ("Loading the R 76-2 form layouts…" taking upward of fifteen seconds once and every
+  // time after that paying the network round trip again). Cached once per page load instead.
+  const formsFile = useCachedResource("r76-2-forms", () => api.forms());
 
   const applicable = useMemo(
     () =>
@@ -177,7 +181,7 @@ export function ObservationsStep() {
 
   const unit = instrument.unit;
 
-  function setCell(tableId: string, i: number, key: string, value: string | boolean) {
+  function setCell(tableId: string, i: number, key: string, value: string | number | boolean) {
     setRowsByTable((all) => ({
       ...all,
       [tableId]: (all[tableId] ?? []).map((r, j) => (j === i ? { ...r, [key]: value } : r)),
@@ -487,7 +491,7 @@ function FormTable({
   results: (FormRow & { verdict?: string })[] | null;
   allRows: Record<string, FormRow[]>;
   tables: FormSubformSpec[];
-  onCell: (i: number, key: string, v: string | boolean) => void;
+  onCell: (i: number, key: string, v: string | number | boolean) => void;
   onAddRow: () => void;
   onRemoveRow: (i: number) => void;
 }) {
@@ -635,7 +639,7 @@ function CellInput({
   column: FormColumnSpec;
   value: string | number | boolean | null | undefined;
   readOnly?: boolean;
-  onChange: (v: string | boolean) => void;
+  onChange: (v: string | number | boolean) => void;
 }) {
   // On a closed report the value is printed rather than put in a box: a disabled input still
   // reads as something that was meant to be filled in, and this was.
@@ -673,7 +677,15 @@ function CellInput({
   return (
     <Input
       value={value === undefined || value === null ? "" : String(value)}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => {
+        const raw = e.target.value;
+        // A mass/count/percent column is a number on the wire (FormRow allows one) — sending
+        // the raw string worked because the server tolerated it, but the client should not
+        // depend on that tolerance. Empty stays "" rather than becoming Number("") === 0, which
+        // `compute()`'s own filled-row check (row[c.key] !== "") already relies on to tell a
+        // blank cell from a real zero.
+        onChange(numeric && raw !== "" ? Number(raw) : raw);
+      }}
       {...(numeric ? { inputMode: "decimal" as const } : {})}
       aria-label={column.label}
       className={cn("h-9", numeric && "text-right tabular-nums")}

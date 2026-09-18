@@ -151,8 +151,14 @@ export function ModulesPage() {
         }
       />
 
+      {/*
+        `min-w-0` on both columns below overrides the grid item default of `min-width: auto` —
+        without it, a grid item's minimum width is its content's min-content, and the results
+        table (F.check descriptions plus four more columns) pushed the whole page wider than
+        its viewport at 390px rather than scrolling inside its own card (F14/V-03).
+      */}
       <div className="grid items-start gap-5 xl:grid-cols-5">
-        <div className="flex flex-col gap-5 xl:col-span-3">
+        <div className="flex min-w-0 flex-col gap-5 xl:col-span-3">
           <Card>
             <CardHeader icon="scale" title="Weighing instrument" description="Annex F.1 — masses in grams" />
             <div className="grid gap-3 sm:grid-cols-3">
@@ -209,7 +215,7 @@ export function ModulesPage() {
           </Card>
         </div>
 
-        <div className="flex flex-col gap-5 xl:col-span-2">
+        <div className="flex min-w-0 flex-col gap-5 xl:col-span-2">
           {run.error && <Alert tone="fail" title="Check failed">{run.error}</Alert>}
 
           {!result ? (
