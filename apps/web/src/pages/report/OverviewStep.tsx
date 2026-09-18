@@ -20,7 +20,6 @@ import { Link } from "react-router-dom";
 import {
   Alert,
   Badge,
-  Button,
   Card,
   CardHeader,
   Clause,
@@ -31,10 +30,13 @@ import {
 } from "../../components/ui";
 import { cn } from "../../lib/cn";
 import { api } from "../../lib/api";
-import { useMutation } from "../../lib/useApi";
+import { useApi } from "../../lib/useApi";
 import { REPORT_STEPS, reportPath } from "../../lib/nav";
 import { formatDate, formatDateTime } from "../../lib/format";
 import { useReport } from "./ReportLayout";
+
+/** Transitions whose `note` is worth surfacing here, for whoever the report lands back with. */
+const RETURN_EVENTS = new Set(["REMITTED_FOR_FURTHER_TESTS", "RETURNED_TO_LAB"]);
 
 /**
  * What each state means, and what is owed next — in the words an officer would use rather than
@@ -115,10 +117,20 @@ const STATES: Record<string, { meaning: string; owed?: string; tone: "info" | "w
 };
 
 export function OverviewStep() {
-  const { detail, reportId, reload, instrument } = useReport();
+  const { detail, reportId, instrument } = useReport();
   const { report, forms, available, guards, writable, signatures, deficiencies } = detail;
 
-  const transition = useMutation(api.transition);
+  // Read-only, and only for the one thing this page adds beyond what ReportLayout already
+  // fetched: whether the last time this report went backwards (a remit, a return to the lab)
+  // carried a reason, and what it said. Every role holds `audit:verify` (apps/api/src/domain/
+  // rbac.ts), so this never 403s regardless of who is looking.
+  const audit = useApi((s) => api.audit(reportId, s), [reportId]);
+  const lastReturn = audit.data?.events
+    .filter((e) => RETURN_EVENTS.has(e.eventType))
+    .at(-1);
+  const lastReturnNote = lastReturn && typeof lastReturn.payload["note"] === "string"
+    ? (lastReturn.payload["note"] as string)
+    : null;
 
   const applicable = forms.filter((f) => f.applicable === 1);
   const recorded = applicable.filter((f) => f.verdict);
@@ -126,10 +138,11 @@ export function OverviewStep() {
   const openDeficiencies = deficiencies.filter((d) => !d.resolvedAt);
   const state = STATES[report.status] ?? { meaning: report.status, tone: "info" as const };
 
-  async function move(to: string) {
-    const ok = await transition.run(reportId, { to });
-    if (ok) reload();
-  }
+  // A reviewer (writable.allowed is false because this officer can see the report but not
+  // change it) is here to make a judgement call, not to "continue" someone else's bench work —
+  // SUBMITTED/DEFICIENCY/RECOMMENDED/PROVISIONAL read as "under review", everything else
+  // (LOCKED and beyond) reads as simply closed.
+  const underReview = ["SUBMITTED", "DEFICIENCY", "RECOMMENDED", "PROVISIONAL"].includes(report.status);
 
   return (
     <div className="flex flex-col gap-4">
@@ -151,38 +164,23 @@ export function OverviewStep() {
               </p>
             )}
           </div>
-
-          {/* The moves this officer can actually take, which is not the same as the moves
-              that exist. An action nobody can take is not worth a button. */}
-          <div className="flex shrink-0 flex-wrap items-center gap-2">
-            {available.length === 0 ? (
-              <span className="rounded-full bg-surface-container-low px-3 py-1.5 text-body-sm text-on-surface-variant">
-                No action for your role
-              </span>
-            ) : (
-              available.map((t) => (
-                <Button
-                  key={`${t.from}-${t.to}`}
-                  variant={t.to === "LOCKED" || t.to === "PUBLISHED" ? "primary" : "secondary"}
-                  loading={transition.pending}
-                  onClick={() => move(t.to)}
-                  title={t.basis}
-                >
-                  {t.label}
-                </Button>
-              ))
-            )}
-          </div>
         </div>
 
-        {transition.error && (
+        {/* Why a report went backwards last, for whoever it lands with now. A remit or a
+            return to the lab without this is a status change with no instruction attached —
+            the officer can see *that* something must be fixed but not *what*. */}
+        {lastReturnNote && (
           <div className="mt-3">
-            <Alert tone="fail" title="That step is not available yet">{transition.error}</Alert>
+            <Alert tone="warn" icon="undo" title="Why this came back">
+              {lastReturnNote}
+            </Alert>
           </div>
         )}
 
         {/* Why a move is not offered. The state machine knows; silence would make the officer
-            guess, which is the question "why is that button not there". */}
+            guess, which is the question "why is that button not there". The actions themselves
+            live once, in the strip above every step (ReportLayout) — repeating them here as a
+            second set of buttons was DIR-07. */}
         {available.some((t) => (t.requires ?? []).some((g) => !guards.includes(g))) && (
           <div className="mt-3 flex flex-wrap gap-2">
             {available.flatMap((t) =>
@@ -197,6 +195,51 @@ export function OverviewStep() {
           </div>
         )}
       </Card>
+
+      {/* Deficiencies, right under the status card rather than below the result grid: what a
+          reviewing officer said is the thing an MA opening a DEFICIENCY (or a returned DRAFT)
+          report is here to read, and it should not wait behind a table of forms to be found. */}
+      {deficiencies.length > 0 && (
+        <Card>
+          <CardHeader
+            icon="report_problem"
+            title="Deficiencies"
+            description={
+              openDeficiencies.length > 0
+                ? `${openDeficiencies.length} open — the report cannot be recommended until they are closed`
+                : "All closed"
+            }
+            action={<Clause>AoM Rule 8</Clause>}
+          />
+          <ul className="flex flex-col gap-3">
+            {deficiencies.map((d) => (
+              <li
+                key={d.id}
+                className={cn(
+                  "rounded-xl border p-3.5",
+                  d.resolvedAt ? "border-outline-variant/50" : "border-error/40 bg-error-container/20",
+                )}
+              >
+                <div className="mb-1 flex flex-wrap items-center gap-2">
+                  <Badge tone={d.resolvedAt ? "neutral" : "fail"}>
+                    {d.resolvedAt ? "Closed" : d.severity}
+                  </Badge>
+                  {d.formId && <Badge tone="neutral" className="font-mono">Form {d.formId}</Badge>}
+                  <span className="text-body-sm text-on-surface-variant">
+                    {d.raisedBy} · {formatDate(d.raisedAt)}
+                  </span>
+                </div>
+                <p className="text-body-md text-on-surface">{d.text}</p>
+                {d.resolution && (
+                  <p className="mt-1.5 border-l-2 border-outline-variant pl-2.5 text-body-sm text-on-surface-variant">
+                    <span className="font-semibold">Answered:</span> {d.resolution}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </Card>
+      )}
 
       {/* What the report says. */}
       <div className="grid gap-4 lg:grid-cols-3">
@@ -255,7 +298,11 @@ export function OverviewStep() {
 
         {/* Who has put their name to it. */}
         <Card>
-          <CardHeader icon="verified_user" title="Signatures" description="Re-verified when this page loaded" />
+          <CardHeader
+            icon="verified_user"
+            title="Signatures"
+            description="Re-verified when this page loaded"
+          />
           {signatures.length === 0 ? (
             <p className="text-body-sm text-on-surface-variant">
               Nobody has signed this report yet. A signature covers the whole event chain behind
@@ -303,61 +350,37 @@ export function OverviewStep() {
               </code>
             </div>
           )}
+
+          {/* A full-width row of its own, rather than a header action — competing with "Signatures"
+              for space in a one-third-width column truncated the title at 1024px (AD-07). */}
+          <Link
+            to={reportPath(reportId, "report")}
+            className="mt-4 flex items-center gap-1.5 border-t border-outline-variant/40 pt-3 text-body-sm text-primary hover:underline"
+          >
+            <Icon name="history" size={15} />
+            See the full audit trail and chain verification
+          </Link>
         </Card>
       </div>
-
-      {/* Deficiencies: what a reviewing officer said, and whether it was answered. */}
-      {deficiencies.length > 0 && (
-        <Card>
-          <CardHeader
-            icon="report_problem"
-            title="Deficiencies"
-            description={
-              openDeficiencies.length > 0
-                ? `${openDeficiencies.length} open — the report cannot be recommended until they are closed`
-                : "All closed"
-            }
-            action={<Clause>AoM Rule 8</Clause>}
-          />
-          <ul className="flex flex-col gap-3">
-            {deficiencies.map((d) => (
-              <li
-                key={d.id}
-                className={cn(
-                  "rounded-xl border p-3.5",
-                  d.resolvedAt ? "border-outline-variant/50" : "border-error/40 bg-error-container/20",
-                )}
-              >
-                <div className="mb-1 flex flex-wrap items-center gap-2">
-                  <Badge tone={d.resolvedAt ? "neutral" : "fail"}>
-                    {d.resolvedAt ? "Closed" : d.severity}
-                  </Badge>
-                  {d.formId && <Badge tone="neutral" className="font-mono">Form {d.formId}</Badge>}
-                  <span className="text-body-sm text-on-surface-variant">
-                    {d.raisedBy} · {formatDate(d.raisedAt)}
-                  </span>
-                </div>
-                <p className="text-body-md text-on-surface">{d.text}</p>
-                {d.resolution && (
-                  <p className="mt-1.5 border-l-2 border-outline-variant pl-2.5 text-body-sm text-on-surface-variant">
-                    <span className="font-semibold">Answered:</span> {d.resolution}
-                  </p>
-                )}
-              </li>
-            ))}
-          </ul>
-        </Card>
-      )}
 
       {/* The detail, for whoever wants it. Read-only where the report is. */}
       <Card>
         <CardHeader
           icon="list_alt"
-          title={writable.allowed ? "Continue the report" : "Read the report"}
+          title={
+            writable.allowed
+              ? "Continue the report"
+              : underReview
+                ? "Review the readings"
+                : "Read the report"
+          }
           description={
             writable.allowed
               ? "Each section, in the order the data depends on it"
-              : "Nothing here can be changed — the sections are open for reading"
+              : underReview
+                ? "Nothing here can be changed while it is with you for review — read each " +
+                  "section, then decide above."
+                : "Nothing here can be changed — the sections are open for reading"
           }
         />
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
