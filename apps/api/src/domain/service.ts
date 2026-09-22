@@ -32,7 +32,7 @@ import {
   type Variant,
   type Verdict,
   type WeighingObservation,
-} from "@tulasetu/engine";
+} from "@taraazu/engine";
 
 import type { Db } from "../db/open.js";
 import { appendEvent, verifyChain, readEvents } from "../db/events.js";
@@ -679,7 +679,7 @@ export async function renderReportForDownload(
       const onVercel = process.env["VERCEL"] === "1";
       // The raw failure only goes to the server log — an officer's 503 stays short and
       // actionable, but whoever deployed this needs the real reason available somewhere.
-      console.error(`[tulasetu] PDF rendering could not start Chromium: ${message}`);
+      console.error(`[taraazu] PDF rendering could not start Chromium: ${message}`);
       throw new ServiceError(
         503,
         "RENDERER_UNAVAILABLE",

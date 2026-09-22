@@ -94,13 +94,13 @@ export async function renderPdf(doc: ReportDocument, opts: PdfOptions = {}): Pro
  *
  * `VERCEL` is the platform's own system environment variable, set on every build and every
  * invocation (https://vercel.com/docs/environment-variables/system-environment-variables) —
- * nothing here has to guess. `TULASETU_SERVERLESS_CHROMIUM=1` forces the same path outside of
+ * nothing here has to guess. `TARAAZU_SERVERLESS_CHROMIUM=1` forces the same path outside of
  * Vercel, which is how it is exercised from a developer machine without deploying anything;
  * see packages/renderers/tests/render.test.ts.
  */
 async function launchChromium(): Promise<Browser> {
   const serverless =
-    process.env["VERCEL"] === "1" || process.env["TULASETU_SERVERLESS_CHROMIUM"] === "1";
+    process.env["VERCEL"] === "1" || process.env["TARAAZU_SERVERLESS_CHROMIUM"] === "1";
   if (serverless) {
     const [{ chromium }, sparticuz] = await Promise.all([
       import("playwright-core"),

@@ -31,7 +31,7 @@
  *    looking at a real laboratory's records.
  */
 
-import type { InstrumentProfile } from "@tulasetu/engine";
+import type { InstrumentProfile } from "@taraazu/engine";
 
 import type { ServiceContext } from "./service.js";
 import * as svc from "./service.js";

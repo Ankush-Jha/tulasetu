@@ -243,7 +243,7 @@ export async function renderDocx(doc: ReportDocument, opts: DocxOptions = {}): P
   }
 
   const document = new Document({
-    creator: "TulaSetu",
+    creator: "Taraazu",
     title: `Type evaluation report ${doc.identity.reportId}`,
     description: "OIML R 76-2 type evaluation test report",
     sections: [

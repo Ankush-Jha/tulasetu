@@ -1,5 +1,5 @@
 /**
- * @tulasetu/engine — the deterministic calculation core.
+ * @taraazu/engine — the deterministic calculation core.
  *
  * Pure functions only: no I/O, no database, no UI, no clock, no randomness. Input is
  * observations plus a rule pack; output is errors, resolved mpe values and verdicts. That

@@ -1,7 +1,7 @@
 /**
  * Repository tests.
  *
- * The claims being tested are the ones TulaSetu makes to a regulator, not merely to a
+ * The claims being tested are the ones Taraazu makes to a regulator, not merely to a
  * developer: that a recorded observation cannot be altered, that an alteration made behind
  * the application's back is detectable, that the approval chain cannot be short-circuited by
  * seniority, and that the Rule 4(9) return is a query rather than an exercise.

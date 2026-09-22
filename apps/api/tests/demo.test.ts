@@ -12,7 +12,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { RulePack } from "@tulasetu/engine";
+import type { RulePack } from "@taraazu/engine";
 
 import { openMemoryDb, type Db } from "../src/db/open.js";
 import { registerRoutes } from "../src/routes.js";

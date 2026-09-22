@@ -10,7 +10,7 @@
  * criteria of its own — if a form's shape is wrong, the fix is in the forms file.
  */
 
-import type { AccuracyClass, InstrumentProfile, MassUnit, Verdict } from "@tulasetu/engine";
+import type { AccuracyClass, InstrumentProfile, MassUnit, Verdict } from "@taraazu/engine";
 import type {
   Cell,
   RenderedForm,
@@ -26,7 +26,7 @@ import type {
 // its way to the renderer. The entry screen, the runner and the renderer all read the same
 // file, so they read the same description of it.
 
-import type { FormColumnSpec, FormSpec, FormsFile } from "@tulasetu/engine";
+import type { FormColumnSpec, FormSpec, FormsFile } from "@taraazu/engine";
 
 export type { FormColumnSpec, FormSpec, FormsFile };
 

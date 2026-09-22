@@ -26,11 +26,11 @@
  *   still work.
  *
  * This file is the *source*; `scripts/build-api.mjs` bundles it (and everything it pulls in,
- * including the `@tulasetu/*` workspace packages) into the plain, dependency-free `api/handler.mjs`
+ * including the `@taraazu/*` workspace packages) into the plain, dependency-free `api/handler.mjs`
  * that actually gets deployed. It has to be pre-bundled rather than left for Vercel's own
  * zero-config Node builder to trace: that builder treats a workspace package it finds via a
  * node_modules symlink as an external runtime dependency and copies the raw folder alongside —
- * fine for an ordinary npm package, fatal for `@tulasetu/engine`, whose `main` is `src/index.ts`
+ * fine for an ordinary npm package, fatal for `@taraazu/engine`, whose `main` is `src/index.ts`
  * and which a plain Node process cannot execute (see the commit that added this file for the
  * `ERR_MODULE_NOT_FOUND … src/index.ts` this produced). `better-sqlite3`, the one dependency
  * with a compiled native binary, is deliberately left external of the bundle — the build script
@@ -55,7 +55,7 @@ import {
   supabaseConfig,
 } from "../../apps/api/src/db/persistence.js";
 import { seedDemonstrationData } from "../../apps/api/src/domain/demo.js";
-import type { RulePack } from "@tulasetu/engine";
+import type { RulePack } from "@taraazu/engine";
 
 // eslint-disable-next-line import/extensions -- inlined at build time; see the note above.
 import rulepack from "../../packages/rulepacks/OIML_R76_2006.json";
@@ -70,7 +70,7 @@ let serverPromise: Promise<Server> | null = null;
 /**
  * The three accounts the sign-in screen offers (`DEMO_ACCOUNTS` in apps/web/src/lib/auth.tsx),
  * inserted directly because nothing else seeds them on a *fresh* database. A bench install's
- * `tulasetu.db` accumulates users the ordinary way, through whatever onboarding a real
+ * `taraazu.db` accumulates users the ordinary way, through whatever onboarding a real
  * deployment wires up; this function starts from an empty in-memory database every cold start,
  * so without this the sign-in screen would offer three accounts the server had never heard of.
  */
@@ -80,9 +80,9 @@ function seedDemoUsers(db: Server["db"]): void {
     "INSERT OR IGNORE INTO labs (id,name,kind,lab_code,nabl_accredited,created_at) VALUES (?,?,?,?,?,?)",
   ).run("lab-fbd", "RRSL Faridabad", "RRSL", "09", 1, now);
   const users: [string, string, string, string][] = [
-    ["u-ma", "MA", "A. Assistant", "a.assistant@demo.tulasetu.invalid"],
-    ["u-ad", "AD", "B. Deputy", "b.deputy@demo.tulasetu.invalid"],
-    ["u-dir", "DIRECTOR", "C. Director", "c.director@demo.tulasetu.invalid"],
+    ["u-ma", "MA", "A. Assistant", "a.assistant@demo.taraazu.invalid"],
+    ["u-ad", "AD", "B. Deputy", "b.deputy@demo.taraazu.invalid"],
+    ["u-dir", "DIRECTOR", "C. Director", "c.director@demo.taraazu.invalid"],
   ];
   const insert = db.prepare(
     "INSERT OR IGNORE INTO users (id,lab_id,role_id,full_name,email,active,created_at) VALUES (?,?,?,?,?,1,?)",
@@ -112,7 +112,7 @@ function getServer(): Promise<Server> {
         if (snapshot.error) {
           // Reported, not swallowed: starting empty when a snapshot exists looks exactly like
           // data loss, and an operator needs to be able to tell the two apart.
-          console.error(`[tulasetu] could not read the stored database: ${snapshot.error}`);
+          console.error(`[taraazu] could not read the stored database: ${snapshot.error}`);
         }
         if (snapshot.bytes) restoreFrom = snapshot.bytes;
       }
@@ -157,20 +157,20 @@ function getServer(): Promise<Server> {
       // bench install runs `apps/api/src/server.ts`, which does none of this.
       const empty =
         (server.db.prepare("SELECT COUNT(*) AS n FROM reports").get() as { n: number }).n === 0;
-      if (empty && process.env["TULASETU_NO_AUTOSEED"] !== "1") {
+      if (empty && process.env["TARAAZU_NO_AUTOSEED"] !== "1") {
         try {
           const result = await seedDemonstrationData(
             { db: server.db, pack: server.pack, now: new Date().toISOString() },
             { userId: "u-ma", labId: "lab-fbd", role: "MA" },
           );
-          console.log(`[tulasetu] seeded ${result.created.length} demonstration reports`);
+          console.log(`[taraazu] seeded ${result.created.length} demonstration reports`);
           // Straight to storage, so the next cold start restores them rather than seeding
           // again — and so a reader of the bucket sees the same repository the site shows.
           if (config) await snapshots?.flush();
         } catch (err) {
           // A demonstration that failed to seed is still a working application; failing to
           // boot over it would not be.
-          console.error(`[tulasetu] could not seed demonstration data: ${(err as Error).message}`);
+          console.error(`[taraazu] could not seed demonstration data: ${(err as Error).message}`);
         }
       }
 

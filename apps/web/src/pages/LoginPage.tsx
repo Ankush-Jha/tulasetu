@@ -50,7 +50,7 @@ export function LoginPage() {
           >
             <Icon name="balance" size={28} />
           </span>
-          <h1 className="text-display-lg text-on-surface">TulaSetu</h1>
+          <h1 className="text-display-lg text-on-surface">Taraazu</h1>
           <p className="text-body-lg text-on-surface-variant mt-2 max-w-xl">
             Type-evaluation test reports for non-automatic weighing instruments, under OIML R 76
             and the Seventh Schedule to the Legal Metrology (General) Rules, 2011.

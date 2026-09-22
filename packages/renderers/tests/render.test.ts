@@ -19,7 +19,7 @@ import { assembleReport, describeClass, describeInstrument, type FormsFile } fro
 import { renderHtml, esc } from "../src/html.js";
 import { renderJson, canonicalHash } from "../src/json.js";
 import { NOT_APPLICABLE_MARK, type ReportDocument } from "../src/model.js";
-import type { InstrumentProfile } from "@tulasetu/engine";
+import type { InstrumentProfile } from "@taraazu/engine";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 

@@ -2,7 +2,7 @@
  * Snapshot persistence, against a stubbed Supabase.
  *
  * The property that matters is not that bytes move — it is that a *restored* database is the
- * same record as the one that was saved. TulaSetu's whole compliance argument rests on a
+ * same record as the one that was saved. Taraazu's whole compliance argument rests on a
  * hash-chained append-only log, so a round trip that lost or reordered a single event would
  * break the chain, and a restore that quietly replayed the log into a fresh database would be a
  * different record wearing the same reports. So these check the chain verifies after a restore,
@@ -14,7 +14,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { RulePack } from "@tulasetu/engine";
+import type { RulePack } from "@taraazu/engine";
 
 import { openMemoryDb, type Db } from "../src/db/open.js";
 import { registerRoutes } from "../src/routes.js";
@@ -35,8 +35,8 @@ const T = "2026-09-08T10:00:00.000Z";
 const config = {
   url: "https://example.supabase.co",
   serviceKey: "service-key",
-  bucket: "tulasetu",
-  object: "tulasetu.db",
+  bucket: "taraazu",
+  object: "taraazu.db",
 };
 
 /** One in-memory Supabase Storage bucket, and a record of what was asked of it. */
@@ -114,8 +114,8 @@ describe("configuration", () => {
     expect(c).toEqual({
       url: "https://x.supabase.co",
       serviceKey: "k",
-      bucket: "tulasetu",
-      object: "tulasetu.db",
+      bucket: "taraazu",
+      object: "taraazu.db",
     });
   });
 });
@@ -195,7 +195,7 @@ describe("a round trip keeps the record, not just the reports", () => {
     await saveSnapshot(config, db);
     await saveSnapshot(config, db);
     for (const c of storage.calls.filter((x) => x.method === "POST")) {
-      expect(c.url).toContain("tulasetu.db");
+      expect(c.url).toContain("taraazu.db");
     }
     expect(storage.fetchStub.mock.calls.every(([, init]) =>
       (init as RequestInit | undefined)?.method !== "POST" ||

@@ -9,7 +9,7 @@ Open this folder in Claude Code, then paste the message below as your first prom
 Read CLAUDE.md and docs/ before doing anything — this is a regulated legal-metrology
 domain and the details are load-bearing.
 
-We're building TulaSetu (SIH 2026, PS SIH26035): a deterministic engine that generates
+We're building Taraazu (SIH 2026, PS SIH26035): a deterministic engine that generates
 OIML R-76 type-evaluation test reports for Non-Automatic Weighing Instruments.
 
 Start with Milestone M1: packages/engine.
@@ -49,7 +49,7 @@ Show me the mpe resolver and its passing tests first, then continue.
 If starting fresh from this bundle:
 
 ```bash
-cd tulasetu
+cd taraazu
 npm install          # installs workspace deps
 npm run test         # should run engine tests (will be empty until M1 starts)
 ```

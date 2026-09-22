@@ -1,8 +1,8 @@
-# Deploying TulaSetu (Vercel)
+# Deploying Taraazu (Vercel)
 
 This is the operator's checklist for the hosted demonstration: the two things Vercel's own
 free-tier Node function cannot do on its own — render a PDF, and remember anything between
-requests — and the exact steps to switch both on. Nothing here is needed to run TulaSetu as it
+requests — and the exact steps to switch both on. Nothing here is needed to run Taraazu as it
 is actually meant to run in a laboratory: `apps/api/src/server.ts` against a real SQLite file on
 a real disk (CLAUDE.md §4). This document is only for the public, judge-facing deployment.
 
@@ -41,7 +41,7 @@ which `/api/health` and the seed button both say plainly rather than hiding.
 
 ### What this is *not*
 
-This is **not** a Postgres migration. TulaSetu's schema, including the append-only triggers that
+This is **not** a Postgres migration. Taraazu's schema, including the append-only triggers that
 make `report_events` un-editable and un-deletable (ISO/IEC 17025 §7.8), lives entirely in
 `apps/api/src/db/schema.sql` and is applied by `better-sqlite3` itself, in the function's memory,
 on every cold start — including one that just restored a snapshot (`migrate()` in
@@ -58,15 +58,15 @@ connection string anywhere in this application.
    "New project". The free tier is enough for a demonstration. Wait for it to finish
    provisioning.
 
-2. **Create a Storage bucket named `tulasetu`.** In the new project, open **Storage** in the left
-   sidebar → **New bucket** → name it exactly `tulasetu` → leave it **Private** (there is no
+2. **Create a Storage bucket named `taraazu`.** In the new project, open **Storage** in the left
+   sidebar → **New bucket** → name it exactly `taraazu` → leave it **Private** (there is no
    reason for this object to be public; the app always authenticates with the service-role key
    below, which bypasses bucket policy entirely) → **Create bucket**.
    - If you'd rather use a different bucket name, set the `SUPABASE_DB_BUCKET` environment
-     variable (step 3) to match — `tulasetu` is only the default `apps/api/src/db/persistence.ts`
+     variable (step 3) to match — `taraazu` is only the default `apps/api/src/db/persistence.ts`
      falls back to when it's unset.
    - Nothing else about the bucket needs configuring. The first successful write creates the
-     `tulasetu.db` object inside it automatically.
+     `taraazu.db` object inside it automatically.
 
 3. **Copy two values from Supabase, and set them in Vercel.** In the Supabase project, go to
    **Project Settings → API**:
@@ -85,7 +85,7 @@ connection string anywhere in this application.
    | `SUPABASE_SERVICE_ROLE_KEY` | the `service_role` secret from above |
 
    Leave `SUPABASE_DB_BUCKET` and `SUPABASE_DB_OBJECT` unset unless you deliberately chose a
-   bucket name other than `tulasetu`, or want more than one independent demo database in the
+   bucket name other than `taraazu`, or want more than one independent demo database in the
    same project.
 
 4. **Redeploy.** Environment variable changes only take effect on a new deployment — from the
@@ -104,7 +104,7 @@ connection string anywhere in this application.
      doesn't exist yet — the error text is Supabase's own response and says which.
    - Open the site, let it seed demonstration data (it does this automatically on an empty
      database — see `api/_src/handler.ts`), then in the Supabase dashboard's **Storage** browser
-     confirm a `tulasetu.db` object now exists in the bucket with a non-zero size.
+     confirm a `taraazu.db` object now exists in the bucket with a non-zero size.
    - Force a cold start (wait a few minutes with no traffic, or redeploy again) and reload the
      site. The same demonstration reports should still be there — that's the whole point proven
      end to end.
@@ -153,7 +153,7 @@ if a Lock ever times out on a cold start, raise it under **Project Settings → 
   A working deployment returns `{"sha256": "...", "report": {"status": "LOCKED", ...}}`.
 - If it still fails: the response is a 503 with `"error": "RENDERER_UNAVAILABLE"`, and the
   server log (Vercel dashboard → your deployment → **Logs**, or `vercel logs`) carries a line
-  starting `[tulasetu] PDF rendering could not start Chromium:` with the underlying error —
+  starting `[taraazu] PDF rendering could not start Chromium:` with the underlying error —
   almost always either `includeFiles` not matching (check the glob still reads
   `node_modules/@sparticuz/chromium/**` in `vercel.json`) or the function running on an
   architecture the bundled binary doesn't cover (Vercel's default Node runtime is x86_64, which

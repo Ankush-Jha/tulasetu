@@ -384,7 +384,7 @@ form numbering, sub-items and citations differ exactly as listed above. That pai
 claim behind CLAUDE.md design rule #2 — an edition change is a different file, not a different
 program — and it is now tested rather than asserted.
 
-Run it: `TULASETU_RULESET=draft npx tsx apps/api/src/server.ts`. The pack declares itself a
+Run it: `TARAAZU_RULESET=draft npx tsx apps/api/src/server.ts`. The pack declares itself a
 draft, the server logs a warning at boot, and the UI badges it — a report computed against a
 committee draft is otherwise indistinguishable from one computed against the standard in force.
 

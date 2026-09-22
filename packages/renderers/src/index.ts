@@ -1,5 +1,5 @@
 /**
- * @tulasetu/renderers — the three outputs.
+ * @taraazu/renderers — the three outputs.
  *
  * One assembled `ReportDocument` in; a pixel-faithful R 76-2 PDF (the record copy), a
  * DRAFT-watermarked DOCX (the AD/DD review copy), and a machine-readable JSON with the PDF

@@ -1,4 +1,4 @@
--- TulaSetu repository schema.
+-- Taraazu repository schema.
 --
 -- Design rule (CLAUDE.md #4): append-only audit, never edit-in-place.
 -- ISO/IEC 17025 §7.8 requires that original observations be recorded when made, and that

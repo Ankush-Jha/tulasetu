@@ -56,8 +56,8 @@ async function solve(variants: FamilyVariant[]): Promise<FamilyResult> {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...(localStorage.getItem("tulasetu.userId")
-        ? { "X-User-Id": localStorage.getItem("tulasetu.userId")! }
+      ...(localStorage.getItem("taraazu.userId")
+        ? { "X-User-Id": localStorage.getItem("taraazu.userId")! }
         : {}),
     },
     body: JSON.stringify({ variants }),

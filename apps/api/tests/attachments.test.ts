@@ -16,7 +16,7 @@ import { join } from "node:path";
 import { readFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { RulePack } from "@tulasetu/engine";
+import type { RulePack } from "@taraazu/engine";
 
 import { openMemoryDb, type Db } from "../src/db/open.js";
 import { registerRoutes } from "../src/routes.js";
@@ -49,7 +49,7 @@ function multipartBody(
   contentType: string,
   fields: Record<string, string> = {},
 ) {
-  const boundary = "----tulasetu-test-boundary";
+  const boundary = "----taraazu-test-boundary";
   const chunks: Buffer[] = [];
   for (const [name, value] of Object.entries(fields)) {
     chunks.push(
@@ -86,7 +86,7 @@ async function upload(
 }
 
 beforeEach(async () => {
-  root = mkdtempSync(join(tmpdir(), "tulasetu-attach-"));
+  root = mkdtempSync(join(tmpdir(), "taraazu-attach-"));
   db = openMemoryDb();
   db.prepare("INSERT INTO labs (id,name,kind,created_at) VALUES (?,?,?,?)").run("lab-fbd", "RRSL", "RRSL", T);
   db.prepare("INSERT INTO labs (id,name,kind,created_at) VALUES (?,?,?,?)").run("lab-x", "Other", "RRSL", T);

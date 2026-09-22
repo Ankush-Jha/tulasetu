@@ -1,5 +1,5 @@
 {
-  "name": "@tulasetu/api",
+  "name": "@taraazu/api",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,8 +9,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@tulasetu/engine": "*",
-    "@tulasetu/renderers": "*",
+    "@taraazu/engine": "*",
+    "@taraazu/renderers": "*",
     "better-sqlite3": "^13.0.3",
     "fastify": "^5.1.0"
   },

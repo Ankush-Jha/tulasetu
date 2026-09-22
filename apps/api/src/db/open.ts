@@ -1,5 +1,5 @@
 /**
- * Database handle. SQLite by default so a lab can run TulaSetu offline on a bench PC
+ * Database handle. SQLite by default so a lab can run Taraazu offline on a bench PC
  * (CLAUDE.md §4: Tauri wrapper, SQLite, web is a PWA). The schema is plain SQL and the
  * queries avoid SQLite-only syntax where practical, so a Postgres move stays cheap.
  */
@@ -13,7 +13,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 
 export type Db = Database.Database;
 
-export function openDb(path = "tulasetu.db", schemaSql?: string): Db {
+export function openDb(path = "taraazu.db", schemaSql?: string): Db {
   const db = new Database(path);
   db.pragma("journal_mode = WAL");
   db.pragma("foreign_keys = ON");

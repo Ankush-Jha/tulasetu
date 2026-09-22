@@ -17,7 +17,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import type { InstrumentProfile, Verdict, WeighingRowResult } from "@tulasetu/engine";
+import type { InstrumentProfile, Verdict, WeighingRowResult } from "@taraazu/engine";
 import {
   assembleReport,
   renderDocx,
@@ -29,7 +29,7 @@ import {
   type FormSpec,
   type FormsFile,
   type ReportDocument,
-} from "@tulasetu/renderers";
+} from "@taraazu/renderers";
 
 import type { Db } from "../db/open.js";
 import { readEvents, verifyChain } from "../db/events.js";

@@ -1,4 +1,4 @@
-# TulaSetu
+# Taraazu
 
 Deterministic engine that generates **OIML R-76 type-evaluation test reports** for
 Non-Automatic Weighing Instruments (NAWI). Built for **Smart India Hackathon 2026**,

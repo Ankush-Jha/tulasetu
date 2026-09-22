@@ -1,4 +1,4 @@
-# CLAUDE.md — TulaSetu
+# CLAUDE.md — Taraazu
 
 > **Read this first, every session.** It is the single source of truth for what we are building and why. When in doubt, prefer the primary sources in `docs/` over your own memory — this is a regulated-metrology domain and small details are legally load-bearing.
 
@@ -6,7 +6,7 @@
 
 ## 1. What this is
 
-**TulaSetu** is a software application that generates **type-evaluation test reports for Non-Automatic Weighing Instruments (NAWI)** as per **OIML Recommendation R-76** and India's **Legal Metrology (General) Rules, 2011 (Seventh Schedule, Heading A)**.
+**Taraazu** is a software application that generates **type-evaluation test reports for Non-Automatic Weighing Instruments (NAWI)** as per **OIML Recommendation R-76** and India's **Legal Metrology (General) Rules, 2011 (Seventh Schedule, Heading A)**.
 
 It is our entry for **Smart India Hackathon 2026, Problem Statement SIH26035**, from the **Department of Consumer Affairs (DoCA)**.
 
