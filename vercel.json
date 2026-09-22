@@ -8,6 +8,32 @@
       "includeFiles": "node_modules/@sparticuz/chromium/**"
     }
   },
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "tulasetu-sih.vercel.app" }],
+      "destination": "https://taraazu.vercel.app/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "tulasetu-app.vercel.app" }],
+      "destination": "https://taraazu.vercel.app/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "tulasetu-metrology.vercel.app" }],
+      "destination": "https://taraazu.vercel.app/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "tulasetu-nawi.vercel.app" }],
+      "destination": "https://taraazu.vercel.app/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
