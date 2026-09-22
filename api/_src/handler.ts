@@ -107,12 +107,16 @@ function getServer(): Promise<Server> {
       // replaying it into a fresh database is not the same thing as keeping it.
       const config = supabaseConfig();
       let restoreFrom: Buffer | undefined;
+      // What storage told us at boot, kept so /health can report what is actually true of this
+      // instance rather than what having two environment variables set implies.
+      let storageError: string | null = null;
       if (config) {
         const snapshot = await loadSnapshot(config);
         if (snapshot.error) {
           // Reported, not swallowed: starting empty when a snapshot exists looks exactly like
           // data loss, and an operator needs to be able to tell the two apart.
           console.error(`[taraazu] could not read the stored database: ${snapshot.error}`);
+          storageError = snapshot.error;
         }
         if (snapshot.bytes) restoreFrom = snapshot.bytes;
       }
@@ -124,25 +128,36 @@ function getServer(): Promise<Server> {
         checklists,
         schemaSql: schemaSql as unknown as string,
         ...(restoreFrom ? { restoreFrom } : {}),
-        storage: () =>
-          config
-            ? {
-                kind: "supabase-storage",
-                durable: true,
-                note:
-                  "The database is kept in memory and mirrored to a Supabase Storage object " +
+        storage: () => {
+          if (!config) {
+            return {
+              kind: "memory",
+              durable: false,
+              note:
+                "Nothing is persisted: this data lives only as long as the serverless " +
+                "instance stays warm. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to " +
+                "keep it between visits.",
+            };
+          }
+          // Durability is a claim about what storage *did*, not about whether it was
+          // configured. A boot that could not read the object, or a write that came back an
+          // error, means this instance is keeping nothing however many variables are set.
+          const error = storageError ?? snapshots?.error ?? null;
+          return {
+            kind: "supabase-storage",
+            durable: error === null,
+            note:
+              error === null
+                ? "The database is kept in memory and mirrored to a Supabase Storage object " +
                   "after every write, so a demonstration survives a cold start. It is not safe " +
-                  "against two instances writing at once — a bench install uses a real file.",
-                error: snapshots?.error ?? null,
-              }
-            : {
-                kind: "memory",
-                durable: false,
-                note:
-                  "Nothing is persisted: this data lives only as long as the serverless " +
-                  "instance stays warm. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to " +
-                  "keep it between visits.",
-              },
+                  "against two instances writing at once — a bench install uses a real file."
+                : "Supabase is configured but not working, so nothing is being persisted and " +
+                  "this data will not survive a cold start. Check that the bucket named by " +
+                  "SUPABASE_DB_BUCKET exists and that SUPABASE_SERVICE_ROLE_KEY is this " +
+                  "project's current service role key.",
+            error,
+          };
+        },
       });
       seedDemoUsers(server.db);
       if (config) snapshots = new SnapshotWriter(config, server.db);

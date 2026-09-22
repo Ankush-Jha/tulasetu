@@ -74,17 +74,39 @@ function headers(config: SupabaseConfig): Record<string, string> {
 /**
  * Fetch the stored database, or `null` if there is none yet.
  *
- * A missing object is the ordinary first-run case, not an error: the caller starts from an
- * empty schema and the first write creates the object. A *failed* fetch is different and is
- * reported, because silently starting empty when a snapshot exists would look exactly like
- * data loss.
+ * A missing *object* is the ordinary first-run case, not an error: the caller starts from an
+ * empty schema and the first write creates the object. A missing *bucket*, or a key the
+ * project rejects, is not — it means nothing will ever be stored, and the caller needs to
+ * know that rather than start empty on every cold start and call it a first run forever.
+ *
+ * Telling them apart takes reading the body. Supabase answers all three with a 400 whose JSON
+ * carries the real distinction in `code`: `NoSuchKey` for a missing object, `NoSuchBucket` for
+ * a missing bucket, `AccessDenied` for a key it will not accept. This function previously
+ * treated every 400 and 404 as the first-run case, which meant a project with no bucket at all
+ * reported itself healthy and durable while silently persisting nothing.
  */
+const FIRST_RUN_CODES = new Set(["NoSuchKey", "NotFound", "not_found"]);
+
 export async function loadSnapshot(
   config: SupabaseConfig,
 ): Promise<{ bytes: Buffer | null; error?: string }> {
   try {
     const res = await fetch(objectUrl(config), { headers: headers(config) });
-    if (res.status === 404 || res.status === 400) return { bytes: null };
+    if (res.status === 404 || res.status === 400 || res.status === 403) {
+      const detail = (await res.text().catch(() => "")) || "";
+      let code = "";
+      try {
+        code = String((JSON.parse(detail) as { code?: unknown }).code ?? "");
+      } catch {
+        // Not JSON. Fall through to treating it as a real failure: an unreadable answer from
+        // storage is not evidence that this is a first run.
+      }
+      if (res.status === 404 || FIRST_RUN_CODES.has(code)) return { bytes: null };
+      return {
+        bytes: null,
+        error: `Supabase returned ${res.status}${code ? ` ${code}` : ""}${detail ? `: ${detail}` : ""}`,
+      };
+    }
     if (!res.ok) {
       return { bytes: null, error: `Supabase returned ${res.status} ${res.statusText}` };
     }

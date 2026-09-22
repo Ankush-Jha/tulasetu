@@ -182,6 +182,54 @@ describe("a round trip keeps the record, not just the reports", () => {
     expect(result.error).toMatch(/500/);
   });
 
+  // The deployed instance ran for days against a project with no bucket in it, reporting
+  // itself durable and persisting nothing, because a missing bucket arrives as a 400 and
+  // every 400 was read as "no object yet". Supabase puts the distinction in the body.
+  it("reports a missing bucket rather than mistaking it for a first run", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(
+        async () =>
+          new Response(
+            JSON.stringify({ statusCode: "404", error: "Bucket not found", code: "NoSuchBucket" }),
+            { status: 400 },
+          ),
+      ),
+    );
+    const result = await loadSnapshot(config);
+    expect(result.bytes).toBeNull();
+    expect(result.error).toMatch(/NoSuchBucket/);
+  });
+
+  it("reports a key the project will not accept", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(
+        async () =>
+          new Response(
+            JSON.stringify({ statusCode: "403", error: "Unauthorized", code: "AccessDenied" }),
+            { status: 403 },
+          ),
+      ),
+    );
+    const result = await loadSnapshot(config);
+    expect(result.bytes).toBeNull();
+    expect(result.error).toMatch(/AccessDenied/);
+  });
+
+  it("still treats a genuinely absent object as a first run", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(
+        async () =>
+          new Response(JSON.stringify({ statusCode: "404", code: "NoSuchKey" }), { status: 400 }),
+      ),
+    );
+    const result = await loadSnapshot(config);
+    expect(result.bytes).toBeNull();
+    expect(result.error).toBeUndefined();
+  });
+
   it("refuses a zero-length object rather than handing SQLite something it cannot open", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response(new Uint8Array(0), { status: 200 })));
     const result = await loadSnapshot(config);
