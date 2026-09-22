@@ -120,8 +120,11 @@ export function LoginPage() {
           The browser sends a user id and the server trusts it. A deployment replaces this with
           NIC single sign-on or a DSC-backed session; sections 4 and 5 of the Information
           Technology Act, 2000 give those the same standing as writing and a handwritten
-          signature. The API refuses to start under <code className="font-mono">NODE_ENV=production</code>{" "}
-          while this stub is in place.
+          signature. The API refuses to build under <code className="font-mono">NODE_ENV=production</code>{" "}
+          while this stub is in place, unless{" "}
+          <code className="font-mono">TARAAZU_ALLOW_HEADER_AUTH</code> declares the instance
+          isolated on purpose — as this public demonstration does. Treat anything recorded here
+          as scratch: any visitor can sign in as any officer, including the Director.
         </Alert>
 
         {/*

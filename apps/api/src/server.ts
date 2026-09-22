@@ -7,7 +7,10 @@
  *   TARAAZU_DB       path to the SQLite file (default ./taraazu.db)
  *   TARAAZU_RULEPACK path to the rule pack JSON
  *   PORT              default 3000
- *   NODE_ENV          `production` refuses to start with the demo authentication stub
+ *   NODE_ENV          `production` refuses to build the app with the demo authentication
+ *                     stub in place — every entrypoint, the serverless one included
+ *   TARAAZU_ALLOW_HEADER_AUTH
+ *                     waives that refusal, for an instance that is isolated on purpose
  */
 
 import Fastify from "fastify";
@@ -45,6 +48,35 @@ const NAMED_PACKS: Record<string, string> = {
   draft: "packages/rulepacks/OIML_R76_DRAFT_5PART.json",
 };
 
+/**
+ * Refuse to build an app whose authentication is the demonstration stub, unless this instance
+ * has been declared isolated on purpose.
+ *
+ * The header-based principal in routes.ts trusts the caller's claim of identity: `X-User-Id:
+ * u-dir` is a Director. That is fine on a bench machine behind a login and unacceptable on a
+ * network.
+ *
+ * This check belongs *here*, in buildServer, and not beside the CLI's `.listen()` call below,
+ * which is where it used to live. `api/_src/handler.ts` deliberately calls buildServer without
+ * going anywhere near that block — the split between building the app and listening on a port
+ * is the whole reason the serverless function can exist. So a guard placed by `.listen()`
+ * protects the one entrypoint that is never publicly exposed, and misses the one that is. It
+ * read as a live protection while the deployment served Director capabilities to anyone who
+ * sent the header.
+ *
+ * It throws rather than calling process.exit so that it stays a library function: the CLI
+ * below turns the throw into an operator message, and a test can assert on it.
+ */
+function assertHeaderAuthIsAcceptableHere(): void {
+  if (process.env["NODE_ENV"] !== "production") return;
+  if (process.env["TARAAZU_ALLOW_HEADER_AUTH"]) return;
+  throw new Error(
+    "Refusing to start: authentication is a demonstration stub that trusts the X-User-Id\n" +
+      "header. Wire a real identity provider (NIC SSO / DSC) before production, or set\n" +
+      "TARAAZU_ALLOW_HEADER_AUTH=1 if this instance is genuinely isolated.",
+  );
+}
+
 export function buildServer(
   opts: {
     dbPath?: string;
@@ -76,6 +108,8 @@ export function buildServer(
     storage?: () => { kind: string; durable: boolean; note?: string; error?: string | null };
   } = {},
 ): Server {
+  assertHeaderAuthIsAcceptableHere();
+
   let pack: RulePack;
   let packPath = "(supplied directly)";
   if (opts.rulepack) {
@@ -141,19 +175,17 @@ export function buildServer(
 const isEntry = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 
 if (isEntry) {
-  // The header-based principal in routes.ts is a demonstration stub: it trusts the caller's
-  // claim of identity. That is fine on a bench machine behind a login, and unacceptable on a
-  // network. Fail loudly rather than ship an open door.
-  if (process.env["NODE_ENV"] === "production" && !process.env["TARAAZU_ALLOW_HEADER_AUTH"]) {
-    console.error(
-      "Refusing to start: authentication is a demonstration stub that trusts the X-User-Id\n" +
-        "header. Wire a real identity provider (NIC SSO / DSC) before production, or set\n" +
-        "TARAAZU_ALLOW_HEADER_AUTH=1 if this instance is genuinely isolated.",
-    );
+  let built: ReturnType<typeof buildServer>;
+  try {
+    built = buildServer();
+  } catch (err: unknown) {
+    // assertHeaderAuthIsAcceptableHere throws here; report it as the operator message it is
+    // rather than an unhandled stack trace.
+    console.error(err instanceof Error ? err.message : String(err));
     process.exit(1);
   }
 
-  const { app, pack } = buildServer();
+  const { app, pack } = built;
   const port = Number(process.env["PORT"] ?? 3000);
   app
     .listen({ port, host: "127.0.0.1" })
