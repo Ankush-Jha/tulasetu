@@ -33,7 +33,7 @@
  * ## Configuration
  *
  * Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`; optionally `SUPABASE_DB_BUCKET`
- * (default `tulasetu`) and `SUPABASE_DB_OBJECT` (default `tulasetu.db`). With none of them set,
+ * (default `taraazu`) and `SUPABASE_DB_OBJECT` (default `taraazu.db`). With none of them set,
  * every function here is a no-op and the server behaves exactly as it did before — which is why
  * a bench install and the test suite need to know nothing about any of this.
  */
@@ -55,8 +55,8 @@ export function supabaseConfig(env: NodeJS.ProcessEnv = process.env): SupabaseCo
   return {
     url,
     serviceKey,
-    bucket: env["SUPABASE_DB_BUCKET"] ?? "tulasetu",
-    object: env["SUPABASE_DB_OBJECT"] ?? "tulasetu.db",
+    bucket: env["SUPABASE_DB_BUCKET"] ?? "taraazu",
+    object: env["SUPABASE_DB_OBJECT"] ?? "taraazu.db",
   };
 }
 

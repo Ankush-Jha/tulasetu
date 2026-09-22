@@ -17,7 +17,7 @@ apps/**/tests/**/*.js
 *.tsbuildinfo
 apps/web/dist/
 apps/web/tsconfig.tsbuildinfo
-tulasetu.db*
+taraazu.db*
 attachments/
 
 # Vercel CLI's local project link + pulled env — machine-specific, never shared.

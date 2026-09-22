@@ -35,7 +35,7 @@ single thing that most makes a logo strip look homemade.
 
 **Attribution, not endorsement.** These bodies are named because this software implements their
 standards or answers their problem statement. Two things in the interface keep that line visible
-and should stay: the department's mark and TulaSetu's own identity are separated by a rule in the
+and should stay: the department's mark and Taraazu's own identity are separated by a rule in the
 header rather than merged into one lockup, and every page foot reads "a Smart India Hackathon
 2026 prototype, not an official publication of any department or standards body named above".
 

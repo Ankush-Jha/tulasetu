@@ -5,7 +5,7 @@
  *
  * The centrepiece is "the whole approval chain", which walks one report from an MA creating it
  * to the Director publishing it, and checks at each step that the officers who should not be
- * able to skip ahead cannot. That path is the product; if it works, TulaSetu works.
+ * able to skip ahead cannot. That path is the product; if it works, Taraazu works.
  */
 
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
@@ -13,7 +13,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { InstrumentProfile, RulePack } from "@tulasetu/engine";
+import type { InstrumentProfile, RulePack } from "@taraazu/engine";
 
 import { payloadFor } from "./formRows.js";
 import { openMemoryDb, type Db } from "../src/db/open.js";

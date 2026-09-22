@@ -5,7 +5,7 @@
  * binary. `packages/renderers/src/pdf.ts` now picks between two runtimes — the full `playwright`
  * package against a locally installed browser, or `playwright-core` driving the Brotli-packed
  * build `@sparticuz/chromium` unpacks to `/tmp` — based on `VERCEL` (set automatically by the
- * platform) or `TULASETU_SERVERLESS_CHROMIUM` (set here, to exercise that branch without
+ * platform) or `TARAAZU_SERVERLESS_CHROMIUM` (set here, to exercise that branch without
  * deploying anything or owning a Linux machine).
  *
  * The real `@sparticuz/chromium` binary is Linux-only and cannot run in this suite (or on a
@@ -20,7 +20,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { assembleReport, type FormsFile } from "../src/assemble.js";
 import type { ReportDocument } from "../src/model.js";
-import type { InstrumentProfile } from "@tulasetu/engine";
+import type { InstrumentProfile } from "@taraazu/engine";
 
 /** A form bank with nothing in it — this suite never reaches a real form, only the cover page. */
 const EMPTY_FORMS: FormsFile = { forms: [] };
@@ -77,7 +77,7 @@ afterEach(() => {
 describe("renderPdf's choice of Chromium", () => {
   it("on Vercel (or with the local override), drives playwright-core + @sparticuz/chromium — never the full playwright package", async () => {
     delete process.env["VERCEL"];
-    process.env["TULASETU_SERVERLESS_CHROMIUM"] = "1";
+    process.env["TARAAZU_SERVERLESS_CHROMIUM"] = "1";
 
     const launch = vi.fn(async (opts: { args?: string[]; executablePath?: string }) => {
       expect(opts.executablePath).toBe("/tmp/fake-chromium");
@@ -105,7 +105,7 @@ describe("renderPdf's choice of Chromium", () => {
 
   it("off Vercel, drives the full playwright package against a locally installed browser — never @sparticuz/chromium", async () => {
     delete process.env["VERCEL"];
-    delete process.env["TULASETU_SERVERLESS_CHROMIUM"];
+    delete process.env["TARAAZU_SERVERLESS_CHROMIUM"];
 
     const launch = vi.fn(async () => fakeBrowser());
     vi.doMock("playwright", () => ({ chromium: { launch } }));
@@ -126,7 +126,7 @@ describe("renderPdf's choice of Chromium", () => {
 
   it("treats Vercel's own VERCEL=1 the same as the local override", async () => {
     process.env["VERCEL"] = "1";
-    delete process.env["TULASETU_SERVERLESS_CHROMIUM"];
+    delete process.env["TARAAZU_SERVERLESS_CHROMIUM"];
 
     const launch = vi.fn(async () => fakeBrowser());
     vi.doMock("playwright-core", () => ({ chromium: { launch } }));

@@ -26,7 +26,7 @@ import {
   type RulePack,
   type Variant,
   type WeighingObservation,
-} from "@tulasetu/engine";
+} from "@taraazu/engine";
 import {
   assembleReport,
   renderHtml,
@@ -35,7 +35,7 @@ import {
   serializeJson,
   type ComputedForm,
   type FormsFile,
-} from "@tulasetu/renderers";
+} from "@taraazu/renderers";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "../../..");
@@ -287,7 +287,7 @@ mkdirSync(outDir, { recursive: true });
 
 const line = (s = "") => console.log(s);
 
-line("TulaSetu — end-to-end demonstration");
+line("Taraazu — end-to-end demonstration");
 line("=".repeat(72));
 line();
 line(`Instrument   ${doc.instrument.model}  ·  class ${doc.instrument.accuracyClass}`);

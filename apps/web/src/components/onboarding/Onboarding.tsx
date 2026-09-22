@@ -146,7 +146,7 @@ function stepsForRole(role: RoleId | undefined): Step[] | null {
 }
 
 function storageKey(role: string): string {
-  return `tulasetu.onboarding.seen.${role}`;
+  return `taraazu.onboarding.seen.${role}`;
 }
 
 function hasSeen(role: string): boolean {

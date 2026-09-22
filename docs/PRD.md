@@ -1,8 +1,8 @@
-# TulaSetu — NAWI Test Report Generation System
+# Taraazu — NAWI Test Report Generation System
 ## Master Document: Research Findings + PRD + PPT Kit
 **SIH 2026 · Problem Statement SIH26035 · Ministry of Consumer Affairs, Food & Public Distribution (DoCA)**
 
-Product name: **TulaSetu** (tula = balance/scale, setu = bridge — the bridge between the test bench and the certificate). Alternates if needed: e-Tula, MAPR (Model Approval Report), DhruvTula.
+Product name: **Taraazu** (tula = balance/scale, setu = bridge — the bridge between the test bench and the certificate). Alternates if needed: e-Tula, MAPR (Model Approval Report), DhruvTula.
 
 ---
 
@@ -113,7 +113,7 @@ Pitch frame: **digitizing the application produced the first halving; digitizing
 # PART 3 — PRODUCT REQUIREMENTS DOCUMENT (PRD)
 
 ## 3.1 Product definition
-**TulaSetu** — a rule-pack-driven test report generation system for NAWI type evaluation under OIML R 76 and the Legal Metrology (General) Rules 2011, producing legally faithful, bilingual, machine-readable reports with a full audit trail.
+**Taraazu** — a rule-pack-driven test report generation system for NAWI type evaluation under OIML R 76 and the Legal Metrology (General) Rules 2011, producing legally faithful, bilingual, machine-readable reports with a full audit trail.
 
 **Goals**: (G1) Eliminate calculation errors in type-evaluation reports. (G2) Cut report preparation/review time to hours. (G3) Uniform reports across all 6 RRSLs + 40 GATCs. (G4) Create India's first structured repository of test data. (G5) Survive OIML revisions without code changes.
 **Non-goals**: controlling bench equipment; replacing officer judgment; measurement-uncertainty computation (roadmap only — not asked in PS); any AI in the legally relevant calculation path.
@@ -178,12 +178,12 @@ Hackathon (36 h): vertical slice + family solver + edition toggle + dashboard sk
 # PART 4 — PPT KIT
 
 ## 4.1 Slide-by-slide skeleton (12 slides)
-1. **Title** — TulaSetu · SIH26035 · team. Tagline: "From the test bench to a legally valid certificate — one engine."
+1. **Title** — Taraazu · SIH26035 · team. Tagline: "From the test bench to a legally valid certificate — one engine."
 2. **The gate** — Model approval is market entry: Act s.22 + Rule 20 (no state licence without it). Fee ₹25,000 (digital). 6 RRSLs + 40 GATCs. ~645 certificates/year, ~69% NAWI.
 3. **The paper wall** — Workflow diagram (digital application half vs manual report half). Quote the PS: "spreadsheets… time-consuming, prone to calculation errors, lacking uniformity." Guwahati 3–8 vs Varanasi 40–76 models/yr = non-uniformity in data.
 4. **The number** — 6–9 months → 3–4 months after online applications (DoCA AR). "The report is the next halving." A rejection costs a fresh ₹25,000 + months (Rule 10).
 5. **Why now** — 13th OIML issuing country (2023) · e-Maap launched May 2026 · CIML meets in New Delhi Oct 2026 · R 76 splitting 2→5 parts.
-6. **TulaSetu** — product module map (login/roles → 3-step wizard → engine → three outputs).
+6. **Taraazu** — product module map (login/roles → 3-step wizard → engine → three outputs).
 7. **The engine** — 17 forms, 5 kernels. Show E = I + ½e − ΔL − L → Ec → mpe band; live red/green; multi-interval mpe jump (the moment judges lean in).
 8. **Only-us features** — Family solver (output = the certificate's own "shall also cover…" clause); Annex F indicator+load-cell compatibility (with real Zemic/Flintec R 60 data); dual profile Seventh-Schedule/OIML (statutory per Rule 7(1)(a)); IV↔IIII normalizer (India's rules use both, 11× vs 7×).
 9. **Future-proof & trustworthy** — versioned rule packs; live edition toggle 2007↔draft (new sections, new 12.3(c), moved checklist); append-only audit per ISO 17025; **deliberately no AI in the legal path** (OIML: AI not yet court-proof).

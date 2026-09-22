@@ -12,7 +12,7 @@ npx tsx apps/api/src/server.ts  # API on :3000
 npm run dev:web                 # UI on :5173, proxying /api
 
 # the same engine against a different edition of the standard
-TULASETU_RULESET=draft npx tsx apps/api/src/server.ts   # oiml | india | draft
+TARAAZU_RULESET=draft npx tsx apps/api/src/server.ts   # oiml | india | draft
 ```
 
 The UI needs seeded users to sign in — see "Seeding" at the foot of this file.
@@ -149,7 +149,7 @@ can walk a report from bench to certificate.
 ```js
 // seed.mjs — npx tsx seed.mjs
 import { openDb } from "./apps/api/src/db/open.ts";
-const db = openDb("tulasetu.db");
+const db = openDb("taraazu.db");
 const T = new Date().toISOString();
 db.prepare("INSERT OR IGNORE INTO labs (id,name,kind,lab_code,nabl_accredited,created_at) VALUES (?,?,?,?,?,?)")
   .run("lab-fbd", "Regional Reference Standards Laboratory, Faridabad", "RRSL", "09", 1, T);
@@ -227,14 +227,14 @@ is ephemeral and not shared between instances. Configure Supabase and the whole 
 restored on cold start and written back after every write, so a demonstration survives being
 left alone.
 
-1. In a Supabase project, create a **private** Storage bucket named `tulasetu`.
+1. In a Supabase project, create a **private** Storage bucket named `taraazu`.
 2. Set two environment variables on the Vercel project:
    - `SUPABASE_URL` — `https://<project>.supabase.co`
    - `SUPABASE_SERVICE_ROLE_KEY` — the service-role key, **not** the anon key. It bypasses row
      level security, so it belongs only in the server's environment; it must never reach the
      browser bundle.
-   - Optional: `SUPABASE_DB_BUCKET` (default `tulasetu`), `SUPABASE_DB_OBJECT` (default
-     `tulasetu.db`).
+   - Optional: `SUPABASE_DB_BUCKET` (default `taraazu`), `SUPABASE_DB_OBJECT` (default
+     `taraazu.db`).
 3. Redeploy. `GET /api/health` reports `storage.kind` — `supabase-storage` when it is on,
    `memory` when it is not, with `storage.error` carrying the reason if an upload failed.
 
@@ -266,7 +266,7 @@ boxes, and say once at the top why.
 
 The demonstration set also seeds itself on the first boot of a hosted deployment, rather than
 waiting for someone to press a button — an empty dashboard and an instruction is a poor answer
-to "does this work". `TULASETU_NO_AUTOSEED=1` turns it off; a bench install never runs it.
+to "does this work". `TARAAZU_NO_AUTOSEED=1` turns it off; a bench install never runs it.
 
 ### A signature is verified against the key that made it
 

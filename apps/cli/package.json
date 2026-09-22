@@ -1,8 +1,8 @@
 {
-  "name": "@tulasetu/cli",
+  "name": "@taraazu/cli",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": { "demo": "tsx src/demo.ts" },
-  "dependencies": { "@tulasetu/engine": "*", "@tulasetu/renderers": "*" }
+  "dependencies": { "@taraazu/engine": "*", "@taraazu/renderers": "*" }
 }

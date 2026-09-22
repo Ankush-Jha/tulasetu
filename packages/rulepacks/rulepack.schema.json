@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "TulaSetu rule pack",
-  "description": "Structural schema for a TulaSetu rule pack (packages/engine/src/rulepack.ts's RulePack contract, expressed as JSON Schema draft-07). Both packages/rulepacks/OIML_R76_2006.json and packages/rulepacks/IN_Sch7A_2011.json must validate against this.",
+  "title": "Taraazu rule pack",
+  "description": "Structural schema for a Taraazu rule pack (packages/engine/src/rulepack.ts's RulePack contract, expressed as JSON Schema draft-07). Both packages/rulepacks/OIML_R76_2006.json and packages/rulepacks/IN_Sch7A_2011.json must validate against this.",
   "type": "object",
   "required": ["ruleset_id", "classification", "mpe_bands_initial", "tests"],
   "definitions": {

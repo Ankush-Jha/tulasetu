@@ -1,5 +1,5 @@
 /**
- * Typed client for the TulaSetu API (`apps/api`).
+ * Typed client for the Taraazu API (`apps/api`).
  *
  * The engine is deliberately reachable over HTTP rather than bundled into the browser
  * (CLAUDE.md §4): capture and report generation are decoupled, so a bench rig or C-DAC's
@@ -62,7 +62,7 @@ async function request<T>(
     throw new ApiError(
       0,
       "NETWORK",
-      "Cannot reach the TulaSetu server. Check that the API is running and try again.",
+      "Cannot reach the Taraazu server. Check that the API is running and try again.",
     );
   }
 
@@ -489,7 +489,7 @@ export const api = {
     }
     return {
       blob: await res.blob(),
-      sha256: res.headers.get("X-TulaSetu-SHA256") ?? "",
+      sha256: res.headers.get("X-Taraazu-SHA256") ?? "",
       filename: /filename="([^"]+)"/.exec(res.headers.get("Content-Disposition") ?? "")?.[1] ?? `${id}.${format}`,
     };
   },

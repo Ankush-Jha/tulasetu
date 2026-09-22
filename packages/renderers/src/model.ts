@@ -9,11 +9,11 @@
  *
  * The layout of each form comes from `packages/rulepacks/forms/R76-2_2007_forms.json`, which
  * was transcribed from R 76-2:2007 itself. That separation is the same rule as everywhere
- * else in TulaSetu: the standard is data. Switching to the draft 5-part edition means loading
+ * else in Taraazu: the standard is data. Switching to the draft 5-part edition means loading
  * a different forms file, not editing a renderer.
  */
 
-import type { Verdict } from "@tulasetu/engine";
+import type { Verdict } from "@taraazu/engine";
 
 /** The R 76-2 marking convention: not-applicable prints as an en-dash pair, not as blank. */
 export const NOT_APPLICABLE_MARK = "– –";

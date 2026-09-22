@@ -3,7 +3,7 @@
  *
  * ISO/IEC 17025 §7.8 requires that original observations be recorded when made, and that an
  * amendment be tracked with its date and the person who made it while the original is
- * retained. TulaSetu satisfies that by making the event log the record and the report a
+ * retained. Taraazu satisfies that by making the event log the record and the report a
  * projection of it — so this page is not a summary of what happened, it *is* what happened.
  *
  * The chain verification is the part worth understanding. Each event carries a hash over its

@@ -11,7 +11,7 @@ export default defineConfig({
     // CORS setup and no environment-specific base URL to get wrong.
     proxy: {
       '/api': {
-        target: process.env['TULASETU_API'] ?? 'http://127.0.0.1:3000',
+        target: process.env['TARAAZU_API'] ?? 'http://127.0.0.1:3000',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

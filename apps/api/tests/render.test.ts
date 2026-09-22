@@ -15,7 +15,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { InstrumentProfile, RulePack } from "@tulasetu/engine";
+import type { InstrumentProfile, RulePack } from "@taraazu/engine";
 
 import { payloadFor } from "./formRows.js";
 import { openMemoryDb, type Db } from "../src/db/open.js";
@@ -221,7 +221,7 @@ describe("download", () => {
     const res = await call("GET", "/reports/R1/render/html", "u-ma");
     expect(res.statusCode).toBe(200);
     expect(res.headers["content-type"]).toMatch(/text\/html/);
-    expect(res.headers["x-tulasetu-sha256"]).toHaveLength(64);
+    expect(res.headers["x-taraazu-sha256"]).toHaveLength(64);
     const html = res.body;
     expect(html).toContain("Type Evaluation Test Report");
     expect(html).toContain("– –"); // the not-applicable mark

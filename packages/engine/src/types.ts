@@ -1,5 +1,5 @@
 /**
- * @tulasetu/engine — core domain types.
+ * @taraazu/engine — core domain types.
  *
  * Every threshold, band boundary and clause reference lives in a rule pack (JSON),
  * never in this file. These types describe the *shape* of the domain only.

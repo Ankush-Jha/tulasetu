@@ -20,7 +20,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { api, setApiUser, type Me, type RoleId } from "./api";
 
-const STORAGE_KEY = "tulasetu.userId";
+const STORAGE_KEY = "taraazu.userId";
 
 export interface Session extends Me {
   /** Display name, resolved from the directory below. */

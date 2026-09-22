@@ -11,7 +11,7 @@
  */
 
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import type { RulePack } from "@tulasetu/engine";
+import type { RulePack } from "@taraazu/engine";
 
 import type { Db } from "./db/open.js";
 import { verifyChain } from "./db/events.js";
@@ -415,7 +415,7 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
         .header("Content-Disposition", `${inline ? "inline" : "attachment"}; filename="${row.filename}"`)
         // No sniffing: an attachment is served as exactly the type it was stored as.
         .header("X-Content-Type-Options", "nosniff")
-        .header("X-TulaSetu-SHA256", row.sha256)
+        .header("X-Taraazu-SHA256", row.sha256)
         .send(Buffer.from(bytes));
     } catch (err) {
       return send(reply, err);
@@ -492,7 +492,7 @@ export function registerRoutes(app: FastifyInstance, opts: RouteOptions): void {
           `${inline ? "inline" : "attachment"}; filename="${rendered.filename}"`,
         )
         // So a downloaded copy can be matched back to the render that produced it.
-        .header("X-TulaSetu-SHA256", rendered.sha256)
+        .header("X-Taraazu-SHA256", rendered.sha256)
         .send(Buffer.from(rendered.bytes));
     } catch (err) {
       return send(reply, err);

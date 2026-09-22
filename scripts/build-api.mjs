@@ -4,14 +4,14 @@
  * deploys.
  *
  * Why this exists rather than letting Vercel's own Node builder trace the function itself: that
- * builder resolves `@tulasetu/engine` (an npm workspace package, reached through a node_modules
+ * builder resolves `@taraazu/engine` (an npm workspace package, reached through a node_modules
  * symlink) as an *external* runtime dependency and copies the raw `packages/engine` folder next
  * to the function instead of inlining it. That folder's `package.json` points `main` at
  * `src/index.ts` — a TypeScript source file, which a plain deployed Node process cannot import.
  * The result was a working route (`/api/health` reached the function) that crashed on load with
  * `ERR_MODULE_NOT_FOUND … src/index.ts`.
  *
- * Bundling here instead inlines every `@tulasetu/*` import as real, already-compiled JavaScript,
+ * Bundling here instead inlines every `@taraazu/*` import as real, already-compiled JavaScript,
  * so nothing at runtime needs a TypeScript-aware loader. A handful of packages stay external
  * instead of being inlined, because none of them is a bundle-able JS module:
  *
@@ -49,7 +49,7 @@ await build({
   platform: "node",
   format: "esm",
   target: "node20",
-  // A native binary can't be bundled into JS; everything else, including the @tulasetu/*
+  // A native binary can't be bundled into JS; everything else, including the @taraazu/*
   // workspace packages, gets inlined so the deployed function needs no TypeScript loader and no
   // separate node_modules copy of them.
   external: ["better-sqlite3", "playwright", "playwright-core", "chromium-bidi", "@sparticuz/chromium"],

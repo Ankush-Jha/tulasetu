@@ -89,7 +89,7 @@ export function Header({
               <Icon name="balance" size={18} />
             </span>
             <span className="flex min-w-0 flex-col leading-tight">
-              <span className="text-headline-sm font-bold text-on-surface">TulaSetu</span>
+              <span className="text-headline-sm font-bold text-on-surface">Taraazu</span>
               {/* Dropped below `sm` rather than truncated — at phone width there is not room
                   for both this and the identity menu, and the title alone still identifies the
                   application. */}

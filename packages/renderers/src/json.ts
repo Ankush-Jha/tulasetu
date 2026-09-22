@@ -4,7 +4,7 @@
  * Modelled on PTB's Digital Calibration Certificate idea: one file that is both the
  * human-readable document and the machine-readable data, so a downstream system never has to
  * re-key numbers out of a PDF. The DCC ecosystem does this for *calibration* certificates;
- * nothing does it for an R 76 *type-evaluation* report, which is the gap TulaSetu sits in.
+ * nothing does it for an R 76 *type-evaluation* report, which is the gap Taraazu sits in.
  *
  * Three deliberate choices:
  *
@@ -22,7 +22,7 @@
 import { createHash } from "node:crypto";
 import type { ReportDocument } from "./model.js";
 
-export const TULASETU_JSON_SCHEMA_VERSION = "1.0.0";
+export const TARAAZU_JSON_SCHEMA_VERSION = "1.0.0";
 
 export interface EmbeddedDocument {
   mimeType: string;
@@ -79,14 +79,14 @@ export function renderJson(doc: ReportDocument, opts: JsonOptions = {}): ReportJ
   }
 
   return {
-    schema: "https://tulasetu.gov.in/schema/nawi-type-evaluation-report",
-    schemaVersion: TULASETU_JSON_SCHEMA_VERSION,
+    schema: "https://taraazu.gov.in/schema/nawi-type-evaluation-report",
+    schemaVersion: TARAAZU_JSON_SCHEMA_VERSION,
     generatedAt: doc.generatedAt,
     ...(embedded.length ? { embedded } : {}),
     report: doc,
     dataSha256: canonicalHash(doc),
     provenance: {
-      producer: opts.producer ?? "TulaSetu",
+      producer: opts.producer ?? "Taraazu",
       rulesetId: doc.identity.rulesetId,
       ...(doc.identity.rulesetVersion ? { rulesetVersion: doc.identity.rulesetVersion } : {}),
       edition: doc.identity.edition,

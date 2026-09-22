@@ -18,7 +18,7 @@ import JSZip from "jszip";
 import { assembleReport, type FormsFile } from "../src/assemble.js";
 import { renderDocx } from "../src/docx.js";
 import type { ReportDocument } from "../src/model.js";
-import type { InstrumentProfile } from "@tulasetu/engine";
+import type { InstrumentProfile } from "@taraazu/engine";
 
 const EMPTY_FORMS: FormsFile = { forms: [] };
 
