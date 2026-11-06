@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 860" width="1600" height="860" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#5c6270"/>
+    </marker>
+    <marker id="arRed" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#a93838"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="860" fill="#ffffff"/>
+
+  <text x="60" y="70" font-size="38" font-weight="700" fill="#1c2130">One NAWI report. 400 chances to be wrong.</text>
+  <text x="60" y="106" font-size="17" fill="#5c6270">Counted from this project&#8217;s own rule pack &#8212; the 36 R 76-2 form pages, for a class III multi-interval instrument.</text>
+  <line x1="60" y1="136" x2="1540" y2="136" stroke="#e6e0d0" stroke-width="2"/>
+
+  <!-- source card -->
+  <rect x="60" y="205" width="230" height="118" rx="12" fill="#e4eaf7" stroke="#254a9c" stroke-width="2"/>
+  <text x="175" y="268" text-anchor="middle" font-size="46" font-weight="700" fill="#1a356e">172</text>
+  <text x="175" y="297" text-anchor="middle" font-size="15" fill="#1a356e">observation rows</text>
+
+  <!-- split -->
+  <path d="M 300 250 C 330 250, 330 250, 352 250" stroke="#5c6270" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+  <path d="M 300 278 C 330 278, 330 430, 352 430" stroke="#a93838" stroke-width="2" fill="none" marker-end="url(#arRed)"/>
+
+  <!-- bar A : 762 -->
+  <rect x="360" y="210" width="406" height="80" rx="8" fill="#ffffff" stroke="#5c6270" stroke-width="2"/>
+  <text x="392" y="265" font-size="40" font-weight="700" fill="#1c2130">762</text>
+  <text x="484" y="256" font-size="16" fill="#5c6270">cells read off</text>
+  <text x="484" y="277" font-size="16" fill="#5c6270">the instrument</text>
+  <text x="360" y="317" font-size="14" font-weight="700" fill="#1c2130">STILL DONE BY HAND &#8212; AND THAT IS CORRECT</text>
+  <text x="360" y="339" font-size="14" fill="#5c6270">an officer must physically read each</text>
+  <text x="360" y="359" font-size="14" fill="#5c6270">indication. We do not automate the bench.</text>
+
+  <!-- bar B : 400 -->
+  <rect x="360" y="390" width="213" height="80" rx="8" fill="#f6e4e2" stroke="#a93838" stroke-width="2.5"/>
+  <text x="392" y="445" font-size="40" font-weight="700" fill="#7a2626">400</text>
+  <text x="478" y="436" font-size="15" fill="#7a2626">calculated</text>
+  <text x="478" y="457" font-size="15" fill="#7a2626">by hand</text>
+  <text x="360" y="497" font-size="14" font-weight="700" fill="#a93838">THE ENTIRE SURFACE TULASETU ELIMINATES</text>
+  <text x="360" y="519" font-size="14" fill="#5c6270">every one is an E, an Ec or an mpe band &#8212; a formula, never a reading.</text>
+  <text x="360" y="556" font-size="12.5" fill="#8a8f9c">Bars drawn to scale.</text>
+
+  <!-- math panel -->
+  <rect x="850" y="195" width="690" height="292" rx="14" fill="#ffffff" stroke="#e6e0d0" stroke-width="2"/>
+  <text x="884" y="234" font-size="12.5" font-weight="700" letter-spacing="1.3" fill="#a9781f">APPLY PUBLISHED SPREADSHEET ERROR RATES</text>
+
+  <text x="884" y="280" font-size="18" font-weight="700" fill="#1c2130">0.9 &#8211; 1.8%</text>
+  <text x="1010" y="280" font-size="15" fill="#5c6270">conservative modern audits</text>
+  <text x="1506" y="280" text-anchor="end" font-size="18" font-weight="700" fill="#7a2626">4 &#8211; 7 wrong cells</text>
+
+  <text x="884" y="320" font-size="18" font-weight="700" fill="#1c2130">5.2%</text>
+  <text x="1010" y="320" font-size="15" fill="#5c6270">Panko meta-average, 13 studies</text>
+  <text x="1506" y="320" text-anchor="end" font-size="18" font-weight="700" fill="#7a2626">21 wrong cells</text>
+
+  <line x1="884" y1="348" x2="1506" y2="348" stroke="#e6e0d0" stroke-width="1.5"/>
+
+  <text x="884" y="416" font-size="54" font-weight="700" fill="#a93838">98%</text>
+  <text x="1010" y="400" font-size="16" fill="#1c2130">probability that a hand-prepared report</text>
+  <text x="1010" y="424" font-size="16" fill="#1c2130">carries at least one wrong number</text>
+  <text x="884" y="456" font-size="13" fill="#8a8f9c">= 1 &#8722; 0.99 ^ 400, at the most conservative published rate</text>
+
+  <!-- resolution -->
+  <rect x="850" y="520" width="690" height="140" rx="14" fill="#e2eee5" stroke="#296b45" stroke-width="2.5"/>
+  <text x="884" y="583" font-size="48" font-weight="700" fill="#1c4c30">0</text>
+  <text x="936" y="570" font-size="19" font-weight="700" fill="#1c4c30">wrong cells with TulaSetu</text>
+  <text x="936" y="596" font-size="15" fill="#1c4c30">not checked more carefully &#8212; never typed at all</text>
+  <text x="884" y="628" font-size="14" fill="#296b45">computed by pure functions under 479 passing tests,</text>
+  <text x="884" y="648" font-size="14" fill="#296b45">built from the standard&#8217;s own worked examples</text>
+
+  <line x1="60" y1="720" x2="1540" y2="720" stroke="#e6e0d0" stroke-width="1.5"/>
+  <text x="60" y="752" font-size="13" fill="#8a8f9c">Cell counts computed from packages/rulepacks/forms/R76-2_2007_forms.json against the R 76-1 worked-example instrument (2/5/15 kg, class III).</text>
+  <text x="60" y="774" font-size="13" fill="#8a8f9c">Error rates: Panko, &#8220;Spreadsheet Errors: What We Know&#8221; (arXiv 0802.3457); audits of operational spreadsheets, Tuck School of Business.</text>
+</svg>

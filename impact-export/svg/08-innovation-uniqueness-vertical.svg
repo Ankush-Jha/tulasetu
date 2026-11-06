@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" width="1000" height="1200" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect width="1000" height="1200" fill="#ffffff"/>
+
+  <text x="50" y="66" font-size="34" font-weight="700" fill="#1c2130">Innovation and uniqueness</text>
+  <text x="50" y="100" font-size="16" fill="#5c6270">Type evaluation is not calibration. That distinction is why existing tools</text>
+  <text x="50" y="122" font-size="16" fill="#5c6270">stop where they do &#8212; and where our work begins.</text>
+  <line x1="50" y1="150" x2="950" y2="150" stroke="#e6e0d0" stroke-width="2"/>
+
+  <!-- highlighted TulaSetu column -->
+  <rect x="816" y="180" width="134" height="518" rx="10" fill="#f1e4c4" stroke="#a9781f" stroke-width="2.5"/>
+
+  <!-- header -->
+  <text x="478" y="222" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5c6270">Spreadsheets</text>
+  <text x="478" y="240" text-anchor="middle" font-size="11.5" fill="#8a8f9c">today</text>
+  <text x="574" y="222" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5c6270">Calibration</text>
+  <text x="574" y="240" text-anchor="middle" font-size="11.5" fill="#8a8f9c">Beamex, Fluke</text>
+  <text x="670" y="222" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5c6270">DCC / PTB</text>
+  <text x="670" y="240" text-anchor="middle" font-size="11.5" fill="#8a8f9c">ecosystem</text>
+  <text x="766" y="222" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5c6270">China</text>
+  <text x="766" y="240" text-anchor="middle" font-size="11.5" fill="#8a8f9c">robotic R 76</text>
+  <text x="883" y="222" text-anchor="middle" font-size="16" font-weight="700" fill="#6b4d12">TulaSetu</text>
+  <text x="883" y="240" text-anchor="middle" font-size="11.5" fill="#8a6216">this project</text>
+
+  <line x1="50" y1="262" x2="950" y2="262" stroke="#1c2130" stroke-width="2"/>
+
+  <!-- row 1 -->
+  <rect x="50" y="262" width="766" height="54" fill="#faf8f3"/>
+  <text x="62" y="286" font-size="14" font-weight="600" fill="#1c2130">Covers R 76 type evaluation,</text>
+  <text x="62" y="304" font-size="13" fill="#5c6270">not calibration</text>
+  <text x="478" y="294" text-anchor="middle" font-size="12" font-weight="600" fill="#a9781f">by hand</text>
+  <text x="574" y="295" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="670" y="295" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="766" y="295" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="883" y="296" text-anchor="middle" font-size="20" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <!-- row 2 -->
+  <text x="62" y="340" font-size="14" font-weight="600" fill="#1c2130">Multi-interval mpe &#8212;</text>
+  <text x="62" y="358" font-size="13" fill="#5c6270">the band jump mid-range</text>
+  <text x="478" y="348" text-anchor="middle" font-size="12" font-weight="600" fill="#a93838">unreliable</text>
+  <text x="574" y="349" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="670" y="349" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="766" y="349" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="883" y="350" text-anchor="middle" font-size="20" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <!-- row 3 -->
+  <rect x="50" y="370" width="766" height="54" fill="#faf8f3"/>
+  <text x="62" y="394" font-size="14" font-weight="600" fill="#1c2130">The R 76-2 report format</text>
+  <text x="62" y="412" font-size="13" fill="#5c6270">itself, all 62 pages</text>
+  <text x="478" y="402" text-anchor="middle" font-size="12" font-weight="600" fill="#a9781f">by hand</text>
+  <text x="574" y="403" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="670" y="403" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="766" y="403" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="883" y="404" text-anchor="middle" font-size="20" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <!-- row 4 -->
+  <text x="62" y="448" font-size="14" font-weight="600" fill="#1c2130">Family / EUT solver &#8212;</text>
+  <text x="62" y="466" font-size="13" fill="#5c6270">writes the certificate clause</text>
+  <text x="478" y="457" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="574" y="457" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="670" y="457" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="766" y="457" text-anchor="middle" font-size="17" fill="#c9c5b8">&#8212;</text>
+  <text x="883" y="458" text-anchor="middle" font-size="20" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <!-- row 5 -->
+  <rect x="50" y="478" width="766" height="54" fill="#faf8f3"/>
+  <text x="62" y="502" font-size="14" font-weight="600" fill="#1c2130">Annex F module compatibility</text>
+  <text x="62" y="520" font-size="13" fill="#5c6270">indicator + load cell</text>
+  <text x="478" y="511" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="574" y="511" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="670" y="511" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="766" y="511" text-anchor="middle" font-size="17" fill="#c9c5b8">&#8212;</text>
+  <text x="883" y="512" text-anchor="middle" font-size="20" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <!-- row 6 -->
+  <text x="62" y="556" font-size="14" font-weight="600" fill="#1c2130">An edition change without</text>
+  <text x="62" y="574" font-size="13" fill="#5c6270">touching a line of code</text>
+  <text x="478" y="565" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="574" y="565" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="670" y="565" text-anchor="middle" font-size="17" fill="#c9c5b8">&#8212;</text>
+  <text x="766" y="565" text-anchor="middle" font-size="17" fill="#c9c5b8">&#8212;</text>
+  <text x="883" y="566" text-anchor="middle" font-size="20" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <!-- row 7 -->
+  <rect x="50" y="586" width="766" height="54" fill="#faf8f3"/>
+  <text x="62" y="610" font-size="14" font-weight="600" fill="#1c2130">Append-only audit trail</text>
+  <text x="62" y="628" font-size="13" fill="#5c6270">ISO/IEC 17025 &#167;7.8</text>
+  <text x="478" y="619" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="574" y="619" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="670" y="619" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="766" y="619" text-anchor="middle" font-size="17" fill="#c9c5b8">&#8212;</text>
+  <text x="883" y="620" text-anchor="middle" font-size="20" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <!-- row 8 -->
+  <text x="62" y="664" font-size="14" font-weight="600" fill="#1c2130">Runs without special</text>
+  <text x="62" y="682" font-size="13" fill="#5c6270">hardware</text>
+  <text x="478" y="673" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="574" y="672" text-anchor="middle" font-size="12" font-weight="600" fill="#a9781f">partial</text>
+  <text x="670" y="673" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="766" y="672" text-anchor="middle" font-size="12" font-weight="600" fill="#a93838">robot-bound</text>
+  <text x="883" y="674" text-anchor="middle" font-size="20" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <line x1="50" y1="698" x2="950" y2="698" stroke="#e6e0d0" stroke-width="2"/>
+  <text x="62" y="722" font-size="12" fill="#8a8f9c">&#10003; yes &#183; &#10007; no &#183; &#8212; not described in the published account of that system</text>
+
+  <!-- callouts, stacked -->
+  <rect x="50" y="754" width="900" height="126" rx="12" fill="#ffffff" stroke="#254a9c" stroke-width="2"/>
+  <text x="78" y="786" font-size="12" font-weight="700" letter-spacing="1.3" fill="#254a9c">ONLY HERE &#183; 01</text>
+  <text x="78" y="812" font-size="18" font-weight="700" fill="#1c2130">The standard is data, not code</text>
+  <text x="78" y="840" font-size="13.5" fill="#5c6270">An edition toggle proven by a test: identical permissible errors under both rule packs, different</text>
+  <text x="78" y="860" font-size="13.5" fill="#5c6270">form numbers and citations. R 76 is being rewritten from 2 parts into 5 &#8212; we survive it with a new JSON file.</text>
+
+  <rect x="50" y="898" width="900" height="126" rx="12" fill="#ffffff" stroke="#a9781f" stroke-width="2"/>
+  <text x="78" y="930" font-size="12" font-weight="700" letter-spacing="1.3" fill="#a9781f">ONLY HERE &#183; 02</text>
+  <text x="78" y="956" font-size="18" font-weight="700" fill="#1c2130">The solver writes the certificate&#8217;s own clause</text>
+  <text x="78" y="984" font-size="13.5" fill="#5c6270">The family / EUT solver emits the &#8220;shall also cover&#8230;&#8221; sentence &#8212; the clause that appears verbatim</text>
+  <text x="78" y="1004" font-size="13.5" fill="#5c6270">in 12 of 16 real Indian certificates. No other tool generates it.</text>
+
+  <rect x="50" y="1042" width="900" height="126" rx="12" fill="#ffffff" stroke="#296b45" stroke-width="2"/>
+  <text x="78" y="1074" font-size="12" font-weight="700" letter-spacing="1.3" fill="#296b45">ONLY HERE &#183; 03</text>
+  <text x="78" y="1100" font-size="18" font-weight="700" fill="#1c2130">No AI in the legal path &#8212; by design</text>
+  <text x="78" y="1128" font-size="13.5" fill="#5c6270">OIML&#8217;s own position is that AI is not yet court-proof for legal metrology. Every verdict traces to a</text>
+  <text x="78" y="1148" font-size="13.5" fill="#5c6270">deterministic function with a golden test taken from the standard&#8217;s own worked examples.</text>
+</svg>

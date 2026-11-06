@@ -1,0 +1,29 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#e4eaf7",
+    "primaryTextColor": "#1c2130",
+    "primaryBorderColor": "#254a9c",
+    "lineColor": "#8a8f9c",
+    "fontFamily": "Inter, Segoe UI, Helvetica, Arial, sans-serif",
+    "fontSize": "15px"
+  },
+  "flowchart": { "nodeSpacing": 26, "rankSpacing": 40 }
+} }%%
+flowchart LR
+  classDef step fill:#ffffff,stroke:#254a9c,stroke-width:2px,color:#1c2130,font-weight:600
+  classDef core fill:#f1e4c4,stroke:#a9781f,stroke-width:3px,color:#6b4d12,font-weight:700
+  classDef out fill:#e2eee5,stroke:#296b45,stroke-width:2px,color:#1c4c30,font-weight:700
+  classDef base fill:#1c2130,stroke:#1c2130,stroke-width:2px,color:#ffffff,font-weight:700
+
+  S1["01 · PROFILE<br/>Describe it once<br/>26 of 36 forms auto-selected"]:::step
+  S2["02 · RECORD<br/>The engine computes<br/>400 cells, 0 typed by hand"]:::core
+  S3["03 · VERIFY<br/>MA → AD/DD → Director<br/>append-only, signed"]:::step
+  S4["04 · ISSUE<br/>PDF · DOCX · JSON<br/>one dataset, cannot disagree"]:::out
+  RP["VERSIONED RULE PACK — OIML 2006 · India Sch 7-A · draft 5-part"]:::base
+
+  S1 --> S2 --> S3 --> S4
+  RP -.-> S1
+  RP -.-> S2
+  RP -.-> S4

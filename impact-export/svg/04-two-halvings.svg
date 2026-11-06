@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 780" width="1600" height="780" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect width="1600" height="780" fill="#ffffff"/>
+
+  <text x="60" y="68" font-size="36" font-weight="700" fill="#1c2130">The first halving is already won. This is the second.</text>
+  <text x="60" y="104" font-size="17" fill="#5c6270">Digitising the application took model approval from 6&#8211;9 months to 3&#8211;4. The report is what is left inside those months.</text>
+  <line x1="60" y1="134" x2="1540" y2="134" stroke="#e6e0d0" stroke-width="2"/>
+
+  <!-- bar 1 -->
+  <text x="60" y="196" font-size="14" font-weight="700" letter-spacing="1.2" fill="#8a8f9c">BEFORE e-MAAP</text>
+  <rect x="60" y="210" width="900" height="64" rx="8" fill="#f0eee8" stroke="#c9c5b8" stroke-width="2"/>
+  <text x="90" y="250" font-size="24" font-weight="700" fill="#5c6270">6 &#8211; 9 months</text>
+  <text x="980" y="250" font-size="14" fill="#8a8f9c">end-to-end, application to certificate</text>
+
+  <!-- bar 2 -->
+  <text x="60" y="330" font-size="14" font-weight="700" letter-spacing="1.2" fill="#296b45">TODAY &#8212; FIRST HALVING, ALREADY DELIVERED</text>
+  <rect x="60" y="344" width="420" height="64" rx="8" fill="#e2eee5" stroke="#296b45" stroke-width="2.5"/>
+  <text x="90" y="384" font-size="24" font-weight="700" fill="#1c4c30">3 &#8211; 4 months</text>
+  <text x="500" y="378" font-size="14" fill="#5c6270">DoCA Annual Report 2022-23. Bars drawn to scale.</text>
+  <text x="500" y="398" font-size="14" fill="#5c6270">The online portal did this. The report stage was untouched.</text>
+
+  <!-- brace -->
+  <path d="M 60 420 L 60 436 L 268 436 L 268 452 M 268 436 L 476 436 L 476 420" stroke="#5c6270" stroke-width="2" fill="none"/>
+  <text x="290" y="472" font-size="15" font-weight="600" fill="#1c2130">what those 3&#8211;4 months still contain</text>
+
+  <!-- four contents -->
+  <rect x="60" y="500" width="352" height="150" rx="12" fill="#ffffff" stroke="#5c6270" stroke-width="2.5"/>
+  <text x="88" y="536" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#5c6270">WE KEEP THIS</text>
+  <text x="88" y="568" font-size="19" font-weight="700" fill="#1c2130">Bench testing</text>
+  <text x="88" y="596" font-size="14" fill="#5c6270">Physical, irreducible. An officer must</text>
+  <text x="88" y="616" font-size="14" fill="#5c6270">load the instrument and read it. We do</text>
+  <text x="88" y="636" font-size="14" fill="#5c6270">not claim to automate this.</text>
+
+  <rect x="436" y="500" width="352" height="150" rx="12" fill="#f6e4e2" stroke="#a93838" stroke-width="2.5"/>
+  <text x="464" y="536" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#a93838">REMOVED</text>
+  <text x="464" y="568" font-size="19" font-weight="700" fill="#7a2626">400 hand calculations</text>
+  <text x="464" y="596" font-size="14" fill="#7a2626">Every E, Ec and mpe band in the</text>
+  <text x="464" y="616" font-size="14" fill="#7a2626">report, computed live as the reading</text>
+  <text x="464" y="636" font-size="14" fill="#7a2626">is entered.</text>
+
+  <rect x="812" y="500" width="352" height="150" rx="12" fill="#f6e4e2" stroke="#a93838" stroke-width="2.5"/>
+  <text x="840" y="536" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#a93838">REMOVED</text>
+  <text x="840" y="568" font-size="19" font-weight="700" fill="#7a2626">The re-verification pass</text>
+  <text x="840" y="596" font-size="14" fill="#7a2626">AD/DD stops re-deriving arithmetic</text>
+  <text x="840" y="616" font-size="14" fill="#7a2626">they did not produce, and reviews the</text>
+  <text x="840" y="636" font-size="14" fill="#7a2626">verdict instead.</text>
+
+  <rect x="1188" y="500" width="352" height="150" rx="12" fill="#f6e4e2" stroke="#a93838" stroke-width="2.5"/>
+  <text x="1216" y="536" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#a93838">REMOVED</text>
+  <text x="1216" y="568" font-size="19" font-weight="700" fill="#7a2626">The deficiency re-type</text>
+  <text x="1216" y="596" font-size="14" fill="#7a2626">A returned issue reopens the same</text>
+  <text x="1216" y="616" font-size="14" fill="#7a2626">record. Nothing is transcribed twice,</text>
+  <text x="1216" y="636" font-size="14" fill="#7a2626">and the original reading survives.</text>
+
+  <text x="60" y="716" font-size="13" fill="#8a8f9c">We do not publish a &#8220;% time saved&#8221; figure: no source splits the 3&#8211;4 months between bench work and paperwork, and inventing that split would be the</text>
+  <text x="60" y="738" font-size="13" fill="#8a8f9c">easiest claim in this deck to discredit. What is defensible is exactly which activities disappear &#8212; three of the four above.</text>
+</svg>

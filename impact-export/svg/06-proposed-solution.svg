@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 610" width="1600" height="610" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect width="1600" height="610" fill="#ffffff"/>
+
+  <text x="60" y="62" font-size="34" font-weight="700" fill="#1c2130">The proposed solution, end to end</text>
+  <text x="60" y="96" font-size="16" fill="#5c6270">Four stages. The officer still reads the instrument &#8212; everything after that is computed, never transcribed.</text>
+  <line x1="60" y1="124" x2="1536" y2="124" stroke="#e6e0d0" stroke-width="2"/>
+
+  <!-- CARD 1 -->
+  <rect x="60" y="164" width="348" height="286" rx="14" fill="#ffffff" stroke="#e6e0d0" stroke-width="2"/>
+  <rect x="60" y="164" width="348" height="6" rx="3" fill="#254a9c"/>
+  <text x="88" y="206" font-size="12.5" font-weight="700" letter-spacing="1.4" fill="#254a9c">01 &#183; PROFILE</text>
+  <text x="88" y="244" font-size="21" font-weight="700" fill="#1c2130">Describe it once</text>
+  <text x="88" y="282" font-size="14" fill="#5c6270">Class, Max, Min, e, ranges, power,</text>
+  <text x="88" y="304" font-size="14" fill="#5c6270">indication, load cell, software ID.</text>
+  <text x="88" y="326" font-size="14" fill="#5c6270">The resolver returns the test list.</text>
+  <line x1="88" y1="362" x2="380" y2="362" stroke="#e6e0d0" stroke-width="1.5"/>
+  <text x="88" y="402" font-size="26" font-weight="700" fill="#254a9c">26 of 36 forms</text>
+  <text x="88" y="426" font-size="13" fill="#8a8f9c">auto-selected; the rest marked &#8220;&#8211; &#8211;&#8221; with a reason</text>
+
+  <path d="M 415 300 L 429 312 L 415 324" stroke="#8a8f9c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- CARD 2 : the engine -->
+  <rect x="436" y="164" width="348" height="286" rx="14" fill="#f1e4c4" stroke="#a9781f" stroke-width="3"/>
+  <rect x="436" y="164" width="348" height="6" rx="3" fill="#a9781f"/>
+  <text x="464" y="206" font-size="12.5" font-weight="700" letter-spacing="1.4" fill="#8a6216">02 &#183; RECORD</text>
+  <text x="464" y="244" font-size="21" font-weight="700" fill="#6b4d12">The engine computes</text>
+  <text x="464" y="282" font-size="14" fill="#6b4d12">Type what the bench shows. E, Ec</text>
+  <text x="464" y="304" font-size="14" fill="#6b4d12">and the mpe band appear live &#8212;</text>
+  <text x="464" y="326" font-size="14" fill="#6b4d12">including the mid-range jump.</text>
+  <line x1="464" y1="362" x2="756" y2="362" stroke="#d9c592" stroke-width="1.5"/>
+  <text x="464" y="402" font-size="26" font-weight="700" fill="#6b4d12">400 computed</text>
+  <text x="464" y="426" font-size="13" fill="#8a6216">pure functions under 479 tests &#183; 0 typed by hand</text>
+
+  <path d="M 791 300 L 805 312 L 791 324" stroke="#8a8f9c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- CARD 3 -->
+  <rect x="812" y="164" width="348" height="286" rx="14" fill="#ffffff" stroke="#e6e0d0" stroke-width="2"/>
+  <rect x="812" y="164" width="348" height="6" rx="3" fill="#254a9c"/>
+  <text x="840" y="206" font-size="12.5" font-weight="700" letter-spacing="1.4" fill="#254a9c">03 &#183; VERIFY</text>
+  <text x="840" y="244" font-size="21" font-weight="700" fill="#1c2130">The record moves</text>
+  <text x="840" y="282" font-size="14" fill="#5c6270">MA &#8594; AD/DD &#8594; Director, role-gated.</text>
+  <text x="840" y="304" font-size="14" fill="#5c6270">A correction is a new event, so the</text>
+  <text x="840" y="326" font-size="14" fill="#5c6270">original reading always survives.</text>
+  <line x1="840" y1="362" x2="1132" y2="362" stroke="#e6e0d0" stroke-width="1.5"/>
+  <text x="840" y="402" font-size="26" font-weight="700" fill="#254a9c">Append-only</text>
+  <text x="840" y="426" font-size="13" fill="#8a8f9c">hash-chained, signed, per ISO/IEC 17025 &#167;7.8</text>
+
+  <path d="M 1167 300 L 1181 312 L 1167 324" stroke="#8a8f9c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- CARD 4 -->
+  <rect x="1188" y="164" width="348" height="286" rx="14" fill="#e2eee5" stroke="#296b45" stroke-width="2.5"/>
+  <rect x="1188" y="164" width="348" height="6" rx="3" fill="#296b45"/>
+  <text x="1216" y="206" font-size="12.5" font-weight="700" letter-spacing="1.4" fill="#296b45">04 &#183; ISSUE</text>
+  <text x="1216" y="244" font-size="21" font-weight="700" fill="#1c4c30">One dataset, three ways</text>
+  <text x="1216" y="282" font-size="14" fill="#1c4c30">PDF the record copy, hashed. DOCX</text>
+  <text x="1216" y="304" font-size="14" fill="#1c4c30">the review draft, watermarked. JSON</text>
+  <text x="1216" y="326" font-size="14" fill="#1c4c30">for machines, with the PDF inside.</text>
+  <line x1="1216" y1="362" x2="1508" y2="362" stroke="#bcd8c5" stroke-width="1.5"/>
+  <text x="1216" y="402" font-size="26" font-weight="700" fill="#1c4c30">Cannot disagree</text>
+  <text x="1216" y="426" font-size="13" fill="#296b45">renderers never compute &#8212; they only lay out</text>
+
+  <!-- FOUNDATION -->
+  <rect x="60" y="482" width="1476" height="100" rx="14" fill="#1c2130"/>
+  <text x="92" y="518" font-size="12.5" font-weight="700" letter-spacing="1.4" fill="#d6a94a">UNDERNEATH ALL FOUR &#8212; THE VERSIONED RULE PACK</text>
+  <text x="92" y="550" font-size="19" font-weight="700" fill="#ffffff">OIML R 76 (2006) &#183; India Seventh Schedule, Heading A &#183; the draft 5-part edition</text>
+  <text x="92" y="572" font-size="14" fill="#c9ccd4">Bands, clause references and applicability rules live in JSON. A new edition of the standard is a new file &#8212; not a new program.</text>
+</svg>

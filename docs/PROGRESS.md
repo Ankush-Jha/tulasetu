@@ -344,3 +344,18 @@ citations.
   data between visits; it is not a concurrency-safe system of record.
 - **The draft five-part pack is a committee draft**, not the standard in force. It says so, the
   server warns at boot, and the UI badges it.
+
+## Nightly reset of the hosted demonstration
+
+Any visitor can sign in as any officer, so the public demonstration drifts — reports locked,
+withdrawn or scribbled over — and an evaluator could open it on someone else's mess. Vercel
+Cron now calls `GET /api/cron/reset-demo` at 20:30 UTC (02:00 IST), which builds a fresh
+database, reseeds the demonstration set and replaces the stored snapshot. It replaces the whole
+demonstration database rather than editing events inside one, and the route exists only in the
+serverless handler (`api/_src/handler.ts`) — a bench install has no way to reach it.
+
+- **Set `CRON_SECRET`** in the Vercel project's environment. Vercel sends it as a bearer token;
+  without it the route refuses every caller, including the scheduled job.
+- The old snapshot writer is retired on reset, so a queued upload cannot put the old repository
+  back. Another warm instance still holds the old data until it recycles — the same
+  last-write-wins limit the persistence section above already states.

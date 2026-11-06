@@ -1,0 +1,16 @@
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#e4eaf7","primaryTextColor":"#1c2130","primaryBorderColor":"#254a9c","lineColor":"#5c6270","fontFamily":"Inter, Segoe UI, sans-serif","fontSize":"15px"}} }%%
+flowchart TB
+  classDef won fill:#e2eee5,stroke:#296b45,stroke-width:1.5px,color:#1c4c30,font-weight:600
+  classDef keep fill:#ffffff,stroke:#5c6270,stroke-width:1.5px,color:#1c2130,font-weight:600
+  classDef cut fill:#f6e4e2,stroke:#a93838,stroke-width:1.5px,color:#7a2626,font-weight:600
+  classDef fix fill:#f1e4c4,stroke:#a9781f,stroke-width:2.5px,color:#6b4d12,font-weight:700
+
+  T1["6-9 months\nbefore e-Maap"]:::won --> T2["3-4 months today\nDoCA AR 2022-23\nfirst halving, already won"]:::won
+  T2 --> W["What those 3-4 months\nstill contain"]:::keep
+  W --> L1["Bench testing - physical,\nirreducible, we do NOT\nautomate this"]:::keep
+  W --> L2["400 hand-calculations\nper report"]:::cut
+  W --> L3["AD/DD arithmetic\nre-verification pass"]:::cut
+  W --> L4["Deficiency cycle - re-type,\nre-calculate, re-send"]:::cut
+  L2 --> F["TulaSetu removes these three.\nThe second halving."]:::fix
+  L3 --> F
+  L4 --> F

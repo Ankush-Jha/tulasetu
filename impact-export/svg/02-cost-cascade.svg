@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 1020" width="980" height="1020" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="d" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#a93838"/>
+    </marker>
+  </defs>
+  <rect width="980" height="1020" fill="#ffffff"/>
+
+  <text x="56" y="66" font-size="34" font-weight="700" fill="#1c2130">What one wrong cell costs</text>
+  <text x="56" y="100" font-size="16" fill="#5c6270">The arithmetic error does not stop at the report. Indian law gives it a tail.</text>
+  <line x1="56" y1="128" x2="924" y2="128" stroke="#e6e0d0" stroke-width="2"/>
+
+  <!-- step 1 -->
+  <rect x="330" y="168" width="320" height="66" rx="10" fill="#f6e4e2" stroke="#a93838" stroke-width="2"/>
+  <text x="490" y="199" text-anchor="middle" font-size="19" font-weight="700" fill="#7a2626">1 mis-calculated cell</text>
+  <text x="490" y="221" text-anchor="middle" font-size="13.5" fill="#7a2626">an E, an Ec, or the wrong mpe band</text>
+  <line x1="490" y1="234" x2="490" y2="268" stroke="#a93838" stroke-width="2" marker-end="url(#d)"/>
+
+  <!-- step 2 -->
+  <rect x="300" y="274" width="380" height="60" rx="10" fill="#f6e4e2" stroke="#a93838" stroke-width="2"/>
+  <text x="490" y="300" text-anchor="middle" font-size="18" font-weight="700" fill="#7a2626">Wrong verdict on one form</text>
+  <text x="490" y="321" text-anchor="middle" font-size="13.5" fill="#7a2626">a passing instrument recorded as failing</text>
+  <line x1="490" y1="334" x2="490" y2="368" stroke="#a93838" stroke-width="2" marker-end="url(#d)"/>
+
+  <!-- step 3 -->
+  <rect x="280" y="374" width="420" height="52" rx="10" fill="#f6e4e2" stroke="#a93838" stroke-width="2"/>
+  <text x="490" y="406" text-anchor="middle" font-size="18" font-weight="700" fill="#7a2626">Model disapproved</text>
+  <line x1="490" y1="426" x2="490" y2="460" stroke="#a93838" stroke-width="2" marker-end="url(#d)"/>
+
+  <!-- step 4 : legal -->
+  <rect x="180" y="466" width="620" height="92" rx="10" fill="#e4eaf7" stroke="#254a9c" stroke-width="2"/>
+  <text x="212" y="498" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#254a9c">RULE 10, APPROVAL OF MODELS RULES 2011</text>
+  <text x="212" y="527" font-size="19" font-weight="700" fill="#1a356e">Resubmission is a FRESH application &#8212; and a fresh fee</text>
+  <text x="212" y="548" font-size="15" fill="#1a356e">&#8377; 25,000 digital-electronic. No credit for the tests already run.</text>
+  <line x1="490" y1="558" x2="490" y2="592" stroke="#a93838" stroke-width="2" marker-end="url(#d)"/>
+
+  <!-- step 5 -->
+  <rect x="280" y="598" width="420" height="60" rx="10" fill="#f6e4e2" stroke="#a93838" stroke-width="2"/>
+  <text x="490" y="624" text-anchor="middle" font-size="18" font-weight="700" fill="#7a2626">Re-test and re-report</text>
+  <text x="490" y="645" text-anchor="middle" font-size="13.5" fill="#7a2626">another 3 &#8211; 4 months, from the start</text>
+  <line x1="490" y1="658" x2="490" y2="692" stroke="#a93838" stroke-width="2" marker-end="url(#d)"/>
+
+  <!-- step 6 : legal -->
+  <rect x="180" y="698" width="620" height="92" rx="10" fill="#e4eaf7" stroke="#254a9c" stroke-width="2"/>
+  <text x="212" y="730" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#254a9c">LM ACT 2009 s.22 &#183; AoM RULES RULE 20</text>
+  <text x="212" y="759" font-size="19" font-weight="700" fill="#1a356e">No state manufacturing or import licence</text>
+  <text x="212" y="780" font-size="15" fill="#1a356e">without the central model-approval certificate. The gate stays shut.</text>
+  <line x1="490" y1="790" x2="490" y2="824" stroke="#a93838" stroke-width="2" marker-end="url(#d)"/>
+
+  <!-- terminal -->
+  <rect x="230" y="830" width="520" height="78" rx="12" fill="#1c2130"/>
+  <text x="490" y="866" text-anchor="middle" font-size="23" font-weight="700" fill="#ffffff">Market entry blocked for that model</text>
+  <text x="490" y="890" text-anchor="middle" font-size="14" fill="#c9ccd4">for a mistake in one cell of a 62-page report</text>
+
+  <line x1="56" y1="948" x2="924" y2="948" stroke="#e6e0d0" stroke-width="1.5"/>
+  <text x="56" y="978" font-size="13" fill="#8a8f9c">Fees per Rule 19 (2019 amendment). The &#8377; figure is only the visible cost &#8212; the months of blocked sales are the larger one,</text>
+  <text x="56" y="998" font-size="13" fill="#8a8f9c">and are not quantified here because no published figure supports it.</text>
+</svg>

@@ -1,0 +1,40 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#ffffff",
+    "primaryTextColor": "#1c2130",
+    "primaryBorderColor": "#5c6270",
+    "lineColor": "#8a8f9c",
+    "fontFamily": "Inter, Segoe UI, Helvetica, Arial, sans-serif",
+    "fontSize": "15px"
+  },
+  "flowchart": { "nodeSpacing": 24, "rankSpacing": 38 }
+} }%%
+flowchart TB
+  classDef ex fill:#ffffff,stroke:#8a8f9c,stroke-width:1.5px,color:#5c6270
+  classDef gap fill:#f6e4e2,stroke:#a93838,stroke-width:2.5px,color:#7a2626,font-weight:700
+  classDef us fill:#f1e4c4,stroke:#a9781f,stroke-width:2.5px,color:#6b4d12,font-weight:600
+
+  subgraph EX["WHAT EXISTS — AND WHERE IT STOPS"]
+    direction LR
+    E1["<b>Spreadsheets</b><br/>R 76 done by hand<br/>multi-interval unreliable"]:::ex
+    E2["<b>Calibration suites</b><br/>Beamex, Fluke<br/>calibration, not type evaluation"]:::ex
+    E3["<b>DCC / PTB</b><br/>digital certificates<br/>for calibration and R 60"]:::ex
+    E4["<b>China robotic R 76</b><br/>generates the report<br/>but robot-bound"]:::ex
+  end
+
+  GAP["<b>THE GAP</b><br/>No deployed software generates the R 76 type-evaluation<br/>report on the hardware a lab already has"]:::gap
+
+  subgraph TS["ONLY IN TULASETU"]
+    direction LR
+    U1["<b>The standard is data</b><br/>an edition change is<br/>a new JSON file"]:::us
+    U2["<b>Family solver</b><br/>writes the 'shall also cover…'<br/>clause of 12 / 16 certificates"]:::us
+    U3["<b>Annex F</b><br/>indicator + load cell<br/>compatibility check"]:::us
+    U4["<b>No AI in the legal path</b><br/>every verdict from<br/>a tested function"]:::us
+  end
+
+  EX --> GAP --> TS
+
+  style EX fill:#faf8f3,stroke:#c9c5b8,stroke-width:1.5px,color:#5c6270
+  style TS fill:#fdf8ec,stroke:#a9781f,stroke-width:2.5px,color:#6b4d12

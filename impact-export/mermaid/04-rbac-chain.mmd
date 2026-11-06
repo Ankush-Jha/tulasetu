@@ -1,0 +1,23 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#ffffff",
+    "primaryTextColor": "#1c2130",
+    "primaryBorderColor": "#254a9c",
+    "lineColor": "#5c6270",
+    "fontFamily": "Inter, Segoe UI, sans-serif",
+    "fontSize": "16px"
+  }
+} }%%
+flowchart LR
+  classDef role fill:#ffffff,stroke:#254a9c,stroke-width:1.5px,color:#1c2130,font-weight:600
+
+  MA["Metrological Assistant\nrecords observations\nown drafts only"]:::role
+  AD["AD / DD\nreviews, annotates,\nreturns or recommends"]:::role
+  DIR["Director (LM)\napproves, signs,\nlocks, publishes"]:::role
+
+  MA -->|submit| AD
+  AD -->|deficiency| MA
+  AD -->|recommend| DIR
+  DIR -->|remit back| AD

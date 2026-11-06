@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 840" width="1600" height="840" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect width="1600" height="840" fill="#ffffff"/>
+
+  <text x="60" y="68" font-size="36" font-weight="700" fill="#1c2130">Five things change, and only one of them is speed</text>
+  <text x="60" y="104" font-size="17" fill="#5c6270">Every claim below is either computed from this repository or traceable to a rule, a standard, or a published figure.</text>
+  <line x1="60" y1="134" x2="1540" y2="134" stroke="#e6e0d0" stroke-width="2"/>
+
+  <!-- col 1 TIME -->
+  <rect x="60" y="180" width="284" height="440" rx="14" fill="#ffffff" stroke="#e6e0d0" stroke-width="2"/>
+  <rect x="60" y="180" width="284" height="6" rx="3" fill="#254a9c"/>
+  <text x="88" y="232" font-size="22" font-weight="700" fill="#1c2130">Time</text>
+  <text x="88" y="276" font-size="34" font-weight="700" fill="#254a9c">400</text>
+  <text x="88" y="300" font-size="13.5" fill="#5c6270">hand calculations removed</text>
+  <text x="88" y="318" font-size="13.5" fill="#5c6270">from every single report</text>
+  <line x1="88" y1="344" x2="316" y2="344" stroke="#e6e0d0" stroke-width="1.5"/>
+  <text x="88" y="376" font-size="14" fill="#1c2130">AD/DD reviews a verdict,</text>
+  <text x="88" y="396" font-size="14" fill="#1c2130">not arithmetic</text>
+  <text x="88" y="432" font-size="14" fill="#1c2130">A deficiency reopens the</text>
+  <text x="88" y="452" font-size="14" fill="#1c2130">record &#8212; nothing is re-typed</text>
+  <text x="88" y="488" font-size="14" fill="#1c2130">Rule 4(9) annual return is</text>
+  <text x="88" y="508" font-size="14" fill="#1c2130">a query, not a compilation</text>
+  <text x="88" y="576" font-size="12.5" fill="#8a8f9c">Bench testing stays manual.</text>
+  <text x="88" y="594" font-size="12.5" fill="#8a8f9c">We do not claim otherwise.</text>
+
+  <!-- col 2 MONEY -->
+  <rect x="368" y="180" width="284" height="440" rx="14" fill="#ffffff" stroke="#e6e0d0" stroke-width="2"/>
+  <rect x="368" y="180" width="284" height="6" rx="3" fill="#a9781f"/>
+  <text x="396" y="232" font-size="22" font-weight="700" fill="#1c2130">Money</text>
+  <text x="396" y="276" font-size="34" font-weight="700" fill="#a9781f">&#8377;25,000</text>
+  <text x="396" y="300" font-size="13.5" fill="#5c6270">saved per false rejection</text>
+  <text x="396" y="318" font-size="13.5" fill="#5c6270">avoided &#8212; Rule 10, Rule 19</text>
+  <line x1="396" y1="344" x2="624" y2="344" stroke="#e6e0d0" stroke-width="1.5"/>
+  <text x="396" y="376" font-size="14" fill="#1c2130">A rejection costs a fresh</text>
+  <text x="396" y="396" font-size="14" fill="#1c2130">application, not a correction</text>
+  <text x="396" y="432" font-size="14" fill="#1c2130">No capex per laboratory &#8212;</text>
+  <text x="396" y="452" font-size="14" fill="#1c2130">it is a software layer only</text>
+  <text x="396" y="488" font-size="14" fill="#1c2130">Same engine later serves</text>
+  <text x="396" y="508" font-size="14" fill="#1c2130">in-service verification</text>
+  <text x="396" y="576" font-size="12.5" fill="#8a8f9c">Blocked time-to-market is the</text>
+  <text x="396" y="594" font-size="12.5" fill="#8a8f9c">bigger cost, and unquantified.</text>
+
+  <!-- col 3 TRUST -->
+  <rect x="676" y="180" width="284" height="440" rx="14" fill="#ffffff" stroke="#e6e0d0" stroke-width="2"/>
+  <rect x="676" y="180" width="284" height="6" rx="3" fill="#296b45"/>
+  <text x="704" y="232" font-size="22" font-weight="700" fill="#1c2130">Trust</text>
+  <text x="704" y="276" font-size="34" font-weight="700" fill="#296b45">0</text>
+  <text x="704" y="300" font-size="13.5" fill="#5c6270">AI anywhere in the legally</text>
+  <text x="704" y="318" font-size="13.5" fill="#5c6270">relevant calculation path</text>
+  <line x1="704" y1="344" x2="932" y2="344" stroke="#e6e0d0" stroke-width="1.5"/>
+  <text x="704" y="376" font-size="14" fill="#1c2130">Append-only log &#8212; original</text>
+  <text x="704" y="396" font-size="14" fill="#1c2130">readings survive corrections</text>
+  <text x="704" y="432" font-size="14" fill="#1c2130">Signatures verified against</text>
+  <text x="704" y="452" font-size="14" fill="#1c2130">the key that made them</text>
+  <text x="704" y="488" font-size="14" fill="#1c2130">Confidentiality tiers per</text>
+  <text x="704" y="508" font-size="14" fill="#1c2130">Rule 16(2), not a shared folder</text>
+  <text x="704" y="576" font-size="12.5" fill="#8a8f9c">OIML&#8217;s own position: AI is not</text>
+  <text x="704" y="594" font-size="12.5" fill="#8a8f9c">yet court-proof for metrology.</text>
+
+  <!-- col 4 UNIFORMITY -->
+  <rect x="984" y="180" width="284" height="440" rx="14" fill="#ffffff" stroke="#e6e0d0" stroke-width="2"/>
+  <rect x="984" y="180" width="284" height="6" rx="3" fill="#254a9c"/>
+  <text x="1012" y="232" font-size="22" font-weight="700" fill="#1c2130">Uniformity</text>
+  <text x="1012" y="276" font-size="34" font-weight="700" fill="#254a9c">46</text>
+  <text x="1012" y="300" font-size="13.5" fill="#5c6270">labs on one engine &#8212;</text>
+  <text x="1012" y="318" font-size="13.5" fill="#5c6270">6 RRSLs and 40 GATCs</text>
+  <line x1="1012" y1="344" x2="1240" y2="344" stroke="#e6e0d0" stroke-width="1.5"/>
+  <text x="1012" y="376" font-size="14" fill="#1c2130">Class symbols IV and IIII</text>
+  <text x="1012" y="396" font-size="14" fill="#1c2130">finally reconciled</text>
+  <text x="1012" y="432" font-size="14" fill="#1c2130">An edition change is a new</text>
+  <text x="1012" y="452" font-size="14" fill="#1c2130">JSON file, not a rewrite</text>
+  <text x="1012" y="488" font-size="14" fill="#1c2130">Both statutory profiles from</text>
+  <text x="1012" y="508" font-size="14" fill="#1c2130">one dataset &#8212; Rule 7(1)(a)</text>
+  <text x="1012" y="576" font-size="12.5" fill="#8a8f9c">R 76 is mid-rewrite, 2 parts</text>
+  <text x="1012" y="594" font-size="12.5" fill="#8a8f9c">into 5. The design survives it.</text>
+
+  <!-- col 5 PUBLIC -->
+  <rect x="1292" y="180" width="248" height="440" rx="14" fill="#1c2130"/>
+  <rect x="1292" y="180" width="248" height="6" rx="3" fill="#a9781f"/>
+  <text x="1320" y="232" font-size="22" font-weight="700" fill="#ffffff">Public</text>
+  <text x="1320" y="276" font-size="34" font-weight="700" fill="#d6a94a">13th</text>
+  <text x="1320" y="300" font-size="13.5" fill="#c9ccd4">country authorised to</text>
+  <text x="1320" y="318" font-size="13.5" fill="#c9ccd4">issue OIML certificates</text>
+  <line x1="1320" y1="344" x2="1512" y2="344" stroke="#3a3f4d" stroke-width="1.5"/>
+  <text x="1320" y="376" font-size="14" fill="#ffffff">Fewer bad scales reach</text>
+  <text x="1320" y="396" font-size="14" fill="#ffffff">the shop counter</text>
+  <text x="1320" y="432" font-size="14" fill="#ffffff">Honest manufacturers</text>
+  <text x="1320" y="452" font-size="14" fill="#ffffff">wait months less</text>
+  <text x="1320" y="488" font-size="14" fill="#ffffff">The R 76 report is now an</text>
+  <text x="1320" y="508" font-size="14" fill="#ffffff">international deliverable</text>
+  <text x="1320" y="576" font-size="12.5" fill="#8a8f9c">CIML meets in New Delhi,</text>
+  <text x="1320" y="594" font-size="12.5" fill="#8a8f9c">October 2026.</text>
+
+  <!-- footer band -->
+  <rect x="60" y="656" width="1480" height="96" rx="14" fill="#f1e4c4" stroke="#a9781f" stroke-width="2"/>
+  <text x="92" y="700" font-size="21" font-weight="700" fill="#6b4d12">&#8220;We do not fill the form. We compute it &#8212; the form is only a rendering.&#8221;</text>
+  <text x="92" y="730" font-size="15" fill="#6b4d12">That is why the arithmetic, the uniformity and the audit trail all improve together: they are the same change, not four features.</text>
+</svg>

@@ -1,0 +1,11 @@
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#e4eaf7","primaryTextColor":"#1c2130","primaryBorderColor":"#254a9c","lineColor":"#5c6270","fontFamily":"Inter, Segoe UI, sans-serif","fontSize":"15px"}} }%%
+flowchart LR
+  classDef base fill:#e4eaf7,stroke:#254a9c,stroke-width:1.5px,color:#1a356e,font-weight:600
+  classDef risk fill:#f6e4e2,stroke:#a93838,stroke-width:1.5px,color:#7a2626,font-weight:600
+  classDef fix fill:#e2eee5,stroke:#296b45,stroke-width:2.5px,color:#1c4c30,font-weight:700
+
+  A["~645 certificates/yr\npublic register run-rate"]:::base --> B["~69% are NAWI\n= ~445 reports/yr"]:::base
+  B --> C["x 400 hand-computed cells\n= ~178,000 calculations/yr"]:::risk
+  C --> D["At just 1% error rate\n= ~1,780 wrong cells/yr\nentering the national record"]:::risk
+  D --> E["Spread across 6 RRSLs\n+ 40 GATCs, each with\nits own spreadsheet"]:::risk
+  E --> F["TulaSetu - one engine,\none rule pack,\nsame answer in every lab"]:::fix

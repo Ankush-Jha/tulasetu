@@ -8,6 +8,12 @@
       "includeFiles": "node_modules/@sparticuz/chromium/**"
     }
   },
+  "crons": [
+    {
+      "path": "/api/cron/reset-demo",
+      "schedule": "30 20 * * *"
+    }
+  ],
   "redirects": [
     {
       "source": "/(.*)",

@@ -97,105 +97,175 @@ function seedDemoUsers(db: Server["db"]): void {
  */
 let snapshots: SnapshotWriter | null = null;
 
+/**
+ * Build the API and its database.
+ *
+ * `fresh` skips restoring the stored snapshot, so the database starts empty and is seeded with
+ * the demonstration set — which is what a reset is (see `resetDemonstration`).
+ */
+async function boot({ fresh }: { fresh: boolean }): Promise<{
+  server: Server;
+  writer: SnapshotWriter | null;
+}> {
+  primeFormsAndChecklists(forms as never, checklists as never);
+
+  // Restore before building, because the database has to exist as the *restored* file rather
+  // than be emptied and refilled — the event log's hash chain is the record, and replaying it
+  // into a fresh database is not the same thing as keeping it.
+  const config = supabaseConfig();
+  let restoreFrom: Buffer | undefined;
+  // What storage told us at boot, kept so /health can report what is actually true of this
+  // instance rather than what having two environment variables set implies.
+  let storageError: string | null = null;
+  if (config && !fresh) {
+    const snapshot = await loadSnapshot(config);
+    if (snapshot.error) {
+      // Reported, not swallowed: starting empty when a snapshot exists looks exactly like data
+      // loss, and an operator needs to be able to tell the two apart.
+      console.error(`[taraazu] could not read the stored database: ${snapshot.error}`);
+      storageError = snapshot.error;
+    }
+    if (snapshot.bytes) restoreFrom = snapshot.bytes;
+  }
+
+  let writer: SnapshotWriter | null = null;
+  const server = buildServer({
+    dbPath: ":memory:",
+    attachmentRoot: "/tmp/attachments",
+    rulepack: rulepack as RulePack,
+    checklists,
+    schemaSql: schemaSql as unknown as string,
+    ...(restoreFrom ? { restoreFrom } : {}),
+    storage: () => {
+      if (!config) {
+        return {
+          kind: "memory",
+          durable: false,
+          note:
+            "Nothing is persisted: this data lives only as long as the serverless " +
+            "instance stays warm. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to " +
+            "keep it between visits.",
+        };
+      }
+      // Durability is a claim about what storage *did*, not about whether it was configured.
+      // A boot that could not read the object, or a write that came back an error, means this
+      // instance is keeping nothing however many variables are set.
+      const error = storageError ?? writer?.error ?? null;
+      return {
+        kind: "supabase-storage",
+        durable: error === null,
+        note:
+          error === null
+            ? "The database is kept in memory and mirrored to a Supabase Storage object " +
+              "after every write, so a demonstration survives a cold start. It is not safe " +
+              "against two instances writing at once — a bench install uses a real file."
+            : "Supabase is configured but not working, so nothing is being persisted and " +
+              "this data will not survive a cold start. Check that the bucket named by " +
+              "SUPABASE_DB_BUCKET exists and that SUPABASE_SERVICE_ROLE_KEY is this " +
+              "project's current service role key.",
+        error,
+      };
+    },
+  });
+  seedDemoUsers(server.db);
+  if (config) writer = new SnapshotWriter(config, server.db);
+  await server.app.ready();
+
+  // Seed the demonstration set when the repository is empty.
+  //
+  // It used to be a button. On a deployment whose database does not survive a cold start that
+  // meant a visitor's first sight of the application was an empty dashboard and a instruction
+  // to press something — which teaches nothing, and is a poor answer to "does this work". An
+  // empty repository is only ever the first boot of a demonstration host, or a reset; a bench
+  // install runs `apps/api/src/server.ts`, which does none of this.
+  const empty =
+    (server.db.prepare("SELECT COUNT(*) AS n FROM reports").get() as { n: number }).n === 0;
+  if (empty && process.env["TARAAZU_NO_AUTOSEED"] !== "1") {
+    try {
+      const result = await seedDemonstrationData(
+        { db: server.db, pack: server.pack, now: new Date().toISOString() },
+        { userId: "u-ma", labId: "lab-fbd", role: "MA" },
+      );
+      console.log(`[taraazu] seeded ${result.created.length} demonstration reports`);
+      // Straight to storage, so the next cold start restores them rather than seeding again —
+      // and so a reader of the bucket sees the same repository the site shows. On a reset this
+      // is also what replaces the stored repository with the fresh one.
+      if (writer) {
+        const saved = await writer.flush();
+        if (!saved.ok) console.error(`[taraazu] could not store the seeded database: ${saved.error}`);
+      }
+    } catch (err) {
+      // A demonstration that failed to seed is still a working application; failing to boot
+      // over it would not be.
+      console.error(`[taraazu] could not seed demonstration data: ${(err as Error).message}`);
+    }
+  }
+
+  return { server, writer };
+}
+
 function getServer(): Promise<Server> {
   if (!serverPromise) {
-    serverPromise = (async () => {
-      primeFormsAndChecklists(forms as never, checklists as never);
-
-      // Restore before building, because the database has to exist as the *restored* file
-      // rather than be emptied and refilled — the event log's hash chain is the record, and
-      // replaying it into a fresh database is not the same thing as keeping it.
-      const config = supabaseConfig();
-      let restoreFrom: Buffer | undefined;
-      // What storage told us at boot, kept so /health can report what is actually true of this
-      // instance rather than what having two environment variables set implies.
-      let storageError: string | null = null;
-      if (config) {
-        const snapshot = await loadSnapshot(config);
-        if (snapshot.error) {
-          // Reported, not swallowed: starting empty when a snapshot exists looks exactly like
-          // data loss, and an operator needs to be able to tell the two apart.
-          console.error(`[taraazu] could not read the stored database: ${snapshot.error}`);
-          storageError = snapshot.error;
-        }
-        if (snapshot.bytes) restoreFrom = snapshot.bytes;
-      }
-
-      const server = buildServer({
-        dbPath: ":memory:",
-        attachmentRoot: "/tmp/attachments",
-        rulepack: rulepack as RulePack,
-        checklists,
-        schemaSql: schemaSql as unknown as string,
-        ...(restoreFrom ? { restoreFrom } : {}),
-        storage: () => {
-          if (!config) {
-            return {
-              kind: "memory",
-              durable: false,
-              note:
-                "Nothing is persisted: this data lives only as long as the serverless " +
-                "instance stays warm. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to " +
-                "keep it between visits.",
-            };
-          }
-          // Durability is a claim about what storage *did*, not about whether it was
-          // configured. A boot that could not read the object, or a write that came back an
-          // error, means this instance is keeping nothing however many variables are set.
-          const error = storageError ?? snapshots?.error ?? null;
-          return {
-            kind: "supabase-storage",
-            durable: error === null,
-            note:
-              error === null
-                ? "The database is kept in memory and mirrored to a Supabase Storage object " +
-                  "after every write, so a demonstration survives a cold start. It is not safe " +
-                  "against two instances writing at once — a bench install uses a real file."
-                : "Supabase is configured but not working, so nothing is being persisted and " +
-                  "this data will not survive a cold start. Check that the bucket named by " +
-                  "SUPABASE_DB_BUCKET exists and that SUPABASE_SERVICE_ROLE_KEY is this " +
-                  "project's current service role key.",
-            error,
-          };
-        },
-      });
-      seedDemoUsers(server.db);
-      if (config) snapshots = new SnapshotWriter(config, server.db);
-      await server.app.ready();
-
-      // Seed the demonstration set when the repository is empty.
-      //
-      // It used to be a button. On a deployment whose database does not survive a cold start
-      // that meant a visitor's first sight of the application was an empty dashboard and a
-      // instruction to press something — which teaches nothing, and is a poor answer to "does
-      // this work". An empty repository is only ever the first boot of a demonstration host; a
-      // bench install runs `apps/api/src/server.ts`, which does none of this.
-      const empty =
-        (server.db.prepare("SELECT COUNT(*) AS n FROM reports").get() as { n: number }).n === 0;
-      if (empty && process.env["TARAAZU_NO_AUTOSEED"] !== "1") {
-        try {
-          const result = await seedDemonstrationData(
-            { db: server.db, pack: server.pack, now: new Date().toISOString() },
-            { userId: "u-ma", labId: "lab-fbd", role: "MA" },
-          );
-          console.log(`[taraazu] seeded ${result.created.length} demonstration reports`);
-          // Straight to storage, so the next cold start restores them rather than seeding
-          // again — and so a reader of the bucket sees the same repository the site shows.
-          if (config) await snapshots?.flush();
-        } catch (err) {
-          // A demonstration that failed to seed is still a working application; failing to
-          // boot over it would not be.
-          console.error(`[taraazu] could not seed demonstration data: ${(err as Error).message}`);
-        }
-      }
-
+    const booting: Promise<Server> = boot({ fresh: false }).then(({ server, writer }) => {
+      // A reset that finished while this boot was still running has already installed its own
+      // server and writer; this boot's are the stale ones.
+      if (serverPromise === booting) snapshots = writer;
+      else writer?.retire();
       return server;
-    })();
+    });
+    serverPromise = booting;
   }
   return serverPromise;
 }
 
+/**
+ * Put the public demonstration back to its seeded state.
+ *
+ * Every visitor can sign in as any officer (the sign-in screen says so), so by the time an
+ * evaluator opens the link someone may already have locked, withdrawn or scribbled over the
+ * demonstration reports. Vercel Cron calls this nightly (vercel.json `crons`).
+ *
+ * This replaces the whole database; it does not edit or delete events inside one. The
+ * append-only rule governs a record, and a demonstration host's scratch repository being
+ * swapped for a clean one is not an amendment to any record. A bench install has no such route.
+ *
+ * The fresh server is built completely before it is swapped in, so a request that arrives
+ * mid-reset is served by the old one rather than waiting or failing. The old writer is retired
+ * so a save still queued against the old database cannot upload it over the fresh one. Another
+ * warm instance of this function still holds the old repository in memory until it recycles —
+ * the same last-write-wins limit persistence.ts already states.
+ */
+async function resetDemonstration(): Promise<{ reports: number; stored: boolean }> {
+  const { server, writer } = await boot({ fresh: true });
+  snapshots?.retire();
+  snapshots = writer;
+  serverPromise = Promise.resolve(server);
+  const reports = (server.db.prepare("SELECT COUNT(*) AS n FROM reports").get() as { n: number }).n;
+  return { reports, stored: writer !== null && writer.error === null };
+}
+
+/**
+ * Vercel Cron sends `Authorization: Bearer $CRON_SECRET` when that variable is set. Without it
+ * the reset route refuses everyone: anyone could otherwise wipe the demonstration mid-demo.
+ */
+function isCronRequest(req: IncomingMessage): boolean {
+  const secret = process.env["CRON_SECRET"];
+  return Boolean(secret) && req.headers.authorization === `Bearer ${secret}`;
+}
+
 export default async function handler(req: IncomingMessage, res: ServerResponse): Promise<void> {
+  if (req.url?.split("?")[0] === "/api/cron/reset-demo") {
+    res.setHeader("Content-Type", "application/json");
+    if (!isCronRequest(req)) {
+      res.statusCode = 401;
+      res.end(JSON.stringify({ error: "UNAUTHORIZED", message: "Only the scheduled job may reset the demonstration." }));
+      return;
+    }
+    const result = await resetDemonstration();
+    res.end(JSON.stringify({ reset: true, ...result }));
+    return;
+  }
+
   const { app } = await getServer();
 
   // The browser calls `/api/...`; the routes underneath are registered with no prefix (see

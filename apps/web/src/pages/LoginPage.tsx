@@ -124,7 +124,8 @@ export function LoginPage() {
           while this stub is in place, unless{" "}
           <code className="font-mono">TARAAZU_ALLOW_HEADER_AUTH</code> declares the instance
           isolated on purpose — as this public demonstration does. Treat anything recorded here
-          as scratch: any visitor can sign in as any officer, including the Director.
+          as scratch: any visitor can sign in as any officer, including the Director. The
+          demonstration is restored to its original reports every night at 02:00 IST.
         </Alert>
 
         {/*

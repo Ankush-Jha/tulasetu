@@ -1,0 +1,12 @@
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#f6e4e2","primaryTextColor":"#1c2130","primaryBorderColor":"#a93838","lineColor":"#5c6270","fontFamily":"Inter, Segoe UI, sans-serif","fontSize":"15px"}} }%%
+flowchart TB
+  classDef risk fill:#f6e4e2,stroke:#a93838,stroke-width:1.5px,color:#7a2626,font-weight:600
+  classDef law fill:#e4eaf7,stroke:#254a9c,stroke-width:1.5px,color:#1a356e,font-weight:600
+  classDef end1 fill:#1c2130,stroke:#1c2130,stroke-width:2px,color:#ffffff,font-weight:700
+
+  A["1 mis-calculated cell"]:::risk --> B["Wrong verdict on one form"]:::risk
+  B --> C["Model disapproved"]:::risk
+  C --> D["Rule 10 - resubmission is a\nFRESH application + FRESH fee\nRs 25,000 digital-electronic"]:::law
+  D --> E["Re-test + re-report\nanother 3-4 months"]:::risk
+  E --> F["Act s.22 / Rule 20 - no state\nlicence without the\ncentral certificate"]:::law
+  F --> G["Market entry blocked\nfor that model"]:::end1

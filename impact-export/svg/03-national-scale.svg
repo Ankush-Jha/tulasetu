@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" width="1600" height="800" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#5c6270"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="800" fill="#ffffff"/>
+
+  <text x="60" y="68" font-size="36" font-weight="700" fill="#1c2130">India hand-computes about 178,000 report cells a year</text>
+  <text x="60" y="104" font-size="17" fill="#5c6270">Each one is a formula someone re-derives in a spreadsheet, in six laboratories that share no engine.</text>
+  <line x1="60" y1="134" x2="1540" y2="134" stroke="#e6e0d0" stroke-width="2"/>
+
+  <!-- ladder -->
+  <rect x="60" y="200" width="270" height="150" rx="12" fill="#e4eaf7" stroke="#254a9c" stroke-width="2"/>
+  <text x="195" y="262" text-anchor="middle" font-size="44" font-weight="700" fill="#1a356e">~645</text>
+  <text x="195" y="292" text-anchor="middle" font-size="15" font-weight="600" fill="#1a356e">certificates / year</text>
+  <text x="195" y="316" text-anchor="middle" font-size="13" fill="#5c6270">public register run-rate,</text>
+  <text x="195" y="334" text-anchor="middle" font-size="13" fill="#5c6270">cert #362 by 24 Jul 2026</text>
+
+  <line x1="342" y1="275" x2="384" y2="275" stroke="#5c6270" stroke-width="2" marker-end="url(#n)"/>
+
+  <rect x="396" y="200" width="270" height="150" rx="12" fill="#e4eaf7" stroke="#254a9c" stroke-width="2"/>
+  <text x="531" y="262" text-anchor="middle" font-size="44" font-weight="700" fill="#1a356e">~445</text>
+  <text x="531" y="292" text-anchor="middle" font-size="15" font-weight="600" fill="#1a356e">NAWI reports / year</text>
+  <text x="531" y="316" text-anchor="middle" font-size="13" fill="#5c6270">~69% of approvals are</text>
+  <text x="531" y="334" text-anchor="middle" font-size="13" fill="#5c6270">weighing instruments</text>
+
+  <line x1="678" y1="275" x2="720" y2="275" stroke="#5c6270" stroke-width="2" marker-end="url(#n)"/>
+
+  <rect x="732" y="200" width="310" height="150" rx="12" fill="#f6e4e2" stroke="#a93838" stroke-width="2.5"/>
+  <text x="887" y="262" text-anchor="middle" font-size="44" font-weight="700" fill="#7a2626">178,000</text>
+  <text x="887" y="292" text-anchor="middle" font-size="15" font-weight="600" fill="#7a2626">hand calculations / year</text>
+  <text x="887" y="316" text-anchor="middle" font-size="13" fill="#7a2626">445 reports &#215; 400 computed</text>
+  <text x="887" y="334" text-anchor="middle" font-size="13" fill="#7a2626">cells in each one</text>
+
+  <line x1="1054" y1="275" x2="1096" y2="275" stroke="#5c6270" stroke-width="2" marker-end="url(#n)"/>
+
+  <rect x="1108" y="200" width="432" height="150" rx="12" fill="#1c2130"/>
+  <text x="1324" y="262" text-anchor="middle" font-size="44" font-weight="700" fill="#ffffff">~1,780</text>
+  <text x="1324" y="292" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">wrong cells entering the national record, a year</text>
+  <text x="1324" y="318" text-anchor="middle" font-size="13" fill="#c9ccd4">at a 1% error rate &#8212; the most conservative figure in</text>
+  <text x="1324" y="336" text-anchor="middle" font-size="13" fill="#c9ccd4">the published literature. At Panko&#8217;s 5.2%, it is ~9,300.</text>
+
+  <!-- the fragmentation band -->
+  <rect x="60" y="412" width="1480" height="120" rx="14" fill="#ffffff" stroke="#e6e0d0" stroke-width="2"/>
+  <text x="92" y="450" font-size="12.5" font-weight="700" letter-spacing="1.3" fill="#a9781f">AND IT IS NOT EVEN THE SAME SPREADSHEET TWICE</text>
+  <text x="92" y="482" font-size="19" font-weight="700" fill="#1c2130">6 RRSLs &#183; 40 GATCs &#183; a 10&#215; workload spread between the busiest and the quietest lab</text>
+  <text x="92" y="508" font-size="15" fill="#5c6270">Guwahati approves 3&#8211;8 models a year; Varanasi 40&#8211;76. Every lab carries its own template, its own formulas, its own habits.</text>
+
+  <!-- resolution -->
+  <rect x="60" y="560" width="1480" height="118" rx="14" fill="#e2eee5" stroke="#296b45" stroke-width="2.5"/>
+  <text x="92" y="606" font-size="24" font-weight="700" fill="#1c4c30">One engine. One versioned rule pack. The same answer in every laboratory.</text>
+  <text x="92" y="638" font-size="15.5" fill="#1c4c30">Uniformity stops being a training problem and becomes a property of the software &#8212; which is what the problem statement asked for.</text>
+  <text x="92" y="662" font-size="13" fill="#296b45">It is also the first time this data exists in a structured form at all: Rule 4(9)&#8217;s annual return becomes a query, not a compilation.</text>
+
+  <text x="60" y="736" font-size="13" fill="#8a8f9c">Derived: 645 &#215; 0.69 = 445 NAWI reports; &#215; 400 computed cells = 178,000. Base figures from the public certificate register and DoCA Annual Report 2022-23;</text>
+  <text x="60" y="758" font-size="13" fill="#8a8f9c">the 400-cell count from this project&#8217;s rule pack. Error rate applied from published spreadsheet research, not from RRSL data &#8212; state it that way.</text>
+</svg>

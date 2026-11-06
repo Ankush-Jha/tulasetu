@@ -1,0 +1,39 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#ffffff",
+    "primaryTextColor": "#1c2130",
+    "primaryBorderColor": "#254a9c",
+    "lineColor": "#8a8f9c",
+    "fontFamily": "Inter, Segoe UI, sans-serif",
+    "fontSize": "16px"
+  }
+} }%%
+flowchart LR
+  classDef bad fill:#f6e4e2,stroke:#a93838,stroke-width:1.5px,color:#7a2626,font-weight:600
+  classDef good fill:#e2eee5,stroke:#296b45,stroke-width:1.5px,color:#1c4c30,font-weight:600
+  classDef neutral fill:#e4eaf7,stroke:#254a9c,stroke-width:1.5px,color:#1a356e,font-weight:600
+  classDef result fill:#f1e4c4,stroke:#a9781f,stroke-width:1.5px,color:#6b4d12,font-weight:700
+
+  A(["Bench readings"]):::neutral --> B{{"Today"}}
+  A --> C{{"TulaSetu"}}
+
+  subgraph TODAY["Desk to desk"]
+    direction LR
+    B --> B1["Typed into<br/>spreadsheet"]:::bad
+    B1 --> B2["Emailed to<br/>AD / DD"]:::bad
+    B2 --> B3["Manual re-check<br/>of arithmetic"]:::bad
+    B3 --> B4["Corrections<br/>re-typed"]:::bad
+    B4 --> B5["Director reviews<br/>a static file"]:::bad
+    B5 --> B6["Certificate,<br/>3-4 months later"]:::result
+  end
+
+  subgraph NEW["Direct to the person"]
+    direction LR
+    C --> C1["Entered once,<br/>engine computes<br/>E / Ec / mpe"]:::good
+    C1 --> C2["Record routes to<br/>AD / DD queue"]:::good
+    C2 --> C3["Reviews verdict,<br/>logs deficiency<br/>on same record"]:::good
+    C3 --> C4["Director signs;<br/>hash chain verifies"]:::good
+    C4 --> C5["Certificate,<br/>same engine,<br/>fewer hand-offs"]:::result
+  end

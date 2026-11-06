@@ -1,0 +1,226 @@
+TARAAZU — A RULE-DRIVEN ENGINE THAT COMPUTES OIML R 76 TYPE-EVALUATION TEST REPORTS FOR NON-AUTOMATIC WEIGHING INSTRUMENTS
+
+Problem Statement: SIH26035 — Development of a Software Program / Application for Generation of Test Reports for Non-Automatic Weighing Instruments (NAWI) as per OIML Recommendation R 76
+Organisation: Ministry of Consumer Affairs, Food & Public Distribution — Department of Consumer Affairs (Legal Metrology)
+Category: Software
+Live prototype: https://taraazu.vercel.app
+
+Name: Taraazu (तराज़ू) is the everyday Hindi/Urdu word for a weighing balance — the instrument this system exists to protect.
+
+
+=====================================================================
+1. THE PROBLEM, AS IT EXISTS TODAY
+=====================================================================
+
+1.1 Model approval is the legal gate to India's weighing market
+
+Under Section 22 of the Legal Metrology Act, 2009, no weighing or measuring instrument may be manufactured or imported for sale without a model approved by the Central Government. Rule 20 of the LM (Approval of Models) Rules, 2011 makes it concrete: a State cannot issue a manufacturing or import licence without the central Certificate of Approval. Every shop scale, jeweller's balance, ration-shop weigher, hospital scale and weighbridge in the country has passed, or should have passed, through this gate.
+
+The certificate rests on a type-evaluation test report. A Regional Reference Standards Laboratory (RRSL) tests the submitted model against OIML Recommendation R 76-1 (the requirements), or against its Indian counterpart, the Seventh Schedule, Heading A of the LM (General) Rules, 2011. It records the results in the standardised format of OIML R 76-2: about 17 tests, 36 printed form pages, a checklist of several hundred yes/no items, and a type-evaluation summary, roughly 62 pages in all. NAWIs are the largest single segment of model approvals: 11 of the 16 public 2026 certificates we sampled from the national register were NAWIs.
+
+1.2 Half the process is digital. The half that decides the outcome is not.
+
+The application side, meaning registration, fee payment, RRSL assignment and document upload, is online through the model-approval portal, now part of eMaap. From "model received at RRSL" onward the work is manual:
+
+bench testing → report prepared in spreadsheets / document templates → manual re-verification by the Assistant/Deputy Director → Director (Legal Metrology) → certificate.
+
+The problem statement names the consequence itself: reports are "largely prepared manually using spreadsheets or document templates, making the process time-consuming, prone to calculation errors and lacking uniformity."
+
+1.3 Why a spreadsheet gets it wrong
+
+Every cell of an R 76-2 report is a computed value, not free text. For a weighing test:
+
+E = I + ½e − ΔL − L   (error, from indication I, rounding correction ΔL, load L)
+Ec = E − E₀           (corrected for the error at zero)
+PASS if |Ec| ≤ mpe    (maximum permissible error)
+
+The mpe itself depends on the accuracy class (I, II, III, IIII/IV) and on the load expressed in verification scale intervals e, in bands of ±0.5e, ±1.0e and ±1.5e (R 76-1 Table 6 = Seventh Schedule Table 20). The trap is the multi-interval instrument, which has one weighing range but a verification interval e that changes with load. R 76-1 §3.3 gives the worked example: Max 2/5/15 kg, e = 1/2/10 g, class III. Its permissible error walks ±0.5 g → ±1 g → ±2 g → ±3 g → ±10 g across the range. At 4,001 g the limit loosens by 50% in the middle of a partial range, and nothing changes on the instrument's display. A spreadsheet that divides the load by a single instrument-wide e gets every row past the first changeover wrong. Now multiply that by:
+
+- the rounding-error rule, which applies only when d > 0.2e (R 76-1 §3.5.3.2);
+- in-service limits, which are twice the initial limits;
+- tests that are not error-versus-mpe at all: discrimination (add 1.4d, change must be ≥ d), sensitivity (displacement in mm), creep (≤ 0.5e over 30 minutes and ≤ 0.2e between 15 and 30 minutes), zero return, temperature drift of zero (≤ 1e per 5 °C, 1 °C for class I), and significant faults (> e) under electrical disturbances;
+- applicability rules that differ by class, construction and power supply (no tilting test for class I, damp heat exempt for class II if e < 1 g, endurance only up to 100 kg and always last, road-vehicle transients only for vehicle-powered instruments, a full form set per range on a multiple-range instrument…).
+
+Each RRSL officer re-derives all of this by hand, for every model, and the AD/DD then re-checks the arithmetic by hand.
+
+1.4 Why this matters now
+
+- The time cost. After model-approval services went online, the end-to-end time fell from 6–9 months to 3–4 months (DoCA Annual Report 2022-23). Digitising the application produced the first halving. What remains inside those 3–4 months is testing and the paper report chain, and that is the part we digitise.
+- The money cost. The testing fee is ₹25,000 for a digital/electronic model (₹10,000 mechanical; Rule 19, 2019 amendment). Under Rule 10, a disapproved model must be resubmitted as a fresh application with fresh fees. For an MSME, one arithmetic error in a report can mean months and money lost.
+- Uniformity. Six RRSLs are operational (Ahmedabad, Bengaluru, Bhubaneswar, Faridabad, Guwahati, Varanasi), with Nagpur under construction, and their workloads differ sharply (DoCA AR performance tables). Since the October 2025 GATC amendment, RRSLs are deemed Government Approved Test Centres and private GATCs number around 40 (PIB, May 2026). Many labs mean many spreadsheets, and so many interpretations.
+- International standing. In September 2023 India became the 13th country authorised to issue OIML certificates. RRSL reports are now an international deliverable, and the R 76 report format is mandatory under the OIML Certification System.
+- The standard is changing. OIML is restructuring R 76 from two parts into five, with new report sections, a new surge sub-test 12.3(c), renumbered cross-references, and the checklist and summary moved into a separate part. A tool that hard-codes the 2007 form breaks at the next edition.
+
+1.5 The gap: nothing like this exists
+
+We looked for existing software. Commercial calibration suites (e.g. Beamex CMX, Fluke MET/CAL) handle calibration of a few basic tests, not type evaluation with EMC disturbances, checklists and the R 76-2 format. OIML's digital-certificate pilot targets R 60 (load cells), not R 76. China's remote R 76 system is tied to its own robotic bench. Our searches of GeM, CPPP tenders and C-DAC publications found no Indian tool that generates the R 76 type-evaluation report. Worldwide, only about a dozen certificate-issuing countries with a handful of labs each need this, which is too small a market for vendors and too important to leave on spreadsheets.
+
+
+=====================================================================
+2. THE PROPOSED SOLUTION — TARAAZU
+=====================================================================
+
+Taraazu is a web and offline-desktop application that automates recording of test data, evaluation of compliance and generation of the standardised report for NAWI type evaluation under OIML R 76 and the Seventh Schedule.
+
+Its central idea: WE COMPUTE THE REPORT; THE 62-PAGE FORM IS ONLY A RENDERING.
+
+2.1 The officer's path (six steps)
+
+1. Instrument profile. The fields follow AoM Rule 5 and the certificate register: manufacturer, model, class, Max/Min/e/d, single, multi-interval or multiple range, construction (self-indicating or not, electronic or mechanical), power supply, load cell, software version and checksum, and sealing. Laboratory and environmental conditions (temperature, humidity and, only where R 76-2 requires it, barometric pressure) are captured at start, maximum and end.
+2. Automatic test list. The applicability resolver decides which R 76-2 forms apply. For the multi-interval demonstration instrument, 26 forms apply and 8 are marked "– –", each with the clause that excuses it, e.g. "sensitivity is required only for non-self-indicating instruments (R 76-1:2006 §6.1)".
+3. Observation entry. Each form has the same columns as its printed R 76-2 page (↓/↑ loading sub-columns included). Verdicts are computed live as readings are typed. The permissible error is shown per row, and the screen marks the rows where a partial-range boundary changes the limit.
+4. Checklist. All 363 items of R 76-2 §17.1–17.4 (all instruments, direct sales, electronic, software-controlled), filtered to the instrument.
+5. Attachments and audit. Figure 1 (model photograph), Figure 2 (sealing diagram) and drawings, stored with confidentiality tiers, because Rule 16(2) keeps submitted drawings out of public inspection. The full event history is shown with signatures and verified on every read.
+6. Output. A bilingual PDF (record copy), a DOCX (review copy) and JSON (machine copy), all generated from one assembled document.
+
+2.2 The calculation engine: six kernels and one resolver
+
+Once each form is read carefully, all the R 76-2 forms reduce to six calculation kernels:
+
+K1 Error vs mpe. E = I + ½e − ΔL − L; Ec = E − E₀; |Ec| ≤ mpe. Implements all three forms of E, keyed on d > 0.2e. Used by weighing performance, eccentricity, tare, warm-up, voltage variation, damp heat and endurance.
+K2 Discrimination. Digital: add 1.4d, the indication must change by ≥ d. Analog: displacement ≥ 0.7 × the added load. Non-self-indicating: visible movement at 0.4 × |mpe|.
+K3 Sensitivity. Permanent displacement of 1, 2 or 5 mm by class and Max.
+K4 Time-based. Creep, zero return, temperature effect on no-load indication, and span stability, with the compound check R 76-1 Annex B.4 actually prescribes.
+K5 Significant fault. During a disturbance (voltage dips, bursts, surges, ESD, radiated and conducted immunity, road-vehicle transients), a fault greater than e is significant unless it is detected and acted upon, with R 76-1's four exclusions.
+K6 Stability of equilibrium (form 7). Fixed multiples of e for printing/storage, zero-setting and tare balancing. It has its own kernel because it genuinely does not reduce to the others.
+
+The shared mpe resolver first locates the partial range (which fixes eᵢ), then computes m = L/eᵢ and walks the band table. Doing it in the opposite order is the classic spreadsheet error. It takes boundary inclusivity from the standard's own example: Maxᵢ belongs to range i. It also scales to in-service limits (×2), so the same engine can serve State verification.
+
+The engine is pure TypeScript functions: no database, no network, no clock, no randomness. The same input and the same rule pack always give the same verdict. That makes it fully unit-testable, and it lets a metrologist reproduce any number on the report.
+
+2.3 The standard is data, not code: versioned rule packs
+
+Nothing legally significant is hard-coded. Accuracy classes, n and e limits (Table 3 / Table 17), mpe bands (Table 6 / Table 20), applicability predicates, kernel parameters, form layouts and clause citations all live in versioned JSON rule packs, each validated against a JSON Schema. Three packs ship:
+
+- OIML_R76_2006: R 76-1:2006 with R 76-2:2007 forms.
+- IN_Sch7A_2011: India's Seventh Schedule, Heading A. We checked it line by line against the raw legal text. Tables 17 and 20, the in-service ×2 factor and the multi-interval table are identical to OIML at source. India-specific points are handled: class II* (class II instruments for direct sales to the public, which adds a no-load tilting check), and the ordinary class written as both "IV" and "IIII" in India's own rules. A normaliser reconciles the two.
+- OIML_R76_DRAFT_5PART: the current committee draft of the five-part R 76.
+
+Rule 7(1)(a) of the AoM Rules allows conformity to either the Indian rules or the OIML recommendations, so the officer chooses the profile per report. An automated edition-toggle test proves the property that matters: under every pack the engine resolves an identical permissible error at every load, while form numbering, the new 12.3(c) surge sub-item and every renumbered citation change. A new edition means a new file, not new code. Each report records the pack and version it was evaluated under, so a later pack update can never change an issued result retroactively.
+
+This also fits the regulator's own structure. Under Rule 7(2) the Director prescribes the test procedure. With Taraazu, what the Director prescribes is a signed, versioned rule pack.
+
+2.4 Validation that catches what humans miss
+
+Before anything is computed, Taraazu validates the profile and every observation:
+- e must have the form 1, 2 or 5 × 10^k; n = Max/e must lie within the class bounds; Min must be consistent with class and e; loads must not exceed Max; partial ranges must satisfy Maxᵢ/eᵢ₊₁ ≥ 50,000/5,000/500/50 by class.
+- A rejected observation is refused cleanly and never enters the record.
+- Software identification (R 76-1 Annex G). The legally relevant software must carry a clearly assigned version and checksum. When we audited the software-identification field across the public certificate register, it was entered inconsistently: values that read as a file size or a modulus rather than a checksum, template filler text, and identical values on certificates from different manufacturers. Taraazu checks this field's format and flags implausible or duplicate values before the report can proceed.
+
+2.5 Evidence-grade record and the approval chain
+
+A test report is a legal record, and Taraazu treats it as one:
+- An append-only event log. Every observation, correction, checklist answer, signature and state change is an event, as ISO/IEC 17025 §7.8 requires: the original is kept and each amendment records who made it and when. Database triggers enforce append-only storage, and projections can be rebuilt from the log at any time.
+- A SHA-256 hash chain links every event to its predecessor, so any tampering is detectable by anyone.
+- Digital signatures (Ed25519) over the chain head by each officer. Verification uses the key recorded at signing time, so an officer's annual DSC renewal does not invalidate past signatures. The Information Technology Act, 2000 §§4–5 give electronic records and secure digital signatures legal standing, and the design has a clear path to NIC eSign / DSC.
+- The lifecycle follows the Rules: Draft → Submitted to AD/DD → (Deficiency → back to MA) → Recommended → Director (with remit-back for further tests under Rule 8 and the provisional-certificate path under Rules 6(8)/8(7)) → Locked → Certificate issued → Published. Each transition names its legal basis.
+- Role-based access with separation of duties. The Metrological Assistant records, the AD/DD reviews and recommends, and the Director approves and locks. Each role has its own work queue. From submission onward the data is frozen for every role, and a correction happens only by moving the report back down the chain, visibly. The administrator holds no statutory power.
+
+2.6 One dataset, three outputs that cannot disagree
+
+The report is assembled once into a single document model. Renderers only render and never compute, so the outputs can never disagree:
+- PDF (record copy). The R 76-2 page furniture is reproduced: ↓/↑ sub-columns, shaded computed cells, "– –" with a reason, bilingual Hindi + English headings (matching the bilingual certificates), and a DRAFT watermark until the Director locks the report. Its SHA-256 goes into the audit log.
+- DOCX (review copy). Editable, as the PS requires, but watermarked DRAFT and naming the hash of the locked PDF, so an edited Word file can never pass as the record.
+- JSON (machine copy). Modelled on PTB's Digital Calibration Certificate, content-addressed, with the PDF embedded. This gives the first machine-readable test data in Indian legal metrology.
+
+2.7 Repository, search, dashboard and the Rule 4(9) return
+
+- Repository with search by manufacturer, model, class, status, lab and date, plus instrument-wise history.
+- Dashboard: in process, completed, deficiencies, and a separate queue for each role.
+- The statutory annual return. Rule 4(9) already obliges every approved lab to report the models tested, fees realised and time taken per test. Taraazu computes it from the event log, so nobody has to re-type it.
+
+
+=====================================================================
+3. NOVELTY AND UNIQUENESS
+=====================================================================
+
+1. Family / EUT solver (R 76-1 §3.10.4). Manufacturers often submit a family of variants. The solver works out the minimum set that must be tested physically. The set must include the highest-n and smallest-e variants, and a variant is covered if its Max lies between two tested capacities with ratio ≤ 10, or if n ≤ n_test, e ≥ e_test and Max ≤ 5 × Max_test × (n_test / n). It reproduces R 76-1 Table 8 exactly: of 8 variants, only 1.2, 2.1 and 2.4 need testing. It also generates the certificate's own "shall also cover…" clause, which appears in 12 of the 16 real certificates we sampled. Fewer physical tests save lab time and manufacturer money.
+2. Annex F module compatibility. 12 of 16 sampled certificates name a separately approved load cell (e.g. Zemic, Flintec, KELI), so modular instruments are the norm. Taraazu checks the indicator and load-cell combination before testing: n_LC ≥ n, the capacity margin Emax ≥ Q·Max·R/N, vmin ≤ e·R/√N, overlap of temperature ranges, input voltage, impedance, cable length, and error apportionment Σpᵢ² ≤ 1 with pᵢ ≤ 0.8. It reproduces R 76-1 Annex F.6.1's worked example.
+3. Future-proof by construction. It is the only design we know of that survives R 76's current 2 → 5-part rewrite, demonstrated with a live edition toggle.
+4. Dual conformity profile with IV ↔ IIII normalisation, following Rule 7(1)(a) and India's own mixed notation.
+5. An audit derived from the public register: software-identification validation built from real certificates, not only from the text of the standard.
+6. Deliberately no AI in the legal path. OIML's Digital Transformation Task Group has noted that AI is not yet "court-proof" for legal metrology. Every verdict in Taraazu is deterministic, explainable and cites its clause. AI is only suitable, as a future option, for non-legal help such as explaining a deficiency in plain language, and it would stay clearly separated from the calculation.
+7. Engine as an API, following China's lesson of decoupling data capture from report generation. An automated test bench, or C-DAC's Software Testing Facilities at the RRSLs (which examine instrument software under checklist 17.4), can post observations directly.
+
+
+=====================================================================
+4. TECHNICAL APPROACH
+=====================================================================
+
+4.1 Architecture
+
+apps/web — React 19 + TypeScript + Vite + Tailwind 4. The browser computes nothing: every verdict, mpe and applicability decision on screen comes from the API, so what the officer sees is exactly what the report carries.
+apps/api — Node.js + Fastify REST API: services, RBAC, lifecycle state machine, rendering over HTTP.
+packages/engine — pure TypeScript with no dependencies: six kernels, mpe resolver, applicability resolver, validation, family solver, Annex F checker, form runner.
+packages/rulepacks — versioned JSON with JSON Schema: three packs, 36 form layouts, a 363-item checklist bank.
+packages/renderers — one assembled document projected to HTML → PDF (Playwright/Chromium), DOCX (docx), and JSON (DCC-style).
+Storage — SQLite with triggers that enforce append-only storage (offline bench install), with a migration path to PostgreSQL for a central deployment.
+Security — SHA-256 hash chain and Ed25519 signatures, with content-addressed attachments that are hash-verified on every read.
+Desktop — a Tauri wrapper for fully offline lab PCs, since RRSL benches cannot rely on connectivity.
+
+4.2 How correctness is proved
+
+This is a regulated-metrology domain, so we built it test-first:
+- Both standards were extracted to searchable text with page markers. Every threshold in a rule pack is recorded in a verification log against the page it came from, so any number can be re-checked with a single search.
+- Golden tests were written from the standards' own worked examples before the kernels existed: the §3.3 multi-interval walk (both sides of every boundary), the Table 8 family, and Annex F.6.1.
+- Conformance tests read the shipped rule-pack files themselves rather than copies.
+- 516 automated tests pass across 26 test files: engine, rule packs, renderers, lifecycle and HTTP. They include tests that walk a report through the whole MA → AD → Director approval chain.
+
+4.3 Built for the Indian government stack
+
+Deployment on NIC / MeghRaj cloud; a CERT-In empanelled security audit; GIGW 3.0 accessibility (keyboard navigation and a layout that works on a phone); DPDP-aware handling of manufacturer data with confidentiality tiers (Rule 16(2)); NIC SSO / eSign / DSC for identity and signatures; hand-off to eMaap and the National Single Window System for the application and certificate ends of the flow.
+
+
+=====================================================================
+5. FEASIBILITY AND PRACTICABILITY
+=====================================================================
+
+- It already works. The hosted prototype seeds eleven realistic reports across all four accuracy classes and every lifecycle state, and restores them every night so each evaluator sees a clean repository. Among them: a published class III multi-interval report that passes all 26 applicable forms, signed by three officers over a 66-event hash chain; a failing report; a report blocked by the software-identification check; a class I analytical balance; a non-self-indicating beam scale; and a remitted report. Every one was created through the same service calls and role checks that an officer's clicks go through.
+- Bounded, published scope. R 76-2 is a fixed, published format. No hardware procurement is needed, and the system runs in a browser on an ordinary lab PC, online or offline.
+- It feels familiar. The screens follow the R 76-2 forms that officers already know, column for column, so the officer does not have to learn a new mental model.
+- Honest about what remains. Sign-in is a demonstration stub: the browser names the officer and the server trusts it, which is why any visitor to the public prototype can sign in as any role, including the Director. The API will not build in production mode while the stub is in place, unless the operator explicitly declares the instance an isolated demonstration, as the public prototype does and says on its sign-in screen. A real deployment replaces the stub with NIC single sign-on or a DSC-backed session, which IT Act, 2000 §§4–5 give the same standing as writing and a handwritten signature. The signature code already takes a detached signature and a public key, so it is ready for that change.
+
+Risks and mitigations:
+- R 76 gets revised → a new rule pack, with no code change (demonstrated).
+- Indian and OIML texts diverge → a dual profile with verified differences recorded in the pack.
+- An editable Word file is mistaken for the record → the DOCX is watermarked and hash-bound; the record is the locked PDF.
+- Adoption by officers trained on paper → start with a pilot at one RRSL, with training through the Indian Institute of Legal Metrology, Ranchi, which trains Legal Metrology officers every year.
+
+
+=====================================================================
+6. IMPACT AND BENEFITS
+=====================================================================
+
+For RRSL officers: the arithmetic, the band look-ups and the hand re-checking disappear, while the officer's judgement stays central. We project that report preparation shrinks from days of spreadsheet work to roughly the duration of the bench test itself (a projection, to be measured in the pilot).
+For AD/DD and the Director: they review a computed report with a full audit trail instead of re-doing the arithmetic, and the Rule 4(9) annual return is produced automatically.
+For manufacturers and MSMEs: faster certificates, fewer rejections caused by calculation errors (each one costs a fresh application and fresh fees under Rule 10), fewer physical tests for model families, and, now that India issues OIML certificates, domestic testing that is accepted abroad.
+For consumers: every weighing instrument in commerce passes through this gate. A faster, uniform and auditable gate protects the honest weight at every counter.
+For the Department: one yardstick across the six RRSLs and the GATCs; India's first structured, machine-readable NAWI test dataset, which enables failure-pattern analysis by model family and data-driven verification intervals; and readiness for the OIML-CS digital-certificate direction.
+
+Benefits:
+- Economic: the second halving of approval time, fewer resubmissions, and lab capacity freed for more models.
+- Social: uniformity is fairness. Every manufacturer meets the same standard, and every citizen gets the same protection.
+- Regulatory: under Jan Vishwas the regime moves toward trust-based, facilitative enforcement, and a signed append-only record is what keeps a lighter-touch regime auditable.
+- Environmental: a 62-page paper report per model, printed and circulated for signatures, becomes one signed electronic record.
+- SDG alignment: SDG 9 (quality infrastructure), SDG 12 (responsible consumption: honest quantity), SDG 16 (transparent institutions).
+
+
+=====================================================================
+7. SUSTAINABILITY, SCALE AND FUTURE WORK
+=====================================================================
+
+Sustainability: the Department maintains the rule packs, not the code. An edition change, a new national amendment or a corrected clause is a reviewed, versioned data file. The engine has no external dependencies, and the stack is open and standard, so any NIC or C-DAC team can maintain it.
+
+Roadmap:
+- Now (hackathon build): engine, rule packs, six-step workflow, three outputs, repository, dashboard, approval chain, signatures.
+- Pilot (3 months): one RRSL; NIC SSO and eSign/DSC; PostgreSQL; intake of C-DAC software-test results for checklist 17.4; measurement of time-to-report before and after.
+- Scale: all RRSLs and GATC tenancies; integration with eMaap and NSWS; in-service mode (mpe × 2) for State-level re-verification of weighing instruments across India; public verification of report hashes.
+- Beyond NAWI: the same engine-plus-rule-pack pattern extends to other OIML recommendations the Department approves models under (e.g. R 60 load cells, R 51 automatic catchweighers, R 117 fuel dispensers), each as a new rule pack.
+- Analytics: failure patterns by model family and manufacturer; ISO 10012-style data-driven calibration intervals; measurement uncertainty (GUM) as an optional module.
+
+
+=====================================================================
+8. REFERENCES
+=====================================================================
+
+OIML R 76-1:2006 (requirements: Table 3, Table 6, §3.3, §3.5.3.2, §3.10.4 + Table 8, Annex F, Annex G) · OIML R 76-2:2007 (test report format) · OIML R 76 committee drafts, Parts 1–5 · OIML D 31:2019 (software) · OIML B 18:2022 (OIML-CS) · ISO/IEC 17025:2017 §7.8 · Legal Metrology Act, 2009 · LM (General) Rules, 2011, Seventh Schedule Heading A · LM (Approval of Models) Rules, 2011 and 2019 amendment · LM (GATC) Rules, 2013 and October 2025 amendment · Information Technology Act, 2000 §§4–5 · DoCA Annual Report 2022-23 · PIB, "India's Evolving Metrology Ecosystem", 20 May 2026 · 16 public 2026 Certificates of Approval, lm.doca.gov.in · PTB Digital Calibration Certificate · WELMEC 7.2 · NCWM Publication 14 · published account of China's remote R 76 testing system.

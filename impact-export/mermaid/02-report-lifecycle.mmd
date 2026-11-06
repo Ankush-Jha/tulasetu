@@ -1,0 +1,25 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#e4eaf7",
+    "primaryTextColor": "#1c2130",
+    "primaryBorderColor": "#254a9c",
+    "lineColor": "#5c6270",
+    "tertiaryColor": "#f1e4c4",
+    "fontFamily": "Inter, Segoe UI, sans-serif",
+    "fontSize": "16px"
+  }
+} }%%
+stateDiagram-v2
+  [*] --> Draft
+  Draft --> Validated: observations complete
+  Validated --> Submitted: MA submits to AD/DD
+  Submitted --> Deficiency: AD/DD returns issue
+  Deficiency --> Draft: MA corrects, original kept
+  Submitted --> Recommended: AD/DD forwards
+  Recommended --> Remitted: Director sends back for more tests
+  Remitted --> Submitted
+  Recommended --> Locked: Director signs
+  Locked --> Published: certificate issued
+  Published --> [*]

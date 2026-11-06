@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 860" width="1600" height="860" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect width="1600" height="860" fill="#ffffff"/>
+
+  <text x="60" y="62" font-size="34" font-weight="700" fill="#1c2130">Innovation and uniqueness</text>
+  <text x="60" y="96" font-size="16" fill="#5c6270">Type evaluation is not calibration. That distinction is why the existing tools stop where they do &#8212; and where our work begins.</text>
+  <line x1="60" y1="124" x2="1540" y2="124" stroke="#e6e0d0" stroke-width="2"/>
+
+  <!-- highlighted TulaSetu column -->
+  <rect x="1260" y="160" width="265" height="436" rx="10" fill="#f1e4c4" stroke="#a9781f" stroke-width="2.5"/>
+
+  <!-- header -->
+  <text x="595" y="196" text-anchor="middle" font-size="13.5" font-weight="700" fill="#5c6270">Spreadsheets</text>
+  <text x="595" y="214" text-anchor="middle" font-size="12.5" fill="#8a8f9c">today</text>
+  <text x="785" y="196" text-anchor="middle" font-size="13.5" font-weight="700" fill="#5c6270">Calibration suites</text>
+  <text x="785" y="214" text-anchor="middle" font-size="12.5" fill="#8a8f9c">Beamex, Fluke</text>
+  <text x="975" y="196" text-anchor="middle" font-size="13.5" font-weight="700" fill="#5c6270">DCC / PTB</text>
+  <text x="975" y="214" text-anchor="middle" font-size="12.5" fill="#8a8f9c">ecosystem</text>
+  <text x="1165" y="196" text-anchor="middle" font-size="13.5" font-weight="700" fill="#5c6270">China robotic</text>
+  <text x="1165" y="214" text-anchor="middle" font-size="12.5" fill="#8a8f9c">R 76 system</text>
+  <text x="1392" y="200" text-anchor="middle" font-size="17" font-weight="700" fill="#6b4d12">TulaSetu</text>
+  <text x="1392" y="218" text-anchor="middle" font-size="12.5" fill="#8a6216">this project</text>
+
+  <line x1="60" y1="234" x2="1525" y2="234" stroke="#1c2130" stroke-width="2"/>
+
+  <!-- rows -->
+  <rect x="60" y="234" width="1465" height="44" fill="#faf8f3"/>
+  <text x="76" y="262" font-size="14.5" font-weight="600" fill="#1c2130">Covers R 76 type evaluation, not calibration</text>
+  <text x="595" y="262" text-anchor="middle" font-size="13" font-weight="600" fill="#a9781f">by hand</text>
+  <text x="785" y="263" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="975" y="263" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="1165" y="263" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="1392" y="263" text-anchor="middle" font-size="19" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <text x="76" y="306" font-size="14.5" font-weight="600" fill="#1c2130">Multi-interval mpe &#8212; the band jump mid-range</text>
+  <text x="595" y="306" text-anchor="middle" font-size="13" font-weight="600" fill="#a93838">unreliable</text>
+  <text x="785" y="307" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="975" y="307" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="1165" y="307" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="1392" y="307" text-anchor="middle" font-size="19" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <rect x="60" y="322" width="1465" height="44" fill="#faf8f3"/>
+  <text x="76" y="350" font-size="14.5" font-weight="600" fill="#1c2130">The R 76-2 report format itself, 62 pages</text>
+  <text x="595" y="350" text-anchor="middle" font-size="13" font-weight="600" fill="#a9781f">by hand</text>
+  <text x="785" y="351" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="975" y="351" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="1165" y="351" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="1392" y="351" text-anchor="middle" font-size="19" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <text x="76" y="394" font-size="14.5" font-weight="600" fill="#1c2130">Family / EUT solver &#8212; writes the certificate clause</text>
+  <text x="595" y="395" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="785" y="395" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="975" y="395" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="1165" y="395" text-anchor="middle" font-size="17" fill="#c9c5b8">&#8212;</text>
+  <text x="1392" y="395" text-anchor="middle" font-size="19" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <rect x="60" y="410" width="1465" height="44" fill="#faf8f3"/>
+  <text x="76" y="438" font-size="14.5" font-weight="600" fill="#1c2130">Annex F module compatibility &#8212; indicator + load cell</text>
+  <text x="595" y="439" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="785" y="439" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="975" y="439" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="1165" y="439" text-anchor="middle" font-size="17" fill="#c9c5b8">&#8212;</text>
+  <text x="1392" y="439" text-anchor="middle" font-size="19" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <text x="76" y="482" font-size="14.5" font-weight="600" fill="#1c2130">An edition change without touching code</text>
+  <text x="595" y="483" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="785" y="483" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="975" y="483" text-anchor="middle" font-size="17" fill="#c9c5b8">&#8212;</text>
+  <text x="1165" y="483" text-anchor="middle" font-size="17" fill="#c9c5b8">&#8212;</text>
+  <text x="1392" y="483" text-anchor="middle" font-size="19" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <rect x="60" y="498" width="1465" height="44" fill="#faf8f3"/>
+  <text x="76" y="526" font-size="14.5" font-weight="600" fill="#1c2130">Append-only audit trail, ISO/IEC 17025 &#167;7.8</text>
+  <text x="595" y="527" text-anchor="middle" font-size="17" fill="#c9c5b8">&#10007;</text>
+  <text x="785" y="527" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="975" y="527" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="1165" y="527" text-anchor="middle" font-size="17" fill="#c9c5b8">&#8212;</text>
+  <text x="1392" y="527" text-anchor="middle" font-size="19" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <text x="76" y="570" font-size="14.5" font-weight="600" fill="#1c2130">Runs without special hardware</text>
+  <text x="595" y="571" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="785" y="570" text-anchor="middle" font-size="13" font-weight="600" fill="#a9781f">partial</text>
+  <text x="975" y="571" text-anchor="middle" font-size="17" font-weight="700" fill="#296b45">&#10003;</text>
+  <text x="1165" y="570" text-anchor="middle" font-size="13" font-weight="600" fill="#a93838">robot-bound</text>
+  <text x="1392" y="571" text-anchor="middle" font-size="19" font-weight="700" fill="#296b45">&#10003;</text>
+
+  <line x1="60" y1="596" x2="1525" y2="596" stroke="#e6e0d0" stroke-width="2"/>
+  <text x="76" y="620" font-size="12.5" fill="#8a8f9c">&#10003; yes &#183; &#10007; no &#183; &#8212; not described in the published account of that system</text>
+
+  <!-- callouts -->
+  <rect x="60" y="650" width="470" height="156" rx="12" fill="#ffffff" stroke="#254a9c" stroke-width="2"/>
+  <text x="88" y="684" font-size="12" font-weight="700" letter-spacing="1.3" fill="#254a9c">ONLY HERE &#183; 01</text>
+  <text x="88" y="712" font-size="17" font-weight="700" fill="#1c2130">The standard is data, not code</text>
+  <text x="88" y="740" font-size="13.5" fill="#5c6270">An edition toggle proven by a test: identical permissible</text>
+  <text x="88" y="760" font-size="13.5" fill="#5c6270">errors under both rule packs, different form numbers and</text>
+  <text x="88" y="780" font-size="13.5" fill="#5c6270">citations. R 76 is being rewritten from 2 parts into 5 &#8212;</text>
+  <text x="88" y="800" font-size="13.5" fill="#5c6270">we survive that by swapping a JSON file.</text>
+
+  <rect x="558" y="650" width="470" height="156" rx="12" fill="#ffffff" stroke="#a9781f" stroke-width="2"/>
+  <text x="586" y="684" font-size="12" font-weight="700" letter-spacing="1.3" fill="#a9781f">ONLY HERE &#183; 02</text>
+  <text x="586" y="712" font-size="17" font-weight="700" fill="#1c2130">The solver writes the clause</text>
+  <text x="586" y="740" font-size="13.5" fill="#5c6270">The family / EUT solver emits the certificate&#8217;s own</text>
+  <text x="586" y="760" font-size="13.5" fill="#5c6270">&#8220;shall also cover&#8230;&#8221; sentence &#8212; the clause that appears</text>
+  <text x="586" y="780" font-size="13.5" fill="#5c6270">verbatim in 12 of 16 real Indian certificates.</text>
+  <text x="586" y="800" font-size="13.5" fill="#5c6270">No other tool generates it.</text>
+
+  <rect x="1056" y="650" width="470" height="156" rx="12" fill="#ffffff" stroke="#296b45" stroke-width="2"/>
+  <text x="1084" y="684" font-size="12" font-weight="700" letter-spacing="1.3" fill="#296b45">ONLY HERE &#183; 03</text>
+  <text x="1084" y="712" font-size="17" font-weight="700" fill="#1c2130">No AI in the legal path</text>
+  <text x="1084" y="740" font-size="13.5" fill="#5c6270">A deliberate choice, not a gap. OIML&#8217;s own position is</text>
+  <text x="1084" y="760" font-size="13.5" fill="#5c6270">that AI is not yet court-proof for legal metrology.</text>
+  <text x="1084" y="780" font-size="13.5" fill="#5c6270">Every verdict traces to a deterministic function with a</text>
+  <text x="1084" y="800" font-size="13.5" fill="#5c6270">golden test taken from the standard&#8217;s own examples.</text>
+</svg>

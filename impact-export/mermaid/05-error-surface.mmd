@@ -1,0 +1,24 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#e4eaf7",
+    "primaryTextColor": "#1c2130",
+    "primaryBorderColor": "#254a9c",
+    "lineColor": "#5c6270",
+    "fontFamily": "Inter, Segoe UI, sans-serif",
+    "fontSize": "15px"
+  }
+} }%%
+flowchart LR
+  classDef src fill:#e4eaf7,stroke:#254a9c,stroke-width:1.5px,color:#1a356e,font-weight:600
+  classDef keep fill:#ffffff,stroke:#5c6270,stroke-width:1.5px,color:#1c2130,font-weight:600
+  classDef risk fill:#f6e4e2,stroke:#a93838,stroke-width:1.5px,color:#7a2626,font-weight:600
+  classDef fix fill:#e2eee5,stroke:#296b45,stroke-width:2.5px,color:#1c4c30,font-weight:700
+
+  A["One NAWI report\n36 form pages,\n~26 typically applicable"]:::src --> B["172 observation rows"]:::src
+  B --> C["762 cells READ\noff the instrument\nofficer still does this"]:::keep
+  B --> D["400 cells CALCULATED\nby hand in a spreadsheet"]:::risk
+  D --> E["Published spreadsheet\ncell-error rates:\n0.9-1.8% conservative\n5.2% Panko meta-average"]:::risk
+  E --> F["Expected wrong cells\nper report: 4 to 21\nP(at least one) = 98%"]:::risk
+  F --> G["TulaSetu: ZERO\ncomputed by unit-tested\npure functions, never typed"]:::fix

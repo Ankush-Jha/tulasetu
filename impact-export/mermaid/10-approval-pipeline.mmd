@@ -1,0 +1,44 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#e4eaf7",
+    "primaryTextColor": "#1c2130",
+    "primaryBorderColor": "#254a9c",
+    "lineColor": "#8a8f9c",
+    "fontFamily": "Inter, Segoe UI, Helvetica, Arial, sans-serif",
+    "fontSize": "15px"
+  },
+  "flowchart": { "curve": "linear", "nodeSpacing": 34, "rankSpacing": 46 }
+} }%%
+flowchart LR
+  classDef digital fill:#e4eaf7,stroke:#254a9c,stroke-width:2px,color:#1a356e,font-weight:600
+  classDef manual fill:#ffffff,stroke:#5c6270,stroke-width:2px,color:#1c2130,font-weight:600
+  classDef gap fill:#f1e4c4,stroke:#a9781f,stroke-width:3.5px,color:#6b4d12,font-weight:700
+  classDef cert fill:#e2eee5,stroke:#296b45,stroke-width:2px,color:#1c4c30,font-weight:700
+  classDef tula fill:#1c2130,stroke:#1c2130,stroke-width:2px,color:#ffffff,font-weight:700
+
+  subgraph A["DIGITAL SINCE e-MAAP"]
+    direction LR
+    A1["Manufacturer<br/>applies online"]:::digital --> A2["Fee paid<br/>RRSL assigned"]:::digital
+  end
+
+  subgraph B["STILL MANUAL — SPREADSHEETS"]
+    direction LR
+    B1["Bench testing<br/>17 R 76 tests"]:::manual --> B2["THE TEST REPORT<br/>62 pages, by hand<br/>400 cells calculated"]:::gap
+  end
+
+  subgraph C["STATUTORY CHAIN — Rule 8"]
+    direction LR
+    C1["Director (LM)<br/>verifies and approves"]:::digital --> C2["Certificate<br/>unlocks State licence"]:::cert
+  end
+
+  A2 --> B1
+  B2 --> C1
+
+  T["TulaSetu computes this step"]:::tula
+  T -.-> B2
+
+  style A fill:#f7f9fd,stroke:#254a9c,stroke-width:1.5px,color:#254a9c
+  style B fill:#fdf8ec,stroke:#a9781f,stroke-width:3px,color:#a9781f
+  style C fill:#f7f9fd,stroke:#254a9c,stroke-width:1.5px,color:#254a9c

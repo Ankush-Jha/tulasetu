@@ -1,0 +1,20 @@
+import { chromium } from "playwright";
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+let formsCalls = 0;
+p.on("request", r => { if (r.url().includes("/api/forms")) formsCalls++; });
+p.on("pageerror", e => console.log("PAGEERROR:", e.message.slice(0,200)));
+p.on("console", m => { if (m.type()==="error") console.log("console.error:", m.text().slice(0,200)); });
+
+const BASE = "https://web-alpha-eight-2ynkadf7ci.vercel.app";
+await p.goto(BASE + "/login", { waitUntil: "networkidle" });
+await p.locator("button").filter({ hasText: /Assistant/i }).first().click();
+await p.waitForTimeout(1500);
+await p.goto(BASE + "/reports/TS-DEMO-0001/observations", { waitUntil: "domcontentloaded" });
+await p.waitForTimeout(6000);
+const txt = await p.locator("body").innerText();
+console.log("/api/forms requests:", formsCalls);
+console.log("stuck on loader:", txt.includes("Loading the R 76-2 form layouts"));
+console.log("body head:", JSON.stringify(txt.slice(0, 300)));
+await p.screenshot({ path: ".shots/stuck.png", fullPage: true });
+await b.close();

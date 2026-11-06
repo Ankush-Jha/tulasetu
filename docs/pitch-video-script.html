@@ -1,0 +1,121 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Taraazu Pitch Script</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0F1720;--ink2:#3E4F5B;--ink3:#6B7A85;--navy:#0C3A52;--cyan:#0E86B4;--rule:#D5DDE2;--soft:#F2F6F8;--amber:#C4691A;--amber-soft:#FBF1E2;--bg:#fff}
+@page{size:A4;margin:14mm 14mm 16mm}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:10.2pt/1.45 "IBM Plex Sans",system-ui,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cover{padding:6mm 0 4mm;border-bottom:2px solid var(--navy);margin-bottom:5mm}
+.eyebrow{font:600 8pt "IBM Plex Mono",monospace;letter-spacing:.14em;color:var(--cyan);text-transform:uppercase}
+h1{font:700 26pt/1.05 "IBM Plex Serif",Georgia,serif;color:var(--navy);margin:2mm 0 2mm;letter-spacing:-.01em}
+.lede{font-size:11pt;color:var(--ink2);margin:0 0 4mm;max-width:160mm}
+.facts{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--rule);border-radius:3px}
+.facts div{padding:2.2mm 3mm;border-right:1px solid var(--rule)} .facts div:last-child{border:0}
+.facts b{display:block;font:600 11.5pt "IBM Plex Mono",monospace;color:var(--navy)}
+.facts span{font-size:8pt;color:var(--ink3)}
+.tl{display:flex;height:9mm;margin:5mm 0 1.5mm;border-radius:2px;overflow:hidden;border:1px solid var(--rule)}
+.tl-seg{background:var(--soft);border-right:1px solid #fff;display:flex;align-items:center;justify-content:center;font:600 7.5pt "IBM Plex Mono",monospace;color:var(--navy)}
+.tl-seg.ch{background:var(--amber-soft);color:var(--amber)}
+.tl-legend{display:flex;justify-content:space-between;font:500 7.5pt "IBM Plex Mono",monospace;color:var(--ink3)}
+.tl-legend i{display:inline-block;width:8px;height:8px;background:var(--amber-soft);border:1px solid var(--amber);margin:0 4px 0 12px;vertical-align:-1px}
+.prep{margin-top:5mm;background:var(--soft);border-radius:3px;padding:3.5mm 5mm}
+.prep h3{margin:0 0 1.5mm;font:600 9pt "IBM Plex Mono",monospace;letter-spacing:.1em;color:var(--navy);text-transform:uppercase}
+.prep ol{margin:0;padding-left:5mm;columns:2;column-gap:8mm;font-size:9pt;color:var(--ink2)}
+.prep li{break-inside:avoid;margin-bottom:1mm}
+.legend{font-size:8.5pt;color:var(--ink3);margin:3mm 0 0}
+.seg{break-inside:avoid;border:1px solid var(--rule);border-radius:3px;margin:0 0 4mm;overflow:hidden}
+.seg header{display:flex;align-items:baseline;gap:3mm;background:var(--navy);color:#fff;padding:2mm 4mm}
+.no{font:600 9pt "IBM Plex Mono",monospace;opacity:.7}
+.seg h2{font:700 12.5pt "IBM Plex Serif",Georgia,serif;margin:0;flex:1}
+.time{font:600 9.5pt "IBM Plex Mono",monospace;background:rgba(255,255,255,.14);padding:.6mm 2.2mm;border-radius:2px}
+.meta{display:grid;grid-template-columns:1.25fr 1fr;border-bottom:1px solid var(--rule)}
+.meta div{padding:2.2mm 4mm;font-size:8.8pt;color:var(--ink2)} .meta div:first-child{border-right:1px solid var(--rule)}
+.k{display:block;font:600 7pt "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:.6mm}
+code{font:500 8.5pt "IBM Plex Mono",monospace;background:var(--soft);padding:0 1mm;border-radius:2px}
+.say{padding:0 4mm} .say p, p.say{font-size:11.2pt;line-height:1.5;margin:2.4mm 0;color:var(--ink)}
+.seg > .say:first-of-type p:last-child{margin-bottom:3mm}
+.act{font:500 8.3pt "IBM Plex Sans",sans-serif;color:var(--cyan);background:#E7F4F9;padding:.3mm 1.5mm;border-radius:2px;white-space:nowrap}
+.chal{margin:0 4mm 3.5mm;border:1.5px solid var(--amber);border-radius:3px;background:var(--amber-soft)}
+.chal-h{display:flex;gap:3mm;align-items:center;padding:1.8mm 3.5mm;border-bottom:1px dashed #E3B98A}
+.pause{font:700 7.5pt "IBM Plex Mono",monospace;letter-spacing:.1em;color:#fff;background:var(--amber);padding:.6mm 2mm;border-radius:2px;white-space:nowrap}
+.card{font:600 10pt "IBM Plex Serif",Georgia,serif;color:#6E3A0C}
+.chal p.say{padding:0 3.5mm}
+.beat{font:500 8pt "IBM Plex Mono",monospace;color:var(--amber);white-space:nowrap}
+.rev{border-top:1px dashed #E3B98A;background:#fff;padding:.5mm 0 .5mm}
+.rev-l{display:block;font:600 7pt "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);padding:1.6mm 3.5mm 0}
+.yt{break-before:page}
+.yt h3{font:700 14pt "IBM Plex Serif",Georgia,serif;color:var(--navy);margin:0 0 3mm}
+.yt pre{white-space:pre-wrap;font:500 9pt/1.5 "IBM Plex Mono",monospace;background:var(--soft);border:1px solid var(--rule);padding:4mm 5mm;border-radius:3px;color:var(--ink2)}
+.foot{font-size:8pt;color:var(--ink3);margin-top:4mm}
+</style></head><body>
+<div class="cover">
+<div class="eyebrow">Smart India Hackathon 2026 · SIH26035 · Pitch video script</div>
+<h1>Taraazu, in five minutes</h1>
+<p class="lede">One presenter on face-cam over a live walk through the portal. A report is built on camera for the profile, test list and engine, then the fully signed report shows the audit trail and outputs. Four pause-and-guess challenges keep the viewer thinking along.</p>
+<div class="facts"><div><b>5:00</b><span>running time</span></div><div><b>~597</b><span>spoken words</span></div><div><b>11</b><span>segments</span></div><div><b>4</b><span>viewer challenges</span></div><div><b>EN</b><span>face-cam + screen</span></div></div>
+<div class="tl"><div class="tl-seg" style="width:10.000%"><span>00</span></div><div class="tl-seg" style="width:5.000%"><span>01</span></div><div class="tl-seg" style="width:3.333%"><span>02</span></div><div class="tl-seg ch" style="width:13.333%"><span>03</span></div><div class="tl-seg" style="width:6.667%"><span>04</span></div><div class="tl-seg ch" style="width:20.000%"><span>05</span></div><div class="tl-seg" style="width:6.667%"><span>06</span></div><div class="tl-seg ch" style="width:13.333%"><span>07</span></div><div class="tl-seg ch" style="width:8.333%"><span>08</span></div><div class="tl-seg" style="width:6.667%"><span>09</span></div><div class="tl-seg" style="width:6.667%"><span>10</span></div></div>
+<div class="tl-legend"><span>0:00</span><span><i></i>challenge segment</span><span>5:00</span></div>
+<div class="prep"><h3>Before you hit record</h3><ol><li>Record the morning after a nightly reset (02:00 IST), so the demo reports are clean.</li><li>Browser at 125% zoom and 1920×1080; bookmarks bar hidden; notifications off.</li><li>Tab 1: sign-in page. Tab 2 (second browser profile): the Director on /reports/TS-DEMO-0001/overview.</li><li>Do one dry run of segments 02–05 and confirm the “26 apply · 8 excused” count.</li><li>Face-cam bottom-right at about 20% of the frame. Look into the lens on every challenge card.</li><li>Replace [Name] and Team [Name] before recording.</li></ol></div>
+<p class="legend"><b>Screen</b> is what to click. <b>Callout</b> is the overlay or zoom to add in editing. Large text is spoken word for word. <span class="act">Blue tags</span> are actions taken while speaking.</p>
+</div>
+<section class="seg">
+<header><span class="no">00</span><h2>Sign-in: the hook</h2><span class="time">0:00–0:30</span></header>
+<div class="meta"><div><span class="k">Screen</span>Tab 1 on the sign-in page. Speak first, then click <b>A. Assistant (MA)</b> at the end.</div><div><span class="k">Callout</span>Title card: <i>Taraazu · SIH26035 · Department of Consumer Affairs</i></div></div>
+<div class="say"><p>Every weighing scale sold in India, from your kirana shop to a forty-tonne weighbridge, needs model approval from the Department of Consumer Affairs first. That approval rests on a sixty-two-page test report under OIML R 76. It's full of calculations, and government labs still fill it in by hand, in spreadsheets.</p><p>I'm [Name], and this is Taraazu. We don't fill that report. We compute it.</p><p>Three officers, three roles, as the Rules lay out: the Assistant records, the Assistant Director reviews, the Director approves. I'll sign in as the Assistant.</p></div></section><section class="seg">
+<header><span class="no">01</span><h2>Dashboard</h2><span class="time">0:30–0:45</span></header>
+<div class="meta"><div><span class="k">Screen</span>Hover over the four counters, then the annual-return tiles.</div><div><span class="k">Callout</span>Box around: Models tested · Fees realised · Median turnaround</div></div>
+<div class="say"><p>Here are the reports in process, completed, and sent back. And these tiles are the annual return that Rule 4(9) already requires: models tested, fees and time taken, all computed, never typed.</p></div></section><section class="seg">
+<header><span class="no">02</span><h2>New report</h2><span class="time">0:45–0:55</span></header>
+<div class="meta"><div><span class="k">Screen</span>Sidebar → <b>New report</b>. Open <b>Conformity profile</b>, pick the Seventh Schedule, fee 25000, create.</div><div><span class="k">Callout</span>Highlight the dropdown: Seventh Schedule (India) · OIML R 76</div></div>
+<div class="say"><p>Every report starts by choosing its rulebook: India's Seventh Schedule or OIML R 76. The law allows either.</p></div></section><section class="seg">
+<header><span class="no">03</span><h2>Instrument profile</h2><span class="time">0:55–1:35</span></header>
+<div class="meta"><div><span class="k">Screen</span>Class <b>III</b>, multi-interval, Max <b>2 / 5 / 15 kg</b>, e <b>1 / 2 / 10 g</b>, electronic, self-indicating. Type <code>8100kb</code> in <b>Checksum</b> and save.</div><div><span class="k">Callout</span>Zoom in on the finding under “Worth checking”.</div></div>
+<div class="say"><p>This is the standard's own worked example: a class III scale with partial ranges up to 2, 5 and 15 kilos, where the scale interval grows with the load.</p></div><div class="chal"><div class="chal-h"><span class="pause">❚❚ PAUSE AND GUESS</span><span class="card">Is “8100kb” a valid software checksum?</span></div>
+<p class="say">I've typed “8100kb” as the software checksum. Pause the video: is that valid? <span class="beat">2-second beat</span></p>
+<div class="rev"><span class="rev-l">Reveal · Zoom on the red finding</span><p class="say">It's a file size, not a checksum. We found values like this on real certificates in the public register. Taraazu catches it the moment it's typed. <span class='act'>Fix it to a hex value, save, Next.</span></p></div></div></section><section class="seg">
+<header><span class="no">04</span><h2>Tests: the automatic test list</h2><span class="time">1:35–1:55</span></header>
+<div class="meta"><div><span class="k">Screen</span>Scroll past the applicable forms and stop on one marked “– –”.</div><div><span class="k">Callout</span>Big number: <b>26 apply · 8 excused</b>, with an arrow to one excuse reason.</div></div>
+<div class="say"><p>Taraazu decides which tests apply. Here twenty-six forms apply and eight are excused, and each one carries the clause that excuses it. No two labs can disagree on what had to be tested.</p></div></section><section class="seg">
+<header><span class="no">05</span><h2>Observations: the engine</h2><span class="time">1:55–2:55</span></header>
+<div class="meta"><div><span class="k">Screen</span>Weighing performance form. Type correct readings at <b>500, 2000, 4000, 4200, 10000 g</b>. The verdicts turn green.</div><div><span class="k">Callout</span>Formula strip: <b>E = I + ½e − ΔL − L · Ec = E − E₀ · pass if |Ec| ≤ mpe</b></div></div>
+<div class="say"><p>This is where the spreadsheet used to be. I type what the scale showed, and the error, the permissible limit and the verdict are computed live with the standard's own formula.</p></div><div class="chal"><div class="chal-h"><span class="pause">❚❚ PAUSE AND GUESS</span><span class="card">Same scale: 4,000 g vs 4,200 g. Is the permissible error the same?</span></div>
+<p class="say">Four thousand grams against four thousand two hundred, on the same scale and in the same partial range. Is the allowed error the same? Pause. <span class="beat">2-second beat</span></p>
+<div class="rev"><span class="rev-l">Reveal · Zoom on the mpe column: ±2 g → ±3 g</span><p class="say">No. Plus or minus two grams becomes plus or minus three, while nothing changes on the display. That's the row a spreadsheet gets wrong. <span class='act'>Type ~12 g over at 5,000 g. It turns red.</span> A bad reading fails immediately, with the limit it broke. And there's no AI in this calculation, on purpose: OIML says AI isn't court-proof for legal metrology yet.</p></div></div></section><section class="seg">
+<header><span class="no">06</span><h2>The finished report</h2><span class="time">2:55–3:15</span></header>
+<div class="meta"><div><span class="k">Screen</span>Switch to <b>Tab 2</b> (Director, <code>TS-DEMO-0001</code>). Overview, then quickly scroll <b>Checklist</b> and <b>Attachments</b>.</div><div><span class="k">Callout</span>Status pill: <b>PUBLISHED</b> · three signatures ✓</div></div>
+<div class="say"><p>This report went the whole way: recorded, reviewed, signed by all three officers, locked and published. The 363-item checklist, the model photo and the sealing diagram are all part of it.</p></div></section><section class="seg">
+<header><span class="no">07</span><h2>Audit trail and outputs</h2><span class="time">3:15–3:55</span></header>
+<div class="meta"><div><span class="k">Screen</span>Click <b>Report</b>. Scroll to “The chain verifies” and the signatures, then up to <b>Download → PDF</b>.</div><div><span class="k">Callout</span>Three labels: PDF, the record · DOCX, watermarked review copy · JSON, for machines</div></div>
+<div class="say"></div><div class="chal"><div class="chal-h"><span class="pause">❚❚ PAUSE AND GUESS</span><span class="card">Someone edits one reading after the Director signs. Would anyone know?</span></div>
+<p class="say">If someone changed one reading after the Director signed, would anyone know? Pause. <span class="beat">2-second beat</span></p>
+<div class="rev"><span class="rev-l">Reveal · Highlight “The chain verifies”</span><p class="say">Yes. Every entry is hash-linked to the one before it, and every signature covers the whole chain. Change one number and the chain stops verifying. A correction is a new entry, and the original stays. <span class='act'>Open the PDF.</span> Then the report itself, in the R 76 layout, bilingual in Hindi and English. The PDF is the record, the Word file is a watermarked review copy, and the JSON is for machines. They all come from one computed document, so they can't disagree.</p></div></div></section><section class="seg">
+<header><span class="no">08</span><h2>Family solver</h2><span class="time">3:55–4:20</span></header>
+<div class="meta"><div><span class="k">Screen</span>Sidebar → <b>Family solver</b>. Table 8 is preloaded. Ask the question first, then press <b>Solve</b>.</div><div><span class="k">Callout</span>Zoom: <b>1.2 · 2.1 · 2.4</b> and the generated coverage clause</div></div>
+<div class="say"></div><div class="chal"><div class="chal-h"><span class="pause">❚❚ PAUSE AND GUESS</span><span class="card">8 variants of one scale. How many must be physically tested?</span></div>
+<p class="say">A manufacturer submits eight variants of one design. How many must the lab physically test? Pause. <span class="beat">2-second beat</span></p>
+<div class="rev"><span class="rev-l">Reveal · Press Solve</span><p class="say">Three. That's exactly the answer in the standard's own table, and it writes the certificate's “shall also cover” clause too.</p></div></div></section><section class="seg">
+<header><span class="no">09</span><h2>Quick tour</h2><span class="time">4:20–4:40</span></header>
+<div class="meta"><div><span class="k">Screen</span><b>Modules</b> → <b>Rule pack</b> (point at the mpe table) → <b>Statistics</b>. About 6 s each.</div><div><span class="k">Callout</span>Caption on Rule pack: <i>The standard is data, not code</i></div></div>
+<div class="say"><p>Modules checks an indicator and a load cell before any testing. The rule pack is the standard as data, so when R 76 is rewritten from two parts into five, we swap this file, not the code. And Statistics files the annual return.</p></div></section><section class="seg">
+<header><span class="no">10</span><h2>Close</h2><span class="time">4:40–5:00</span></header>
+<div class="meta"><div><span class="k">Screen</span>Back to the dashboard. Face-cam full screen for the last line (optional).</div><div><span class="k">Callout</span>End card: <i>taraazu.vercel.app · SIH26035 · Team [Name]</i></div></div>
+<div class="say"><p>Putting applications online halved approval time, from six to nine months down to three or four. Taraazu digitises the half that's still on paper. Every lab gets the same rulebook, a tamper-evident record, and not one hand calculation. Try the challenges yourself at taraazu.vercel.app. Thank you.</p></div></section>
+<div class="yt"><h3>YouTube description</h3><pre>Taraazu computes the OIML R 76 type-evaluation test report for non-automatic weighing instruments (NAWI), the report behind every model approval of a weighing scale in India. Built for Smart India Hackathon 2026, problem statement SIH26035 (Department of Consumer Affairs, Legal Metrology).
+
+Try it: https://taraazu.vercel.app
+
+0:00 The problem, and signing in
+0:30 Dashboard and the Rule 4(9) annual return
+0:45 New report: Indian or OIML rulebook
+0:55 Instrument profile (Challenge 1)
+1:35 Automatic test list
+1:55 The calculation engine (Challenge 2)
+2:55 A fully signed report
+3:15 Audit trail and outputs (Challenge 3)
+3:55 Family solver (Challenge 4)
+4:20 Modules, rule pack, statistics
+4:40 Close
+
+A Smart India Hackathon 2026 prototype, not an official publication of any department.</pre>
+<p class="foot">Adjust the chapter timestamps to the final cut. A Smart India Hackathon 2026 prototype, not an official publication of any department.</p></div>
+</body></html>

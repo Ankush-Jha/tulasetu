@@ -166,8 +166,21 @@ export class SnapshotWriter {
     private readonly quietMs = 1500,
   ) {}
 
+  private retired = false;
+
+  /**
+   * Stop uploading for good. Used when the demonstration is reset: the database this writer
+   * serialises has been replaced, and a save still queued against it would put the old
+   * repository back over the fresh one.
+   */
+  retire(): void {
+    this.retired = true;
+    this.queued = false;
+  }
+
   /** Ask for the current state to reach storage. Returns immediately. */
   request(): void {
+    if (this.retired) return;
     if (this.running) {
       this.queued = true;
       return;
@@ -186,6 +199,7 @@ export class SnapshotWriter {
     try {
       // A short pause first, so the writes of one request — or of one seed — land together.
       await new Promise((r) => setTimeout(r, this.quietMs));
+      if (this.retired) return;
       const result = await saveSnapshot(this.config, this.db);
       this.lastError = result.ok ? null : (result.error ?? "unknown error");
     } finally {

@@ -1,0 +1,25 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#f1e4c4",
+    "primaryTextColor": "#1c2130",
+    "primaryBorderColor": "#a9781f",
+    "lineColor": "#8a8f9c",
+    "fontFamily": "Inter, Segoe UI, sans-serif",
+    "fontSize": "16px"
+  }
+} }%%
+flowchart TB
+  classDef input fill:#e4eaf7,stroke:#254a9c,stroke-width:1.5px,color:#1a356e,font-weight:600
+  classDef engine fill:#f1e4c4,stroke:#a9781f,stroke-width:2px,color:#6b4d12,font-weight:700
+  classDef assembled fill:#ffffff,stroke:#1c2130,stroke-width:1.5px,color:#1c2130,font-weight:600
+  classDef output fill:#e2eee5,stroke:#296b45,stroke-width:1.5px,color:#1c4c30,font-weight:600
+
+  P["Instrument profile"]:::input --> R["Rule pack<br/>OIML 2006 / India Sch 7-A / Draft 5-part"]:::input
+  O["Bench observations"]:::input --> E
+  R --> E["Engine - pure functions<br/>K1-K6 kernels + mpe resolver + applicability"]:::engine
+  E --> A["Assembled report<br/>one dataset"]:::assembled
+  A --> PDF["PDF<br/>record copy, hashed"]:::output
+  A --> DOCX["DOCX<br/>DRAFT watermark, review only"]:::output
+  A --> JSON["JSON<br/>DCC-style, PDF embedded"]:::output
